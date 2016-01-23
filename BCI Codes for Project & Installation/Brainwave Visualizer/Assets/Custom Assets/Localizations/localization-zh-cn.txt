@@ -1,0 +1,105 @@
+{
+  "thinkgear": {
+    "status"      : "状态",
+    "disconnected": "未连接",
+    "connected"   : "已连接",
+    "port"        : "端口",
+    "scan"        : "扫描端口",
+    "baudrate"    : "波特率",
+    "baud"        : "波特",
+    "firmware"    : "固件",
+    "options"     : "选项",
+    "demomode"    : "演示模式",
+    "datalogging" : "数据日志",
+    "edemomode"   : "开启演示模式",
+    "edatalogging": "开启数据日志",
+    "enabled"     : "打开",
+    "disabled"    : "关闭",
+    "language"    : "语言",
+    "langen"      : "English",
+    "langjp"      : "日本語",
+    "langzh-cn"   : "中文",
+    "langzh-tw"   : "中文(正體)",
+    "langko"      : "한글",
+    "sendbyte"    : "发送字节",
+    "showdata"    : "显示数据输出",
+    "showaxes"    : "显示坐标轴",
+    "fullscreen"  : "开启全屏模式",
+    "emedsound"   : "Enable meditation sound",
+    "connect"     : "连接",
+    "disconnect"  : "断开",
+    "quit"        : "退出"
+  },
+
+  "loading": {
+    "tagline"     : "正在连接中，请稍候..."
+  },
+
+  "opening": {
+    "header"      : "欢迎",
+    "content"     : "欢迎使用BrainwaveVisualizer,通过本软件您可以观察到自己的脑电波图像.\n\n当前是'图表'模式.点击仪表盘及其它图表，将显示相关的帮助信息.",
+    "continue"    : "继续",
+    "language"    : "语言",
+    "optionen"    : "English",
+    "optionjp"    : "日本語",
+    "optionzh-cn" : "中文",
+    "optionzh-tw" : "中文(正體)",
+    "optionko"    : "한글"
+  },
+
+  "helpheaders": {
+    "visualizer"  : "脑电波可视化效果图",
+    "spectrum"    : "脑电波频谱仪",
+    "attention"   : "eSense™ 专注度仪表盘",
+    "meditation"  : "eSense™ 放松度仪表盘",
+    "music"       : "脑电波和音乐"
+  },
+
+  "helpcontent": {
+    "visualizer"       : "脑电波可视化效果图是一个显示脑波不同频段数据的圆形图表。图表中的8个轴线分别对应不同的脑波频段。图表中的圆圈随着脑电波的波动而不断变化，并且具有艺术化的流动效果。你可以通过键盘的左右方向键来选择不同的艺术渲染效果。缺省模式下，波形的颜色取决于当前时刻脑电波中幅值最高的频段。",
+    "spectrum"  : "图中白色的波形显示的是你脑电信号的电压值。如果眨动几下眼睛，你就可以看到眼部肌肉运动产生的电脉冲信号，与这些电脉冲信号相比，脑电信号是非常微弱的。很多人都是通过将信号分解成不同频段数据的方式来研究脑电波。图中不断变化的柱状图就是按不同频段显示的脑电波数据，包括Theta波,Alpha波,Beta波,Delta波和Gamma波.通过这个柱状图表，你可以观察到当你在听不同音乐或者做不同事情的时候你的脑波是如何变化的。\n\n声明：出于提高视觉效果的考虑，脑电波可视化效果图对EEG以及电平值进行了动态缩放处理, 所以图表中显示的数据的数值范围并不能准确地代表数据的完整的动态范围。",
+    "attention"   : "这是专注度仪表盘：该模拟仪表盘的指针可以通过将思想集中到某一件事上或某一个物体上的方式来控制。当你从专注状态中转移注意力时，你的专注度值将会下降。你可以尝试通过努力思考某一件事情的方式来控制这个仪表。",
+    "meditation"  : "这是放松度仪表盘：该模拟仪表盘的指针可以通过放松思想和坐禅的方式控制。你可以尝试以靠在座椅上、闭上眼睛以及深呼吸等使自己放松的方式来驱动这个仪表的指针。",
+    "music"       : "BrainwaveVisualizer对iTunes软件进行了整合，可以在iTunes播放音乐时录制脑电波数据，并将录制的数据和该音乐进行关联。你可以回放这些录制的脑电波数据，从而可以观察到在听不同音乐时你的脑电波是如何变化的。"
+  },
+
+  "dockmodes": {
+    "chart"       : "图表模式",
+    "dynamic"     : "动态波形",
+    "game"        : "游戏演示"
+  },
+
+  "game": {
+    "float"       : "漂浮",
+    "burn"        : "燃烧",
+    "cburntime"   : "当前燃烧時間",
+    "bburntime"   : "最快燃烧时间",
+    "cfloattime"  : "当前漂浮時間",
+    "bfloattime"  : "最长漂浮时间",
+    "cfloatht"    : "当前漂浮高度",
+    "bfloatht"    : "最高漂浮高度"
+  },
+
+  "mediabar": {
+    "startitunes" : "请启动iTunes软件",
+    "startplay"   : "请在iTunes中播放一首音乐"
+  },
+
+  "mediastatus": {
+    "playheader"  : "正在播放脑电波数据",
+    "playmsg"     : "数据已经录制",
+    "recordheader": "正在录制脑电波数据",
+    "recordmsg"   : "请等待音乐播放结束."
+  },
+
+  "datarecorder": {
+    "stoprecord"  : "脑电波数据录制已停止.\n\n该音乐的脑电波数据没有保存.",
+    "saveddata"   : "录制的脑电波数据已保存.\n\nThis is the average color that was seen:",
+    "stopplay"     : "脑电波数据播放已停止.",
+    "playnodata"  : "没有找到为这首歌曲录制的脑电波数据.\n\n脑电波数据播放已停止."
+  },
+
+  "demomode": {
+    "text": "当前是演示模式."
+  }
+}
