@@ -5,10 +5,10 @@ int R = 40, N=8, m=0;
 float k=0.0, t=0;
 void draw() {
   background(-1);
-  k = 4*sin(radians(t)*0.5);
+  k = 10*sin(radians(t));
   noStroke();
   for (int j=0; j<N; j++) {
-    
+
     for (int i=0; i<360; i+=20) {
       if (i%2==0)k=k*-1;
       else k= k;
