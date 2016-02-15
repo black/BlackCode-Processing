@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>OpenCV::interpolation() \ language (API)</title>
+	<style type="text/css" media="all">
+		@import "stylesheet.css";
+	</style>
+</head>
+
+<body>
+	<div id="container">
+		
+		<h1 class="light">OPENCV</h1>
+		<p id="nav">/ <a href="index.html">references</a></p>
+		<!--p><b>Reference for @libname library version @version</b></p-->
+		<br class="hide" />
+		<br class="hide" />
+		<table id="main">
+			<tr class="name">
+				<th class="heading">Name</th>
+				<td>interpolation()</td>
+			</tr>
+			<tr class="example">
+				<th class="heading">Examples</th>
+				<td><img src="images/copy.png" alt="copy" /><pre class="offset">import hypermedia.video.*;
+
+OpenCV opencv;
+
+size( 120, 160 );
+opencv = new OpenCV(this);
+opencv.allocate(width,height);                        // create the bufer
+opencv.copy("niolon.jpg");                            // copy the image in its entirety into buffer
+opencv.interpolation(OpenCV.INTER_NN);                // set the interpolation method
+opencv.copy("niolon.jpg",50,70,20,20,20,20,80,80);    // copy a part of the image into buffer
+image( opencv.image(), 0, 0 );                        // show buffer
+<!--
+save("copy.png");
+-->
+</pre></td>
+			</tr>
+			<tr class="description">
+				<th class="heading">Description</th>
+				<td>Set global interpolation method.
+ By default the interpolation method is set to <code>INTER_LINEAR</code>.
+ Used by all methods (ex. <code>copy()</code>, <code>loadImage()</code>, …) that resize the image.
+
+ <dl>
+ <dt>INTER_NN</dt>
+ <dd>nearest-neighbor (preserve hard egdes)</dd>
+ <dt>INTER_LINEAR</dt>
+ <dd>bilinear interpolation</dd>
+ <dt>INTER_CUBIC</dt>
+ <dd>bicubic interpolation (best for smooth gradients)</dd>
+ <dt>INTER_AREA</dt>
+ <dd>resampling using pixel area relation</dd>
+ </dl></td>
+			</tr>
+			<tr class="syntax">
+				<th class="heading">Syntax</th>
+				<td><code>interpolation(method);<br /></code></td>
+			</tr>
+			
+			<tr class="parameters">
+				<th class="heading">Parameters</th>
+				<td>
+					<table>
+						
+						<tr>
+							<td class="param">method</td>
+							<td><span class="type">int : </span>INTER_NN, INTER_LINEAR, INTER_CUBIC or INTER_AREA</td>
+						</tr>
+		
+					</table>
+				</td>
+			</tr>
+		
+			
+			<tr class="return">
+				<th class="heading">Return</th>
+				<td>None</td>
+			</tr>
+		
+			<tr class="usage">
+				<th class="heading">Usage</th>
+				<td>Application</td>
+			</tr>
+			<tr class="related">
+				<th class="heading">Related</th>
+				<td></td>
+			</tr>
+		</table>
+
+	</div>
+</body>
+</html>

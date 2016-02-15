@@ -1,0 +1,35 @@
+/* Javadoc style sheet */
+
+/* Define colors, fonts and other style attributes here to override the defaults */
+
+/* Page background color */
+body { background-color: #FFFFFF; color: #003333; font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 14px; }
+
+/* Headings */
+h1 { font-size: 10px; }
+h2 { font-size: 14px; }
+th { font-size: 10px; }
+
+/* Links */
+a, a:link, a:active, a:visited { color: #CC3300; text-decoration: none; }
+a:hover { color: #CC3300; text-decoration: underline; }
+
+/* Table colors */
+.TableHeadingColor     { background: #999933; color: #333333; font-size: 10px; } /* Dark mauve */
+.TableSubHeadingColor  { background: #FF9966; color: #333333; font-size: 10px; } /* Light mauve */
+.TableRowColor         { background: #FFFFFF } /* White */
+
+/* Font used in left-hand frame lists */
+.FrameTitleFont   { font-size: 14px; }
+.FrameHeadingFont { font-size: 12px; }
+.FrameItemFont    { font-size: 12px; }
+
+/* Navigation bar fonts and colors */
+.NavBarCell1    { background-color:#FF9966; } /* Light mauve */
+.NavBarCell1Rev { background-color:#669999; } /* Dark Blue */
+.NavBarFont1    { color:#333333;}
+.NavBarFont1Rev { color:#FFFFFF;}
+
+.NavBarCell2    { background-color:#FFFFFF;}
+.NavBarCell3    { background-color:#FFFFFF;}
+

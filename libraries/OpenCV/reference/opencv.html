@@ -1,0 +1,445 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>OpenCV \ language (API)</title>
+	<style type="text/css" media="all">
+		@import "stylesheet.css";
+	</style>
+</head>
+
+<body>
+	<div id="container">
+		
+		<h1 class="light">OPENCV</h1>
+		<p id="nav">/ <a href="index.html">references</a></p>
+		<!--p><b>Reference for @libname library version @version</b></p-->
+		<br class="hide" />
+		<br class="hide" />
+		<table id="main">
+			<tr class="name">
+				<th class="heading">Name</th>
+				<td>OpenCV</td>
+			</tr>
+			<tr class="example">
+				<th class="heading">Examples</th>
+				<td><pre>import hypermedia.video.*;
+
+OpenCV opencv;
+
+void setup() {
+    opencv = new OpenCV(this);
+    opencv.capture(width,height);
+}
+
+void draw() {
+    opencv.read();
+    background( opencv.image() );
+}
+
+</pre></td>
+			</tr>
+			<tr class="description">
+				<th class="heading">Description</th>
+				<td>The main object for all computer vision processes.
+ 
+ <div class="hide">
+ <p>
+ To use OpenCV library in a PApplet directly in pure Java, start with this small integration sample
+ <br />for more details about Processing see the <a href="http://processing.org/">home page</a>
+ </p>
+ <pre>
+
+	import processing.core.*;
+	import hypermedia.video.OpenCV;
+
+	public class OpenCV_PApplet extends PApplet {
+
+		OpenCV cv = null;  // OpenCV object
+
+		// Initialise Objects
+		public void setup() {
+		    size( 640, 480 );              // set frame size
+		    cv = new OpenCV( this );       // link OpenCV process to this PApplet
+		    cv.capture( width, height );   // start video stream
+		}
+
+		// Display the input camera stream in frame
+		public void draw() {
+		    cv.read();
+		    image( cv.image(), 0, 0 );
+		}
+
+		// Call the PApplet main method
+		public static void main( String[] args ) {
+		    PApplet.main( new String[]{"OpenCV_PApplet"} );
+		} 
+	}
+
+ </pre>
+ </div></td>
+			</tr>
+			<tr class="syntax">
+				<th class="heading">Syntax</th>
+				<td><code>OpenCV(parent);<br /></code></td>
+			</tr>
+			
+			
+			<tr class="items">
+				<th class="heading">Fields</th>
+				<td>
+					<table>
+						
+						<tr>
+							<td class="item"><a href="opencv__bilateral.html">BILATERAL</a></td>
+							<td>Blur method</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv__blur.html">BLUR</a></td>
+							<td>Blur method</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv__buffer.html">BUFFER</a></td>
+							<td>Type of Image</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv__cascade_frontalface_alt.html">CASCADE_FRONTALFACE_ALT</a></td>
+							<td>Standard Haar classifier cascade file used for object detection</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv__cascade_frontalface_alt2.html">CASCADE_FRONTALFACE_ALT2</a></td>
+							<td>Standard Haar classifier cascade file used for object detection</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv__cascade_frontalface_alt_tree.html">CASCADE_FRONTALFACE_ALT_TREE</a></td>
+							<td>Standard Haar classifier cascade file used for object detection</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv__cascade_frontalface_default.html">CASCADE_FRONTALFACE_DEFAULT</a></td>
+							<td>Standard Haar classifier cascade file used for object detection</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv__cascade_fullbody.html">CASCADE_FULLBODY</a></td>
+							<td>Standard Haar classifier cascade file used for object detection</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv__cascade_lowerbody.html">CASCADE_LOWERBODY</a></td>
+							<td>Standard Haar classifier cascade file used for object detection</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv__cascade_profileface.html">CASCADE_PROFILEFACE</a></td>
+							<td>Standard Haar classifier cascade file used for object detection</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv__cascade_upperbody.html">CASCADE_UPPERBODY</a></td>
+							<td>Standard Haar classifier cascade file used for object detection</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv__flip_both.html">FLIP_BOTH</a></td>
+							<td>Flip mode</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv__flip_horizontal.html">FLIP_HORIZONTAL</a></td>
+							<td>Flip mode</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv__flip_vertical.html">FLIP_VERTICAL</a></td>
+							<td>Flip mode</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv__gaussian.html">GAUSSIAN</a></td>
+							<td>Blur method</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv__gray.html">GRAY</a></td>
+							<td>Colorspace of image</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv__haar_do_canny_pruning.html">HAAR_DO_CANNY_PRUNING</a></td>
+							<td>Haar classifier flag</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv__haar_do_rough_search.html">HAAR_DO_ROUGH_SEARCH</a></td>
+							<td>Haar classifier flag</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv__haar_find_biggest_object.html">HAAR_FIND_BIGGEST_OBJECT</a></td>
+							<td>Haar classifier flag</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv__haar_scale_image.html">HAAR_SCALE_IMAGE</a></td>
+							<td>Haar classifier flag</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv__inter_area.html">INTER_AREA</a></td>
+							<td>Interpolation method</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv__inter_cubic.html">INTER_CUBIC</a></td>
+							<td>Interpolation method</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv__inter_linear.html">INTER_LINEAR</a></td>
+							<td>Interpolation method</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv__inter_nn.html">INTER_NN</a></td>
+							<td>Interpolation method</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv__max_vertices.html">MAX_VERTICES</a></td>
+							<td>The maximum number of contour points available to blob detection (by default)</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv__median.html">MEDIAN</a></td>
+							<td>Blur method</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv__memory.html">MEMORY</a></td>
+							<td>Type of Image</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv__movie_frames.html">MOVIE_FRAMES</a></td>
+							<td>Movie info selector (not yet implemented)</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv__movie_milliseconds.html">MOVIE_MILLISECONDS</a></td>
+							<td>Movie info selector (not yet implemented)</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv__movie_ratio.html">MOVIE_RATIO</a></td>
+							<td>Movie info selector (not yet implemented)</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv__rgb.html">RGB</a></td>
+							<td>Colorspace of image</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv__source.html">SOURCE</a></td>
+							<td>Type of Image</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv__thresh_binary.html">THRESH_BINARY</a></td>
+							<td>Thresholding method</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv__thresh_binary_inv.html">THRESH_BINARY_INV</a></td>
+							<td>Thresholding method</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv__thresh_otsu.html">THRESH_OTSU</a></td>
+							<td>Thresholding method</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv__thresh_tozero.html">THRESH_TOZERO</a></td>
+							<td>Thresholding method</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv__thresh_tozero_inv.html">THRESH_TOZERO_INV</a></td>
+							<td>Thresholding method</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv__thresh_trunc.html">THRESH_TRUNC</a></td>
+							<td>Thresholding method</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv__height.html">height</a></td>
+							<td>OpenCV image/buffer height</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv__width.html">width</a></td>
+							<td>OpenCV image/buffer width</td>
+						</tr>
+		
+					</table>
+				</td>
+			</tr>
+		
+			
+			<tr class="items">
+				<th class="heading">Methods</th>
+				<td>
+					<table>
+						
+						<tr>
+							<td class="item"><a href="opencv_roi.html">ROI()</a></td>
+							<td>Set image region of interest to the given rectangle.</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv_absdiff.html">absDiff()</a></td>
+							<td>Calculate the absolute difference between the image in memory and the current image.</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv_allocate.html">allocate()</a></td>
+							<td>Allocate required buffer with the given size.</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv_blobs.html">blobs()</a></td>
+							<td>Blob and contour detection.</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv_blur.html">blur()</a></td>
+							<td>Smooth the image in one of several ways.</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv_brightness.html">brightness()</a></td>
+							<td>Adjust the image brightness with the specified value (in range of -128 to 128).</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv_capture.html">capture()</a></td>
+							<td>Allocate and initialize resources for reading a video stream from a camera.</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv_cascade.html">cascade()</a></td>
+							<td>Load into memory the descriptor file for a trained cascade classifier.</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv_contrast.html">contrast()</a></td>
+							<td>Adjust the image contrast with the specified value (in range of -128 to 128).</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv_convert.html">convert()</a></td>
+							<td>Convert the current image from one colorspace to another.</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv_copy.html">copy()</a></td>
+							<td>Copy the image (or a part of it) into the current OpenCV buffer (or a part of it).</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv_detect.html">detect()</a></td>
+							<td>Detect object(s) in the current image depending on the current cascade description.</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv_flip.html">flip()</a></td>
+							<td>Flip the current image around vertical, horizontal or both axes.</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv_image.html">image()</a></td>
+							<td>Return the current (or specified) OpenCV image</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv_interpolation.html">interpolation()</a></td>
+							<td>Set global interpolation method.</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv_invert.html">invert()</a></td>
+							<td>Invert image.</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv_jump.html">jump()</a></td>
+							<td>Jump to a specified movie frame.</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv_loadimage.html">loadImage()</a></td>
+							<td>Load an image from the specified file.</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv_movie.html">movie()</a></td>
+							<td>Allocate and initialize resources for reading a video file from the specified file name.</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv_pixels.html">pixels()</a></td>
+							<td>Retrieve cuurent (or specified) image data.</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv_read.html">read()</a></td>
+							<td>Grab a new frame from the input camera or a movie file.</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv_remember.html">remember()</a></td>
+							<td>Place the image (original or current) in memory.</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv_restore.html">restore()</a></td>
+							<td>Revert to the original image.</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv_stop.html">stop()</a></td>
+							<td>Stop OpenCV process.</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="opencv_threshold.html">threshold()</a></td>
+							<td>Apply fixed-level threshold to the current image.</td>
+						</tr>
+		
+					</table>
+				</td>
+			</tr>
+		
+			<tr class="usage">
+				<th class="heading">Usage</th>
+				<td>Application</td>
+			</tr>
+			<tr class="related">
+				<th class="heading">Related</th>
+				<td><a href=".html"></a><br />
+</td>
+			</tr>
+		</table>
+
+	</div>
+</body>
+</html>

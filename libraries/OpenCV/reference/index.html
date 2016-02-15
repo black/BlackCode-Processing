@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>OPENCV \ library</title>
+	<style type="text/css" media="all">
+		@import "stylesheet.css";
+	</style>
+</head>
+
+<body>
+	<div id="container">
+		
+		<h1>OPENCV</h1>
+		<div id="description">
+			<h2>Processing and Java Library</h2>
+	<p><b>OpenCV</b> is an open source computer vision library originally developed by <a href="http://en.wikipedia.org/wiki/Intel_Corporation" title="Intel Corporation">Intel</a>. It is free for commercial and research use under a <a href="http://en.wikipedia.org/wiki/BSD_license" title="BSD license">BSD license</a>. The library is cross-platform, and runs on Mac OS X, Windows and Linux. It focuses mainly towards <i>real-time</i> image processing, as such, if it finds Intel's <a href="http://en.wikipedia.org/wiki/Integrated_Performance_Primitives" title="Integrated Performance Primitives">Integrated Performance Primitives</a> on the system, it will use these commercial optimized routines to accelerate itself.</p>
+	<p>This implementation is not a complete port of OpenCV. Currently, this library supports :</p>
+	
+	<ul id="features">
+		<li>real-time capture</li>
+		<li>video file import</li>
+		<li>basic image treatment (brightness, contrast, threshold, …)</li>
+		<li>object detection (face, body, …)</li>
+		<li> blob detection</li>
+	</ul>
+	
+	<p>Future versions will include more advanced functions such as motion analysis, object and color tracking, multiple OpenCV object instances …</p>
+	<p>For more information about OpenCV visit the <a href="http://www.intel.com/technology/computing/opencv/">Open Source Computer Vision Library</a> Intel webpage, the <a href="http://opencvlibrary.sourceforge.net/">OpenCV Library Wiki</a>, and the <a href="http://www.cs.unc.edu/Research/stc/FAQs/OpenCV/OpenCVReferenceManual.pdf">OpenCV Reference Manual</a> (pdf).</p>
+	
+	<h3>Installation instructions</h3>
+	<ol>
+		<li>Begin by downloading and installing the implementation of OpenCV appropriate to your platform:
+			<ul>
+				<li>For Windows, download the <a href="http://sourceforge.net/project/showfiles.php?group_id=22870&package_id=16937">OpenCV release version 1.0</a> (not the 1.1pre1) package and follow the instructions of the installer.<br /><i>notes: be sure to select the additional tasks '<code>Add <...>\OpenCV\bin to system PATH</code>' during installation (or you need to add the rigth path by yourself later) and reboot your machine.</i><br /><img src="images/opencv-windows-installer.png" alt="" /></li>
+				<li>For MacOS X, dowload the <a href="http://ubaa.net/shared/processing/opencv/download/opencv-framework.1.1.dmg">opencv-framework-1.1.dmg</a> image and install the package by following instructions of the installer<br /><img src="images/opencv-mac-installer.png" alt="" /></li>
+				<li>For Linux users, if your distribution doesn't propose packages in your favorite Package Manager tool, download the latest <a href="http://sourceforge.net/project/showfiles.php?group_id=22870&package_id=16948">opencv-*.tar.gz</a> archive and compile/install the source files as describe in the <a href="http://opencvlibrary.sourceforge.net/InstallGuide_Linux">Linux install guide</a>.</li>
+			</ul>
+		</li>
+		<li>Download, unzip, and move the <a href="http://ubaa.net/shared/processing/opencv/download/opencv_01.zip">OpenCV Processing Library</a> into your <a href="http://processing.org/">Processing</a> libraries folder, or for Java users copy the content of the library folder in one of your Java Extensions folder.</p>
+		<p><b>DUE TO AN ERROR WHILE PACKAGING THE ZIP FILE, THIS VERSION UPDATED SHOULD SOLVE THE WINDOWS PROBLEM ABOUT DLL DEPENDENCIES AND OPENCV 1.0</b></p><p><img src="images/opencv-mac-processing-install.png" alt="" /><img src="images/opencv-windows-processing-install.png" alt="" /><br /></li>
+		<li>Optionally, you can download these <a href="http://ubaa.net/shared/processing/opencv/download/opencv_examples.zip">OpenCV Processing examples</a> or, for pure Java users, these <a href="http://ubaa.net/shared/processing/opencv/download/opencv_java_samples.zip">OpenCV Java samples</a>.</li>
+		<li>Previous library version can be downloaded <a href="http://ubaa.net/shared/processing/opencv/download/">here</a></li>
+	</ol>
+	
+	<h3>Documentation</h3>
+	<ul>
+		<li>See the <a href="whatsnew.txt">What's New</a> document for all new implementation or for some of the most important changes</li>
+		<li>Processing documentation … :) start with this page (also include in the OpenCV Processing Library zip archive)</li>
+		<li>For Java users, the <a href="http://ubaa.net/shared/processing/opencv/javadoc/">Javadoc</a> reference for this project (online only). For offline documentation dowload the <a href="http://ubaa.net/shared/processing/opencv/download/opencv_java_api.zip">OpenCV Java Library API</a></li>
+	</ul>
+	
+	<!--h3>Source code</h3>
+	<p>To maintain the project active, to complete this library or to fix bugs, dowload the lastest <a href=""http://ubaa.net/shared/processing/opencv/download/opencv_source.zip">source code</a>, including makefiles to compile the project on any platform.</p-->
+	
+	<h3>Credits</h3>
+	<p>The OpenCV Processing Library is a project of the <a href="http://www.ecole-art-aix.fr/rubrique11.html">Atelier hypermédia</a> at the <a href="http://www.ecole-art-aix.fr/">École Supérieure d'Art d'Aix-en-Provence</a>. It is maintained by <a href="http://ubaa.net">Stéphane Cousot</a> and <a href="http://abstractmachine.net/biography/">Douglas Edric Stanley</a>. Special thanks to the <a href="http://openframeworks.cc/">openframeworks</a> community for support and the C++ Binary Quicksort method.</p>
+		</div>
+		<div id="methods">
+			
+<br />
+<p><b><a href="opencv.html">OpenCV</a></b><br />The main object for all computer vision processes.
+ 
+ <div class="hide">
+ <p>
+ To use OpenCV library in a PApplet directly in pure Java, start with this small integration sample
+ <br />for more details about Processing see the <a href="http://processing.org/">home page</a>
+ </p>
+ <pre>
+
+	import processing.core.*;
+	import hypermedia.video.OpenCV;
+
+	public class OpenCV_PApplet extends PApplet {
+
+		OpenCV cv = null;  // OpenCV object
+
+		// Initialise Objects
+		public void setup() {
+		    size( 640, 480 );              // set frame size
+		    cv = new OpenCV( this );       // link OpenCV process to this PApplet
+		    cv.capture( width, height );   // start video stream
+		}
+
+		// Display the input camera stream in frame
+		public void draw() {
+		    cv.read();
+		    image( cv.image(), 0, 0 );
+		}
+
+		// Call the PApplet main method
+		public static void main( String[] args ) {
+		    PApplet.main( new String[]{"OpenCV_PApplet"} );
+		} 
+	}
+
+ </pre>
+ </div></p>
+<a href="opencv.html">OpenCV</a><br /><a href="opencv_roi.html">ROI()</a><br /><a href="opencv_absdiff.html">absDiff()</a><br /><a href="opencv_allocate.html">allocate()</a><br /><a href="opencv_blobs.html">blobs()</a><br /><a href="opencv_blur.html">blur()</a><br /><a href="opencv_brightness.html">brightness()</a><br /><a href="opencv_capture.html">capture()</a><br /><a href="opencv_cascade.html">cascade()</a><br /><a href="opencv_contrast.html">contrast()</a><br /><a href="opencv_convert.html">convert()</a><br /><a href="opencv_copy.html">copy()</a><br /><a href="opencv_detect.html">detect()</a><br /><a href="opencv_flip.html">flip()</a><br /><a href="opencv_image.html">image()</a><br /><a href="opencv_interpolation.html">interpolation()</a><br /><a href="opencv_invert.html">invert()</a><br /><a href="opencv_jump.html">jump()</a><br /><a href="opencv_loadimage.html">loadImage()</a><br /><a href="opencv_movie.html">movie()</a><br /><a href="opencv_pixels.html">pixels()</a><br /><a href="opencv_read.html">read()</a><br /><a href="opencv_remember.html">remember()</a><br /><a href="opencv_restore.html">restore()</a><br /><a href="opencv_stop.html">stop()</a><br /><a href="opencv_threshold.html">threshold()</a><br />
+<br />
+<p><b><a href="blob.html">Blob</a></b><br />A storage object containing a blob detected by OpenCV.
+ Returned by <code>blobs()</code> method.</p>
+<a href="blob.html">Blob</a><br />
+		</div>
+		
+	</div>
+</body>
+</html>

@@ -1,0 +1,5 @@
+<filter name="Median filter">
+    <description>3x3 median de-noising filter optimized for NVidia G80 architecture</description>
+    <fragment>median5.glsl</fragment>
+    <textures input="1" output="1"></textures>
+</filter>

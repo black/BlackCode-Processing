@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>OpenCV::remember() \ language (API)</title>
+	<style type="text/css" media="all">
+		@import "stylesheet.css";
+	</style>
+</head>
+
+<body>
+	<div id="container">
+		
+		<h1 class="light">OPENCV</h1>
+		<p id="nav">/ <a href="index.html">references</a></p>
+		<!--p><b>Reference for @libname library version @version</b></p-->
+		<br class="hide" />
+		<br class="hide" />
+		<table id="main">
+			<tr class="name">
+				<th class="heading">Name</th>
+				<td>remember()</td>
+			</tr>
+			<tr class="example">
+				<th class="heading">Examples</th>
+				<td><img src="images/absDiff.png" alt="absDiff" /><pre class="offset">import hypermedia.video.*;
+
+OpenCV opencv;
+
+
+void setup() {
+
+    size( 320, 240 );
+
+    // open video stream
+    opencv = new OpenCV( this );
+    opencv.capture( 160, 120 );
+}
+
+void draw() {
+
+    opencv.read();                               // grab frame from camera
+    image( opencv.image(), 0, 0);                // show the original image
+
+    opencv.absDiff();                            // make the difference between the current image and the image in memory
+
+    image( opencv.image(OpenCV.MEMORY), 160, 0 );  // display the image in memory on the right
+    image( opencv.image(), 160, 120 );             // display the result on the bottom right
+}
+
+void keyPressed() {
+    <!-- 
+    if ( key!=' ' ) {save("absDiff.png");return;}
+    -->
+    opencv.remember();  // store the actual image in memory
+}
+</pre></td>
+			</tr>
+			<tr class="description">
+				<th class="heading">Description</th>
+				<td>Place the image (original or current) in memory.
+ If specified, flip the stored image around the given axis. 
+ Used by <code>absDiff()</code> to compare two images (for background extraction, for example).</td>
+			</tr>
+			<tr class="syntax">
+				<th class="heading">Syntax</th>
+				<td><code>remember();<br />remember(type);<br />remember(type, mode);<br /></code></td>
+			</tr>
+			
+			<tr class="parameters">
+				<th class="heading">Parameters</th>
+				<td>
+					<table>
+						
+						<tr>
+							<td class="param">type</td>
+							<td><span class="type">int : </span>which image to be stored: SOURCE or BUFFER</td>
+						</tr>
+		
+						<tr>
+							<td class="param">mode</td>
+							<td><span class="type">int : </span>the used axis: FLIP_HORIZONTAL, FLIP_VERTICAL or FLIP_BOTH</td>
+						</tr>
+		
+					</table>
+				</td>
+			</tr>
+		
+			
+			<tr class="return">
+				<th class="heading">Return</th>
+				<td>None</td>
+			</tr>
+		
+			<tr class="usage">
+				<th class="heading">Usage</th>
+				<td>Application</td>
+			</tr>
+			<tr class="related">
+				<th class="heading">Related</th>
+				<td><a href="opencv_absdiff.html">absDiff()</a><br />
+</td>
+			</tr>
+		</table>
+
+	</div>
+</body>
+</html>

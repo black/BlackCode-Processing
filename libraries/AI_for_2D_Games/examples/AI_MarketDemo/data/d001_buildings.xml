@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<buildings>
+
+<building name="Block 1">
+	<pos x="0" y = "0" />
+	<contour>
+		<point x = "0" y = "100" />
+		<point x = "50" y = "100" />
+		<point x = "150" y = "50" />
+		<point x = "250" y = "50" />
+		<point x = "300" y = "0" />
+		<point x = "0" y = "0" />	
+	</contour>
+</building>
+
+<building name="Block 2">
+	<pos x="0" y = "0" />
+	<contour>
+		<point x = "400" y = "0" />
+		<point x = "440" y = "100" />
+		<point x = "460" y = "100" />
+		<point x = "520" y = "60" />
+		<point x = "620" y = "60" />
+		<point x = "660" y = "100" />
+		<point x = "700" y = "100" />
+		<point x = "700" y = "0" />	
+	</contour>
+</building>
+
+<building name="Block 3">
+	<pos x="0" y = "0" />
+	<contour>
+		<point x = "0" y = "450" />
+		<point x = "15" y = "450" />
+		<point x = "15" y = "150" />
+		<point x = "0" y = "150" />
+	</contour>
+</building>
+
+<building name="Block 4">
+	<pos x="0" y = "0" />
+	<contour>
+		<point x = "70" y = "210" />
+		<point x = "100" y = "210" />
+		<point x = "200" y = "140" />
+		<point x = "200" y = "100" />
+		<point x = "164" y = "100" />
+		<point x = "70" y = "150" />
+	</contour>
+</building>
+
+<building name="Block 5">
+	<pos x="0" y = "0" />
+	<contour>
+		<point x = "60" y = "350" />
+		<point x = "100" y = "350" />
+		<point x = "100" y = "260" />
+		<point x = "60" y = "260" />
+	</contour>
+</building>
+
+<building name="Block 6">
+	<pos x="0" y = "0" />
+	<contour>
+		<point x = "80" y = "450" />
+		<point x = "120" y = "450" />
+		<point x = "100" y = "400" />
+		<point x = "70" y = "400" />
+	</contour>
+</building>
+
+<building name="Block 7">
+	<pos x="0" y = "0" />
+	<contour>
+		<point x = "0" y = "600" />
+		<point x = "300" y = "600" />
+		<point x = "260" y = "560" />
+		<point x = "0" y = "500" />
+	</contour>
+</building>
+
+<building name="Block 8">
+	<pos x="0" y = "0" />	
+	<contour>
+		<point x = "180" y = "480" />
+		<point x = "250" y = "500" />
+		<point x = "330" y = "500" />
+		<point x = "360" y = "450" />
+		<point x = "180" y = "450" />
+	</contour>
+</building>
+
+<building name="Block 9">
+	<pos x="0" y = "0" />
+	<contour>
+		<point x = "400" y = "600" />
+		<point x = "700" y = "600" />
+		<point x = "700" y = "500" />
+		<point x = "660" y = "500" />
+		<point x = "550" y = "550" />
+		<point x = "450" y = "500" />
+		<point x = "420" y = "500" />
+	</contour>
+</building>
+
+<building name="Block 10">
+	<pos x="0" y = "0" />
+	<contour>
+		<point x = "420" y = "450" />
+		<point x = "450" y = "450" />
+		<point x = "450" y = "400" />
+		<point x = "420" y = "400" />
+	</contour>
+</building>
+
+<building name="Block 11">
+	<pos x="0" y = "0" />	
+	<contour>
+		<point x = "420" y = "350" />
+		<point x = "450" y = "350" />
+		<point x = "450" y = "300" />
+		<point x = "420" y = "300" />
+	</contour>
+</building>
+
+<building name="Block 12">
+	<pos x="0" y = "0" />
+	<contour>
+		<point x = "420" y = "250" />
+		<point x = "450" y = "250" />
+		<point x = "450" y = "200" />
+		<point x = "420" y = "200" />
+	</contour>
+</building>
+
+<building name="Block 13">
+	<pos x="0" y = "0" />
+	<contour>
+		<point x = "500" y = "450" />
+		<point x = "600" y = "450" />
+		<point x = "600" y = "350" />
+		<point x = "500" y = "400" />
+	</contour>
+</building>
+
+<building name="Block 14">
+	<pos x="0" y = "0" />
+	<contour>
+		<point x = "500" y = "250" />
+		<point x = "600" y = "300" />
+		<point x = "600" y = "170" />
+		<point x = "500" y = "200" />
+	</contour>
+</building>
+
+<building name="Block 15">
+	<pos x="0" y = "0" />
+	<contour>
+		<point x = "660" y = "450" />
+		<point x = "700" y = "450" />
+		<point x = "700" y = "150" />
+		<point x = "660" y = "160" />
+	</contour>
+</building>
+
+</buildings>

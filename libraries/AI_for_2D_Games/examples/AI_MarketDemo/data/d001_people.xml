@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<vehicles>
+
+<vehicle name="Person 1">
+	<pos x="150" y = "300" />
+	<velocity x="10" y = "0" />
+	<heading x="1" y = "0" />
+	<collision_radius value="10" />
+	<max_speed value="40" />
+	<mass value="1" />
+	<max_turn_rate value="1" />
+	<max_force value="200" />		
+</vehicle>
+
+<vehicle name="Person 2">
+	<pos x="270" y = "200" />
+	<velocity x="0" y = "10" />
+	<heading x="0" y = "1" />
+	<collision_radius value="10" />
+	<max_speed value="40" />
+	<mass value="1" />
+	<max_turn_rate value="1" />
+	<max_force value="200" />		
+</vehicle>
+
+<vehicle name="Person 3">
+	<pos x="410" y = "280" />
+	<velocity x="-10" y = "0" />
+	<heading x="-1" y = "0" />
+	<collision_radius value="10" />
+	<max_speed value="30" />
+	<mass value="1" />
+	<max_turn_rate value="1" />
+	<max_force value="200" />		
+</vehicle>
+
+<vehicle name="Person 4">
+	<pos x="360" y = "360" />
+	<velocity x="-10" y = "0" />
+	<heading x="-1" y = "0" />
+	<collision_radius value="10" />
+	<max_speed value="20" />
+	<mass value="1" />
+	<max_turn_rate value="1" />
+	<max_force value="200" />		
+</vehicle>
+
+<vehicle name="Person 5">
+	<pos x="250" y = "440" />
+	<velocity x="0" y = "10" />
+	<heading x="0" y = "1" />
+	<collision_radius value="10" />
+	<max_speed value="40" />
+	<mass value="1" />
+	<max_turn_rate value="1" />
+	<max_force value="200" />		
+</vehicle>
+
+<vehicle name="Person 6">
+	<pos x="200" y = "380" />
+	<velocity x="5" y = "5" />
+	<heading x="1" y = "-1" />
+	<collision_radius value="10" />
+	<max_speed value="35" />
+	<mass value="1" />
+	<max_turn_rate value="1" />
+	<max_force value="200" />		
+</vehicle>
+
+<vehicle name="Person 7">
+	<pos x="600" y = "100" />
+	<velocity x="-10" y = "0" />
+	<heading x="-1" y = "0" />
+	<collision_radius value="10" />
+	<max_speed value="35" />
+	<mass value="1" />
+	<max_turn_rate value="1" />
+	<max_force value="200" />		
+</vehicle>
+
+<vehicle name="Person 8">
+	<pos x="630" y = "400" />
+	<velocity x="0" y = "10" />
+	<heading x="0" y = "1" />
+	<collision_radius value="10" />
+	<max_speed value="25" />
+	<mass value="1" />
+	<max_turn_rate value="1" />
+	<max_force value="200" />		
+</vehicle>
+
+<vehicle name="Person 6">
+	<pos x="300" y = "550" />
+	<velocity x="5" y = "5" />
+	<heading x="1" y = "-1" />
+	<collision_radius value="10" />
+	<max_speed value="37" />
+	<mass value="1" />
+	<max_turn_rate value="1" />
+	<max_force value="200" />		
+</vehicle>
+
+<vehicle name="Person 10">
+	<pos x="80" y = "460" />
+	<velocity x="10" y = "0" />
+	<heading x="1" y = "0" />
+	<collision_radius value="10" />
+	<max_speed value="30" />
+	<mass value="1" />
+	<max_turn_rate value="1" />
+	<max_force value="200" />		
+</vehicle>
+
+<vehicle name="Person 11">
+	<pos x="40" y = "220" />
+	<velocity x="10" y = "0" />
+	<heading x="1" y = "0" />
+	<collision_radius value="10" />
+	<max_speed value="40" />
+	<mass value="1" />
+	<max_turn_rate value="1" />
+	<max_force value="200" />		
+</vehicle>
+
+<vehicle name="Person 12">
+	<pos x="360" y = "100" />
+	<velocity x="0" y = "-10" />
+	<heading x="0" y = "-1" />
+	<collision_radius value="10" />
+	<max_speed value="42" />
+	<mass value="1" />
+	<max_turn_rate value="1" />
+	<max_force value="200" />		
+</vehicle>
+
+</vehicles>

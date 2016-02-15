@@ -1,0 +1,29 @@
+target/
+out
+build
+dist
+*.iws
+*.swp
+*.iml
+*.ipr
+.idea/
+release.properties
+pom.xml.releaseBackup
+.DS_Store
+
+pom.xml.asc
+package.fig
+reports
+
+# ignore Eclipse
+.classpath
+.project
+.settings/
+
+
+# for python/virtualenv
+*.pyc
+.Python
+bin
+include
+lib/python2.6/

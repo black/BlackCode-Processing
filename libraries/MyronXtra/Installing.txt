@@ -1,0 +1,36 @@
+
+
+###################Myron for Director ######################
+
+
+updates at http://webcamxtra.sourceforge.net
+
+
+
+
+**** Installing on Windows ****
+
+copy the folder "Myron for Windows" into:
+
+
+c:\Program Files\Macromedia\Director\Xtras
+
+or 
+
+C:\Program Files\Macromedia\Director MX 2004\Configuration\Xtras
+
+... which ever one applies to you.
+
+
+
+
+
+
+
+**** Installing on a Mac ****
+
+Unzip the "Myron for Mac.zip" on a Mac only (the file has a resource fork)
+
+copy the file "Myron" into /Applications/Director/Xtras
+
+

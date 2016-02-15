@@ -1,0 +1,22 @@
+To install Blobscanner follow this steps:
+
+1) Unzip the archive file in a directory of your choice.
+
+2) Go to that directory and copy to the clipboard the folder named "Blobscanner".
+
+3) Open the Processing "library" folder and paste the clipboard content in it.
+
+4) If Processing is running close it and restart it.
+
+
+To install the examples.
+
+1) Go to the directory where you unzipped the archive and copy to the clipboard the folder named 
+
+"Blobscanner_examples". 
+
+2) Open the Processing "examples" folder and paste the clipboard content in it.
+
+3) Open Processing and go to File => Examples. There you should find the Blobscanner_example folder ready to be 
+
+accessed.

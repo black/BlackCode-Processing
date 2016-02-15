@@ -1,0 +1,3 @@
+application.macosx=bluetoothDesktop.jar,bluecove-2.0.2-snapshot.jar
+application.windows=bluetoothDesktop.jar,bluecove-2.0.2-snapshot.jar
+application.linux=bluetoothDesktop.jar,avetanaBT.jar,libavetanaBT.so

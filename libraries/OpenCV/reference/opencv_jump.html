@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>OpenCV::jump() \ language (API)</title>
+	<style type="text/css" media="all">
+		@import "stylesheet.css";
+	</style>
+</head>
+
+<body>
+	<div id="container">
+		
+		<h1 class="light">OPENCV</h1>
+		<p id="nav">/ <a href="index.html">references</a></p>
+		<!--p><b>Reference for @libname library version @version</b></p-->
+		<br class="hide" />
+		<br class="hide" />
+		<table id="main">
+			<tr class="name">
+				<th class="heading">Name</th>
+				<td>jump()</td>
+			</tr>
+			<tr class="example">
+				<th class="heading">Examples</th>
+				<td><img src="images/movie.png" alt="movie" /><pre class="offset">import hypermedia.video.*;
+
+
+OpenCV opencv;
+
+void setup() {
+  size( 640, 480 );
+  opencv = new OpenCV( this );
+  opencv.movie( "bunny.avi", width, height );    // load movie file
+}
+
+void draw() {
+  opencv.read();                  // read a new frame
+  image( opencv.image(), 0, 0 );  // and display image
+}
+
+void mousePressed() {
+  float time = mouseX/float(width);
+  opencv.jump( time );            // jump to a specified frame
+}
+<!--
+void keyPressed() {
+    if( key==' ' ) save("movie.png");
+}
+-->
+</pre></td>
+			</tr>
+			<tr class="description">
+				<th class="heading">Description</th>
+				<td>Jump to a specified movie frame.</td>
+			</tr>
+			<tr class="syntax">
+				<th class="heading">Syntax</th>
+				<td><code>jump(millis);<br />jump(ratio);<br />jump(value, type);<br /></code></td>
+			</tr>
+			
+			<tr class="parameters">
+				<th class="heading">Parameters</th>
+				<td>
+					<table>
+						
+						<tr>
+							<td class="param">millis</td>
+							<td><span class="type">int : </span>the time in milliseconds of the desired frame</td>
+						</tr>
+		
+						<tr>
+							<td class="param">ratio</td>
+							<td><span class="type">float : </span>the time expressed as a ratio (0.0 - 1.0) of the desired frame</td>
+						</tr>
+		
+						<tr>
+							<td class="param">value</td>
+							<td><span class="type">float : </span>the time (according to type) of the desired frame</td>
+						</tr>
+		
+						<tr>
+							<td class="param">type</td>
+							<td><span class="type">int : </span>use: MOVIE_MILLISECONDS, MOVIE_FRAMES or MOVIE_RATIO</td>
+						</tr>
+		
+					</table>
+				</td>
+			</tr>
+		
+			
+			<tr class="return">
+				<th class="heading">Return</th>
+				<td>None</td>
+			</tr>
+		
+			<tr class="usage">
+				<th class="heading">Usage</th>
+				<td>Application</td>
+			</tr>
+			<tr class="related">
+				<th class="heading">Related</th>
+				<td><a href="opencv_movie.html">movie()</a><br />
+</td>
+			</tr>
+		</table>
+
+	</div>
+</body>
+</html>

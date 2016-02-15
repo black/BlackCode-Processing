@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OSC-Namespace Version="1">
+    <Node AP="" Direction="Out" ID="RGBCubeExample">
+        <Node AP="Scale" Direction="Out" ID="Scale">
+            <TTS ID="f_TTS_ID">
+                <TT Default="1.0" ID="f_ID" Tag="f"/>
+            </TTS>
+        </Node>
+        <Node AP="SetAlpha" Direction="Out" ID="SetAlpha">
+            <TTS ID="f_TTS_ID">
+                <TT Default="1.0" ID="f_ID" Tag="f"/>
+            </TTS>
+        </Node>
+        <Node AP="Set_Alpha" Direction="Out" ID="Set_Alpha">
+            <TTS ID="f_TTS_ID">
+                <TT Default="1" ID="f_ID" Tag="f"/>
+            </TTS>
+        </Node>
+        <Node AP="Set_BlendMode" Direction="Out" ID="Set_BlendMode">
+            <TTS ID="i_TTS_ID">
+                <TT Default="1" ID="i_ID" Tag="i"/>
+            </TTS>
+        </Node>
+    </Node>
+</OSC-Namespace>

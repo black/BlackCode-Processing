@@ -1,0 +1,213 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Chromosome</title>
+<link href="../../../steed1.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+<!--
+.style2 {color: #990000}
+-->
+</style>
+</head>
+
+<body>
+<div class="steed2">
+<h3>Chromosome class </h3>
+<p>These are the internal components of the GA and are used to come up with random
+  ideas, solutions to problems, creatures, etc. You define a Chromosome by first
+  creating an instance of GeneticAlgorithm (or its extended class if you are doing it that way)
+  and then using the following format:</p>
+<p><strong>Chromosome myChromosome = myGeneticAlgorithm.makeChromosome();</strong></p>
+<p>This allows your Chromosome to use all of the utilities in myGeneticAlgorithm.</p>
+<table width="100%"  border="1" cellspacing="0" cellpadding="3">
+  <tr bgcolor="#99CCFF">
+    <td colspan="2"><strong>Property Summary </strong></td>
+    </tr>
+  <tr>
+    <td width="9%" height="65" class="steed3"> int []</td>
+    <td width="91%"><strong>dna</strong><br>
+      The GeneticAlgorithm that the Chromosome is registered
+        with determines the length and maximum values initialised for this array
+      acording to dnaLength and traitSize.</td>
+  </tr>
+  <tr>
+    <td width="9%" height="65" class="steed3"> GeneticAlgorithm </td>
+    <td width="91%"><strong>ga</strong><br>
+      The GeneticAlgorithm that the Chromosome is registered
+      with.</td>
+  </tr>
+  <tr>
+    <td height="65" class="steed3">float</td>
+    <td><strong>score</strong><br>
+      The fitness score of this Chromosome </td>
+  </tr>
+</table>
+</p>
+<p>
+<table width="100%"  border="1" cellspacing="0" cellpadding="3">
+  <tr bgcolor="#99CCFF">
+    <td><strong>Constructor Summary </strong></td>
+  </tr>
+  <tr>
+    <td width="9%" height="65"><strong><a href="#Chromosome">Chromosome</a>  </strong>(GeneticAlgorithm
+      ga<strong>)</strong><br>
+      Creates a Chromosome object registered with GeneticAlgorithm ga. Do not use this method, instead create a Chromosome with an existing GeneticAlgorithm's createChromosome method. </td>
+  </tr>
+  <tr>
+    <td height="65"><strong><a href="#Chromosome2">Chromosome</a></strong> (GeneticAlgorithm ga, int [] dna)<br>
+      Creates a Chromosome object registered with GeneticAlgorithm ga and using
+      a reference to an array dna (the array is not copied). Do not use this method, instead create a Chromosome with an existing GeneticAlgorithm's createChromosome method. </td>
+  </tr>
+</table>
+</p>
+<p>
+<table width="100%"  border="1" cellspacing="0" cellpadding="3">
+  <tr bgcolor="#99CCFF">
+    <td colspan="2"><strong>Method Summary </strong></td>
+  </tr>
+  <tr>
+    <td height="65" class="steed3">void</td>
+    <td><strong><a href="#splice">splice</a></strong> (Chromosome mate)<br>
+      Depending on the spliceRate property in the registered GA, effects an
+        exchange of dna between this Chromosome and Chromosome mate.</td>
+  </tr>
+  <tr>
+  <tr>
+    <td height="65" class="steed3">void</td>
+    <td><strong><a href="#splice2">splice</a></strong> (Chromosome mate, int dnaPos)<br>
+      Splices the dna between this Chromosome and Chromosome mate at the position dnaPos. </td>
+  </tr>
+  <tr>
+  <tr>
+    <td height="65" class="steed3">void</td>
+    <td><strong><a href="#splice3">splice</a></strong> (Chromosome mate, int dnaPos, int bitPos)<br>
+      Splices the dna between this Chromosome and Chromosome mate at the position dnaPos in the dna array and at the binary position bitPos within that number. </td>
+  </tr>
+  <tr>
+    <td height="65" class="steed3">void</td>
+    <td><strong><a href="#spliceBinary">spliceBinary</a></strong> (Chromosome mate,  int bitPos)<br>
+      Splices the dna between this Chromosome and Chromosome mate at the position bitPos, a position along the the dna as a concatenated binary string.</td>
+  </tr>
+  <tr>
+    <td height="65" class="steed3">void</td>
+    <td><strong><a href="#mutate">mutate</a></strong> ()<br>
+      Depending on the mutationRate property in the registered GA, effects a randomization
+        of dna in this Chromosome.</td>
+  </tr>
+  <tr>
+    <td width="9%" height="65" class="steed3">Chromosome</td>
+    <td width="91%"><strong><a href="#copy">copy</a></strong> ()<br>
+      Creates a copy of the Chromosome. The Chromosome is not added to the genePool. </td>
+  </tr>
+  <tr>
+    <td width="9%" height="65" class="steed3">String</td>
+    <td width="91%"><strong><a href="#toString">toString</a></strong> ()<br>
+      Returns a string representation of the dna as binary code. </td>
+  </tr>
+</table>
+</p>
+<p>
+<table width="100%"  border="1" cellspacing="0" cellpadding="3">
+  <tr>
+    <td bgcolor="#99CCFF"><strong>Constructor Detail</strong></td>
+  </tr>
+</table>
+</p>
+<p><strong>Chromosome<a name="Chromosome" id="Chromosome"></a></strong></p>
+<p>public <strong>Chromosome</strong> (GeneticAlgorithm ga)</p>
+<p>Creates an Chromosome registered with GeneticAlgorithm ga. Users are discouraged
+  from using this method as it does not automatically populate the genePool as
+  the method createChromosome() does. However it is detailed for advance use and
+  understanding of the operation of the Chromosome class.</p>
+<p><strong>Parameters:</strong></p>
+<p><span class="style2">ga</span> - a GeneticAlgorithm that provides methods
+    and parameters for the functioning of the Chromosome</p>
+<hr>
+<p><strong>Chromosome<a name="Chromosome2" id="Chromosome2"></a></strong></p>
+<p>public <strong>Chromosome</strong> (GeneticAlgorithm ga, int [] dna)</p>
+<p>Creates an Chromosome registered with GeneticAlgorithm ga with a reference
+  to an array dna. The array is not copied. Users are discouraged from using
+  this method as it does not automatically populate the genePool as the method
+  makeChromosome() or createChromosome(int [] dna) does. However it is detailed
+  for advance use and understanding of the operation of the Chromosome class.</p>
+<p><strong>Parameters:</strong></p>
+<p><span class="style2">ga</span> - a GeneticAlgorithm that provides methods
+      and parameters for the functioning of the Chromosome<br>
+    <span class="style2">dna</span> - a reference to an integer array that
+      will be used as the Chromosome's dna() </p>
+<table width="100%"  border="1" cellpadding="3" cellspacing="0">
+  <tr>
+    <td bgcolor="#99CCFF"><strong>Method Detail</strong></td>
+  </tr>
+</table>
+<p><strong>splice<a name="splice" id="splice"></a></strong></p>
+<p>public void <strong>splice</strong>(Chromosome mate)</p>
+<p>This method, depending on the value of the registered GA's spliceRate property, effects an exchange of dna. Depending on whether the GeneticAlgorithm is set to
+  operate at sub-integer level or not determines how detailed the splice is. Cross over occurs at a random given
+  point in the dna and all values (binary or otherwise) are swapped over past that
+  point from left to right.</p>
+<p><strong>Parameters:</strong></p>
+<p><span class="style2">mate</span> - a Chromosome whose dna is to be partially
+    swapped with this Chromosome.</p>
+<hr>
+<p><strong>splice<a name="splice2" id="splice2"></a></strong></p>
+<p>public void <strong>splice</strong>(Chromosome mate, int dnaPos)</p>
+<p>This method splices the dna of two Chromosomes at the point defined by dnaPos. At dnaPos and beyond to the end of the dna of both Chromosomes, the values will be swapped. This method is supplied to allow the user to perform finite operations on dna.</p>
+<p><strong>Parameters:</strong></p>
+<p><span class="style2">mate</span> - a Chromosome whose dna is to be partially
+  swapped with this Chromosome.<br>
+  <span class="style2">dnaPos</span> - the point in the dna arrays beyond which the swap of values occurs.</p>
+<hr>
+<p><strong>splice<a name="splice3" id="splice3"></a></strong></p>
+<p>public void <strong>splice</strong>(Chromosome mate, int dnaPos, int bitPos)</p>
+<p>This method splices the dna of two Chromosomes at the point defined by dnaPos and bitPos. At the point in the binary value of the trait at dnaPos defined by bitPos and beyond to the end of the dna of both Chromosomes, the values will be swapped. This method is supplied to allow the user to perform finite operations on dna.</p>
+<p>Users who wish to swap binary values over in integers themselves can use a binary masking operation with the aid of the spiceMask array. The code for this is as follows:</p>
+<pre>
+int temp = value1;
+value1 = value1 ^ ((value1 ^ value2) & GeneticAlgorithm.spliceMask[bitPos]);
+value2 = value2 ^ ((value2 ^ temp) & GeneticAlgorithm.spliceMask[bitPos]);
+</pre>
+<p><strong>Parameters:</strong></p>
+<p><span class="style2">mate</span> - a Chromosome whose dna is to be partially
+  swapped with this Chromosome.<br>
+    <span class="style2">dnaPos</span> - the point in the dna arrays beyond which the swap of values occurs.</p>
+<hr>
+<p><strong>spliceBinary<a name="spliceBinary" id="spliceBinary"></a></strong></p>
+<p>public void <strong>spliceBinary</strong>(Chromosome mate, int bitPos)</p>
+<p>This method splices the dna of two Chromosomes at the point defined by  bitPos. This method differs to spice in that it considers the dna as a concatenated string of binary numbers, the length defined by the GeneticAlgorithm's property binaryLength. At the point bitPos and beyond to the end of the dna of both Chromosomes, the values will be swapped. This method is supplied to allow the user to perform finite operations on dna. This method is slower than splice because it calls splice internally and must extrapolate a dna position and bit position from bitPos. For extra speed use <a href="#splice3">splice</a>().</p>
+<p>Users who wish to swap binary values over in integers themselves can use a binary masking operation with the aid of the spiceMask array. The code for this is as follows:</p>
+<pre>
+int temp = value1;
+value1 = value1 ^ ((value1 ^ value2) & GeneticAlgorithm.spliceMask[bitPos]);
+value2 = value2 ^ ((value2 ^ temp) & GeneticAlgorithm.spliceMask[bitPos]);
+</pre>
+<p><strong>Parameters:</strong></p>
+<p><span class="style2">mate</span> - a Chromosome whose dna is to be partially
+  swapped with this Chromosome.<br>
+    <span class="style2">dnaPos</span> - the point in the dna arrays beyond which the swap of values occurs.</p>
+<hr>
+<p><strong>mutate<a name="mutate" id="mutate"></a></strong></p>
+<p>public void <strong>mutate</strong> ()</p>
+<p>This method, depending on the registered GA's mutationRate property effects
+  a randomisation upon the values in the dna of the Chromosome.  This rate
+  is tested for each value in the dna. Depending on whether the GA is set to
+  operate at sub-integer level or not determines whether that value is an integer
+  or a binary bit.</p>
+<p>Users who wish to flip a single binary bit on an integer can use the singleBitMask array. The code to do this is as follows:</p>
+<pre>value ^= GeneticAlgorithm.singleBitMask[bitPos];</pre>
+<hr>
+<p><strong>copy<a name="copy" id="copy"></a></strong></p>
+<p>public Chromosome <strong>copy</strong> ()</p>
+<p>This method returns a copy of the Chromosome that it is called from. It does
+  not load the new Chromosome into the genePool(), any changes to parameters
+  of the GA may not reach the cloned Chromosome.</p>
+<hr>
+<p><strong>toString<a name="toString" id="copy"></a></strong></p>
+<p>public String <strong>toString</strong> ()</p>
+<p>This method returns a string representing the dna as binary code. It takes each value in the dna array and then converts it into a binary number with as many digits as myGeneticAlgorithm.valueBits and then concatenates the whole. The binary value of any individual dna position or int can be found with Integer.toBinaryString(value).</p>
+<hr>
+</div>
+</body>
+</html>

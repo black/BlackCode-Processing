@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OSC-Namespace Version="1">
+    <Node AP="" Direction="Out" ID="Gradient">
+        <Node AP="TopGreen" Direction="Out" ID="TopGreen">
+            <TTS ID="f_TTS_ID">
+                <TT Default="1.0" ID="f_ID" Tag="f"/>
+            </TTS>
+        </Node>
+        <Node AP="BotGreen" Direction="Out" ID="BotGreen">
+            <TTS ID="f_TTS_ID">
+                <TT Default="0.0" ID="f_ID" Tag="f"/>
+            </TTS>
+        </Node>
+        <Node AP="SetAlpha" Direction="Out" ID="SetAlpha">
+            <TTS ID="f_TTS_ID">
+                <TT Default="1.0" ID="f_ID" Tag="f"/>
+            </TTS>
+        </Node>
+        <Node AP="BotBlue" Direction="Out" ID="BotBlue">
+            <TTS ID="f_TTS_ID">
+                <TT Default="0.0" ID="f_ID" Tag="f"/>
+            </TTS>
+        </Node>
+        <Node AP="BotRed" Direction="Out" ID="BotRed">
+            <TTS ID="f_TTS_ID">
+                <TT Default="0.0" ID="f_ID" Tag="f"/>
+            </TTS>
+        </Node>
+        <Node AP="TopBlue" Direction="Out" ID="TopBlue">
+            <TTS ID="f_TTS_ID">
+                <TT Default="0.0" ID="f_ID" Tag="f"/>
+            </TTS>
+        </Node>
+        <Node AP="TopRed" Direction="Out" ID="TopRed">
+            <TTS ID="f_TTS_ID">
+                <TT Default="0.0" ID="f_ID" Tag="f"/>
+            </TTS>
+        </Node>
+        <Node AP="Set_Alpha" Direction="Out" ID="Set_Alpha">
+            <TTS ID="f_TTS_ID">
+                <TT Default="1" ID="f_ID" Tag="f"/>
+            </TTS>
+        </Node>
+        <Node AP="Set_BlendMode" Direction="Out" ID="Set_BlendMode">
+            <TTS ID="i_TTS_ID">
+                <TT Default="1" ID="i_ID" Tag="i"/>
+            </TTS>
+        </Node>
+    </Node>
+</OSC-Namespace>

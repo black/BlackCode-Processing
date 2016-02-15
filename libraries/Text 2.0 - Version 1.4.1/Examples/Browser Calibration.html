@@ -1,0 +1,84 @@
+<html>
+    <head>
+        <!-- Style goes here -->
+        <link rel="stylesheet" type="text/css" href="style.css" />
+
+
+        <!-- Logic -->
+        <script type="text/javascript" src="jquery.js"></script>
+        <script type="text/javascript" src="jquery.timers.js"></script>
+        <script type="text/javascript" src="text20.js"></script>
+        <script type="text/javascript">
+
+            /** Misc variables */
+            var dx = dy = 0, lastGazeX, lastGazeY, connector = text20.connector;
+
+            /** Called when the target was hit */
+            function hit(){
+                // Get our position
+                var p = text20.dom.documentPosition($("#thedot").get(0));
+                    x = p[0], y = p[1];
+
+                // Update deltas
+                if (dy == 0) dy = lastGazeY - y
+                if (dx == 0) dx = lastGazeX - x
+
+                // Register deltas
+                var browserID = text20.browser.id()
+                connector.connection.preference("connector:calibration:" + browserID + ":offset:x", "" + dx + ".0")
+                connector.connection.preference("connector:calibration:" + browserID + ":offset:y", "" + dy + ".0")
+                
+                text20.browser.log("Setting offset to " + dx + "," + dy + " for browser id '" + browserID + "'")
+
+                // Inform user
+                $("#hitthedot").css("visibility", "hidden")
+                $("#thedot").css("visibility", "hidden")
+                $("#target").css("visibility", "visible")
+                $("#thankyou").css("visibility", "visible")
+            }
+
+            // Wait for raw gaze
+            connector.listener("reducedApplicationGaze", function(evt) {
+                    var tx = (evt.x) - dx,
+                        ty = (evt.y) - dy;
+
+                    if (tx < 0 || ty < 0) return;
+
+                    $("#target").css("top", ty+ "px").css("left", tx + "px")
+
+                    lastGazeX = tx;
+                    lastGazeY = ty;
+            });
+            
+
+            $(document).ready(function() {
+	            // Wait for initialization
+	            connector.listener("INITIALIZED", function(evt) {
+	                $("#initializing").css("visibility", "hidden")
+	                $("#hitthedot").css("visibility", "visible")
+	                $("#thedot").css("visibility", "visible")
+	            });
+
+
+	            // Configure text20 plugin
+	            text20.browser.overrideOffset = [0, 0]
+	            connector.config.registerHighVolumeListeners = true
+	            connector.config.warnIfNotCalibrated = false
+	            connector.config.trackingDevice = "eyetrackingdevice:mouse"
+	            connector.config.logging = "FINER"
+				connector.config.useObjectTag = false
+
+	            text20.core.init()
+			});
+        </script>
+    </head>
+
+    <body>
+        <!-- Entities -->
+        <div id="initializing">Please wait while the plugin is starting up</div>
+        <div id="thankyou">Thank you. You're good to go.</div>
+        <div id="hitthedot">There is a small dot below<br/>Approach it from the top</div>
+        <div id="thedot" onmouseover="hit()">&nbsp;</div>
+        <div id="target">&nbsp;</div>
+    </body>
+</html>

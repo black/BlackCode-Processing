@@ -1,0 +1,36 @@
+# --------------------------------------------------------------------------------------------------
+#	OPENCV PROCESSING/JAVA LIBRARY
+#	What's New :: development history
+# --------------------------------------------------------------------------------------------------
+
+
+# - 30/06/08 pre-release version 01 ----------------------------------------------------------------
+
+	- new library version: PRE-RELEASE VERSION 01
+	- complete the documentation (with some bugs)
+	
+
+
+# - 06/05/08 Beta version --------------------------------------------------------------------------
+
+	- rename the field ORIGINAL -> SOURCE
+	- extend the 'remenber()' method (type of the image, flip the result)
+	- extend 'ROI()' method (java.awt.Rectangle)
+	- fix bugs while using 'ROI()' method with 'absDiff()', 'remember()', 'convert()', 'flip()'
+	- add the 'blobs()' method for blobs detection treatment
+	- add the 'Blob' object for blobs detection result
+	- mark method 'findBlobs()', 'blobCount()', 'area()', 'arcLength()', 'centroid()', 'rectangle()',
+	 'points()', 'isHole()' as deprecated, use 'blobs()' and Blob object instead
+	  
+	  
+
+# - 03/05/08 Beta version <-- differences between the first beta test version ----------------------
+
+	- add the 'cascade()' method
+	- add the 'detect()' method
+	- add fields: CASCADE_FRONTALFACE_ALT, CASCADE_FULLBODY, CASCADE_PROFILEFACE, etc...
+	- change method 'points()' result, int[] -> java.awt.Point[]
+	- change method 'centroid()' result, int[] -> java.awt.Point[]
+	- change method 'rectangle()' result, int[] -> java.awt.Rectangle
+	- mark method 'pointCount()' as deprecated, use 'points()' result length instead
+	

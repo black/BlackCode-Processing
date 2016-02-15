@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
+ 
+<!-- This example was taken from webkit.org -->
+<html lang="en"> 
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+  <title>Gaze Active Morphing Power Cubes</title>
+
+  <!-- Set styles for this example -->  
+  <link rel="stylesheet" type="text/css" href="style.css" />
+  <style type="text/css" media="screen"> 
+    body {
+      background-color: black;
+      color: white;
+      font-family: 'Lucida Grande', Verdana, Arial;
+      font-size: 12px;
+      background-image: -webkit-gradient(radial,
+                            50% 500, 1,
+                            50% 500, 400,
+                            from(rgba(255, 255, 255, 0.3)),
+                            to(rgba(255, 255, 255, 0)));
+     background-repeat: no-repeat;
+    }
+  </style> 
+
+  <!-- Import text20 libraries -->  
+  <script type="text/javascript" src="jquery.js"></script>
+  <script type="text/javascript" src="jquery.timers.js"></script>
+  <script type="text/javascript" src="text20.js"></script>
+
+
+  <!-- Scripting for class / cube toggling (ignore this for a second) -->  
+  <script type="text/javascript" charset="utf-8"> 
+    function hasClassName(inElement, inClassName)
+    {
+        var regExp = new RegExp('(?:^|\\s+)' + inClassName + '(?:\\s+|$)');
+        return regExp.test(inElement.className);
+    }
+ 
+    function addClassName(inElement, inClassName)
+    {
+        if (!hasClassName(inElement, inClassName))
+            inElement.className = [inElement.className, inClassName].join(' ');
+    }
+ 
+    function removeClassName(inElement, inClassName)
+    {
+        if (hasClassName(inElement, inClassName)) {
+            var regExp = new RegExp('(?:^|\\s+)' + inClassName + '(?:\\s+|$)', 'g');
+            var curClasses = inElement.className;
+            inElement.className = curClasses.replace(regExp, ' ');
+        }
+    }
+ 
+    function toggleClassName(inElement, inClassName)
+    {
+        if (hasClassName(inElement, inClassName))
+            removeClassName(inElement, inClassName);
+        else
+            addClassName(inElement, inClassName);
+    }
+ 
+    function toggleShape()
+    {
+      var shape = document.getElementById('shape');
+      if (hasClassName(shape, 'ring')) {
+        removeClassName(shape, 'ring');
+        addClassName(shape, 'cube');
+      } else {
+        removeClassName(shape, 'cube');
+        addClassName(shape, 'ring');
+      }
+      
+      // Move the ring back in Z so it's not so in-your-face.
+      var stage = document.getElementById('stage');
+      if (hasClassName(shape, 'ring'))
+        stage.style.webkitTransform = 'translateZ(-200px)';
+      else
+        stage.style.webkitTransform = '';
+    }
+    
+    function toggleBackfaces()
+    {
+      var backfacesVisible = document.getElementById('backfaces').checked;
+      var shape = document.getElementById('shape');
+      if (backfacesVisible)
+        addClassName(shape, 'backfaces');
+      else
+        removeClassName(shape, 'backfaces');
+    }
+    
+    
+    
+    // This is our code again, set the onGazeOver / onGazeOut tags ...  
+    $(document).ready(function() {
+        $(".plane").attr("onGazeOver", "$(this).css('background-color', 'red')").attr("onGazeOut", "$(this).css('background-color', '')")  
+    });    
+    
+    // ... and start the plugin
+    text20.core.init()
+  </script> 
+</head>
+ 
+<body> 
+  <!-- Upper control box -->  
+  <div class="controls"> 
+    <h1>Gaze Active Morphing Power Cubes</h1> 
+    <p>This example has been shamelessly stolen from the WebKit project and was made gaze active. Watch in Google Chrome 12 or later!</p>  
+    <div><button onclick="toggleShape()">Toggle Shape</button></div> 
+  </div> 
+ 
+ 
+   <!-- The spinning panels / cube sides -->  
+  <div id="container"> 
+    <div id="stage"> 
+      <div id="shape" class="cube backfaces"> 
+        <div class="plane one">1</div> 
+        <div class="plane two">2</div> 
+        <div class="plane three">3</div> 
+        <div class="plane four">4</div> 
+        <div class="plane five">5</div> 
+        <div class="plane six">6</div> 
+        <div class="plane seven">7</div> 
+        <div class="plane eight">8</div> 
+        <div class="plane nine">9</div> 
+        <div class="plane ten">10</div> 
+        <div class="plane eleven">11</div> 
+        <div class="plane twelve">12</div> 
+      </div> 
+    </div> 
+  </div> 
+  
+</body> 
+</html> 

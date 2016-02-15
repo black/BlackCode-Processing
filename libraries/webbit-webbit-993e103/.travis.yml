@@ -1,0 +1,20 @@
+language: java
+before_script:
+ - "echo $JAVA_OPTS"
+ - "export JAVA_OPTS=-Xmx1024m"
+script: mvn -q clean install
+jdk:
+  - openjdk6
+  - openjdk7
+  - oraclejdk7
+# whitelist
+branches:
+  only:
+    - master
+
+notifications:
+  email:
+    - webbit@googlegroups.com
+  irc:
+    - "irc.freenode.org#webbit"
+

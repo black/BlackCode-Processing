@@ -1,0 +1,18 @@
+##Description
+This sketch calculates the roots of a quadratic equation of the form ax^2 + bx + c.
+It will show the values of the two real roots if they exist otherwise you will 
+be informed that they are complex. This sketch demonstrates use of the IF-THEN-ELSE 
+construct.
+##EndDescription 
+##Code
+a=1; b=-7; c=-30
+numer = b*b - 4*a*c
+IF(numer < 0)
+  println('Complex Roots')
+ELSE
+  numer = sqrt(numer); denom = 2*a
+  root1= (-1 * b + numer)/denom
+  root2= (-1 * b - numer)/denom
+  println(root1 + '  &  ' + root2)
+ENDIF
+##EndCode        

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<obstacles>
+
+<obstacle name = "OB 1">
+<pos x="190" y = "190" />
+<radius value = "12" />
+</obstacle>
+
+<obstacle name = "OB 2">
+<pos x="250" y = "200" />
+<radius value = "16" />
+</obstacle>
+
+<obstacle name = "OB 3">
+<pos x="350" y = "170" />
+<radius value = "24" />
+</obstacle>
+
+<obstacle name = "OB 4">
+<pos x="160" y = "250" />
+<radius value = "11" />
+</obstacle>
+
+<obstacle name = "OB 5">
+<pos x="240" y = "260" />
+<radius value = "13" />
+</obstacle>
+
+<obstacle name = "OB 6">
+<pos x="330" y = "250" />
+<radius value = "16" />
+</obstacle>
+
+<obstacle name = "OB 7">
+<pos x="230" y = "320" />
+<radius value = "19" />
+</obstacle>
+
+<obstacle name = "OB 8">
+<pos x="300" y = "300" />
+<radius value = "8" />
+</obstacle>
+
+<obstacle name = "OB 9">
+<pos x="360" y = "310" />
+<radius value = "20" />
+</obstacle>
+
+<obstacle name = "OB 10">
+<pos x="165" y = "360" />
+<radius value = "15" />
+</obstacle>
+
+<obstacle name = "OB 11">
+<pos x="310" y = "350" />
+<radius value = "9" />
+</obstacle>
+
+<obstacle name = "OB 12">
+<pos x="225" y = "405" />
+<radius value = "20" />
+</obstacle>
+
+<obstacle name = "OB 13">
+<pos x="290" y = "410" />
+<radius value = "10" />
+</obstacle>
+
+<obstacle name = "OB 14">
+<pos x="360" y = "400" />
+<radius value = "17" />
+</obstacle>
+
+</obstacles>

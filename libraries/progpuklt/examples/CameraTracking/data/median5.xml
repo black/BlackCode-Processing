@@ -1,0 +1,5 @@
+<filter name="Median filter">
+    <description>5x5 median de-noising filter</description>
+    <fragment>median5.glsl</fragment>
+    <textures input="1" output="1"></textures>
+</filter>

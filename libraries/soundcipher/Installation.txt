@@ -1,0 +1,5 @@
+SoundCipher Installation
+
+1. Copy the "soundcipher" folder to Processing's libraries directory. For OSX this will require selecting "Show Package Contents" by right-clicking on the application.2. If you want the examples to appear in Processing's file/examples/libraries menu then create a SoundCipher folder in Processing's examples/Libraries directory and copy the "soundcipher (music)" folder into it.3. Restart Processing.
+
+Enjoy.

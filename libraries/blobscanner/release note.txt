@@ -1,0 +1,61 @@
+**************************************
+*                                    *
+*  Blobscanner v 3.4.0 Release note. *
+*                                    *
+**************************************
+10/06/2011
+
+Added the following methods:
+  
+
+
+drawBlobContour(int blobnumber,int contourColor, float thickness)
+
+getEdgePoints(int blobnumber)
+
+getEdgeSize(int blobnumber)
+
+getBlobPixelsLocation(int blobnumber)
+
+isMatch(int x, int y, int blobToMatch)
+
+getBlobNumberAt(int x, int y)
+
+
+
+
+
+The following methods are deprecated:
+
+
+
+
+getEdgeXY()
+
+getEdgeX(int blobnumber,int index)
+
+getEdgeX(int blobnumber,int index)
+
+Use getEdgePoints(int blobnumber) instead.
+
+
+
+Fixed the following bugs:
+
+
+
+Fixed bug which prevented a regular setup of ROI via Detector class constructor.
+Now it is possible to choose an area to scan for blobs smaller than the image size without having to add to the width and to height of that area the x and the y coordinates of the scan starting point.
+
+Fixed false blobs number reading in video(see hand detection example)
+
+
+Other
+
+Restructured the examples directory for a better and easy acces to each method example.
+
+Improved javadoc with many comments for methods usage.
+
+Released hand_gesture_recognition example v 0.0.1. 
+
+

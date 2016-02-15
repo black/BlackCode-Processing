@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>OpenCV::blur() \ language (API)</title>
+	<style type="text/css" media="all">
+		@import "stylesheet.css";
+	</style>
+</head>
+
+<body>
+	<div id="container">
+		
+		<h1 class="light">OPENCV</h1>
+		<p id="nav">/ <a href="index.html">references</a></p>
+		<!--p><b>Reference for @libname library version @version</b></p-->
+		<br class="hide" />
+		<br class="hide" />
+		<table id="main">
+			<tr class="name">
+				<th class="heading">Name</th>
+				<td>blur()</td>
+			</tr>
+			<tr class="example">
+				<th class="heading">Examples</th>
+				<td><img src="images/blur.png" alt="blur" /><pre class="offset">import hypermedia.video.*;
+
+size( 120, 160 );
+
+OpenCV opencv = new OpenCV(this);
+opencv.loadImage("niolon-190607.jpg");
+opencv.ROI( 60, 0, 60, 160 );
+opencv.blur( OpenCV.BLUR, 13 );
+
+image( opencv.image(), 0, 0 );
+<!--
+save("blur.png");
+-->
+</pre></td>
+			</tr>
+			<tr class="description">
+				<th class="heading">Description</th>
+				<td>Smooth the image in one of several ways.
+ <dl>
+ <!--dt>CV_BLUR_NO_SCALE</dt>
+ <dd><em>simple blur with no scaling</em></dd>
+ <dd>for each pixel the result is a sum of pixels values in param1×param2 neighborhood of the 
+ pixel. If the neighborhood size varies from pixel to pixel, compute the sums using integral 
+ image (cvIntegral).</dd-->
+ <dt>CV_BLUR</dt>
+ <dd><em>simple blur</em></dd>
+ <dd>for each pixel the result is a mean of pixel values param1×param2 neighborhood of the 
+ pixel.</dd>
+ <dt>CV_GAUSSIAN</dt>
+ <dd><em>Gaussian blur</em></dd>
+ <dd>the image is smoothed using the Gaussian kernel of size param1×param2. param3 and param4 
+ may optionally be used to specify shape of the kernel.</dd>
+ <dt>CV_MEDIAN</dt>
+ <dd><em>median blur</em></dd>
+ <dd>the image is smoothed using medial filter of size param1×param1. That is, for each pixel 
+ the result is the median computed over param1×param1 neighborhood.</dd>
+ <dt>CV_BILATERAL</dt><dd>bilateral filter</dd>
+ <dd>the image is smoothed using a bilateral 3x3 filter with color sigma=param1 and space 
+ sigma=param2. Information about bilateral filtering can be found at 
+ <a href="http://www.dai.ed.ac.uk/CVonline/LOCAL_COPIES/MANDUCHI1/Bilateral_Filtering.html">
+ Bilateral Filtering</a></dd>
+ </dl></td>
+			</tr>
+			<tr class="syntax">
+				<th class="heading">Syntax</th>
+				<td><code>blur(type, param1);<br />blur(type, param1, param2, param3, param4);<br /></code></td>
+			</tr>
+			
+			<tr class="parameters">
+				<th class="heading">Parameters</th>
+				<td>
+					<table>
+						
+						<tr>
+							<td class="param">param1</td>
+							<td><span class="type">int : </span>The first parameter of smoothing operation. It should be odd (1, 3, 5, …), 
+					so that a pixel neighborhood used for smoothing operation is symmetrical 
+					relative to the pixel.</td>
+						</tr>
+		
+						<tr>
+							<td class="param">param2</td>
+							<td><span class="type">int : </span>The second parameter of smoothing operation. In case of simple 
+					scaled/non-scaled and Gaussian blur if param2 is zero, it is set to param1.
+					When not 0, it should be odd too.</td>
+						</tr>
+		
+						<tr>
+							<td class="param">param3</td>
+							<td><span class="type">float : </span>In case of Gaussian kernel this parameter may specify Gaussian sigma 
+					(standard deviation). If it is zero, it is calculated from the kernel size:
+					sigma = (n/2 - 1)*0.3 + 0.8, where n=param1 for horizontal kernel,
+					n=param2 for vertical kernel. With the standard sigma for small kernels 
+					(3×3 to 7×7) the performance is better. If param3 is not zero, while param1 
+					and param2 are zeros, the kernel size is calculated from the sigma 
+					(to provide accurate enough operation).</td>
+						</tr>
+		
+						<tr>
+							<td class="param">param4</td>
+							<td><span class="type">float : </span>In case of non-square Gaussian kernel the parameter may be used to specify a
+					different (from param3) sigma in the vertical direction.</td>
+						</tr>
+		
+					</table>
+				</td>
+			</tr>
+		
+			
+			<tr class="return">
+				<th class="heading">Return</th>
+				<td>None</td>
+			</tr>
+		
+			<tr class="usage">
+				<th class="heading">Usage</th>
+				<td>Application</td>
+			</tr>
+			<tr class="related">
+				<th class="heading">Related</th>
+				<td></td>
+			</tr>
+		</table>
+
+	</div>
+</body>
+</html>

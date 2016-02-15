@@ -1,0 +1,10 @@
+net.nexttext
+net.nexttext.behaviour
+net.nexttext.behaviour.control
+net.nexttext.behaviour.dform
+net.nexttext.behaviour.physics
+net.nexttext.behaviour.standard
+net.nexttext.input
+net.nexttext.property
+net.nexttext.renderer
+net.nexttext.renderer.util

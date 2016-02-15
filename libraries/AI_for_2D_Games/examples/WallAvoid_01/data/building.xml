@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- building.xml -->
+<buildings>
+
+<building name="A">
+	<pos x="0" y = "0" />
+	<contour>
+		<point x = "0"   y = "0" />
+		<point x = "0"   y = "150" />
+		<point x = "50" y = "150" />
+		<point x = "50" y = "100" />
+		<point x = "100" y = "50" />
+		<point x = "200" y = "50" />
+		<point x = "200"  y = "0" />	
+	</contour>
+</building>
+
+<building name="B">
+	<pos x="0" y = "0" />
+	<contour>
+		<point x = "0"   y = "200" />
+		<point x = "0"   y = "300" />
+		<point x = "200" y = "300" />
+		<point x = "200" y = "250" />
+		<point x = "50" y = "200" />
+	</contour>
+</building>
+
+<building name="C">
+	<pos x="0" y = "0" />
+	<contour>
+		<point x = "150" y = "100" />
+		<point x = "110" y = "150" />
+		<point x = "200" y = "150" />
+		<point x = "200" y = "100" />
+	</contour>
+</building>
+
+<building name="D">
+	<pos x="0" y = "0" />
+	<contour>
+		<point x = "250" y = "0" />
+		<point x = "250" y = "100" />
+		<point x = "350" y = "0" />
+	</contour>
+</building>
+
+<building name="E">
+	<pos x="0" y = "0" />
+	<contour>
+		<point x = "350" y = "300" />
+		<point x = "350" y = "200" />
+		<point x = "300" y = "150" />
+		<point x = "250" y = "200" />
+		<point x = "250" y = "300" />
+	</contour>
+</building>
+
+<building name="F">
+	<pos x="0" y = "0" />
+	<contour>
+		<point x = "400" y = "130" />
+		<point x = "400" y = "220" />
+		<point x = "500" y = "180" />
+	</contour>
+</building>
+
+<building name="G">
+	<pos x="0" y = "0" />
+	<contour>
+		<point x = "400" y = "300" />
+		<point x = "600" y = "300" />
+		<point x = "600" y = "200" />
+	</contour>
+</building>
+
+<building name="H">
+	<pos x="0" y = "0" />
+	<contour>
+		<point x = "400" y = "0" />
+		<point x = "400" y = "50" />
+		<point x = "550" y = "100" />
+		<point x = "600" y = "150" />
+		<point x = "600" y = "0" />
+	</contour>
+</building>
+
+</buildings>

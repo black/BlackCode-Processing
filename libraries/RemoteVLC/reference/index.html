@@ -1,0 +1,299 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>RemoteVLC Reference</title>
+<meta name="description" content="RemoteVLC Reference" />
+<meta name="keywords" content="processing.org, library" />
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-us" />
+<meta name="ROBOTS" content="index,follow,archive" />
+<meta http-equiv="imagetoolbar" content="false" />
+<meta name="MSSmartTagsPreventParsing" content="true" />
+<meta name="author" content="##author##" />
+<meta name="Rating" content="General" />
+<meta name="revisit-after" content="7 Days" />
+<meta name="doc-class" content="Living Document" />
+<link rel="stylesheet" type="text/css" href="./stylesheet.css">
+<style type="text/css">
+.auto-style1 {
+	font-family: "Courier New", Courier, monospace;
+}
+</style>
+</head>
+<body>
+	<div id="container">
+	
+		<div id="header">
+			<h1>RemoteVLC Reference</h1>
+		</div>
+		
+		<div id="menu" class="clear">
+			<ul>
+				<li><a href="http://www.sureskumar.com/RemoteVLC/index.html#about">About</a> \ </li>
+				<li><a href="http://www.sureskumar.com/RemoteVLC/index.html#download">Download</a> \ </li>
+				<li><a href="http://www.sureskumar.com/RemoteVLC/index.html#download">Installation</a> \ </li>
+				<li><a href="http://www.sureskumar.com/RemoteVLC/index.html#examples">Examples</a> \ </li>
+				<li>Reference</li>
+			</ul>
+		</div>
+		
+		<div id="content" class="clear">
+			
+			<div id="about">
+			<p>
+			<table cellpadding="2" style="width: 100%">
+				<tr>
+					<td style="width: 97px; height: 20px;" valign="top"><strong>
+					gotosec()</strong> </td>
+					<td style="height: 20px" valign="top">&nbsp;</td>
+				</tr>
+				<tr>
+					<td style="width: 97px; height: 30px;" valign="top">Discription</td>
+					<td valign="top">Jumps to a specic time (in seconds) in the 
+					currently playing media track.</td>
+				</tr>
+				<tr>
+					<td style="width: 97px; height: 30px;" valign="top">Syntax</td>
+					<td valign="top" class="auto-style1">seek(inSeconds);</td>
+				</tr>
+				<tr>
+					<td style="width: 97px; height: 30px;" valign="top">Parameters</td>
+					<td valign="top">inSeconds&nbsp;&nbsp; -&gt;&nbsp; int: 
+					Specific time to jump (in seconds)</td>
+				</tr>
+			</table>
+			</p>
+			<p>
+				<table cellpadding="2" style="width: 100%">
+				<tr>
+					<td style="width: 97px; height: 20px;" valign="top"><strong>
+					pause()</strong> </td>
+					<td style="height: 20px" valign="top">&nbsp;</td>
+				</tr>
+				<tr>
+					<td style="width: 97px; height: 30px;" valign="top">Discription</td>
+					<td valign="top">Toggles between Pause and Resume for the 
+					currently playing media track.</td>
+				</tr>
+				<tr>
+					<td style="width: 97px; height: 30px;" valign="top">Syntax</td>
+					<td valign="top" class="auto-style1">pause();</td>
+				</tr>
+				</table>
+			</p>
+			<p>
+				<table cellpadding="2" style="width: 100%">
+				<tr>
+					<td style="width: 97px; height: 20px;" valign="top"><strong>
+					play()</strong> </td>
+					<td style="height: 20px" valign="top">&nbsp;</td>
+				</tr>
+				<tr>
+					<td style="width: 97px; height: 30px;" valign="top">Discription</td>
+					<td valign="top">Plays the currently selected media track.</td>
+				</tr>
+				<tr>
+					<td style="width: 97px; height: 30px;" valign="top">Syntax</td>
+					<td valign="top" class="auto-style1">play();</td>
+				</tr>
+				</table>
+			</p>
+			<p>
+				<table cellpadding="2" style="width: 100%">
+				<tr>
+					<td style="width: 97px; height: 20px;" valign="top"><strong>
+					vlcstop()</strong> </td>
+					<td style="height: 20px" valign="top">&nbsp;</td>
+				</tr>
+				<tr>
+					<td style="width: 97px; height: 30px;" valign="top">Discription</td>
+					<td valign="top">Stops the currently playing media track.</td>
+				</tr>
+				<tr>
+					<td style="width: 97px; height: 30px;" valign="top">Syntax</td>
+					<td valign="top" class="auto-style1">vlcstop();</td>
+				</tr>
+				</table>
+			</p>
+			<p>
+				<table cellpadding="2" style="width: 100%">
+				<tr>
+					<td style="width: 97px; height: 20px;" valign="top"><strong>
+					next()</strong> </td>
+					<td style="height: 20px" valign="top">&nbsp;</td>
+				</tr>
+				<tr>
+					<td style="width: 97px; height: 30px;" valign="top">Discription</td>
+					<td valign="top">Jumps to the next media track in the playlist.</td>
+				</tr>
+				<tr>
+					<td style="width: 97px; height: 30px;" valign="top">Syntax</td>
+					<td valign="top" class="auto-style1">next();</td>
+				</tr>
+				</table>
+			</p>
+			<p>
+				<table cellpadding="2" style="width: 100%">
+				<tr>
+					<td style="width: 97px; height: 20px;" valign="top"><strong>
+					previous()</strong> </td>
+					<td style="height: 20px" valign="top">&nbsp;</td>
+				</tr>
+				<tr>
+					<td style="width: 97px; height: 30px;" valign="top">Discription</td>
+					<td valign="top">Jumps to the previous media track in the playlist.</td>
+				</tr>
+				<tr>
+					<td style="width: 97px; height: 30px;" valign="top">Syntax</td>
+					<td valign="top" class="auto-style1">previous();</td>
+				</tr>
+				</table>
+			</p>
+			<p>
+				<table cellpadding="2" style="width: 100%">
+				<tr>
+					<td style="width: 97px; height: 20px;" valign="top"><strong>
+					repeat()</strong> </td>
+					<td style="height: 20px" valign="top">&nbsp;</td>
+				</tr>
+				<tr>
+					<td style="width: 97px; height: 30px;" valign="top">Discription</td>
+					<td valign="top">Toggles between Repeat mode On / Off.</td>
+				</tr>
+				<tr>
+					<td style="width: 97px; height: 30px;" valign="top">Syntax</td>
+					<td valign="top" class="auto-style1">repeat();</td>
+				</tr>
+				</table>
+			</p>
+			<p>
+				<table cellpadding="2" style="width: 100%">
+				<tr>
+					<td style="width: 97px; height: 20px;" valign="top"><strong>
+					vlcloop()</strong> </td>
+					<td style="height: 20px" valign="top">&nbsp;</td>
+				</tr>
+				<tr>
+					<td style="width: 97px; height: 30px;" valign="top">Discription</td>
+					<td valign="top">Toggles between Loop mode On / Off.</td>
+				</tr>
+				<tr>
+					<td style="width: 97px; height: 30px;" valign="top">Syntax</td>
+					<td valign="top" class="auto-style1">vlcloop();</td>
+				</tr>
+				</table>
+			</p>
+			<p>
+				<table cellpadding="2" style="width: 100%">
+				<tr>
+					<td style="width: 97px; height: 20px;" valign="top"><strong>
+					vlcrandom()</strong> </td>
+					<td style="height: 20px" valign="top">&nbsp;</td>
+				</tr>
+				<tr>
+					<td style="width: 97px; height: 30px;" valign="top">Discription</td>
+					<td valign="top">Toggles between Random Play mode On / Off.</td>
+				</tr>
+				<tr>
+					<td style="width: 97px; height: 30px;" valign="top">Syntax</td>
+					<td valign="top" class="auto-style1">vlcrandom();</td>
+				</tr>
+				</table>
+			</p>
+			<p>
+				<table cellpadding="2" style="width: 100%">
+				<tr>
+					<td style="width: 97px; height: 20px;" valign="top"><strong>
+					fastforward()</strong> </td>
+					<td style="height: 20px" valign="top">&nbsp;</td>
+				</tr>
+				<tr>
+					<td style="width: 97px; height: 30px;" valign="top">Discription</td>
+					<td valign="top">Applies the Fastforward command to the currently playing media track.</td>
+				</tr>
+				<tr>
+					<td style="width: 97px; height: 30px;" valign="top">Syntax</td>
+					<td valign="top" class="auto-style1">fastforward();</td>
+				</tr>
+				</table>
+			</p>
+			<p>
+				<table cellpadding="2" style="width: 100%">
+				<tr>
+					<td style="width: 97px; height: 20px;" valign="top"><strong>
+					rewind()</strong> </td>
+					<td style="height: 20px" valign="top">&nbsp;</td>
+				</tr>
+				<tr>
+					<td style="width: 97px; height: 30px;" valign="top">Discription</td>
+					<td valign="top">Applies the Rewind command to the currently playing media track.</td>
+				</tr>
+				<tr>
+					<td style="width: 97px; height: 30px;" valign="top">Syntax</td>
+					<td valign="top" class="auto-style1">rewind();</td>
+				</tr>
+				</table>
+			</p>
+			<p>
+				<table cellpadding="2" style="width: 100%">
+				<tr>
+					<td style="width: 97px; height: 20px;" valign="top"><strong>
+					fullscreen()</strong> </td>
+					<td style="height: 20px" valign="top">&nbsp;</td>
+				</tr>
+				<tr>
+					<td style="width: 97px; height: 30px;" valign="top">Discription</td>
+					<td valign="top">Toggles between Fullscreen mode On and Off</td>
+				</tr>
+				<tr>
+					<td style="width: 97px; height: 30px;" valign="top">Syntax</td>
+					<td valign="top" class="auto-style1">fullscreen();</td>
+				</tr>
+				</table>
+			</p>
+
+			</div>
+			
+			
+			
+			<!-- use the demos section for a list of applets run in a browser. -->
+			<!--
+			<div id="demos" class="clear">
+				<h2>demos</h2>
+				<p>
+				find a list of online applet demos below.
+				
+				<ul>
+					<li><a href="./applets/demo/index.html">demo</a></li>
+				</ul>
+				</p>
+			</div>
+			-->
+			
+			<!-- use the misc section for other relevant information. Activate the link to the misc section in the menu above. -->
+			<!--
+			<div id="misc" class="clear">
+				<p></p>
+			</div>
+			-->
+			
+			<!-- use the images/screenshots section. Activate the link to the misc section in the menu above. -->
+			<!--
+			<div id="images" class="clear">
+			</div>
+			-->
+			
+			
+			<br class="clear" />
+		</div>
+		
+		<div id="footer">
+						<p><strong>LICENSE</strong> - Use this code for whatever you want, 
+			just send me a link to contactsures [at] gmail [dot] com<br />
+			by <a href="http://www.sureskumar.com" target="_blank">Sures Kumar</a></p>
+
+		</div>
+	</div>
+</body>
+</html>

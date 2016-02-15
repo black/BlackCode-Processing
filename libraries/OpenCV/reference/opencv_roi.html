@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>OpenCV::ROI() \ language (API)</title>
+	<style type="text/css" media="all">
+		@import "stylesheet.css";
+	</style>
+</head>
+
+<body>
+	<div id="container">
+		
+		<h1 class="light">OPENCV</h1>
+		<p id="nav">/ <a href="index.html">references</a></p>
+		<!--p><b>Reference for @libname library version @version</b></p-->
+		<br class="hide" />
+		<br class="hide" />
+		<table id="main">
+			<tr class="name">
+				<th class="heading">Name</th>
+				<td>ROI()</td>
+			</tr>
+			<tr class="example">
+				<th class="heading">Examples</th>
+				<td><img src="images/ROI.png" alt="ROI" /><pre class="offset">import hypermedia.video.*;
+
+OpenCV opencv;
+
+size( 240, 180 );
+
+opencv = new OpenCV( this );     // create a new OpenCV Object
+opencv.loadImage( "des.jpg" );   // load image from file
+
+// set the region of interest
+opencv.ROI( 25, 30, 70, 90 );
+
+opencv.threshold(80);            // do something inside
+image( opencv.image(), 0, 0 );   // show in sketch
+<!--
+save("ROI.png");
+-->
+</pre></td>
+			</tr>
+			<tr class="description">
+				<th class="heading">Description</th>
+				<td>Set image region of interest to the given rectangle.
+
+ This methods isolates a sub-section of the current image for all subsequent activity.
+
+ To clear the Region of Interest back to the entire image, call <code>ROI(null);</code></td>
+			</tr>
+			<tr class="syntax">
+				<th class="heading">Syntax</th>
+				<td><code>ROI(rect);<br />ROI(x, y, width, height);<br /></code></td>
+			</tr>
+			
+			<tr class="parameters">
+				<th class="heading">Parameters</th>
+				<td>
+					<table>
+						
+						<tr>
+							<td class="param">rect</td>
+							<td><span class="type">Rectangle : </span>the new region of interest or <code>null</code> to reset</td>
+						</tr>
+		
+						<tr>
+							<td class="param">x</td>
+							<td><span class="type">int : </span>the region x-coordinate</td>
+						</tr>
+		
+						<tr>
+							<td class="param">y</td>
+							<td><span class="type">int : </span>the region y-coordinate</td>
+						</tr>
+		
+						<tr>
+							<td class="param">width</td>
+							<td><span class="type">int : </span>the region width</td>
+						</tr>
+		
+						<tr>
+							<td class="param">height</td>
+							<td><span class="type">int : </span>the region height</td>
+						</tr>
+		
+					</table>
+				</td>
+			</tr>
+		
+			
+			<tr class="return">
+				<th class="heading">Return</th>
+				<td>None</td>
+			</tr>
+		
+			<tr class="usage">
+				<th class="heading">Usage</th>
+				<td>Application</td>
+			</tr>
+			<tr class="related">
+				<th class="heading">Related</th>
+				<td></td>
+			</tr>
+		</table>
+
+	</div>
+</body>
+</html>

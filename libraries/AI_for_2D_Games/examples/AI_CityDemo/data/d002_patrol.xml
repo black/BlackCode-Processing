@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<vehicles>
+
+<vehicle name="Leader">
+	<pos x="0" y = "0" />
+	<velocity x="0" y = "0" />
+	<heading x="1" y = "0" />
+	<collision_radius value="8" />
+	<max_speed value="70" />
+	<mass value="1" />
+	<max_turn_rate value="8" />
+	<max_force value="500" />		
+</vehicle>
+
+<vehicle name="Patrolman 1">
+	<pos x="-20" y = "-12" />
+	<velocity x="0" y = "0" />
+	<heading x="1" y = "0" />
+	<collision_radius value="8" />
+	<max_speed value="100" />
+	<mass value="1" />
+	<max_turn_rate value="8" />
+	<max_force value="150" />		
+</vehicle>
+
+<vehicle name="Patrolman 2">
+	<pos x="-20" y = "12" />
+	<velocity x="0" y = "0" />
+	<heading x="1" y = "0" />
+	<collision_radius value="8" />
+	<max_speed value="100" />
+	<mass value="1" />
+	<max_turn_rate value="8" />
+	<max_force value="150" />		
+</vehicle>
+
+<vehicle name="Patrolman 3">
+	<pos x="-40" y = "-12" />
+	<velocity x="0" y = "0" />
+	<heading x="1" y = "0" />
+	<collision_radius value="8" />
+	<max_speed value="100" />
+	<mass value="1" />
+	<max_turn_rate value="8" />
+	<max_force value="150" />			
+</vehicle>
+
+<vehicle name="Patrolman 4">
+	<pos x="-40" y = "12" />
+	<velocity x="0" y = "0" />
+	<heading x="1" y = "0" />
+	<collision_radius value="8" />
+	<max_speed value="100" />
+	<mass value="1" />
+	<max_turn_rate value="8" />
+	<max_force value="150" />		
+</vehicle>
+
+<vehicle name="Patrolman 5">
+	<pos x="-60" y = "-12" />
+	<velocity x="0" y = "0" />
+	<heading x="1" y = "0" />
+	<collision_radius value="8" />
+	<max_speed value="100" />
+	<mass value="1" />
+	<max_turn_rate value="8" />
+	<max_force value="150" />			
+</vehicle>
+
+<vehicle name="Patrolman 6">
+	<pos x="-60" y = "12" />
+	<velocity x="0" y = "0" />
+	<heading x="1" y = "0" />
+	<collision_radius value="8" />
+	<max_speed value="100" />
+	<mass value="1" />
+	<max_turn_rate value="8" />
+	<max_force value="150" />		
+</vehicle>
+
+</vehicles>

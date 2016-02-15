@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<obstacles>
+
+<obstacle name = "A">
+<pos x="85" y = "75" />
+<radius value = "15" />
+</obstacle>
+
+<obstacle name = "B">
+<pos x="225" y = "125" />
+<radius value = "25" />
+</obstacle>
+
+<obstacle name = "C">
+<pos x="395" y = "95" />
+<radius value = "25" />
+</obstacle>
+
+<obstacle name = "D">
+<pos x="519" y = "90" />
+<radius value = "18" />
+</obstacle>
+
+<obstacle name = "E">
+<pos x="300" y = "250" />
+<radius value = "45" />
+</obstacle>
+
+<obstacle name = "F">
+<pos x="130" y = "240" />
+<radius value = "30" />
+</obstacle>
+
+<obstacle name = "G">
+<pos x="490" y = "240" />
+<radius value = "25" />
+</obstacle>
+
+<obstacle name = "H">
+<pos x="80" y = "320" />
+<radius value = "10" />
+</obstacle>
+
+<obstacle name = "I">
+<pos x="60" y = "440" />
+<radius value = "10" />
+</obstacle>
+
+<obstacle name = "J">
+<pos x="230" y = "400" />
+<radius value = "30" />
+</obstacle>
+
+<obstacle name = "K">
+<pos x="380" y = "360" />
+<radius value = "12" />
+</obstacle>
+
+<obstacle name = "L">
+<pos x="300" y = "500" />
+<radius value = "24" />
+</obstacle>
+
+<obstacle name = "M">
+<pos x="500" y = "510" />
+<radius value = "30" />
+</obstacle>
+
+<obstacle name = "N">
+<pos x="100" y = "530" />
+<radius value = "22" />
+</obstacle>
+
+
+
+</obstacles>

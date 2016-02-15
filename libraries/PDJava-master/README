@@ -1,0 +1,8 @@
+A collection of noise-making prototypes linking Java to PureData over a socket, using Processing as a graphics and network library.
+
+This code is released under the GNU Lesser General Public License:
+http://www.gnu.org/licenses/lgpl.html
+
+Enjoy!
+
+-- Curran Kelleher 12/25/2010

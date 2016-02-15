@@ -1,0 +1,16 @@
+#N canvas 1802 275 450 484 10;
+#X obj 7 82 osc~;
+#X obj -49 -137 pack s 0;
+#X msg -49 -118 \; \$1 \$2 \;;
+#X obj 6 -31 r osc1_freq;
+#X obj -4 141 dac~;
+#X obj -49 -163 netreceive 3002;
+#X obj 72 55 print x;
+#X obj 6 12 * 1000;
+#X connect 0 0 4 0;
+#X connect 0 0 4 1;
+#X connect 1 0 2 0;
+#X connect 3 0 7 0;
+#X connect 5 0 1 0;
+#X connect 7 0 0 0;
+#X connect 7 0 6 0;

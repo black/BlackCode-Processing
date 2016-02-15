@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>OpenCV::loadImage() \ language (API)</title>
+	<style type="text/css" media="all">
+		@import "stylesheet.css";
+	</style>
+</head>
+
+<body>
+	<div id="container">
+		
+		<h1 class="light">OPENCV</h1>
+		<p id="nav">/ <a href="index.html">references</a></p>
+		<!--p><b>Reference for @libname library version @version</b></p-->
+		<br class="hide" />
+		<br class="hide" />
+		<table id="main">
+			<tr class="name">
+				<th class="heading">Name</th>
+				<td>loadImage()</td>
+			</tr>
+			<tr class="example">
+				<th class="heading">Examples</th>
+				<td><img src="images/loadImage.png" alt="loadImage" /><pre class="offset">import hypermedia.video.*;
+
+size( 200, 200 );
+
+OpenCV opencv = new OpenCV( this );
+opencv.loadImage( "niolon.jpg", width, height );   // fit OpenCV image to the PApplet size
+
+image( opencv.image(), 0, 0 );                     // display OpenCV buffer
+image( loadImage("niolon.jpg"), 0, 0);             // show image source
+<!--
+save("loadImage.png");
+-->
+</pre></td>
+			</tr>
+			<tr class="description">
+				<th class="heading">Description</th>
+				<td>Load an image from the specified file.
+ <p>Currently the following file formats are supported:</p>
+ <ul>
+ <li>Windows bitmaps - BMP, DIB</li>
+ <li>JPEG files - JPEG, JPG, JPE</li>
+ <li>Portable Network Graphics - PNG</li>
+ <li>Portable image format - PBM, PGM, PPM</li>
+ <li>Sun rasters - SR, RAS</li>
+ <li>TIFF files - TIFF, TIF</li>
+ </ul>
+ <p><i>note : this method automatically updates previous memory allocation</i></p>
+
+ Currently there is an impressive OpenCV-caused memory leak on Macintosh computers
+ when recalling this method successively. To fix this bug, load the image file from
+ Processing and pass the pixels over using <code>copy()</code>.</td>
+			</tr>
+			<tr class="syntax">
+				<th class="heading">Syntax</th>
+				<td><code>loadImage(file);<br />loadImage(file, width, height);<br /></code></td>
+			</tr>
+			
+			<tr class="parameters">
+				<th class="heading">Parameters</th>
+				<td>
+					<table>
+						
+						<tr>
+							<td class="param">file</td>
+							<td><span class="type">String : </span>String : the name of file to be loaded</td>
+						</tr>
+		
+						<tr>
+							<td class="param">width</td>
+							<td><span class="type">int : </span>the destination image (buffer) width size</td>
+						</tr>
+		
+						<tr>
+							<td class="param">height</td>
+							<td><span class="type">int : </span>the destination image (buffer) height size</td>
+						</tr>
+		
+					</table>
+				</td>
+			</tr>
+		
+			
+			<tr class="return">
+				<th class="heading">Return</th>
+				<td>None</td>
+			</tr>
+		
+			<tr class="usage">
+				<th class="heading">Usage</th>
+				<td>Application</td>
+			</tr>
+			<tr class="related">
+				<th class="heading">Related</th>
+				<td></td>
+			</tr>
+		</table>
+
+	</div>
+</body>
+</html>

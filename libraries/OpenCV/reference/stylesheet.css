@@ -1,0 +1,185 @@
+
+
+
+
+body
+{
+	margin: 70px;
+	margin-top: 30px;
+	font-family: verdana, arial, sans-serif;
+	font-size: 10px;
+	color: #434343;
+	background-color: white;
+}
+
+.hide,
+.hidden
+{
+	display: none;
+}
+
+a
+{
+	color: red;
+	background-color: inherit;
+	text-decoration: none;
+}
+
+a:hover
+{
+	background-color: red;
+	color: white;
+	padding: 1px 3px 1px 3px;
+}
+
+h1
+{
+    padding-left: 300px;
+	color: red;
+	background-color: inherit;
+	font-size: 300%;
+	line-height: 1.0em;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+h2 {
+    margin-top: 0px;
+    margin-bottom: 40px;
+}
+
+h1.light
+{
+    padding-left: 0px;
+	color: #eee;
+	background-color: inherit;
+	line-height: 1.0em;
+	margin-bottom: 0;
+}
+
+h3 {
+    margin-top: 50px;
+}
+
+ul, ol {
+    margin-left: 0px;
+    padding-left: 0px;
+}
+
+ol li ul {
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+
+/* -- INDEX.HTML DIV ---------------------------------------------------------------------------- */
+
+#methods { 
+    position: absolute;
+    top: 100px;
+    left: 70px;
+    width: 200px;
+}
+
+#description {
+    position: absolute:
+    top: 100px;
+    padding-left: 300px;
+}
+
+
+/* -- NAVIGATION P ------------------------------------------------------------------------------ */
+
+#nav
+{
+	margin-top: -10px; 
+}
+
+
+/* -- MAIN TABLE -------------------------------------------------------------------------------- */
+
+#main
+{
+	margin-top: 47px;
+	border-spacing: 7px;
+	width: 800px;
+}
+
+
+/* -- COMMONS TABLE's STYLES -------------------------------------------------------------------- */
+
+th
+{
+	font-weight: normal;
+	vertical-align: top;
+	text-align: right;
+}
+
+th.heading
+{
+	color: #C6CAC4;
+	background-color: inherit;
+	padding: 1px 17px 17px 0;
+	font-style: italic;
+	width: 170px;
+}
+
+td
+{
+	vertical-align: top;
+	text-align: justify;
+}
+
+
+/* -- SPECIFIC STYLES --------------------------------------------------------------------------- */
+
+/* NAME */
+tr.name th { padding-top: 10px; }
+tr.name td
+{
+	font-size: 200%;
+	font-weight: bold;
+	color: red;
+	background-color: inherit;
+}
+
+/* EXAMPLE */
+tr.example img
+{
+	float: left;
+	width: 120px;
+	height: 90px;
+}
+tr.example pre
+{
+	margin-top: 0px;
+	margin-bottom: 33px;
+}
+tr.example pre.offset
+{
+	margin-top: 0px;
+	padding-left: 137px;
+	margin-bottom: 33px;
+	/*width: 479px;*/
+}
+
+/* SYNTAX */ 
+tr.syntax td
+{
+	padding: 13px;
+	color: black;
+	background-color: inherit;
+	border: 1px #E2E2E2 dashed;
+}
+
+/* PARAMETERS / FIELDS / METHODS */
+tr.parameters th { padding-top: 5px; }
+tr.parameters td.param,
+tr.items td.item
+{
+	padding-right: 33px;
+}
+tr.items td.item a
+{
+	padding: 0 3px 0 3px;
+}

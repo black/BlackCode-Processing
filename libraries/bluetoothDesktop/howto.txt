@@ -1,0 +1,22 @@
+The bluetoothDesktop library originated from Mobile Processings Bluetooth library.
+I just ported it to Processing and made some minor changes (like Events).
+
+extrapixel, 2007
+www.extrapixel.ch/processing/bluetoothDesktop/
+paede@extrapixel.ch (please post support questions in the processing.org/discourse forum, thanks!)
+
+
+------------------------------------------------------------------------------------------
+How to install bluetoothDesktop:
+------------------------------------------------------------------------------------------
+
+
+1. place the folder "bluetoothDesktop" into Processings libraries folder.
+
+2. done. 
+
+
+------------------------------------------------------------------------------------------
+OS X:
+------------------------------------------------------------------------------------------
+if your getting errors about the "avetanaBT.jar", just delete that file from the library folder

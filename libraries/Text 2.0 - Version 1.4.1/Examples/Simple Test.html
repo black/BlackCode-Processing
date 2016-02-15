@@ -1,0 +1,65 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+       
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+	    <!-- Style goes here -->
+	    <link rel="stylesheet" type="text/css" href="style.css" />
+
+	    <!-- Include what we need -->
+	    <script type="text/javascript" src="jquery.js"></script>
+	    <script type="text/javascript" src="jquery.timers.js"></script>
+	    <script type="text/javascript" src="text20.js"></script>
+
+		<!-- Manually bring up the plugin -->
+		<script type="text/javascript">
+
+		    // Fancy stuff goes here (just ignore this)
+			function c() {
+	            var x = function() { var n = Math.floor(Math.random()*256).toString(16); if (n.length < 2) { n = "0" + n }; return n; };
+	            return '#' + x() + x() + x();
+	        };
+
+			// Configure the plugins (optional)
+	        text20.connector.config.extensions = ["extensions/yodeling.jar"];
+			text20.connector.config.useObjectTag = true;
+            text20.connector.config.recordingEnabled = true;
+
+	        // Register startup listener (optional)
+	        text20.connector.listener("INITIALIZED", function() {
+                // Register some text for later evaluation (Also optional. You 
+                // only require core.init() below!)
+	            var sentence = $("body").get(0);
+
+	            var allTextNodes = text20.dom.textnodesBelow(sentence);
+	            var allSpans = text20.dom.spanify(allTextNodes);
+
+	            text20.core.register(allSpans);
+				text20.core.register($("#img"));
+	        });
+            
+            // Print some debug information on each new fixation (optional)
+            text20.connector.listener("fixation", function(evt) {
+                if(evt.type != "END") return;
+                $("#debug").html("Fixation (" + evt.x + "/" + evt.y + ") " + evt.duration + "ms, " + evt.meanderivation + "px")
+            });            
+
+	        // THIS IS THE ONLY LINE YOU REALLY NEED!
+	        text20.core.init();
+		</script>
+	</head>
+
+	<body>
+	    <div id="fixationsample" onFixation="$('#fixationsample').css('background-color', c())">Changes color on every fixation.</div>
+		<br/><br/><br/><br/>
+	    <div id="gazeoversample" onGazeOver="$('#img').attr('src', 'images/paradog.png')" onGazeOut="$('#img').attr('src', 'images/spacer.gif')">Acts when you enter or leave.<br><img id='img' src="images/spacer.gif"/></div>
+        <br/><br/><br/><br/>
+        <div id="debug" onclick="text20.connector.extensions.diagnosticOverlay()"></div>
+	</body>
+</html>
+
+

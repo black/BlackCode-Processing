@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>OpenCV::cascade() \ language (API)</title>
+	<style type="text/css" media="all">
+		@import "stylesheet.css";
+	</style>
+</head>
+
+<body>
+	<div id="container">
+		
+		<h1 class="light">OPENCV</h1>
+		<p id="nav">/ <a href="index.html">references</a></p>
+		<!--p><b>Reference for @libname library version @version</b></p-->
+		<br class="hide" />
+		<br class="hide" />
+		<table id="main">
+			<tr class="name">
+				<th class="heading">Name</th>
+				<td>cascade()</td>
+			</tr>
+			<tr class="example">
+				<th class="heading">Examples</th>
+				<td><img src="images/faceDetect.png" alt="faceDetect" /><pre class="offset">import hypermedia.video.*;
+
+OpenCV opencv;
+
+void setup() {
+
+    size( 320, 240 );
+
+    opencv = new OpenCV(this);
+    opencv.capture( width, height );
+    opencv.cascade( OpenCV.CASCADE_FRONTALFACE_ALT );    // load the FRONTALFACE description file
+}
+
+void draw() {
+    
+    opencv.read();
+    image( opencv.image(), 0, 0 );
+    
+    // detect anything ressembling a FRONTALFACE
+    Rectangle[] faces = opencv.detect();
+    
+    // draw detected face area(s)
+    noFill();
+    stroke(255,0,0);
+    for( int i=0; i&lt;faces.length; i++ ) {
+        rect( faces[i].x, faces[i].y, faces[i].width, faces[i].height ); 
+    }
+}
+<!--
+void keyPressed() {
+    if( key==' ' ) save("faceDetect.png");
+}
+-->
+</pre></td>
+			</tr>
+			<tr class="description">
+				<th class="heading">Description</th>
+				<td>Load into memory the descriptor file for a trained cascade classifier.
+ Required by the object detection method (see <code>detect()</code>).
+
+ <p>While you may use your own cascade description files, this library links as well to a standard family of detection cascades (<code>CASCADE_FRONTALFACE_DEFAULT</code>, <code>CASCADE_FULLBODY</code>, …). These are installed automatically in the Windows installer and most Linux packages. For those using Macs, we have included these files in our <code>opencv-framework-*.*.dmg</code> installer. If you use a different Mac installer, you will have to import these files on your own.</p>
+
+ <p>It is recommended that you avoid loading the file at each cycle.</p>
+
+ <p>Available detection cascade flags :</p>
+
+ <ul>
+ <li>CASCADE_FRONTALFACE_ALT_TREE</li>
+ <li>CASCADE_FRONTALFACE_ALT</li>
+ <li>CASCADE_FRONTALFACE_ALT2</li>
+ <li>CASCADE_FRONTALFACE_DEFAULT</li>
+ <li>CASCADE_PROFILEFACE</li>
+ <li>CASCADE_FULLBODY</li>
+ <li>CASCADE_LOWERBODY</li>
+ <li>CASCADE_UPPERBODY</li>
+ </ul></td>
+			</tr>
+			<tr class="syntax">
+				<th class="heading">Syntax</th>
+				<td><code>cascade(file);<br /></code></td>
+			</tr>
+			
+			<tr class="parameters">
+				<th class="heading">Parameters</th>
+				<td>
+					<table>
+						
+						<tr>
+							<td class="param">file</td>
+							<td><span class="type">String : </span>The filepath, or standard cascade flag (see above) of the Haar classifier cascade file to be used for object detection</td>
+						</tr>
+		
+					</table>
+				</td>
+			</tr>
+		
+			
+			<tr class="return">
+				<th class="heading">Return</th>
+				<td>None</td>
+			</tr>
+		
+			<tr class="usage">
+				<th class="heading">Usage</th>
+				<td>Application</td>
+			</tr>
+			<tr class="related">
+				<th class="heading">Related</th>
+				<td><a href="opencv_detect.html">detect()</a><br />
+</td>
+			</tr>
+		</table>
+
+	</div>
+</body>
+</html>

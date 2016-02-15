@@ -1,0 +1,239 @@
+/*
+ *  Copyright (c) 2008 by Andrew R. Brown
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU Library General Public License as published
+ *   by the Free Software Foundation; either version 2 of the License, or
+ *   (at your option) any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU Library General Public License for more details.
+ *
+ *   You should have received a copy of the GNU Library General Public
+ *   License along with this program; if not, write to the Free Software
+ *   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+package arb.soundcipher;
+
+import javax.sound.midi.*;
+
+import javax.sound.sampled.*;
+import java.io.File;
+
+import java.applet.AudioClip;
+
+public class SoundCipher {
+
+    private SCScore score = new SCScore();
+    private int instrument = 0;
+    private int channel = 0;
+    private double tempo = 120.0;
+    private int pan = 64;
+
+    public void playNote(int pitch, int dynamic, double rhythmValue) {
+	this.playNote(0.0, this.channel, this.instrument, pitch, dynamic, 
+		      rhythmValue, rhythmValue * 0.8, this.pan);
+    } 
+
+    public void playNote(double startBeat, int channel, int instrument, 
+			 int pitch, int dynamic, double rhythmValue,
+			 double length, int pan) {
+	score.stop();	
+	score.empty();
+	score.addNote(startBeat, channel, instrument, pitch, dynamic, rhythmValue, 
+		  length, pan);
+	score.play();
+    }
+
+    public void playPhrase(int[] pitches, int[] dynamics, double[] rhythmValues) {
+	double[] lengths = new double[rhythmValues.length];
+	int[] pans = new int[rhythmValues.length];
+	for(int i=0; i<lengths.length; i++) {
+	    lengths[i] = rhythmValues[i] * 0.8;
+	    pans[i] = this.pan;
+	}
+	this.playPhrase(0.0, this.channel, this.instrument, pitches, dynamics, 
+			rhythmValues, lengths, pans);
+    } 
+    
+    public void playPhrase(double startBeat, int channel, int instrument, 
+			   int[] pitches, int[] dynamics, double[] rhythmValues,
+			   double[] lengths, int[] pans) {
+	score.stop();	
+	score.empty();
+	score.addPhrase(startBeat, channel, instrument, pitches, dynamics, 
+		    rhythmValues, lengths, pans);
+	score.play();
+    }
+    
+    
+    public void playChord(int[] pitches, int dynamic, double rhythmValue) {
+	this.playChord(0.0, this.channel, this.instrument, pitches, dynamic, 
+		      rhythmValue, rhythmValue * 0.8, this.pan);
+    } 
+
+    public void playChord(double startBeat, int channel, int instrument, 
+			  int[] pitches, int dynamic, double rhythmValue,
+			  double length, int pan) {
+	score.stop();	
+	score.empty();
+	score.addChord(startBeat, channel, instrument, pitches, dynamic, 
+		   rhythmValue, length, pan);
+	score.play();
+    }
+
+    public void setInstrument(int instrumentNumber) {
+	this.instrument = instrumentNumber;
+    }
+
+    public int getInstrument() {
+	return this.instrument;
+    }
+
+    public void setChannel(int channelNumber) {
+	this.channel = channelNumber;
+    }
+
+    public int getChannel() {
+	return this.channel;
+    }
+
+    public void setTempo(double newTempo) {
+	this.tempo = newTempo;
+	score.setTempo(newTempo);
+    }
+
+    public double getTempo() {
+	return tempo;
+    }
+
+    public void setPan(int newPanVal) {
+	this.pan = newPanVal;
+    }
+
+    public int getPan() {
+	return this.pan;
+    }
+
+    static public SCScore newScore() {
+	return new SCScore();
+    }
+
+    // audio
+    public void playAudioFile(String fileLocation) {
+	//soundFilePlaying = false;
+	try{
+	    File soundFile = new File(fileLocation);
+	    AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+	    new AudioFilePlayThread(audioInputStream).start();
+	}catch (Exception e) {
+	    System.out.println("SoundCipher error: in playSoundFile()");
+	    e.printStackTrace();
+	}
+    }
+
+    //Inner class to play back the data from the audio file.
+    // This class adapted from one by Richard G. Baldwin
+    // http://www.developer.com/java/other/article.php/2173111
+    class AudioFilePlayThread extends Thread{
+	byte tempBuffer[] = new byte[1024];
+	private AudioInputStream audioInputStream;
+
+	public AudioFilePlayThread(AudioInputStream audioInputStream ) {
+	    this.audioInputStream = audioInputStream;
+	}
+	
+	public void run(){
+	    try{
+		AudioFormat audioFormat  = audioInputStream.getFormat();
+		DataLine.Info dataLineInfo = new DataLine.Info(SourceDataLine.class, audioFormat);
+		SourceDataLine sourceDataLine =(SourceDataLine)AudioSystem.getLine(dataLineInfo);
+		sourceDataLine.open(audioFormat);
+		sourceDataLine.start();
+		
+		int cnt;
+		while((cnt = audioInputStream.read(tempBuffer,0,tempBuffer.length)) != -1){
+		    if(cnt > 0){
+			sourceDataLine.write(tempBuffer, 0, cnt);
+		    }
+		}
+		sourceDataLine.drain();
+		sourceDataLine.stop();
+		sourceDataLine.close();
+		//soundFilePlaying = false;
+	    }catch (Exception e) {
+		System.out.println("SoundCipher error: in audio class PlayThread ");
+		e.printStackTrace();
+	    }
+	}
+    }//end inner class PlayThread
+
+    // audio clip
+    public AudioClip loadAudioClip(String fileLocation) {
+	AudioClip clip = null;
+	try {
+	    clip = java.applet.Applet.newAudioClip(new java.net.URL("file://" + fileLocation));
+	} catch (java.net.MalformedURLException e) {
+	    e.printStackTrace();
+	}
+	return clip;
+    }
+
+    public void playAudioClip(AudioClip clip) {
+	clip.play();
+    }
+
+    public void playAudioClip(String fileLocation) {
+	AudioClip clip = null;
+	try {
+	    clip = java.applet.Applet.newAudioClip(new java.net.URL("file://" + fileLocation));
+	    clip.play();
+	} catch (java.net.MalformedURLException e) {
+	    e.printStackTrace();
+	}
+    }
+
+    // midi output
+    // for the MIDI device info to be avilioble on Mac OSX you need
+    // to install Bob Lang's Mandalone Java extension.
+    // http://www.mandolane.co.uk/
+
+    static public void midiInfo() {
+	try {
+	    MidiDevice.Info[]  midiDeviceInfo = MidiSystem.getMidiDeviceInfo();
+	    for (int i=0; i<midiDeviceInfo.length; i++) {
+		System.out.println("Java MIDI Device number " +i + " : Name =  " + midiDeviceInfo[i].getName() + 
+				   ". Vendor =  " + midiDeviceInfo[i].getVendor());
+	    }
+	} catch (Exception e) {
+	    System.out.println("SoundCipher error: in midiInfo() ");
+	    e.printStackTrace();
+	}
+    }
+
+    static public void setMidiOutput(int deviceNumber) {
+	try {
+	    System.out.println("=== Resetting MIDI output device ====");
+	    MidiDevice.Info[]  midiDeviceInfo = MidiSystem.getMidiDeviceInfo();
+	    for (int i=0; i<midiDeviceInfo.length; i++) {
+		//if (midiDeviceInfo[i].getName().matches("OUT")) {
+		    if (i != deviceNumber) {
+			if (MidiSystem.getMidiDevice(midiDeviceInfo[i]).isOpen()) {
+			    MidiSystem.getMidiDevice(midiDeviceInfo[i]).close();
+			    System.out.println(midiDeviceInfo[i].getName() + " is now closed.");
+			}
+		    } else {
+			MidiSystem.getMidiDevice(midiDeviceInfo[i]).open();
+			System.out.println(midiDeviceInfo[i].getName() + " is now open.");
+		    }
+		    //	}
+	    }
+	} catch (javax.sound.midi.MidiUnavailableException mue) {
+	    System.out.println("SoundCipher error: in setMidiOutput() ");
+	    mue.printStackTrace();
+	}
+    }	
+}

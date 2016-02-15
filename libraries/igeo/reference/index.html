@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>
+iGeo API Javadoc
+</TITLE>
+<SCRIPT type="text/javascript">
+    targetPage = "" + window.location.search;
+    if (targetPage != "" && targetPage != "undefined")
+        targetPage = targetPage.substring(1);
+    if (targetPage.indexOf(":") != -1)
+        targetPage = "undefined";
+    function loadFrames() {
+        if (targetPage != "" && targetPage != "undefined")
+             top.classFrame.location = top.targetPage;
+    }
+</SCRIPT>
+
+<script type="text/javascript" src="../jquery-1.7.2.min.js"></script>
+<script type="text/javascript">
+      
+      var resz = function(){
+      var totalHeight = $(window).height();
+      var headerHeight=200;
+      var height1 = 200;
+      
+      if(height1>(totalHeight-headerHeight)/2){
+        height1 = (totalHeight-headerHeight)/2;
+      }
+      
+      var height2 = totalHeight - height1-headerHeight;
+      var height3 = totalHeight - headerHeight;
+      var width1 = 200;
+      var width2 = $(window).width()-width1;
+      var minwidth2 = 965 - width1;
+      if(width2<minwidth2)width2 = minwidth2;
+      
+      $('#frame1').css({
+      'height': height1,
+      'width': width1
+      });
+      
+      $('#frame2').css({
+      'height': height2,
+      'width': width1
+      });
+      
+      $('#frame3').css({
+      'height': height3,
+      'width': width2
+      });
+      
+      };
+      $(document).ready(
+      function(){
+      resz();
+      $('#top').css({
+      "background-image":"url(../img/doc_bg2.png)"
+      });
+      }
+      );
+      $(window).resize(resz);
+      
+</script>
+<?php $basepath='..'; include '../igeocode.html';?>
+
+<NOSCRIPT>
+</NOSCRIPT>
+</HEAD>
+
+<body id="body" style="background-image:url(../img/doc_bg.png);">
+<?php $basepath='..'; include '../header.html';?>
+
+  <table width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;">
+      <tr>
+	<td width="10%">
+	  <iframe id="frame1" src="overview-frame.html" name="packageListFrame" frameborder="0" marginwidth="0"></iframe>
+	  <iframe id="frame2" src="allclasses-frame.html" name="packageFrame" frameborder=0></iframe>
+	</td>
+	<td width="80%">
+	  <iframe id="frame3" src="overview-summary.html" name="classFrame" frameborder="0" marginwidth="0" width="100%"></iframe>
+	</td>
+      </tr>
+  </table>
+  
+<!----    
+<FRAMESET cols="20%,80%" title="" onLoad="top.loadFrames()" frameborder=0>
+    <FRAMESET rows="30%,70%" title="" onLoad="top.loadFrames()" frameborder=0>
+      <FRAME src="overview-frame.html" name="packageListFrame" title="All Packages">
+      <FRAME src="allclasses-frame.html" name="packageFrame" title="All classes and interfaces (except non-static nested types)">
+    </FRAMESET>
+    <FRAME src="overview-summary.html" name="classFrame" title="Package, class and interface descriptions" scrolling="yes">
+    <NOFRAMES>
+	<H2>Frame Alert</H2>
+	<P>
+	  This document is designed to be viewed using the frames feature. If you see this message, you are using a non-frame-capable web client.
+	  <BR>
+	  Link to<A HREF="overview-summary.html">Non-frame version.</A>
+    </NOFRAMES>
+  </FRAMESET>
+-->
+</body>
+
+</HTML>

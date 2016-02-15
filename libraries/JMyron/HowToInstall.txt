@@ -1,0 +1,25 @@
+
+
+*** INSTALLING JMYRON ***
+
+
+Copy the "JMyron" folder found in this directory into the Processing/libraries directory.
+
+Copy the "JMyron Examples" folder into your Processing Examples folder.
+
+IMPORTANT FOR WINDOWS USERS:
+there is a folder called "Extra DLLs" - those are DLLs that JMyron depends on so make sure they're copied into your system's DLL search path - such as the Processing root directory, or even C:\windows\System32.
+
+
+If Processing is already running, then restart it.
+
+To import the library into your sketch, choose the menu "Sketch > Import Library > JMyron" and you will see "import JMyron.*;" appear at the top of the sketch. From here, please see the Examples folder for simple ways to see the camera. The most basic example is the "Myron_simpleCamera" sketch.
+
+
+
+JMyron
+http://webcamxtra.sourceforge.net
+
+
+
+

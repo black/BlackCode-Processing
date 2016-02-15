@@ -1,0 +1,479 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>GeneticAlgorithm</title>
+<link href="../../../steed1.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+<!--
+.style2 {color: #990000}
+-->
+</style>
+</head>
+
+<body>
+<div class="steed2">
+<h3>GeneticAlgorithm class </h3>
+<p>The genetic algorithm (GA) hosts an ArrayList of Chromosomes. The Chromosomes
+  contain an integer array called &quot;dna&quot;. Each position in the array has an upper limit called valueLength. Values in the dna array range from 0 to valueLength - 1. The dna values can represent numbers, an index to objects, traits such as eye colour or skin tone or other things such as letters of the alphabet. </p>
+<p>If you need to use the propagate() method in the library you will need to extend the GeneticAlgorithm class. The following example gives an idea of how the GeneticAlgorithm class can
+  be extended and is included in the download:</p>
+<form>
+<textarea rows="30" cols="100" wrap="physical" name="code">
+// This extension of GeneticAlgorithm searches for a combination of 5 numbers that add up to a target value
+
+class Sum extends GeneticAlgorithm{
+
+  // Variables specific to your task can go here
+
+  int target;
+
+  Sum(int target){
+
+    // The first line must be a call to GeneticAlgorithm's constructor
+    // The constructor defines (dnaLength, valueLength, poolSize) and initialises default variables
+    // If you are using the method propagate() the poolSize must be divisible by 2
+    // This algorithm is set to split dna at the binary level, experiment to see if you need this feature
+
+    super(5, 32, 30, true);
+
+    // Update your variables here
+    // This is also the place to modify the GeneticAlgorithm's fields
+
+    this.target = target;
+
+  }
+
+  // A method overriding scoreFitness must be defined for this task.
+  // The better a Chromosome's dna is at doing it's job, the lower it's fitness should be
+  // fitness should be a value ranging from 0 (perfect) to 1 (useless)
+  // if you don't override scoreFitness, it will always return 1
+  // In the following example the values in dna are being added together to see if they match a target
+
+  float scoreFitness(Chromosome o){
+    int total = 0;
+    for(int i = 0; i < dnaLength; i++){
+      if(o.dna[i] < valueLength){
+        total += o.dna[i];
+      }
+    }
+    if(total == target){
+      return 0.0f;
+    }
+    return (1.0 / target) * (target - total);
+  }
+
+  // If your dna values are returning an index in an ArrayList of objects
+  // or happen to be char values, you may want to put a decode() method here
+  // This method returns a string explaining how the dna was added up
+
+  String decode(Chromosome o){
+    int total = 0;
+    StringBuffer answer = new StringBuffer();
+    for(int i = 0; i < dnaLength; i++){
+      if(o.dna[i] < valueLength){
+        total += o.dna[i];
+        answer.append(o.dna[i]);
+        if(i < o.dna.length-1){
+          answer.append('+');
+        }
+      }
+    }
+    return answer.toString();
+  }
+
+}
+</textarea>
+</form>
+<p><a href="http://www.robotacid.com/PBeta/GA/examples/GAMath/index.html">This example can be seen in use here</a></p>
+<p>Chromosomes are generated with the createChromosome() method.
+  This registers a Chromosome with a GA, giving it access to its utilities. A Chromosome cannot be created outside the context of a GeneticAlgorithm.
+
+<table width="100%"  border="1" cellspacing="0" cellpadding="3">
+  <tr bgcolor="#99CCFF">
+    <td colspan="2"><strong>Property Summary </strong></td>
+    </tr>
+  <tr>
+    <td width="9%" height="65" class="steed3"> int</td>
+    <td width="91%"><strong>dnaLength</strong><br>
+      The standard dna length for all instances of Chromosome registered
+      with this GA </td>
+  </tr>
+  <tr>
+    <td width="9%" height="65" class="steed3"> int</td>
+    <td width="91%"><strong>binaryLength</strong><br>
+      The total number of binary digits a Chromosome uses. This value is equal to dnaLength * valueBits. </td>
+  </tr>
+  <tr>
+    <td height="65" class="steed3">int</td>
+    <td><strong>valueLength</strong><br>
+    The number of dna values allowed. Values in any Chromosome's dna will range from 0 to valueLength - 1. This property affects the number of binary digits used to represent each dna value. </td>
+  </tr>
+  <tr>
+    <td height="65" class="steed3">int</td>
+    <td><strong>poolSize</strong><br>
+      The number of Chromosomes in the GA's genePool ArrayList </td>
+  </tr>
+  <tr>
+    <td height="65" class="steed3">int</td>
+    <td><strong>generation</strong><br>
+      The number of times the propagate() method has been called </td>
+  </tr>
+  <tr>
+    <td height="65" class="steed3"> float</td>
+    <td><strong>mutationRate</strong><br>
+      The likelyhood of mutation occurring in a Chromosome when its mutation()
+      method is called. Initially set to 0.001. </td>
+  </tr>
+  <tr>
+    <td height="65" class="steed3">float</td>
+    <td><strong>spliceRate</strong><br>
+      The likelyhood of dna splice occurring in a Chromosome when
+      the splice method is called without a splice position parameter. Initially set to 0.7. </td>
+  </tr>
+  <tr>
+    <td height="65" class="steed3">float</td>
+    <td><strong>errorThreshold</strong><br>
+      The acceptable deviation in calculating whether
+      the fitness of a Chromosome reveals it as a solution. Initially set to
+      0.0 (no deviation). </td>
+  </tr>
+  <tr>
+    <td height="65" class="steed3">int</td>
+    <td><strong>valueBits</strong><br>
+      A number denoting the number of digits in binary each dna position possesses. </td>
+  </tr>
+  <tr>
+    <td height="65" class="steed3">boolean</td>
+    <td><strong>subInteger</strong><br>
+      Set to true if the GA is set to splice and mutate dna at a sub-integer
+      level. Set to false unless specified otherwise.</td>
+  </tr>
+  <tr>
+    <td height="65" class="steed3">ArrayList</td>
+    <td><strong>genePool</strong><br>
+      A reference to an ArrayList containing the GA's Chromosomes. </td>
+  </tr>
+  <tr>
+    <td height="65" class="steed3">Vector</td>
+    <td><strong>solutions</strong><br>
+      A reference to an ArrayList containing Chromosomes that have been cloned
+        from the genePool and have a fitness within the error threshold of
+      0.0. solutions is populated during the propagate() method. </td>
+  </tr>
+  <tr>
+    <td height="65" class="steed3">static int [] </td>
+    <td><strong>singleBitMask</strong><br>
+      An array of integers representing all the possible integer numbers that possess only one bit set to 1 and the rest set to 0. This array is 32 in length and is used to flip single bits in subInteger mutations. Users wishing to flip a single bit on an integer themselves should refer to the mutate() method.</td>
+  </tr>
+  <tr>
+    <td height="65" class="steed3">static int [] </td>
+    <td><strong>spliceMask</strong><br>
+      An array of integers representing all the possible integer numbers that consist of only 0s on one side of it's binary representation and 1s on the other. This array is 32 in length and is used to splice binary numbers in subInteger splices. Users wishing to splice the binary of integers themselves should refer to the splice() method.</td>
+  </tr>
+  <tr>
+    <td height="65" class="steed3">boolean</td>
+    <td><strong>found</strong><br>
+      Returns true if a Chromosome has been found with a fitness within the error
+      threshold of 0.0.</td>
+  </tr>
+</table>
+</p>
+<p>
+<table width="100%"  border="1" cellspacing="0" cellpadding="3">
+  <tr bgcolor="#99CCFF">
+    <td><strong>Constructor Summary </strong></td>
+  </tr>
+  <tr>
+    <td width="9%" height="65"><strong><a href="#GeneticAlgorithm">GeneticAlgorithm</a> </strong>(int
+      chromosomeLength, int valueLength, int poolSize)<br>
+      Creates an environment, constants and methods for a collection of Chromosomes. subInteger property is set to false. </td>
+  </tr>
+  <tr>
+    <td width="9%" height="65"><strong><a href="#GeneticAlgorithm2">GeneticAlgorithm</a> </strong>(int
+      chromosomeLength, int valueLength, int poolSize, boolean subInteger)<br>
+      Creates an environment, constants and methods for a collection of Chromosomes with the subInteger property defined by the user. </td>
+  </tr>
+</table>
+</p>
+<p>
+<table width="100%"  border="1" cellspacing="0" cellpadding="3">
+  <tr bgcolor="#99CCFF">
+    <td colspan="2"><strong>Method Summary </strong></td>
+  </tr>
+  <tr>
+    <td height="65" class="steed3">void</td>
+    <td><strong><a href="#propagate">propagate</a></strong> ()<br>
+      goes through the entire genePool and selects pairs of Chromosomes to splice and mutate. Automatically adds Chromosomes of fitness within an
+        error threshold of 0.0 to the solutions ArrayList, upon doing so the found property will return true. </td>
+  </tr>
+  <tr>
+    <td width="9%" height="65" class="steed3">float </td>
+    <td width="91%"><strong><a href="#scoreFitness">scoreFitness</a></strong> (Chromosome o)<br>
+      Returns 1 by default. It is intended the user extend the class to define how appropriate the Chromosome's dna sequence is to a given task and override this class. </td>
+  </tr>
+  <tr>
+    <td height="65" class="steed3">Chromosome</td>
+    <td><strong><a href="#createChromosome">createChromosome</a></strong> ()<br>
+      Returns a reference to a Chromosome which is created and then added to
+      the GA's genePool ArrayList. </td>
+  </tr>
+  <tr>
+    <td height="65" class="steed3">Chromosome</td>
+    <td><strong><a href="#createChromosome2">createChromosome</a></strong> (int [] dna)<br>
+Returns a reference to a Chromosome which is created and then added to the GA's
+  genePool ArrayList. The new Chromosome's dna will be a copy of the array passed
+  to it.</td>
+  </tr>
+  <tr>
+    <td height="65" class="steed3">void</td>
+    <td><strong><a href="#removeChromosome">removeChromosome</a></strong> ()<br>
+Removes a Chromosome from the genePool and updates the poolSize value. </td>
+  </tr>
+  <tr>
+    <td height="65" class="steed3">Chromosome</td>
+    <td><strong><a href="#copyChromosome">copyChromosome</a></strong> (Chromosome o)<br>
+      Returns a reference to a copy of the Chromosome given in the parameters
+      which is automatically added to the genePool.</td>
+  </tr>
+  <tr>
+    <td height="65" class="steed3">void</td>
+    <td><p><strong><a href="#setDnaLength">setDnaLength</a></strong> (int
+        dnaLength)<br>
+      Modifies the length of the dna of all Chromosomes in the GA's genePool.</p>
+      </td>
+  </tr>
+  <tr>
+    <td height="65" class="steed3">void</td>
+    <td><strong><a href="#setValueLength">setValueLength</a></strong> (int valueLength)<br>
+    Modifies the property traitSize, setting an upper limit on the value of new
+      dna and if subInteger is true, modifies traitBits to contain that number of traits. </td>
+  </tr>
+  <tr>
+    <td height="65" class="steed3">void</td>
+    <td><strong><a href="#setPoolSize">setPoolSize</a></strong> (int poolSize)<br>
+      Modifies the GA's poolSize field, adding or subtracting Chromosomes to
+        the end of the genePool ArrayList.</td>
+  </tr>
+  <tr>
+    <td height="65" class="steed3">void</td>
+    <td><strong><a href="#setValueBits">setValueBits</a></strong> (int valueBits)<br>
+      Modifies the number of bits used to deal with sub-integer operations in
+      the GA and modifies the valueLength property if the bits requested
+        would result in numbers larger than valueLength - 1.</td>
+  </tr>
+  <tr>
+    <td height="65" class="steed3">void</td>
+    <td><strong><a href="#sortGenePool">sortGenePool</a></strong> ()<br>
+      Orders the Chromosomes in genePool based on their fitness. </td>
+  </tr>
+  <tr>
+    <td height="65" class="steed3">Chromosome</td>
+    <td><strong><a href="#selection">selection</a></strong> (ArrayList genePool)<br>
+      Used by the propagate method to select a Chromosome via a roulette method. </td>
+  </tr>
+  <tr>
+    <td height="65" class="steed3">static final int </td>
+    <td><strong><a href="#base2">base2</a></strong> (int num)<br>
+      Returns the number of digits a number would possess if it were converted to a base 2 number (binary).</td>
+  </tr>
+</table>
+</p>
+<p>
+<table width="100%"  border="1" cellspacing="0" cellpadding="3">
+  <tr>
+    <td bgcolor="#99CCFF"><strong>Constructor Detail</strong></td>
+  </tr>
+</table>
+</p>
+<p><strong>GeneticAlgorithm<a name="GeneticAlgorithm"></a></strong></p>
+<p>public <strong>GeneticAlgorithm</strong> (int dnaLength, int
+  valueLength, int poolSize)</p>
+<p>Creates a collection of Chromosomes according to the parameters given. Chromosomes
+  require registration with a GeneticAlgorithm to access common behaviours. A
+  Chromosome requires too much enviromental information to operate alone. A GA
+  initialised with a poolSize of zero can be populated by the createChromosome()
+  method. When constructing a GeneticAlgorithm with this method, subInteger will be set to false and dna will be spliced at the number boundary. </p>
+<p><strong>Parameters:</strong></p>
+<p>
+    <span class="style2">dnaLength</span> - the length of the dna array
+    in all Chromosomes in GeneticAlgorithm.<br>
+    <span class="style2">valueLength</span> - the number of possible values
+    at any position in a Chromosome's dna <br>
+    <span class="style2">poolSize</span> - the initial number of random Chromosomes
+    to be generated and added to the genePool ArrayList.</p>
+<hr>
+<p><strong>GeneticAlgorithm<a name="GeneticAlgorithm2"></a></strong></p>
+<p>public <strong>GeneticAlgorithm</strong> (int dnaLength, int
+  valueLength, int poolSize, boolean subInteger)</p>
+<p>Creates a collection of Chromosomes according to the parameters given. Chromosomes
+  require registration with a GeneticAlgorithm to access common behaviours. A
+  Chromosome requires too much enviromental information to operate alone. A GA
+  initialised with a poolSize of zero can be populated by the createChromosome()
+  method.</p>
+<p><strong>Parameters:</strong></p>
+<p>
+    <span class="style2">dnaLength</span> - the length of the dna array
+    in all Chromosomes in GeneticAlgorithm.<br>
+    <span class="style2">valueLength</span> - the number of possible values
+    at any position in a Chromosome's dna <br>
+    <span class="style2">poolSize</span> - the initial number of random Chromosomes
+    to be generated and added to the genePool ArrayList.<br>
+    <span class="style2">subInteger</span> - when set to true, dna is spliced and mutated at the binary level.</p>
+<table width="100%"  border="1" cellpadding="3" cellspacing="0">
+  <tr>
+    <td bgcolor="#99CCFF"><strong>Method Detail</strong></td>
+  </tr>
+</table>
+<p><strong>propagate<a name="propagate"></a></strong></p>
+<p>public void <strong>propagate</strong> ()</p>
+<p>Goes through the whole of the genePool ArrayList and selects pairs of Chromosomes to splice and mutate. Then checks whether those found have a fitness
+  score within the error threshold defined by the property errorThreshold. Upon finding fit Chromosomes it sets
+  its found property to true and copies said Chromosomes into the solutions ArrayList.
+  Each call of propagate() increases the GA's generation property by one. propagate() will only operate on genePools divisible by 2, calling propagate on an uneven genePool will throw an exception. </p>
+<hr>
+<p><strong>scoreFitness<a name="scoreFitness"></a></strong></p>
+<p>public float <strong>scoreFitness</strong> (Chromosome o)</p>
+<p>Used by a Chromosome in its constructor to determine its fitness. A fit Chromosome
+  should have a fitness score approaching 0.0. The overridden method must return
+  a float value to be used as a fitness score. The user should define a method
+  of decoding the dna in Chromosome &quot;o&quot; so that they can write instructions
+  to determine the validity and the fitness of the Chromosome. It is possible
+  to run a GA without the use of the scoreFitness method, the user may have created
+  an environment where the breeding of Chromosomes occurs based on the proximity
+  of particles rather than use of propagate() or another method. In such a case
+  the user can ignore this method. </p>
+<p><strong>Parameters:</strong></p>
+<p><span class="style2">o</span> - a Chromosome to be tested for fitness.</p>
+<hr>
+<p><strong>createChromosome<a name="createChromosome"></a></strong></p>
+<p>public Chromosome <strong>createChromosome</strong> ()</p>
+<p>Returns a reference to a Chromosome that is created and then added to the
+  GA's genePool ArrayList. The Chromosome's dna is generated randomly.</p>
+<hr>
+<p><strong>createChromosome<a name="createChromosome2"></a></strong></p>
+<p>public Chromosome <strong>createChromosome</strong> (int [] dna)</p>
+<p>Returns a reference to a Chromosome that is created and then added to the
+  GA's genePool ArrayList. The Chromosome created will have a dna property that
+  is copied from the parameter given.</p>
+<p><strong>Parameters:</strong></p>
+<p><span class="style2">dna</span> - a template for dna that will be
+    copied into the new Chromosome</p>
+<hr>
+<p><strong>removeChromosome<a name="removeChromosome"></a></strong></p>
+<p>public Chromosome <strong>removeChromosome</strong> (Chromosome o)</p>
+<p>Remove the Chromosome specified from the genePool and returns it. The poolSize value is updated also - thus it is recommended you remove Chromosomes from the genePool via this method.</p>
+<p><strong>Parameters:</strong></p>
+<p><span class="style2">o</span> - a Chromosome to be removed from the genePool </p>
+<hr>
+<p><strong>copyChromosome<a name="copyChromosome"></a></strong></p>
+<p>public Chromosome <strong>copyChromosome</strong> (Chromosome o)</p>
+<p>Given &quot;o&quot;, this method duplicates said Chromosome and retains both copies in the genePool. The return value is the reference to the duplicate generated by the operation. </p>
+<p><strong>Parameters:</strong></p>
+<p><span class="style2">o</span> - a reference to a Chromosome to be duplicated.</p>
+<hr>
+<p><strong>setDnaLength<a name="setDnaLength" id="setDnaLength"></a></strong></p>
+<p>public void setDnaLength (int dnaLength)</p>
+<p>This method iterates through all of the Chromosomes in the genePool ArrayList
+  and modifies their dna to a length equal to dnaLength. A value smaller
+  than the previous dnaLength will result in the end of the dna being
+  trimmed. A value longer than the previous dnaLength will result in random
+  values being added to the end of each dna whose upper limit will be valueLength
+  - 1.</p>
+<p><strong>Parameters:</strong></p>
+<p><span class="style2">dnaLength</span> - the new length of dna to
+    be adopted by all Chromosomes. </p>
+<hr>
+<p><strong>setPoolSize<a name="setPoolSize"></a></strong></p>
+<p>public void setPoolSize (int poolSize)</p>
+<p>This method modifies the poolSize property and also affects the contents of
+  the genePool ArrayList. If the parameter given is smaller than the previous
+  poolSize the genePool is trimmed accordingly. If the parameter given is
+  larger than the previous poolSize, the genePool is filled with new random
+  Chromosomes.</p>
+<p><strong>Parameters:</strong></p>
+<p><span class="style2">poolSize</span> - the new size of the genePool ArrayList
+    to be adopted.</p>
+<hr>
+<p><strong>setValueLength<a name="setValueLength" id="setValueLength"></a></strong></p>
+<p>public void <strong>setValueLength</strong> (int valueLength)</p>
+<p>This method modifies the valueLength property and sets the valueBits field
+  to a number of bits large enough to contain the bits in the number valueLength - 1.
+  All new changes in dna will take the change in properties into account. No previous
+  values in dna will be altered, so the user must take this into account in
+  decoding the values in a Chromosome's dna.</p>
+<p><strong>Parameters:</strong></p>
+<p><span class="style2">valueLength</span> - the new range of values possible at any position in the dna.</p>
+<hr>
+<p><strong>setValueBits<a name="setValueBits"></a></strong></p>
+<p>public void <strong>setValueBits</strong> (int valueBits)</p>
+<p>This modifies the number of binary bits involved in sub-integer operations and in turn modifies valueBits. This is because the splicing and mutations that will occur will drive the values up to a limit that can be calculated with the following equation:</p>
+<p>valueLength = 1 &lt;&lt; valueBits </p>
+<p>The table below gives an overview of what will happen to valueLength at the lower bit ranges </p>
+<table width="100%"  border="1" cellspacing="0" cellpadding="3">
+  <tr>
+    <td width="50%" bgcolor="#99CCFF"><strong>valueLength</strong></td>
+    <td width="50%" bgcolor="#99CCFF"><strong>valueBits</strong></td>
+  </tr>
+  <tr>
+    <td>0 - 1 </td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>0 - 3 </td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td>0 - 7 </td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>0 - 15 </td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td>0 - 31 </td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>0 - 63 </td>
+    <td>6</td>
+  </tr>
+</table>
+<p>The maximum number that can be submitted to valueBits is 32 - the amount of bits in an int. If users want to find out how many valueBits they are going to be using, they
+  can use the <a href="#getTraitBits">base2</a>() method, entering the maximum value they expect to use into the method. </p>
+<p><strong>Parameters:</strong></p>
+<p><span class="style2">valueBits</span> - a value determining the number of binary digits any value in the dna array possesses </p>
+<hr>
+<p><strong>sortGenePool<a name="sortGenePool"></a></strong></p>
+<p>public void <strong>sortGenePool</strong> ()</p>
+<p>This method sorts all of the Chromosomes in genePool according to their
+  fitness. Chromosomes implement the interface Comparable, and can be sorted
+  using Collections.sort(), which is exactly what this method does - it is provided simply to get around having to import and use Collections.sort() yourself. </p>
+<hr>
+<p><strong>selection<a name="sortGenePool"></a></strong></p>
+<p>public void <strong>selection</strong> (ArrayList genePool)</p>
+<p>This method removes a Chromosome from the genePool and returns it, based on a combination of the Chromosomes fitness and chance. The method is analogous to assigning portions of a roulette wheel, based on the Chromosome's fitness. The fitter the Chromosome, the more of the wheel they get, without guaranteeing they will be selected first.</p>
+<p>As of writing, this method is proving to be problematic with some implementations of the GA. So the user has the option of overriding the selection() method. The overriding method must:</p>
+<ul>
+  <li>Remove the selected Chromosome from the parameter genePool and return it.</li>
+  <li>Modify the variable poolSize to match the size of the ArrayList after the Chromosome has been removed. </li>
+</ul>
+<p><strong>Parameters:</strong></p>
+<p><span class="style2">genePool</span> - the property genePool of the GeneticAlgorithm is handed to this method traditionally. genePool is an ArrayList of Chromosomes.</p>
+<hr>
+<p><strong>base2<a name="base2"></a></strong></p>
+<p>public static final int<strong> base2 </strong>(int num)</p>
+<p>This method return the number of digits num would use if it were converted to a base 2 number - binary. For example: 7 would require 3 digits, being represented in binary as 111. 8 would require 4 digits, being represented as 1000. This function is used internally by the GeneticAlgorithm to determine the valueBits property.</p>
+<p><strong>Parameters:</strong></p>
+<p><span class="style2">num</span> - a value the user wishes to find the minimum number of binary digits to contain.</p>
+<hr>
+<br>
+<p class="steed3">Note to self: Don't make a library so bloody flexible next
+  time, all this documentation is taking ****ing ages. </p>
+<p>&nbsp;</p>
+<p>&nbsp; </p>
+</div>
+</body>
+</html>

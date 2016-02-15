@@ -1,0 +1,93 @@
+# mearth.txt
+
+# Declare the node positions between tags <nodes></nodes>.
+# 1st = the unique id number for the node it should be >= 0
+#       but the id numbers do not need to start with zero or
+#       be sequential
+# 2nd = the horizontal location of the node
+# 3nd = the vertical location of the node
+#
+# although the locations are expressed as integers in this
+# file they are interpreted as floats.
+#
+
+<nodes>
+100 40 100
+101 124 105
+102 171 102
+103 210 99
+104 271 96
+105 266 67
+106 139 161
+107 163 162
+108 210 140
+109 106 203
+110 184 179
+111 219 170
+112 110 240
+113 133 247
+114 132 229
+115 219 243
+116 267 259
+117 247 299
+118 269 298
+119 291 285
+120 166 211
+130 163 263
+131 152 297
+132 235 339
+</nodes>
+
+
+
+# Declare the edges between tags <edges></edges>.
+# 1st = the node id for the 'from' node
+# 2nd = the node id for the 'to' node
+# 3rd = the cost of travelling 'from' >> 'to'
+# 4th = the cost of travelling 'to' >> 'from'
+# If either cost is 0 (zero) then the demo program
+# calculates the Euclidean (shortest) distance between
+# them and uses that as the cost.
+# If either cost is <0.0 then that edge will not be
+# created.
+# The fourth value is optional and if missing then the 
+# edge will not be created (equivalent to -1)
+#
+# although the costs are expressed as integers in this
+# file they are interpreted as floats by the program
+#
+
+<edges>
+100 101 84 84
+101 102 46 46
+101 109 98 98
+102 103 37 37
+102 106 68 68
+103 104 61 61
+103 108 39 39
+104 105 29 29
+106 107 40
+106 109 55 55
+107 108 50 50
+107 110 27 27
+108 111 45 45
+109 112 37 37
+110 111 48 48
+110 115 73 73
+110 120 37 37
+112 113 36 36
+113 114 18 18
+113 120 41 41
+113 130 38 38
+115 116 52 52
+116 118 39 39 
+116 119 57 38
+117 118 21 21
+117 130 92 92
+117 132 39 39
+118 119 42 28
+120 130 48 48
+130 131 40
+131 132 94 94
+</edges>
+

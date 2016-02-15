@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>Blob \ language (API)</title>
+	<style type="text/css" media="all">
+		@import "stylesheet.css";
+	</style>
+</head>
+
+<body>
+	<div id="container">
+		
+		<h1 class="light">OPENCV</h1>
+		<p id="nav">/ <a href="index.html">references</a></p>
+		<!--p><b>Reference for @libname library version @version</b></p-->
+		<br class="hide" />
+		<br class="hide" />
+		<table id="main">
+			<tr class="name">
+				<th class="heading">Name</th>
+				<td>Blob</td>
+			</tr>
+			<tr class="example">
+				<th class="heading">Examples</th>
+				<td><img src="images/blobs.png" alt="blobs" /><pre class="offset">import hypermedia.video.*;
+
+OpenCV opencv;
+
+void setup() {
+
+    size( 640, 480 );
+
+    // open video stream
+    opencv = new OpenCV( this );
+    opencv.capture( 640, 480 );
+
+}
+
+void draw() {
+
+    background(192);
+
+    opencv.read();           // grab frame from camera
+    opencv.threshold(80);    // set black &amp; white threshold 
+
+    // find blobs
+    Blob[] blobs = opencv.blobs( 10, width*height/2, 100, true, OpenCV.MAX_VERTICES*4 );
+
+    // draw blob results
+    for( int i=0; i&lt;blobs.length; i++ ) {
+        beginShape();
+        for( int j=0; j&lt;blobs[i].points.length; j++ ) {
+            vertex( blobs[i].points[j].x, blobs[i].points[j].y );
+        }
+        endShape(CLOSE);
+    }
+
+}
+<!--
+void keyPressed() {
+    save( "blobs.png" );
+}
+-->
+</pre></td>
+			</tr>
+			<tr class="description">
+				<th class="heading">Description</th>
+				<td>A storage object containing a blob detected by OpenCV.
+ Returned by <code>blobs()</code> method.</td>
+			</tr>
+			<tr class="syntax">
+				<th class="heading">Syntax</th>
+				<td><code></code></td>
+			</tr>
+			
+			
+			<tr class="items">
+				<th class="heading">Fields</th>
+				<td>
+					<table>
+						
+						<tr>
+							<td class="item"><a href="blob__area.html">area</a></td>
+							<td>The area of the blob in pixels</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="blob__centroid.html">centroid</a></td>
+							<td>The centroid or barycenter of the blob</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="blob__ishole.html">isHole</a></td>
+							<td>Is this blob a hole inside of another blob?</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="blob__length.html">length</a></td>
+							<td>The length of the perimeter in pixels</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="blob__pixels.html">pixels</a></td>
+							<td>A list of color int, containing the image pixels created by loadPixels()</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="blob__points.html">points</a></td>
+							<td>The list of points defining the shape of the blob</td>
+						</tr>
+		
+						<tr>
+							<td class="item"><a href="blob__rectangle.html">rectangle</a></td>
+							<td>The containing rectangle of the blob</td>
+						</tr>
+		
+					</table>
+				</td>
+			</tr>
+		
+			
+			<tr class="usage">
+				<th class="heading">Usage</th>
+				<td>Application</td>
+			</tr>
+			<tr class="related">
+				<th class="heading">Related</th>
+				<td><a href="opencv_blobs.html">blobs()</a><br />
+</td>
+			</tr>
+		</table>
+
+	</div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OSC-Namespace Version="1">
+    <Node AP="" Direction="Out" ID="BarrelBlurChromaEffect">
+        <Node AP="Position_Y" Direction="Out" ID="Position_Y">
+            <TTS ID="f_TTS_ID">
+                <TT Default="0.5" ID="f_ID" Tag="f"/>
+            </TTS>
+        </Node>
+        <Node AP="Scale" Direction="Out" ID="Scale">
+            <TTS ID="f_TTS_ID">
+                <TT Default="1.0" ID="f_ID" Tag="f"/>
+            </TTS>
+        </Node>
+        <Node AP="NumIter" Direction="Out" ID="NumIter">
+            <TTS ID="i_TTS_ID">
+                <TT Default="12.0" ID="i_ID" Tag="i"/>
+            </TTS>
+        </Node>
+        <Node AP="Position_X" Direction="Out" ID="Position_X">
+            <TTS ID="f_TTS_ID">
+                <TT Default="0.5" ID="f_ID" Tag="f"/>
+            </TTS>
+        </Node>
+        <Node AP="SetAlpha" Direction="Out" ID="SetAlpha">
+            <TTS ID="f_TTS_ID">
+                <TT Default="1.0" ID="f_ID" Tag="f"/>
+            </TTS>
+        </Node>
+        <Node AP="MaxDistort" Direction="Out" ID="MaxDistort">
+            <TTS ID="f_TTS_ID">
+                <TT Default="-10.0" ID="f_ID" Tag="f"/>
+            </TTS>
+        </Node>
+        <Node AP="Set_Alpha" Direction="Out" ID="Set_Alpha">
+            <TTS ID="f_TTS_ID">
+                <TT Default="1" ID="f_ID" Tag="f"/>
+            </TTS>
+        </Node>
+        <Node AP="Set_BlendMode" Direction="Out" ID="Set_BlendMode">
+            <TTS ID="i_TTS_ID">
+                <TT Default="1" ID="i_ID" Tag="i"/>
+            </TTS>
+        </Node>
+    </Node>
+</OSC-Namespace>

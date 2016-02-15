@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<graph>
+
+<nodes>
+<node id="11" x="60" y="120" />
+<node id="12" x="150" y="80" />
+<node id="13" x="250" y="90" />
+<node id="14" x="330" y="120" />
+<node id="15" x="480" y="130" />
+<node id="16" x="630" y="130" />
+<node id="17" x="250" y="160" />
+<node id="18" x="395" y="170" />
+<node id="19" x="480" y="170" />
+<node id="20" x="40" y="240" />
+<node id="21" x="130" y="240" />
+<node id="22" x="395" y="275" />
+<node id="23" x="480" y="275" />
+<node id="24" x="630" y="325" />
+<node id="25" x="40" y="375" />
+<node id="26" x="130" y="375" />
+<node id="27" x="155" y="430" />
+<node id="28" x="395" y="430" />
+<node id="29" x="395" y="375" />
+<node id="30" x="480" y="375" />
+<node id="31" x="60" y="480" />
+<node id="32" x="140" y="495" />
+<node id="33" x="310" y="550" />
+<node id="34" x="395" y="475" />
+<node id="35" x="480" y="475" />
+<node id="36" x="630" y="475" />
+
+</nodes>
+
+
+<edges>
+
+<edge from="11" to="12" cost_out="125" cost_back="125" />
+<edge from="11" to="20" cost_out="100" cost_back="100" />
+<edge from="12" to="13" cost_out="95" cost_back="95" />
+<edge from="13" to="14" cost_out="85" cost_back="85" />
+<edge from="13" to="17" cost_out="80" cost_back="80" />
+<edge from="14" to="15" cost_out="150" cost_back="150" />
+<edge from="14" to="17" cost_out="100" cost_back="100" />
+<edge from="14" to="18" cost_out="95" cost_back="95" />
+<edge from="15" to="16" cost_out="150" cost_back="150" />
+<edge from="15" to="19" cost_out="45" cost_back="45" />
+<edge from="16" to="19" cost_out="160" cost_back="160" />
+<edge from="16" to="24" cost_out="185" cost_back="185" />
+<edge from="17" to="18" cost_out="145" cost_back="145" />
+<edge from="17" to="21" cost_out="140" cost_back="140" />
+<edge from="17" to="27" cost_out="280" cost_back="280" />
+<edge from="17" to="29" cost_out="255" cost_back="255" />
+<edge from="18" to="19" cost_out="85" cost_back="85" />
+<edge from="18" to="22" cost_out="100" cost_back="100" />
+<edge from="19" to="23" cost_out="95" cost_back="95" />
+<edge from="20" to="21" cost_out="90" cost_back="90" />
+<edge from="20" to="25" cost_out="150" cost_back="150" />
+<edge from="21" to="22" cost_out="270" cost_back="270" />
+<edge from="21" to="26" cost_out="140" cost_back="140" />
+<edge from="21" to="28" cost_out="325" cost_back="325" />
+<edge from="22" to="23" cost_out="85" cost_back="85" />
+<edge from="22" to="27" cost_out="285" cost_back="285" />
+<edge from="22" to="29" cost_out="100" cost_back="100" />
+<edge from="23" to="24" cost_out="165" cost_back="165" />
+<edge from="23" to="30" cost_out="105" cost_back="105" />
+<edge from="24" to="30" cost_out="165" cost_back="165" />
+<edge from="24" to="36" cost_out="165" cost_back="165" />
+<edge from="25" to="26" cost_out="90" cost_back="90" />
+<edge from="25" to="31" cost_out="100" cost_back="100" />
+<edge from="26" to="27" cost_out="60" cost_back="60" />
+<edge from="27" to="28" cost_out="237.5" cost_back="237.5" />
+<edge from="27" to="29" cost_out="245" cost_back="245" />
+<edge from="27" to="32" cost_out="65" cost_back="65" />
+<edge from="28" to="29" cost_out="55" cost_back="55" />
+<edge from="28" to="34" cost_out="50" cost_back="50" />
+<edge from="29" to="30" cost_out="85" cost_back="85" />
+<edge from="30" to="35" cost_out="110" cost_back="110" />
+<edge from="31" to="32" cost_out="102.5" cost_back="102.5" />
+<edge from="32" to="33" cost_out="180" cost_back="180" />
+<edge from="33" to="34" cost_out="112.5" cost_back="112.5" />
+<edge from="34" to="35" cost_out="85" cost_back="85" />
+<edge from="35" to="36" cost_out="150" cost_back="150" />
+
+</edges>
+
+</graph>

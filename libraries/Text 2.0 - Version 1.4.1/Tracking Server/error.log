@@ -1,0 +1,22 @@
+Apr 07, 2012 1:22:08 AM org.freshvanilla.net.VanillaDataServerSocket$RmiServerRunnable run
+SEVERE: Unexpected error for running server java.net.SocketException: Invalid argument: no further information
+Apr 07, 2012 1:22:08 AM org.freshvanilla.net.VanillaDataServerSocket$RmiServerRunnable run
+SEVERE: Unexpected error for running server java.net.SocketException: Invalid argument: no further information
+Apr 07, 2012 1:22:08 AM org.freshvanilla.net.VanillaDataServerSocket$RmiServerRunnable run
+SEVERE: Unexpected error for running server java.net.SocketException: Invalid argument: no further information
+Apr 07, 2012 1:22:10 AM org.freshvanilla.net.VanillaDataServerSocket$RmiServerRunnable run
+SEVERE: Unexpected error for running server java.net.SocketException: Invalid argument: no further information
+Apr 07, 2012 1:22:10 AM org.freshvanilla.net.VanillaDataServerSocket$RmiServerRunnable run
+SEVERE: Unexpected error for running server java.net.SocketException: Invalid argument: no further information
+java.net.SocketException: Connection reset
+	at java.net.SocketInputStream.read(Unknown Source)
+	at java.net.SocketInputStream.read(Unknown Source)
+	at java.io.BufferedInputStream.fill(Unknown Source)
+	at java.io.BufferedInputStream.read(Unknown Source)
+	at java.io.ObjectInputStream$PeekInputStream.peek(Unknown Source)
+	at java.io.ObjectInputStream$BlockDataInputStream.peek(Unknown Source)
+	at java.io.ObjectInputStream$BlockDataInputStream.peekByte(Unknown Source)
+	at java.io.ObjectInputStream.readObject0(Unknown Source)
+	at java.io.ObjectInputStream.readUnshared(Unknown Source)
+	at net.sf.lipermi.handler.ConnectionHandler.run(ConnectionHandler.java:225)
+	at java.lang.Thread.run(Unknown Source)

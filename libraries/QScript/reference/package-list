@@ -1,0 +1,6 @@
+org.qscript
+org.qscript.editor
+org.qscript.errors
+org.qscript.events
+org.qscript.eventsonfire
+org.qscript.operator

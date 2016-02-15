@@ -1,0 +1,5 @@
+<filter name="Mean filter">
+    <description>Mean convolution filter</description>
+    <fragment>mean.glsl</fragment>
+    <textures input="1" output="1"></textures>
+</filter>

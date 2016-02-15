@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>OpenCV::blobs() \ language (API)</title>
+	<style type="text/css" media="all">
+		@import "stylesheet.css";
+	</style>
+</head>
+
+<body>
+	<div id="container">
+		
+		<h1 class="light">OPENCV</h1>
+		<p id="nav">/ <a href="index.html">references</a></p>
+		<!--p><b>Reference for @libname library version @version</b></p-->
+		<br class="hide" />
+		<br class="hide" />
+		<table id="main">
+			<tr class="name">
+				<th class="heading">Name</th>
+				<td>blobs()</td>
+			</tr>
+			<tr class="example">
+				<th class="heading">Examples</th>
+				<td><img src="images/blobs.png" alt="blobs" /><pre class="offset">import hypermedia.video.*;
+
+OpenCV opencv;
+
+void setup() {
+
+    size( 640, 480 );
+
+    // open video stream
+    opencv = new OpenCV( this );
+    opencv.capture( 640, 480 );
+
+}
+
+void draw() {
+
+    background(192);
+
+    opencv.read();           // grab frame from camera
+    opencv.threshold(80);    // set black &amp; white threshold 
+
+    // find blobs
+    Blob[] blobs = opencv.blobs( 10, width*height/2, 100, true, OpenCV.MAX_VERTICES*4 );
+
+    // draw blob results
+    for( int i=0; i&lt;blobs.length; i++ ) {
+        beginShape();
+        for( int j=0; j&lt;blobs[i].points.length; j++ ) {
+            vertex( blobs[i].points[j].x, blobs[i].points[j].y );
+        }
+        endShape(CLOSE);
+    }
+
+}
+<!--
+void keyPressed() {
+    save( "blobs.png" );
+}
+-->
+</pre></td>
+			</tr>
+			<tr class="description">
+				<th class="heading">Description</th>
+				<td>Blob and contour detection.
+ 
+ <p>This function looks for contours within the image, returning a list of <code>Blob</code> objects.</p>
+ <p>When searching for blobs, you must define the minimum and maximum size in pixels. For example, if you want to limit blobs to no larger than half the Region Of Interest, pass <code>(width * height) / 2</code> for the <code>maxArea</code>.</p>
+
+ <p>Blobs are returned in order from largest to smallest.</p>
+
+ <p><a href="#"><code>Blob</code></a> objects contain all the relevant information about each contour (area, length, centroid, isHole, …)</p>
+
+ <p>The optional <code>maxVertices</code> parameter, allows you to increase the overall number of points defining the contour of the blob. Use this parameter if for some reason your blob shapes are incomplete. Augementing this parameter can affect performance.</p>
+
+ <p>Careful! This function will damage the current buffered image while searching for contours. If you want to do any subsequent work with this image, you will need to call the <code>restore()</code> method after this one.</p></td>
+			</tr>
+			<tr class="syntax">
+				<th class="heading">Syntax</th>
+				<td><code>blobs(minArea, maxArea, maxBlobs, findHoles);<br />blobs(minArea, maxArea, maxBlobs, findHoles, maxVertices);<br /></code></td>
+			</tr>
+			
+			<tr class="parameters">
+				<th class="heading">Parameters</th>
+				<td>
+					<table>
+						
+						<tr>
+							<td class="param">minArea</td>
+							<td><span class="type">int : </span>the minimum area to search for (total pixels)</td>
+						</tr>
+		
+						<tr>
+							<td class="param">maxArea</td>
+							<td><span class="type">int : </span>the maximum area to search for (total pixels)</td>
+						</tr>
+		
+						<tr>
+							<td class="param">maxBlobs</td>
+							<td><span class="type">int : </span>the maximim number of blobs to return</td>
+						</tr>
+		
+						<tr>
+							<td class="param">findHoles</td>
+							<td><span class="type">boolean : </span>accept blobs fully inside of other blobs</td>
+						</tr>
+		
+						<tr>
+							<td class="param">maxVertices</td>
+							<td><span class="type">int : </span>the maximum number of points used to define the contour</td>
+						</tr>
+		
+					</table>
+				</td>
+			</tr>
+		
+			
+			<tr class="return">
+				<th class="heading">Return</th>
+				<td>Blob[]</td>
+			</tr>
+		
+			<tr class="usage">
+				<th class="heading">Usage</th>
+				<td>Application</td>
+			</tr>
+			<tr class="related">
+				<th class="heading">Related</th>
+				<td><a href="blob.html">Blob</a><br />
+<a href="opencv_restore.html">restore()</a><br />
+<a href="opencv__max_vertices.html">MAX_VERTICES</a><br />
+</td>
+			</tr>
+		</table>
+
+	</div>
+</body>
+</html>

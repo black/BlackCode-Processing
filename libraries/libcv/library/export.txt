@@ -1,0 +1,5 @@
+# only export the jar file for applets.. 
+# everything else is installed as a separate browser plugin
+applet=libcv.jar
+# application needs everything
+application=libcv.jar

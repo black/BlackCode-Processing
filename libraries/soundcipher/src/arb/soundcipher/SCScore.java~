@@ -1,0 +1,435 @@
+/*
+ *  Copyright (c) 2008 by Andrew R. Brown
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU Library General Public License as published
+ *   by the Free Software Foundation; either version 2 of the License, or
+ *   (at your option) any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU Library General Public License for more details.
+ *
+ *   You should have received a copy of the GNU Library General Public
+ *   License along with this program; if not, write to the Free Software
+ *   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+package arb.soundcipher;
+
+import javax.sound.midi.*;
+import java.io.File;
+import java.lang.Class;
+import java.lang.reflect.Method;
+
+import javax.swing.*;
+import java.awt.event.*;
+
+import processing.core.PApplet;
+
+public class SCScore implements ActionListener, MetaEventListener {
+
+    private Sequencer sequencer;
+    private Sequence seq;
+
+    private double tempo = 120.0; // bpm
+    private int repeat = 0; // -1 is infinite repeat
+    private int resolution = 240; // ppqn
+    public boolean playing = false;
+    private boolean debug = false;
+
+    private int instrument = 0;
+    private int channel = 0;
+    private int pan = 64;
+
+    private static PApplet pApplet;
+
+    private JButton p, n, ph, c, empt, l, u, s, m, w;
+
+    public static void main(String[] args) {
+		SCScore scs = new SCScore();
+		scs.testing();
+    }
+
+    public void testing() {
+	JFrame f = new JFrame();
+	n = new JButton("add Note");
+	ph = new JButton("add Phrase");
+	c = new JButton("add Chord");
+	m = new JButton("add midi file");
+	p = new JButton("play");
+	empt = new JButton("empty");
+	l = new JButton("loop");
+	u = new JButton("update");
+	s = new JButton("stop");
+	w = new JButton("write");
+	JPanel pan = new JPanel();
+	pan.add(n);
+	pan.add(c);
+	pan.add(ph);
+	pan.add(m);	
+	pan.add(p);
+	pan.add(l);
+	pan.add(u);
+	pan.add(empt);
+	pan.add(s);
+	pan.add(w);
+	n.addActionListener(this);
+	c.addActionListener(this);
+	ph.addActionListener(this);
+	p.addActionListener(this);
+	empt.addActionListener(this);
+	l.addActionListener(this);
+	u.addActionListener(this);
+	s.addActionListener(this);
+	m.addActionListener(this);
+	w.addActionListener(this);
+	f.add(pan);
+	f.setSize (500, 100);
+	f.setVisible(true);
+    }
+
+    public SCScore() {
+	if (debug) System.out.println("Sound Cipher constructor");
+	try {
+	    sequencer = MidiSystem.getSequencer();
+	    sequencer.open();
+	    sequencer.addMetaEventListener(this);
+	    seq = new Sequence(Sequence.PPQ, resolution);	    
+	} catch (Exception e) { e.printStackTrace(); }
+    }
+    /*
+
+    public void playNote(int pitch, int dynamic, double rhythmValue) {
+	this.playNote(0.0, this.channel, this.instrument, pitch, dynamic, 
+		      rhythmValue, rhythmValue * 0.8, this.pan);
+    }
+
+    public void playNote(double startBeat, int channel, int instrument, 
+			 int pitch, int dynamic, double rhythmValue,
+			 double length, int pan) {
+	this.stop();	
+	this.empty();
+	this.addNote(startBeat, channel, instrument, pitch, dynamic, rhythmValue, 
+		  length, pan);
+	this.play();
+    }
+    */
+
+    public void play() {
+	this.play(this.repeat, this.tempo);
+    }
+
+    public void play(int repeat) {
+	this.play(repeat, this.tempo);
+    }
+
+    public void play(double tempo) {
+	this.play(this.repeat, tempo);
+    }
+
+    public void play(int repeat, double tempo) {
+	if (debug) System.out.println("Playing ... repeat = " + repeat);
+	this.repeat = repeat;
+	this.tempo = tempo;
+	update();
+	sequencer.setMicrosecondPosition(0l);
+	sequencer.start();
+	playing = true;
+    }
+
+    public void stop() {
+	if (debug) System.out.println("stop");
+	sequencer.stop();
+	playing = false;
+    }
+
+    public void update() {
+	if (debug) System.out.println("update");
+	try {
+	    sequencer.setTempoInBPM((float)tempo); // working??
+	    sequencer.setSequence(seq);
+	} catch (javax.sound.midi.InvalidMidiDataException e) 
+	    { e.printStackTrace();}
+	if (repeat >= 0) {
+	    sequencer.setLoopCount(repeat);
+	}
+    }
+
+    public void empty() {
+	if (debug) System.out.println("empty");
+	if(sequencer != null) {
+	    if (seq != null) {
+		Track[] tracks = seq.getTracks();
+		for(int j=tracks.length; j>0; j--) {
+		    seq.deleteTrack(tracks[j-1]);
+		    tracks[j-1] = null;
+		}
+	    }
+	    this.update();
+	}
+    }
+
+    public void setTempo(double newTempo) {
+	this.tempo = newTempo;
+	sequencer.setTempoInBPM((float)tempo);
+    }
+
+    public double getTempo() {
+	return tempo;
+    }
+
+    public void setRepeat(int repeat) {
+	this.repeat = repeat;
+    }
+
+    public int getRepeat() {
+	return repeat;
+    }
+
+    public boolean isPlaying() {
+	return playing;
+    }
+
+    public void addNote(double startBeat, int channel, int instrument, int pitch, 
+			int dynamic, double rhythmValue, double length, int pan) {
+	addPhrase(startBeat, channel, instrument, new int[] {pitch}, 
+		  new int[] {dynamic}, new double[] {rhythmValue}, 
+		  new double[] {length}, new int[] {pan});
+    }
+
+    public void addPhrase(double startBeat, int channel, int instrument, 
+			  int[] pitches, int[] dynamics,  double[] rhythmValues, 
+			  double[] lengths, int[] pans) {
+	double endBeat = startBeat;
+	for(int i=0; i<rhythmValues.length; i++) {
+	    endBeat += rhythmValues[i];
+	}
+	try {
+	    buildSequence(startBeat, channel, instrument, pitches, dynamics, 
+			  rhythmValues, lengths, pans);
+	    // add event to round off the sequence
+	    Track[] tracks = seq.getTracks();
+	    tracks[0].add(createEvent(ShortMessage.POLY_PRESSURE, channel, 0, 0, 
+				      (long)(endBeat * resolution)));
+	} catch (Exception e) { e.printStackTrace(); }
+    }
+    
+    public void addChord(double startBeat, int channel, int instrument, 
+			 int[] pitches, int dynamic, double rhythmValue, 
+			 double length, int pan) {
+	int[] dynamics = new int[pitches.length];
+	double[] rhythmValues = new double[pitches.length];
+	double[] lengths = new double[pitches.length];
+	int[] pans = new int[pitches.length];
+	for (int i=0; i<pitches.length; i++) {
+	    dynamics[i] = dynamic;
+	    rhythmValues[i] = 0.0;
+	    lengths[i] = length;
+	    pans[i] = pan;
+	}
+	try {
+	    buildSequence(startBeat, channel, instrument, pitches, dynamics, 
+			  rhythmValues, lengths, pans);
+	    // add event to round off the sequence
+	    Track[] tracks = seq.getTracks();
+	    tracks[0].add(createEvent(ShortMessage.POLY_PRESSURE, channel, 0, 0, 
+				      (long)((startBeat + rhythmValue) * resolution)));
+	} catch (Exception e) { e.printStackTrace(); }
+    }
+    
+    public void addScheduledEvent(double startBeat, int eventID) {
+	Track track = seq.createTrack();
+	long startTime = (long)(startBeat * resolution);
+	try {
+		MetaMessage mm = new MetaMessage();
+		mm.setMessage(70, new byte[] {new Integer(eventID).byteValue()}, 1);
+		track.add(new MidiEvent(mm, startTime));
+	} catch (javax.sound.midi.InvalidMidiDataException e) {
+	    e.printStackTrace();
+	}
+    }
+  
+    private void buildSequence(double startBeat, int chan, int inst, 
+			       int[] pitches, int[] dynamics, double[] rhythmValues, 
+			       double[] lengths, int[] pans ) {
+	Track track = seq.createTrack();
+	// insert program change
+	track.add(createEvent(ShortMessage.PROGRAM_CHANGE, chan, inst, 0, (long)0.0));
+	// add note events to track
+	double currBeat = startBeat;
+	for (int i=0; i< pitches.length; i++) {
+	    if (debug) System.out.println("Pitch " + pitches[i]);
+	    addMidiEvents(track, chan, currBeat, pitches[i], dynamics[i], 
+			  rhythmValues[i], lengths[i], pans[i]);
+	    currBeat += rhythmValues[i];
+	}
+	if (debug) System.out.println("===========");
+    }
+    
+    private void addMidiEvents(Track track, int chan, double startBeat, int pitch, 
+			       int dynamic, double rhythmValue, double length, 
+			       int pan) {
+	long startTime = (long)(startBeat * resolution);
+        long duration = (long)(length * resolution);
+        int bPitch = Math.max(pitch, -1); // -1 is a rest
+        bPitch = Math.min(bPitch, 127);
+        int bDyn = Math.max(dynamic, 0);
+        bDyn = Math.min(bDyn, 127);
+	if (bPitch >= 0) {
+	    // pan
+	    track.add(createEvent(ShortMessage.CONTROL_CHANGE, chan, 10, pan, 
+				  startTime));
+	    // note
+	    track.add(createEvent(ShortMessage.NOTE_ON, chan, bPitch, bDyn, 
+				  startTime));
+	    track.add(createEvent(ShortMessage.NOTE_OFF, chan, bPitch, 0, 
+				  startTime + duration));	    
+	}
+    }
+
+    private MidiEvent createEvent(int type, int chan, int val1, int val2, long tick) {
+        ShortMessage bMessage = new ShortMessage();
+        MidiEvent bEvent = null;
+        try {
+            bMessage.setMessage(type, chan, val1, val2);
+            bEvent = new MidiEvent(bMessage, tick );
+        } catch (Exception ex) { ex.printStackTrace(); }
+        return bEvent;
+    }
+
+    public void addMidiFile(String filePath) {
+	try {
+	    File file = new File(filePath);
+	    try {
+		Sequence tempSeq = MidiSystem.getSequence(file);
+		if (debug) System.out.println("seq div type: " + seq.getDivisionType());
+		if (debug) System.out.println("tempSeq res: " + tempSeq.getResolution() + 
+				   " Div type: " + tempSeq.getDivisionType());
+		Track[] tracks = tempSeq.getTracks();
+		for(int i=0; i < tracks.length; i++) {
+		    Track t = seq.createTrack();
+		    for(int j=0; j< tracks[i].size(); j++) {
+			t.add(tracks[i].get(j));
+		    }
+		}
+		//update();
+	    } catch (javax.sound.midi.InvalidMidiDataException imde) 
+		{imde.printStackTrace();}
+	} catch (java.io.IOException e) {e.printStackTrace();}
+    }
+
+    public void writeMidiFile(String filePath) {
+	try {
+	    File file = new File(filePath);
+	    MidiSystem.write(seq, 1, file);
+	    if (debug) System.out.println("MIDI file written");
+	} catch (java.io.IOException e) {e.printStackTrace();}
+    }
+
+    /*
+Class pClass = processingAppletInstance.getClass();
+      try{
+          Method playMethod = pClass.getDeclaredMethod(args);
+          playMethod.invoke(args)
+      }catch(NoSuchMethodException){
+          // sorry method doesn't exist yet - wait for user
+      }
+
+    */
+    public void addScheduledEventListener(PApplet pa) {
+	this.pApplet = pa;
+    }
+
+    public void meta(MetaMessage message) {
+	if (message.getType() == 47) {  // 47 is end of track
+	    if (repeat == -1) {
+		sequencer.setMicrosecondPosition(0l);
+		sequencer.start();
+	    } else playing = false;
+	}
+	if (message.getType() == 70) {
+	    if(pApplet != null) {
+		Class pClass = pApplet.getClass();
+		try{		    
+		    
+		    Method[] methods = pClass.getDeclaredMethods();
+		    for(int i=0; i<methods.length; i++) {
+			//System.out.println(methods[i].getName());
+			if(methods[i].getName().equals("handleScheduledEvents")) {
+			    //System.out.println("found it!");
+			    methods[i].invoke(pApplet, new Byte((message.getData())[0]).intValue());
+			}
+		    }
+		    
+		    //Method handleEventMethod = pClass.getMethod("handleScheduledEvents", pClass);
+		    //handleEventMethod.invoke(pApplet, new Byte((message.getData())[0]).intValue());
+		    // System.out.println("** " + handleEventMethod.getName());
+		} catch (java.lang.Exception e) {
+		    System.out.println("SoundCipher error: the handleScheduledEvents(int eventId) method may not be declared." + e);
+		}
+	    } else 
+		System.out.println("SoundCipher error: event schduling not initated, call addScheduledEventListener(PApplet pApplet)");
+	    
+	    //handleSoundEvent(new Byte((message.getData())[0]).intValue());
+	    if (debug) System.out.println("got meta message " + message.getType() + " data: " + 
+					  new Byte((message.getData())[0]).intValue());
+	}
+    }
+
+    public void close() {
+	this.empty();
+	seq = null;
+	sequencer.close();
+	sequencer = null;
+    }
+
+    public void finalize() {
+	this.close();
+    }
+
+    public void actionPerformed(ActionEvent e) {
+	if(e.getSource() == n) {
+	    this.addNote(3.0, 0, 20, (int)(Math.random() * 60 + 40), 100, 2.0, 1.8, 64);
+	}
+	if(e.getSource() == c) {
+	    this.addChord(0.0, 1, 0,  new int[] {(int)(Math.random() * 60 + 40), 
+						 (int)(Math.random() * 60 + 40), 
+						 (int)(Math.random() * 60 + 40)},
+		  100, 1.0, 0.8, 64);
+	}
+	if(e.getSource() == ph) {
+	    this.addPhrase(1.0, 2, 10, new int[] {(int)(Math.random() * 60 + 40), 
+						  (int)(Math.random() * 60 + 40), 
+						  (int)(Math.random() * 60 + 40)},
+		    new int[] {(int)(Math.random() * 60 + 60), 
+			       (int)(Math.random() * 60 + 60), 
+			       (int)(Math.random() * 60 + 60)},
+		    new double[] {1.0, 1.0, 1.0},
+		    new double[] {0.8, 0.8, 0.8}, 
+		    new int[] {64, 64, 64});
+	}
+	if(e.getSource() == p) {
+	    this.play(0);
+	}
+	if(e.getSource() == empt) {
+	    this.empty();
+	}
+	if(e.getSource() == l) {
+	    this.play(-1);
+	}
+	if(e.getSource() == u) {
+	    this.update();
+	}
+	if(e.getSource() == s) {
+	    this.stop();
+	}
+	if(e.getSource() == m) {
+	    this.addMidiFile("/Users/browna/Documents/code/jMusic_classes/GA_Melodies/bd5.mid");
+	}
+	if(e.getSource() == w) {
+	    this.writeMidiFile("/Users/browna/Desktop/newfile.mid");
+	}
+    }
+}

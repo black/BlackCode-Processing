@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>OpenCV::flip() \ language (API)</title>
+	<style type="text/css" media="all">
+		@import "stylesheet.css";
+	</style>
+</head>
+
+<body>
+	<div id="container">
+		
+		<h1 class="light">OPENCV</h1>
+		<p id="nav">/ <a href="index.html">references</a></p>
+		<!--p><b>Reference for @libname library version @version</b></p-->
+		<br class="hide" />
+		<br class="hide" />
+		<table id="main">
+			<tr class="name">
+				<th class="heading">Name</th>
+				<td>flip()</td>
+			</tr>
+			<tr class="example">
+				<th class="heading">Examples</th>
+				<td><img src="images/flip.png" alt="flip" /><pre class="offset">import hypermedia.video.*;
+
+OpenCV opencv;
+
+
+void setup() {
+
+    size( 640, 480 );
+<!--
+    background(255);
+-->
+    opencv = new OpenCV(this);
+    opencv.capture( 320, 240 );
+
+}
+
+void draw() {
+
+    opencv.read();
+    opencv.flip( OpenCV.FLIP_BOTH ); // flip vertically and horizontally
+    opencv.absDiff();
+
+    // display images
+    image( opencv.image(OpenCV.SOURCE), 0, 0 );
+    image( opencv.image(), 320, 0 );
+}
+<!--
+void keyPressed() {
+    if( key==' ' ) save("flip.png");
+}
+-->
+
+</pre></td>
+			</tr>
+			<tr class="description">
+				<th class="heading">Description</th>
+				<td>Flip the current image around vertical, horizontal or both axes.</td>
+			</tr>
+			<tr class="syntax">
+				<th class="heading">Syntax</th>
+				<td><code>flip(mode);<br /></code></td>
+			</tr>
+			
+			<tr class="parameters">
+				<th class="heading">Parameters</th>
+				<td>
+					<table>
+						
+						<tr>
+							<td class="param">mode</td>
+							<td><span class="type">int : </span>the used axis, FLIP_HORIZONTAL, FLIP_VERTICAL or FLIP_BOTH</td>
+						</tr>
+		
+					</table>
+				</td>
+			</tr>
+		
+			
+			<tr class="return">
+				<th class="heading">Return</th>
+				<td>None</td>
+			</tr>
+		
+			<tr class="usage">
+				<th class="heading">Usage</th>
+				<td>Application</td>
+			</tr>
+			<tr class="related">
+				<th class="heading">Related</th>
+				<td></td>
+			</tr>
+		</table>
+
+	</div>
+</body>
+</html>

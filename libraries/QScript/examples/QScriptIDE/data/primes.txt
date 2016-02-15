@@ -1,0 +1,23 @@
+##Description
+This sketch calculates and displays all the prime numbers up to a user specified 
+limit. Chane the value in the first line to set another limit.
+##EndDescription 
+##Code
+maxPrime = 90
+println('Prime numbers <= ' + maxPrime)
+println('2')
+n = 3
+REPEAT
+  rootN = int(sqrt(n))
+  notPrime = false;
+  i = 3
+  WHILE(i <= rootN && NOT(notPrime))
+    notPrime = (n % i == 0)
+    i = i + 1
+  WEND
+  IF(notPrime == false)
+    println(n)
+  ENDIF
+  n = n + 2
+UNTIL(n > maxPrime)
+##EndCode        

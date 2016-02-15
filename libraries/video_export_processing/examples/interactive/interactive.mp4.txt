@@ -1,0 +1,16 @@
+ffmpeg version N-55807-g70106e7 Copyright (c) 2000-2013 the FFmpeg developers
+  built on Aug 27 2013 21:07:58 with gcc 4.7.3 (GCC)
+  configuration: --enable-gpl --enable-version3 --disable-w32threads --enable-avisynth --enable-bzlib --enable-fontconfig --enable-frei0r --enable-gnutls --enable-iconv --enable-libass --enable-libbluray --enable-libcaca --enable-libfreetype --enable-libgsm --enable-libilbc --enable-libmodplug --enable-libmp3lame --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenjpeg --enable-libopus --enable-librtmp --enable-libschroedinger --enable-libsoxr --enable-libspeex --enable-libtheora --enable-libtwolame --enable-libvo-aacenc --enable-libvo-amrwbenc --enable-libvorbis --enable-libvpx --enable-libx264 --enable-libxavs --enable-libxvid --enable-zlib
+  libavutil      52. 42.100 / 52. 42.100
+  libavcodec     55. 29.100 / 55. 29.100
+  libavformat    55. 14.102 / 55. 14.102
+  libavdevice    55.  3.100 / 55.  3.100
+  libavfilter     3. 82.102 /  3. 82.102
+  libswscale      2.  5.100 /  2.  5.100
+  libswresample   0. 17.103 /  0. 17.103
+  libpostproc    52.  3.100 / 52.  3.100
+Input #0, rawvideo, from 'pipe:':
+  Duration: N/A, start: 0.000000, bitrate: 259200 kb/s
+    Stream #0:0: Video: rawvideo (RGB[24] / 0x18424752), rgb24, 600x600, 259200 kb/s, 30 tbr, 30 tbn, 30 tbc
+[NULL @ 0039d1c0] Unable to find a suitable output format for 'using'
+using: Invalid argument

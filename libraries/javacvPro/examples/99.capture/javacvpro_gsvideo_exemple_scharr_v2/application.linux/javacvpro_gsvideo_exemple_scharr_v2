@@ -1,0 +1,4 @@
+#!/bin/sh
+
+APPDIR=$(dirname "$0")
+java  -Djava.library.path="$APPDIR" -cp "$APPDIR/lib/javacvpro_gsvideo_exemple_scharr_v2.jar:$APPDIR/lib/core.jar:$APPDIR/lib/jna.jar:$APPDIR/lib/gstreamer-java.jar:$APPDIR/lib/GSVideo.jar:$APPDIR/lib/javacv-windows-x86_64.jar:$APPDIR/lib/javacpp.jar:$APPDIR/lib/javacvPro.jar:$APPDIR/lib/javacv-linux-x86.jar:$APPDIR/lib/javacv.jar:$APPDIR/lib/javacv-android-arm.jar:$APPDIR/lib/javacv-linux-x86_64.jar:$APPDIR/lib/javacv-macosx-x86_64.jar:$APPDIR/lib/NyARToolkit.jar:$APPDIR/lib/NyAR4psg.jar:$APPDIR/lib/javacv-windows-x86.jar" javacvpro_gsvideo_exemple_scharr_v2
