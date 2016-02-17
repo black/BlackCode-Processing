@@ -1,48 +1,66 @@
-int rows=25, cols=25;
+int rows=50, cols=50;
 int w, h;
 boolean[][] cell;
+boolean[][] futureCell;
 void setup() {
-  size(300, 300);
+  size(500,500);
   cell = new boolean[rows][cols];
+  futureCell = new boolean[rows][cols];
   w = width/cols;
   h = height/rows;
+
+ // frameRate(20);
+}
+
+void mouseDragged() {
   for (int i=0; i<cols; i++) {
     for (int j=0; j<rows; j++) {
-      cell[i][j] = (random(100)<50?true:false);
+      if (i*w<mouseX && mouseX<i*w+w && j*w<mouseY && mouseY<j*w+w) {
+        cell[i][j] = true;
+      //  futureCell[i][j] = false; 
+      }
     }
   }
 }
-
 void draw() {
-  background(-1);
+  background(#FF121A); 
+
+
+
   for (int i=1; i<cols-1; i++) {
-    for (int j=1; j<rows-1; j++) {  
-      int life = 0;
-      for (int m=-1; m<=1; m++) {
-        for (int n=-1; n<=1; n++) {
-          int x = i+m;
-          int y = j+n;
-          if (cell[y][y] && i!=m && j!=m) life++;
-          println(life);
-        }
-      }
-      cell[i][j] = checkRules(i, j, life);
+    for (int j=1; j<rows-1; j++) {   
+      int num = checkNeighbours(i, j);
+      futureCell[i][j] = checkRules(i, j, num);
     }
   }
+  stroke(-1, 50);
   for (int i=0; i<cols; i++) {
     for (int j=0; j<rows; j++) { 
-      if (cell[i][j]) fill(0);
-      else fill(255); 
-      rect(i*w, j*h, w, h);
+      cell[i][j] = futureCell[i][j];
+      if (cell[i][j]) fill(-1);
+      else fill(#FF121A); 
+      ellipse(i*w, j*h, w, h);
+     //futureCell[i][j] = cell[i][j] ;
     }
   }
 }
 
-boolean checkRules(int i, int j, int life) {
+int checkNeighbours(int x, int y) {
+  int num =0;
+  for (int m=-1; m<=1; m++) {
+    for (int n=-1; n<=1; n++) {
+      if (n==0 && m==0) continue;
+      else if (cell[x+m][y+n]) num++;
+    }
+  }
+  return num;
+}
+
+boolean checkRules(int i, int j, int num) {
   boolean futurelife = false;
-  if (cell[i][j] && life<2 ) futurelife = false; // underpopulation
-  else if (cell[i][j] && life>3 )futurelife = false;  //overopulation
-  else if (!cell[i][j] && life==3)futurelife = true; // birth
+  if (!cell[i][j] && num == 3) futurelife = true;
+  else if ( cell[i][j] && (num < 2 || num > 3) ) futurelife = false;
+  else futurelife = cell[i][j];
   return futurelife;
 }
 
