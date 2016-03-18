@@ -12,8 +12,8 @@ void draw() {
   fill(-1, 30);
   noStroke();
   rect(0, 0, width, height);
-  k = 30*sin(radians(t)); 
-  float r = abs(10*sin(radians(t)))+6; 
+  k = 40*sin(radians(t)); 
+  float r = abs(15*sin(radians(t)))+8; 
   noStroke(); 
   for (int j=0; j<N; j++) { 
     float x = width/2+R*cos(radians(j*360/N+k));

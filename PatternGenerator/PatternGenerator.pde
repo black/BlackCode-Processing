@@ -7,7 +7,7 @@ int k=0, l=0, m=0;
 void draw() {
   //background(-1);
   noStroke();
-  fill(-1, 0);
+  fill(-1, 1);
   rect(0, 0, width, height);
   frameRate(20);
   stroke(0, 100);

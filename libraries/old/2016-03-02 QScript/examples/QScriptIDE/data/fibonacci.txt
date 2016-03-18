@@ -1,0 +1,19 @@
+##Description 
+This sketch displays the first few terms in the Fibonacci series. Change the value in the first line to set the number of terms to display.
+##EndDescription 
+##Code
+nbrTerms = 12
+n1 = 1; n2 = 1 ; count = 2;
+print(n1 + ' ' + n2 + ' ')
+WHILE(nbrTerms > 2)
+  next = n1 + n2
+  print(next + ' ') 
+  count = count + 1
+  IF(count % 10 == 0) 
+    println('')
+  ENDIF
+  n1 = n2; n2 = next
+  nbrTerms = nbrTerms - 1
+WEND
+println(''); END(next)
+##EndCode
