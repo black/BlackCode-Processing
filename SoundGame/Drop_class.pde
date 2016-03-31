@@ -4,7 +4,7 @@ class Drop {
   Drop(float x, float y) {
     loc = new PVector(x, y);
     r = 5;
-    gravity = new PVector(0, 0.05);
+    gravity = new PVector(0, 0.5);
     vel = new PVector(random(0.05), random(0.05));
   }
   void show() {

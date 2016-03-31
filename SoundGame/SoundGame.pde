@@ -20,12 +20,20 @@ void draw() {
     Drop D = rain.get(j);
     for (int i=0; i<poop.size (); i++) {
       Rail R = poop.get(i);
-      hit = detectCollision(D.loc, R.p1, R.p2, D.r);
     }
-    D.update(hit);
-    if (D.loc.y>height) {
-      rain.clear();
-      rain();
+  }
+
+  for (int k=0; k<poop.size (); k++) {
+    Rail R = poop.get(k);
+    for (int j=0; j<rain.size (); j++) {
+      Drop D = rain.get(j);
+      hit = detectCollision(D.loc, R.p1, R.p2, D.r);
+      if (hit)D.update(true);
+      else D.update(false);
+      if (D.loc.y>height) {
+        rain.remove(j);
+        rain.add(new Drop(random(0, width), 0));
+      }
     }
   }
 
