@@ -11,7 +11,7 @@
  * It's not the most reliable yet, a two hands example will follow
  * ----------------------------------------------------------------------------
  */
- 
+
 import java.util.Map;
 import java.util.Iterator;
 
@@ -20,30 +20,31 @@ import SimpleOpenNI.*;
 SimpleOpenNI context;
 float        zoomF =0.5f;
 float        rotX = radians(180);  // by default rotate the hole scene 180deg around the x-axis, 
-                                   // the data from openni comes upside down
+// the data from openni comes upside down
 float        rotY = radians(0);
 int          handVecListSize = 30;
-Map<Integer,ArrayList<PVector>>  handPathList = new HashMap<Integer,ArrayList<PVector>>();
-color[]       userClr = new color[]{ color(255,0,0),
-                                     color(0,255,0),
-                                     color(0,0,255),
-                                     color(255,255,0),
-                                     color(255,0,255),
-                                     color(0,255,255)
-                                   };
+Map<Integer, ArrayList<PVector>>  handPathList = new HashMap<Integer, ArrayList<PVector>>();
+color[]       userClr = new color[] { 
+  color(255, 0, 0), 
+  color(0, 255, 0), 
+  color(0, 0, 255), 
+  color(255, 255, 0), 
+  color(255, 0, 255), 
+  color(0, 255, 255)
+};
 void setup()
 {
-  size(1024,768,OPENGL);
+  size(1024, 768, OPENGL);
 
   //context = new SimpleOpenNI(this);
   context = new SimpleOpenNI(this);
-  if(context.isInit() == false)
+  if (context.isInit() == false)
   {
-     println("Can't init SimpleOpenNI, maybe the camera is not connected!"); 
-     exit();
-     return;  
+    println("Can't init SimpleOpenNI, maybe the camera is not connected!"); 
+    exit();
+    return;
   }
-  
+
   // disable mirror
   context.setMirror(false);
 
@@ -56,85 +57,85 @@ void setup()
 
   // set how smooth the hand capturing should be
   //context.setSmoothingHands(.5);
-  
-  stroke(255,255,255);
+
+  stroke(255, 255, 255);
   smooth();
-  
-  perspective(radians(45),
-              float(width)/float(height),
-              10.0f,150000.0f);
- }
+
+  perspective(radians(45), 
+  float(width)/float(height), 
+  10.0f, 150000.0f);
+}
 
 void draw()
 {
   // update the cam
   context.update();
 
-  background(0,0,0);
-  
+  background(0, 0, 0);
+
   // set the scene pos
   translate(width/2, height/2, 0);
   rotateX(rotX);
   rotateY(rotY);
   scale(zoomF);
-  
+
   // draw the 3d point depth map
   int[]   depthMap = context.depthMap();
   int     steps   = 10;  // to speed up the drawing, draw every third point
   int     index;
   PVector realWorldPoint;
- 
-  translate(0,0,-1000);  // set the rotation center of the scene 1000 infront of the camera
+
+  translate(0, 0, -1000);  // set the rotation center of the scene 1000 infront of the camera
 
   // draw point cloud
   stroke(200); 
   beginShape(POINTS);
-  for(int y=0;y < context.depthHeight();y+=steps)
+  for (int y=0; y < context.depthHeight (); y+=steps)
   {
-    for(int x=0;x < context.depthWidth();x+=steps)
+    for (int x=0; x < context.depthWidth (); x+=steps)
     {
       index = x + y * context.depthWidth();
-      if(depthMap[index] > 0)
+      if (depthMap[index] > 0)
       { 
         // draw the projected point
         realWorldPoint = context.depthMapRealWorld()[index];
-        vertex(realWorldPoint.x,realWorldPoint.y,realWorldPoint.z); 
+        vertex(realWorldPoint.x, realWorldPoint.y, realWorldPoint.z);
       }
-    } 
+    }
   } 
   endShape();
-  
+
   // draw the tracked hands
-  if(handPathList.size() > 0)  
+  if (handPathList.size() > 0)  
   {    
     Iterator itr = handPathList.entrySet().iterator();     
-    while(itr.hasNext())
+    while (itr.hasNext ())
     {
       Map.Entry mapEntry = (Map.Entry)itr.next(); 
       int handId =  (Integer)mapEntry.getKey();
       ArrayList<PVector> vecList = (ArrayList<PVector>)mapEntry.getValue();
       PVector p;
-      
+
       pushStyle();
-        stroke(userClr[ (handId - 1) % userClr.length ]);
-        noFill();           
-        Iterator itrVec = vecList.iterator(); 
-        beginShape();
-          while( itrVec.hasNext() ) 
-          { 
-            p = (PVector) itrVec.next(); 
-            vertex(p.x,p.y,p.z);
-          }
-        endShape();   
-  
-        stroke(userClr[ (handId - 1) % userClr.length ]);
-        strokeWeight(4);
-        p = vecList.get(0);
-        point(p.x,p.y,p.z);
-      popStyle(); 
-    }        
+      stroke(userClr[ (handId - 1) % userClr.length ]);
+      noFill();           
+      Iterator itrVec = vecList.iterator(); 
+      beginShape();
+      while ( itrVec.hasNext () ) 
+      { 
+        p = (PVector) itrVec.next(); 
+        vertex(p.x, p.y, p.z);
+      }
+      endShape();   
+
+      stroke(userClr[ (handId - 1) % userClr.length ]);
+      strokeWeight(4);
+      p = vecList.get(0);
+      point(p.x, p.y, p.z);
+      popStyle();
+    }
   }
-   
+
   // draw the kinect cam
   context.drawCamFrustum();
 }
@@ -143,31 +144,31 @@ void draw()
 // -----------------------------------------------------------------
 // hand events
 
-void onNewHand(SimpleOpenNI curContext,int handId,PVector pos)
+void onNewHand(SimpleOpenNI curContext, int handId, PVector pos)
 {
   println("onNewHand - handId: " + handId + ", pos: " + pos);
- 
+
   ArrayList<PVector> vecList = new ArrayList<PVector>();
   vecList.add(pos);
-  
-  handPathList.put(handId,vecList);
+
+  handPathList.put(handId, vecList);
 }
 
-void onTrackedHand(SimpleOpenNI curContext,int handId,PVector pos)
+void onTrackedHand(SimpleOpenNI curContext, int handId, PVector pos)
 {
   //println("onTrackedHand - handId: " + handId + ", pos: " + pos );
-  
+
   ArrayList<PVector> vecList = handPathList.get(handId);
-  if(vecList != null)
+  if (vecList != null)
   {
-    vecList.add(0,pos);
-    if(vecList.size() >= handVecListSize)
+    vecList.add(0, pos);
+    if (vecList.size() >= handVecListSize)
       // remove the last point 
-      vecList.remove(vecList.size()-1); 
-  }  
+      vecList.remove(vecList.size()-1);
+  }
 }
 
-void onLostHand(SimpleOpenNI curContext,int handId)
+void onLostHand(SimpleOpenNI curContext, int handId)
 {
   println("onLostHand - handId: " + handId);
 
@@ -177,12 +178,12 @@ void onLostHand(SimpleOpenNI curContext,int handId)
 // -----------------------------------------------------------------
 // gesture events
 
-void onCompletedGesture(SimpleOpenNI curContext,int gestureType, PVector pos)
+void onCompletedGesture(SimpleOpenNI curContext, int gestureType, PVector pos)
 {
   println("onCompletedGesture - gestureType: " + gestureType + ", pos: " + pos);
-  
+
   context.startTrackingHand(pos);
-  
+
   int handId = context.startTrackingHand(pos);
   println("hand stracked: " + handId);
 }
@@ -197,30 +198,30 @@ void keyPressed()
     context.setMirror(!context.mirror());
     break;
   }
-    
+
   switch(keyCode)
   {
-    case LEFT:
-      rotY += 0.1f;
-      break;
-    case RIGHT:
-      rotY -= 0.1f;
-      break;
-    case UP:
-      if(keyEvent.isShiftDown())
-        zoomF += 0.01f;
-      else
-        rotX += 0.1f;
-      break;
-    case DOWN:
-      if(keyEvent.isShiftDown())
-      {
-        zoomF -= 0.01f;
-        if(zoomF < 0.01)
-          zoomF = 0.01;
-      }
-      else
-        rotX -= 0.1f;
-      break;
+  case LEFT:
+    rotY += 0.1f;
+    break;
+  case RIGHT:
+    rotY -= 0.1f;
+    break;
+  case UP:
+    if (keyEvent.isShiftDown())
+      zoomF += 0.01f;
+    else
+      rotX += 0.1f;
+    break;
+  case DOWN:
+    if (keyEvent.isShiftDown())
+    {
+      zoomF -= 0.01f;
+      if (zoomF < 0.01)
+        zoomF = 0.01;
+    } else
+      rotX -= 0.1f;
+    break;
   }
 }
+

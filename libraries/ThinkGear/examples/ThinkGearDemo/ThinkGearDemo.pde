@@ -25,7 +25,7 @@ The NeuroSky MindWave device did not ship with any proper Java bindings.
  */
 
 
-
+import java.net.*; 
 import neurosky.*;
 import org.json.*;
 ThinkGearSocket neuroSocket;
@@ -33,35 +33,35 @@ int attention=10;
 int meditation=10;
 PFont font;
 void setup() {
-  size(600,600);
+  size(600, 600);
   ThinkGearSocket neuroSocket = new ThinkGearSocket(this);
   try {
     neuroSocket.start();
   } 
   catch (ConnectException e) {
-    //println("Is ThinkGear running??");
+    println("Is ThinkGear running??");
   }
   smooth();
   //noFill();
-  font = createFont("Verdana",12);
+  font = createFont("Verdana", 12);
   textFont(font);
 }
 
 void draw() {
   //background(0,0,0,50);
-  fill(0, 0,0, 255);
+  fill(0, 0, 0, 255);
   noStroke();
-  rect(0,0,120,80);
+  rect(0, 0, 120, 80);
 
 
-  fill(0, 0,0, 10);
+  fill(0, 0, 0, 10);
   noStroke();
-  rect(0,0,width,height);
+  rect(0, 0, width, height);
   fill(0, 116, 168);
   stroke(0, 116, 168);
   text("Attention: "+attention, 10, 30);
   noFill();
-  ellipse(width/2,height/2,attention*3,attention*3);
+  ellipse(width/2, height/2, attention*3, attention*3);
 
 
   fill(209, 24, 117, 100);
@@ -69,7 +69,7 @@ void draw() {
   text("Meditation: "+meditation, 10, 50);
   stroke(209, 24, 117, 100);
   noFill();
-  ellipse(width/2,height/2,meditation*3,meditation*3);
+  ellipse(width/2, height/2, meditation*3, meditation*3);
 }
 
 void poorSignalEvent(int sig) {

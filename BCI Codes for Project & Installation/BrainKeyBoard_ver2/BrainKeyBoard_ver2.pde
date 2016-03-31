@@ -69,7 +69,7 @@ void keyScanning() {
   } else {
     if (xspeed==100)tx++; //---------------- col selection ------
     
-    if (ty==0)ty*10+tx;
+    if (ty==0) ty*10+tx;
     else if (ty==1)ty*10+tx;
     else if (ty==1)ty*10+tx;
     
