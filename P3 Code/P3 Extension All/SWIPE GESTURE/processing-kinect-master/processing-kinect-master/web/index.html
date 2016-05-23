@@ -1,0 +1,110 @@
+<html>
+    <head>
+    <title>Kinect Carousel</title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.mousewheel.js"></script>
+    <script type="text/JavaScript" src="js/cloud-carousel.1.0.5.js"></script>
+
+    <script>
+
+    var websocket;
+
+    $(document).ready(function(){
+
+        // This initialises carousel on the container elements specified, in this case, carousel1.
+        var carousel = $("#carousel1").CloudCarousel(
+            {
+                xPos: 600,
+                yPos: 100,
+                mouseWheel: false
+            }
+        );
+
+        $('#left').click( function () {
+           //carousel.left();
+           websocket.send('swipeleft 1');
+        });
+
+        $('#right').click( function () {
+           //carousel.right();
+           websocket.send('swiperight 1');
+        });
+
+        $('#zoom').click( function () {
+           //carousel.toggle_zoom();
+           websocket.send('push 1');
+        });
+
+        // -----
+
+        if(!("WebSocket" in window)){
+
+            alert('Sorry your browser does not support web sockets');
+
+        } else {
+
+            function onMessage(evt) {
+                data = evt.data.substring(0, evt.data.indexOf(' '));
+                msg = data.toLowerCase();
+                if (msg == 'swipeleft') {
+                    carousel.left();
+                } else if (msg == 'swiperight') {
+                    carousel.right();
+                } else if (msg == 'push') {
+                    carousel.toggle_zoom();
+                } else {
+                    alert("Uknown event: " +msg);
+                }
+            }
+
+            var wsUri;
+
+            //wsUri = "ws://echo.websocket.org/";
+            wsUri = "ws://127.0.0.1:8888";
+
+            websocket = new WebSocket(wsUri);
+            websocket.onmessage = function(evt) { onMessage(evt) };
+            websocket.onopen = function(evt) {
+                  // DEMO:
+/*
+                for (var i = 1; i < 5; i++) {
+                    setTimeout("websocket.send('left');websocket.send('push');", i * 1000);
+                }
+                for (var i = 5; i < 10; i++) {
+                    setTimeout("websocket.send('right');", i * 1000);
+                }
+*/
+            };
+        }
+
+    });
+
+    </script>
+
+    </head>
+    <body style="background-color: black;">
+    	<!-- This is the container for the carousel. -->
+        <div id = "carousel1" style="width:1200px; height:600px;background:#000;overflow:scroll;">
+            <img class = "cloudcarousel" src="img/pic1.jpg" alt="Picture 1" width="200px" height="200px" />
+            <img class = "cloudcarousel" src="img/pic2.jpg" alt="Picture 2" width="200px" height="200px" />
+            <img class = "cloudcarousel" src="img/pic3.jpg" alt="Picture 3" width="200px" height="200px" />
+            <img class = "cloudcarousel" src="img/pic4.jpg" alt="Picture 4" width="200px" height="200px" />
+            <img class = "cloudcarousel" src="img/pic5.jpg" alt="Picture 5" width="200px" height="200px" />
+            <img class = "cloudcarousel" src="img/pic6.jpg" alt="Picture 6" width="200px" height="200px" />
+            <img class = "cloudcarousel" src="img/pic7.jpg" alt="Picture 7" width="200px" height="200px" />
+            <img class = "cloudcarousel" src="img/pic8.jpg" alt="Picture 8" width="200px" height="200px" />
+            <img class = "cloudcarousel" src="img/pic9.jpg" alt="Picture 9" width="200px" height="200px" />
+            <img class = "cloudcarousel" src="img/pic10.jpg" alt="Picture 10" width="200px" height="200px" />
+            <img class = "cloudcarousel" src="img/pic11.jpg" alt="Picture 11" width="200px" height="200px" />
+            <img class = "cloudcarousel" src="img/pic12.jpg" alt="Picture 12" width="200px" height="200px" />
+            <img class = "cloudcarousel" src="img/pic13.jpg" alt="Picture 13" width="200px" height="200px" />
+            <img class = "cloudcarousel" src="img/pic14.jpg" alt="Picture 14" width="200px" height="200px" />
+            <img class = "cloudcarousel" src="img/pic15.jpg" alt="Picture 15" width="200px" height="200px" />
+        </div>
+
+        <input id="left" type="button" value="<" />
+        <input id="zoom" type="button" value="Zoom" />
+        <input id="right" type="button" value=">" />
+
+        </body>
+</html>

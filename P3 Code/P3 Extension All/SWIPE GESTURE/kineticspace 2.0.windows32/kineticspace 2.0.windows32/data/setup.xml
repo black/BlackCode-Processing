@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+
+<!-- determines the setup of kinetic space -->
+
+<kineticspace>
+	<autodetection>yes</autodetection>
+	<multithreading>yes</multithreading>
+	<screensize>large</screensize>
+</kineticspace>
+
+

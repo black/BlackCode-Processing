@@ -1,0 +1,259 @@
+Index: include/NITE_Helpers.h
+===================================================================
+--- include/NITE_Helpers.h	(Revision 236)
++++ include/NITE_Helpers.h	(Arbeitskopie)
+@@ -47,6 +47,15 @@
+     
+ void XN_CALLBACK_TYPE OnCircleCB(XnFloat fTimes, XnBool bConfident, const XnVCircle* pCircle, void* pUserCxt);
+ 
++void XN_CALLBACK_TYPE OnPushCB(XnFloat fVelocity, XnFloat fAngle, void* pUserCxt);
++void XN_CALLBACK_TYPE OnStabilizedCB(XnFloat fVelocity, void* pUserCxt);
++
++//direction will be one of NITE_DIRECTION_XX
++void XN_CALLBACK_TYPE OnSwipeCB(XnVDirection eDir, XnFloat fVelocity, XnFloat fAngle, void* pUserCxt);
++void XN_CALLBACK_TYPE OnSwipeUpCB( XnFloat fVelocity, XnFloat fAngle, void* pUserCxt);
++void XN_CALLBACK_TYPE OnSwipeDownCB(XnFloat fVelocity, XnFloat fAngle, void* pUserCxt);
++void XN_CALLBACK_TYPE OnSwipeLeftCB(XnFloat fVelocity, XnFloat fAngle, void* pUserCxt);
++void XN_CALLBACK_TYPE OnSwipeRightCB(XnFloat fVelocity, XnFloat fAngle, void* pUserCxt);
+ 
+ ///////////////////////////////////////////////////////////////////////////////
+ // JavaCbContainer
+Index: src/SimpleNite.i
+===================================================================
+--- src/SimpleNite.i	(Revision 236)
++++ src/SimpleNite.i	(Arbeitskopie)
+@@ -503,6 +503,68 @@
+ 
+     XnFloat AngleBetweenVectors(const XnV3DVector& v1, const XnV3DVector& v2);
+ 
++///////////////////////////////////////////////////////////////////////////////
++// add java methods to register callbacks
++%typemap(javacode,noblock=1) XnVPushDetector{
++
++    NITE_JNI_JAVA_CALLBACK_DECL(XnVPushDetector,Push)
++    NITE_JNI_JAVA_CALLBACK_DECL(XnVPushDetector,Stabilized)
++}
++};
++
++
++# -----------------------------------------------------------------------------
++# XnVSwipeDetector
++
++%feature("director") XnVSwipeDetector;
++class XnVSwipeDetector : public XnVPointControl
++{
++public:
++/*
++        typedef void (XN_CALLBACK_TYPE *SwipeCB)(XnFloat fVelocity, XnFloat fAngle, void* pUserCxt);
++        typedef void (XN_CALLBACK_TYPE *GeneralSwipeCB)(XnVDirection eDir, XnFloat fVelocity, XnFloat fAngle, void* pUserCxt);
++*/
++        XnVSwipeDetector(XnBool bUseSteadyBeforeSwipe = true, const XnChar* strName = "XnVSwipeDetector");
++        ~XnVSwipeDetector();
++        void OnPrimaryPointCreate(const XnVHandPointContext* pContext, const XnPoint3D& ptFocus);
++        void OnPrimaryPointUpdate(const XnVHandPointContext* pContext);
++        void Reset();
++
++/*
++        XnCallbackHandle RegisterSwipeUp(void* cxt, SwipeCB pCB); // Add CB to list
++        XnCallbackHandle RegisterSwipeDown(void* cxt, SwipeCB pCB); // Add CB to list
++        XnCallbackHandle RegisterSwipeLeft(void* cxt, SwipeCB pCB); // Add CB to list
++        XnCallbackHandle RegisterSwipeRight(void* cxt, SwipeCB pCB); // Add CB to list
++        XnCallbackHandle RegisterSwipe(void* cxt, GeneralSwipeCB pCB);
++*/
++        void SetMotionSpeedThreshold(XnFloat fThreshold);
++        XnFloat GetMotionSpeedThreshold() const;
++        void SetMotionTime(XnUInt32 nThreshold);
++        XnUInt32 GetMotionTime() const;
++        void SetXAngleThreshold(XnFloat fThreshold);
++        XnFloat GetXAngleThreshold() const;
++        void SetYAngleThreshold(XnFloat fThreshold);
++        XnFloat GetYAngleThreshold() const;
++        void SetSteadyMaxVelocity(XnFloat fVelocity);
++        XnFloat GetSteadyMaxVelocity() const;
++        void SetSteadyDuration(XnUInt32 nDuration);
++        XnUInt32 GetSteadyDuration() const;
++        void SetUseSteady(XnBool bUse);
++        XnBool GetUseSteady() const;
++protected:
++        void AddPoint(const XnPoint3D& pt, XnFloat fTime);
++
++
++///////////////////////////////////////////////////////////////////////////////
++// add java methods to register callbacks
++%typemap(javacode,noblock=1) XnVSwipeDetector{
++
++    NITE_JNI_JAVA_CALLBACK_DECL(XnVSwipeDetector,SwipeUp)
++    NITE_JNI_JAVA_CALLBACK_DECL(XnVSwipeDetector,SwipeDown)
++    NITE_JNI_JAVA_CALLBACK_DECL(XnVSwipeDetector,SwipeLeft)
++    NITE_JNI_JAVA_CALLBACK_DECL(XnVSwipeDetector,SwipeRight)
++    NITE_JNI_JAVA_CALLBACK_DECL(XnVSwipeDetector,Swipe)
++}
+ }; 
+ 
+ 
+Index: src/NITE_Helpers.cpp
+===================================================================
+--- src/NITE_Helpers.cpp	(Revision 236)
++++ src/NITE_Helpers.cpp	(Arbeitskopie)
+@@ -260,6 +260,139 @@
+ 
+ 
+ ///////////////////////////////////////////////////////////////////////////////
++// XnVPushDetector
++
++void XN_CALLBACK_TYPE NITE_VIRTUAL_CALLBACK_FUNC(Push)        (XnFloat fVelocity, XnFloat fAngle, void* pUserCxt)
++{
++    JavaCbContainer* p = static_cast<JavaCbContainer*>(pUserCxt);
++    if(p == NULL)
++        return;
++
++    JNIEnv* env = p->env();
++    if (! p->gJvm()->AttachCurrentThread((void**)&env, NULL))
++    {
++        jclass      localClass = env->GetObjectClass(p->obj());
++        jmethodID   mid = NULL;
++
++        mid = env->GetMethodID(localClass,
++                               "onPush",
++                               "(FF)V");
++                              // float,float
++
++        if(mid != 0)
++        {
++            // call the java method
++            env->CallVoidMethod(p->obj(),
++                                mid,
++                                (jfloat)fVelocity,(jfloat)fAngle);
++        }
++    }
++}
++void XN_CALLBACK_TYPE NITE_VIRTUAL_CALLBACK_FUNC(Stabilized)        (XnFloat fVelocity, void* pUserCxt)
++{
++    JavaCbContainer* p = static_cast<JavaCbContainer*>(pUserCxt);
++    if(p == NULL)
++        return;
++
++    JNIEnv* env = p->env();
++    if (! p->gJvm()->AttachCurrentThread((void**)&env, NULL))
++    {
++        jclass      localClass = env->GetObjectClass(p->obj());
++        jmethodID   mid = NULL;
++
++        mid = env->GetMethodID(localClass,
++                               "onPush",
++                               "(F)V");
++                              // float,float
++
++        if(mid != 0)
++        {
++            // call the java method
++            env->CallVoidMethod(p->obj(),
++                                mid,
++                                (jfloat)fVelocity);
++        }
++    }
++}
++
++///////////////////////////////////////////////////////////////////////////////
++// XnVSwipeDetector
++
++void doTheSwipe(XnFloat fVelocity, XnFloat fAngle, void* pUserCxt, const char* direction)
++{
++    JavaCbContainer* p = static_cast<JavaCbContainer*>(pUserCxt);
++    if(p == NULL)
++        return;
++
++    JNIEnv* env = p->env();
++    if (! p->gJvm()->AttachCurrentThread((void**)&env, NULL))
++    {
++        jclass      localClass = env->GetObjectClass(p->obj());
++        jmethodID   mid = NULL;
++
++        mid = env->GetMethodID(localClass,
++                               direction,
++                               "(FF)V");
++                              // float,float
++
++        if(mid != 0)
++        {
++            // call the java method
++            env->CallVoidMethod(p->obj(),
++                                mid,
++                                (jfloat)fVelocity,(jfloat)fAngle);
++        }
++    }
++
++}
++
++void XN_CALLBACK_TYPE NITE_VIRTUAL_CALLBACK_FUNC(SwipeUp)        (XnFloat fVelocity, XnFloat fAngle, void* pUserCxt)
++{
++    doTheSwipe(fVelocity, fAngle, pUserCxt, "onSwipeUp");
++}
++void XN_CALLBACK_TYPE NITE_VIRTUAL_CALLBACK_FUNC(SwipeDown)        (XnFloat fVelocity, XnFloat fAngle, void* pUserCxt)
++{
++    doTheSwipe(fVelocity, fAngle, pUserCxt, "onSwipeDown");
++}
++void XN_CALLBACK_TYPE NITE_VIRTUAL_CALLBACK_FUNC(SwipeLeft)        (XnFloat fVelocity, XnFloat fAngle, void* pUserCxt)
++{
++    doTheSwipe(fVelocity, fAngle, pUserCxt, "onSwipeLeft");
++}
++void XN_CALLBACK_TYPE NITE_VIRTUAL_CALLBACK_FUNC(SwipeRight)        (XnFloat fVelocity, XnFloat fAngle, void* pUserCxt)
++{
++    doTheSwipe(fVelocity, fAngle, pUserCxt, "onSwipeRight");
++}
++
++void  XN_CALLBACK_TYPE NITE_VIRTUAL_CALLBACK_FUNC(Swipe)            (XnVDirection eDir, XnFloat fVelocity, XnFloat fAngle, void* pUserCxt)
++{
++    JavaCbContainer* p = static_cast<JavaCbContainer*>(pUserCxt);
++    if(p == NULL)
++        return;
++
++    JNIEnv* env = p->env();
++    if (! p->gJvm()->AttachCurrentThread((void**)&env, NULL))
++    {
++        jclass      localClass = env->GetObjectClass(p->obj());
++        jmethodID   mid = NULL;
++
++        mid = env->GetMethodID(localClass,
++                               "onSwipe",
++                               "(IFF)V");
++                              // int-XnVDirection,float,float
++
++        if(mid != 0)
++        {
++            // call the java method
++            env->CallVoidMethod(p->obj(),
++                                mid,
++                                (jint)eDir,(jfloat)fVelocity,(jfloat)fAngle);
++        }
++    }
++
++}
++
++
++///////////////////////////////////////////////////////////////////////////////
+ // XnVCircleDetector
+ 
+ void XN_CALLBACK_TYPE NITE_VIRTUAL_CALLBACK_FUNC(Circle)(XnFloat fTimes, XnBool bConfident, const XnVCircle* pCircle, void* UserCxt)
+@@ -493,6 +626,21 @@
+ NITE_JNI_CALLBACK(XnVPointControl,PrimaryPointCreate)	
+ NITE_JNI_CALLBACK(XnVPointControl,PrimaryPointDestroy)	
+ 
++///////////////////////////////////////////////////////////////////////////////
++// XnVPushDetector Java method export
++
++NITE_JNI_CALLBACK(XnVPushDetector,Push)
++NITE_JNI_CALLBACK(XnVPushDetector,Stabilized)
++
++///////////////////////////////////////////////////////////////////////////////
++// XnVSwipeDetector Java method export
++
++NITE_JNI_CALLBACK(XnVSwipeDetector,SwipeUp)
++NITE_JNI_CALLBACK(XnVSwipeDetector,SwipeDown)
++NITE_JNI_CALLBACK(XnVSwipeDetector,SwipeLeft)
++NITE_JNI_CALLBACK(XnVSwipeDetector,SwipeRight)
++NITE_JNI_CALLBACK(XnVSwipeDetector,Swipe)
++
+ 
+ ///////////////////////////////////////////////////////////////////////////////
+ // XnVCircleDetector Java method export

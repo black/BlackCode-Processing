@@ -1,0 +1,32 @@
+Code from our Hackday at Liip.
+
+(c) 2011-04-11 daniel.barsotti, david, gerhard, alain.horner at liip.ch
+
+You will need the http://processing.org/ environment to run this example.
+
+Kinect Driver
+*************
+Follow the guide included in the SensorKinect[1] Readme.
+
+Processing Application
+**********************
+Get the Simple-Openni [2] library. When the maintainer has released a new version, you can just install it into processing. Until then, get the code and apply the patch nite_push-and-swipe.patch. To compile, we had success following the guide and doing the following line from the build folder
+cmake -DXN_NITE_INCLUDE=/usr/include/nite -DXN_NITE_LIB=/usr/lib -DEIGEN3D_INCLUDE=/usr/include/eigen2/ -DOPEN_NI_INCLUDE=/usr/include/ni -DP5_JAR=/opt/processing-1.0.3/lib/core.jar ..
+Then install the generated library according to the documentation of Simple-Openni.
+
+Once you have set up processing with Simple-Openni, we can start with the real application. Put the folder "java-processing" into your processing.org sketchbook folder. Then start processing and open and run the application. The necessary Web Sockets library [1] is included as jar.
+
+
+Website
+*******
+The web application is in the "web" folder. You can just open the index.html file in a web browser supporting Web Sockets (Chrome or Firefox 4).
+Note that you need to reload the page each time you start the processing application to make it connect to the server socket.
+
+To try this without the kinect and processing application, you can go to the index.html and change the wsUri from localhost to echo.websocket.org. This will make the buttons send messages to the websocket echo server and get the messages from there, so you can see the carousel turning.
+wsUri = "ws://echo.websocket.org/";
+//wsUri = "ws://127.0.0.1:8888";
+
+
+[1] https://github.com/avin2/SensorKinect (just use the tar.bz2 in Bin if you do not want to compile)
+[2] http://code.google.com/p/simple-openni/
+[3] https://github.com/TooTallNate/Java-WebSocket

@@ -1,0 +1,16 @@
+To install the software you need the following tools installed on your system:
+
+   + OpenNI and NITE
+   + JAVA
+ 
+Troubleshouting:
+
+If no Kinect is found on a Windows machine
+   + make sure you have one and it is plugged in
+   + because Microsoft has started pushing their own Kinect drivers through Windows update
+     it might be necessary to change to non-Microsoft drivers (OpenNI) by follow these step:
+     open the device manager, right-click on "Microsoft Kinect\Microsoft Kinect Camera", update
+	 driver, "browse my computer...", "Let me pick..." and choose the one which doesn't start 
+	 with Microsoft.
+   + on some 64 bit systems, a 32 bit driver might be installed, thus try the 32 bit version 
+     instead of the 64 bit version

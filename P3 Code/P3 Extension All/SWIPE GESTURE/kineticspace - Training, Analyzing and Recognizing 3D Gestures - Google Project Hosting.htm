@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<!-- saved from url=(0039)https://code.google.com/p/kineticspace/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ 
+ <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+ 
+ <meta name="ROBOTS" content="NOARCHIVE">
+ 
+ <link rel="icon" type="image/vnd.microsoft.icon" href="https://ssl.gstatic.com/codesite/ph/images/phosting.ico">
+ 
+ 
+ <script src="./kineticspace - Training, Analyzing and Recognizing 3D Gestures - Google Project Hosting_files/cb=gapi.loaded_0" async=""></script><script type="text/javascript" async="" src="./kineticspace - Training, Analyzing and Recognizing 3D Gestures - Google Project Hosting_files/plusone.js" gapi_processed="true"></script><script type="text/javascript">
+ 
+ 
+ 
+ 
+ var codesite_token = "AzIXRXeiaJ_R4Ia9RAIP-jpmlr8:1376372472878";
+ 
+ 
+ var CS_env = {"assetVersionPath":"https://ssl.gstatic.com/codesite/ph/3783617020303179221","relativeBaseUrl":"","assetHostPath":"https://ssl.gstatic.com/codesite/ph","domainName":null,"token":"AzIXRXeiaJ_R4Ia9RAIP-jpmlr8:1376372472878","projectHomeUrl":"/p/kineticspace","projectName":"kineticspace","profileUrl":"/u/108623933001082500923/","loggedInUserEmail":"blykgod@gmail.com"};
+ var _gaq = _gaq || [];
+ _gaq.push(
+ ['siteTracker._setAccount', 'UA-18071-1'],
+ ['siteTracker._trackPageview']);
+ 
+ _gaq.push(
+ ['projectTracker._setAccount', 'UA-24564062-1'],
+ ['projectTracker._trackPageview']);
+ 
+ (function() {
+ var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+ })();
+ 
+ </script><script type="text/javascript" async="" src="./kineticspace - Training, Analyzing and Recognizing 3D Gestures - Google Project Hosting_files/ga.js"></script>
+ 
+ 
+ <title>
+ kineticspace -
+ 
+ 
+ Training, Analyzing and Recognizing 3D Gestures - Google Project Hosting
+ </title>
+ <link type="text/css" rel="stylesheet" href="./kineticspace - Training, Analyzing and Recognizing 3D Gestures - Google Project Hosting_files/core.css">
+ 
+ <link type="text/css" rel="stylesheet" href="./kineticspace - Training, Analyzing and Recognizing 3D Gestures - Google Project Hosting_files/ph_detail.css">
+ 
+ 
+ 
+ 
+<!--[if IE]>
+ <link type="text/css" rel="stylesheet" href="https://ssl.gstatic.com/codesite/ph/3783617020303179221/css/d_ie.css" >
+<![endif]-->
+ <style type="text/css">
+ .menuIcon.off { background: no-repeat url(https://ssl.gstatic.com/codesite/ph/images/dropdown_sprite.gif) 0 -42px }
+ .menuIcon.on { background: no-repeat url(https://ssl.gstatic.com/codesite/ph/images/dropdown_sprite.gif) 0 -28px }
+ .menuIcon.down { background: no-repeat url(https://ssl.gstatic.com/codesite/ph/images/dropdown_sprite.gif) 0 0; }
+ 
+ 
+ 
+ .activity-level-High {
+ background:no-repeat url(https://ssl.gstatic.com/codesite/ph/images/activity-level.png) 0 0;
+ width: 16px;
+ height: 16px;
+ }
+ .activity-level-Low {
+ background:no-repeat url(https://ssl.gstatic.com/codesite/ph/images/activity-level.png) 0 -16px;
+ width: 16px;
+ height: 16px;
+ }
+ .activity-level-Medium {
+ background: no-repeat url(https://ssl.gstatic.com/codesite/ph/images/activity-level.png) -16px 0;
+ width: 16px;
+ height: 16px;
+ }
+ .activity-level-None {
+ background:no-repeat url(https://ssl.gstatic.com/codesite/ph/images/activity-level.png) -16px -16px;
+ width: 16px;
+ height: 16px;
+ }
+
+ .psicon-container {
+ min-width:24px;
+ }
+
+ 
+ </style>
+</head>
+<body class="t1">
+<script type="text/javascript">
+ window.___gcfg = {lang: 'en'};
+ (function() 
+ {var po = document.createElement("script");
+ po.type = "text/javascript"; po.async = true;po.src = "https://apis.google.com/js/plusone.js";
+ var s = document.getElementsByTagName("script")[0];
+ s.parentNode.insertBefore(po, s);
+ })();
+</script>
+<div class="headbg">
+
+ <div id="gaia">
+ 
+
+ <span>
+ 
+ 
+ 
+ <a href="https://code.google.com/p/kineticspace/#" id="multilogin-dropdown" onclick="return false;"><u><b>blykgod@gmail.com</b></u> <small>▼</small></a>
+ 
+ 
+ | <a href="https://code.google.com/u/108623933001082500923/" id="projects-dropdown" onclick="return false;"><u>My favorites</u> <small>▼</small></a>
+ | <a href="https://code.google.com/u/108623933001082500923/" onclick="_CS_click(&#39;/gb/ph/profile&#39;);" title="Profile, Updates, and Settings"><u>Profile</u></a>
+ | <a href="https://www.google.com/accounts/Logout?continue=https%3A%2F%2Fcode.google.com%2Fp%2Fkineticspace%2F" onclick="_CS_click(&#39;/gb/ph/signout&#39;);"><u>Sign out</u></a>
+ 
+ </span>
+
+ </div>
+
+ <div class="gbh" style="left: 0pt;"></div>
+ <div class="gbh" style="right: 0pt;"></div>
+ 
+ 
+ <div style="height: 1px"></div>
+<!--[if lte IE 7]>
+<div style="text-align:center;">
+Your version of Internet Explorer is not supported. Try a browser that
+contributes to open source, such as <a href="http://www.firefox.com">Firefox</a>,
+<a href="http://www.google.com/chrome">Google Chrome</a>, or
+<a href="http://code.google.com/chrome/chromeframe/">Google Chrome Frame</a>.
+</div>
+<![endif]-->
+
+
+
+ <table style="padding:0px; margin: 0px 0px 10px 0px; width:100%" cellpadding="0" cellspacing="0" itemscope="" itemtype="http://schema.org/CreativeWork">
+ <tbody><tr style="height: 58px;">
+ 
+ 
+ 
+ <td id="plogo">
+ <link itemprop="url" href="https://code.google.com/p/kineticspace">
+ <a href="./kineticspace - Training, Analyzing and Recognizing 3D Gestures - Google Project Hosting_files/kineticspace - Training, Analyzing and Recognizing 3D Gestures - Google Project Hosting.htm">
+ 
+ 
+ <img src="./kineticspace - Training, Analyzing and Recognizing 3D Gestures - Google Project Hosting_files/logo" alt="Logo" itemprop="image">
+ 
+ </a>
+ </td>
+ 
+ <td style="padding-left: 0.5em">
+ 
+ <div id="pname">
+ <a href="./kineticspace - Training, Analyzing and Recognizing 3D Gestures - Google Project Hosting_files/kineticspace - Training, Analyzing and Recognizing 3D Gestures - Google Project Hosting.htm"><span itemprop="name">kineticspace</span></a>
+ </div>
+ 
+ <div id="psum">
+ <a id="project_summary_link" href="./kineticspace - Training, Analyzing and Recognizing 3D Gestures - Google Project Hosting_files/kineticspace - Training, Analyzing and Recognizing 3D Gestures - Google Project Hosting.htm"><span itemprop="description">Training, Analyzing and Recognizing 3D Gestures</span></a>
+ 
+ </div>
+ 
+ 
+ </td>
+ <td style="white-space:nowrap;text-align:right; vertical-align:bottom;">
+ 
+ <form action="https://code.google.com/hosting/search">
+ <input size="30" name="q" value="" type="text">
+ 
+ <input type="submit" name="projectsearch" value="Search projects">
+ </form>
+ 
+ </td></tr>
+ </tbody></table>
+
+</div>
+
+ 
+<div id="mt" class="gtb"> 
+ <a href="./kineticspace - Training, Analyzing and Recognizing 3D Gestures - Google Project Hosting_files/kineticspace - Training, Analyzing and Recognizing 3D Gestures - Google Project Hosting.htm" class="tab active">Project&nbsp;Home</a>
+ 
+ 
+ 
+ 
+ <a href="https://code.google.com/p/kineticspace/downloads/list" class="tab ">Downloads</a>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ <div class="gtbc"></div>
+</div>
+<table cellspacing="0" cellpadding="0" width="100%" align="center" border="0" class="st">
+ <tbody><tr>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ <td class="subt">
+ <div class="st1">
+ <div class="isf">
+ <span class="inst1">
+ <a href="./kineticspace - Training, Analyzing and Recognizing 3D Gestures - Google Project Hosting_files/kineticspace - Training, Analyzing and Recognizing 3D Gestures - Google Project Hosting.htm">Summary</a>
+ </span>
+ 
+ 
+ 
+ &nbsp;
+ <span class="inst3">
+ <a href="https://code.google.com/p/kineticspace/people/list">People</a>
+ </span>
+ 
+ 
+ </div>
+</div>
+
+ </td>
+ 
+ 
+ <td align="right" valign="top" class="bevel-right"></td>
+ </tr>
+</tbody></table>
+
+
+<script type="text/javascript">
+ var cancelBubble = false;
+ function _go(url) { document.location = url; }
+</script>
+<div id="maincol">
+
+ 
+
+
+
+
+
+<table width="100%">
+ <tbody><tr class="pscontent">
+ <td class="pscolumnl">
+ 
+ <div class="phead">Project Information</div>
+ 
+ 
+ <div class="psicon" style="min-height:23px">
+ <div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; background-color: transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 200px; height: 15px; background-position: initial initial; background-repeat: initial initial;"><iframe frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 200px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 15px;" tabindex="0" vspace="0" width="100%" id="I0_1376372701564" name="I0_1376372701564" src="./kineticspace - Training, Analyzing and Recognizing 3D Gestures - Google Project Hosting_files/fastbutton.htm" allowtransparency="true" data-gapiattached="true" title="+1"></iframe></div>
+ </div>
+ 
+ 
+ <div class="psicon">
+ <div class="psicon-container goog-inline-block">
+ <img width="15" height="15" id="star_img" title="Click to star project" src="./kineticspace - Training, Analyzing and Recognizing 3D Gestures - Google Project Hosting_files/star_off.gif" style="cursor:pointer; float:right" onclick="_CS_toggleStar(this,
+ {&#39;scope&#39;: &#39;projects&#39;,
+ &#39;user&#39;: &#39;_CURRENT_USER&#39;,
+ &#39;item&#39;: &#39;kineticspace&#39;
+ },
+ true,
+ &#39;&#39;,
+ &#39;&#39;,
+ &#39;&#39;,
+ &#39;star_count&#39;,
+ &#39;plural&#39;);">
+ </div>
+ <span>
+ Starred by <span id="star_count">73</span>&nbsp;user<span id="plural">s</span>
+ </span>
+ </div> 
+ 
+ <ul class="pslist">
+ 
+ 
+ 
+ 
+ <li class="psmeta">
+ <a href="https://code.google.com/p/kineticspace/feeds">Project feeds</a>
+ </li>
+ <li class="psgap">
+ 
+ 
+ 
+ </li><li class="psmeta"><b>Code license</b></li>
+ <li class="psmeta">
+ <a href="http://code.google.com/p/support/wiki/FAQ#Which_licenses_can_be_used?" rel="nofollow">Other Open Source</a>
+ <br>See source for details
+ </li>
+ <li class="psgap">
+ 
+ 
+ 
+ 
+ 
+ 
+ </li><li class="psmeta">
+ <span id="project_labels">
+ <b>Labels</b><br>
+ 
+ <a class="label" href="https://code.google.com/hosting/search?q=label:Interface">Interface</a>, 
+ 
+ <a class="label" href="https://code.google.com/hosting/search?q=label:Performance">Performance</a>, 
+ 
+ <a class="label" href="https://code.google.com/hosting/search?q=label:Processing">Processing</a>, 
+ 
+ <a class="label" href="https://code.google.com/hosting/search?q=label:Algorithm">Algorithm</a>, 
+ 
+ <a class="label" href="https://code.google.com/hosting/search?q=label:Analysis">Analysis</a>, 
+ 
+ <a class="label" href="https://code.google.com/hosting/search?q=label:Controller">Controller</a>, 
+ 
+ <a class="label" href="https://code.google.com/hosting/search?q=label:Kinect">Kinect</a>, 
+ 
+ <a class="label" href="https://code.google.com/hosting/search?q=label:OSC">OSC</a>, 
+ 
+ <a class="label" href="https://code.google.com/hosting/search?q=label:Tracking">Tracking</a>, 
+ 
+ <a class="label" href="https://code.google.com/hosting/search?q=label:Gesture">Gesture</a>, 
+ 
+ <a class="label" href="https://code.google.com/hosting/search?q=label:SimpleOpenNI">SimpleOpenNI</a>, 
+ 
+ <a class="label" href="https://code.google.com/hosting/search?q=label:OpenNI">OpenNI</a>, 
+ 
+ <a class="label" href="https://code.google.com/hosting/search?q=label:NITE">NITE</a>
+ 
+ </span>
+ </li>
+ <li class="psgap">
+ 
+ 
+ </li></ul>
+ <div class="psicon">
+ <div class="psicon-container goog-inline-block">
+ <div style="float:right" class="SPRITE_people-y16 goog-inline-block vt"></div>
+ </div>
+ <span><b>Members</b></span>
+ </div>
+ <ul class="pslist">
+ 
+ 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/105968994858600804853/">matthias...@googlemail.com</a>, 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/102265783416865037847/">kinetics...@gmail.com</a>
+ 
+ 
+ 
+ 
+ <li class="psgap">
+ 
+ 
+ </li></ul>
+ 
+ 
+ <div class="phead pfeatured">Featured</div>
+ 
+ <div class="psicon">
+ <div class="psicon-container goog-inline-block">
+ <div style="float:right" class="SPRITE_filedownload-g16 goog-inline-block vt"></div>
+ </div>
+ <span><b>Downloads</b></span>
+ </div>
+ <ul class="pslist">
+ 
+ <li class="psmeta nowrap">
+ <a title="Download" href="https://kineticspace.googlecode.com/files/kineticspace%202.0.linux32.zip" onclick="_gaq.push([&#39;siteTracker._trackEvent&#39;, &#39;Download - Downloaded&#39;, &#39;//kineticspace.googlecode.com/files/kineticspace%202.0.linux32.zip&#39;, &#39;Featured, Type-Executable, OpSys-Linux&#39;]);_gaq.push([&#39;projectTracker._trackEvent&#39;, &#39;Download - Downloaded&#39;, &#39;//kineticspace.googlecode.com/files/kineticspace%202.0.linux32.zip&#39;, &#39;Featured, Type-Executable, OpSys-Linux&#39;]);">
+ </a>
+ <a href="https://code.google.com/p/kineticspace/downloads/detail?name=kineticspace%202.0.linux32.zip" title="Kinetic Space Version 2.0 – Linux 32 bit">kineticspace 2.0.linux32.zip</a>
+ </li>
+ 
+ <li class="psmeta nowrap">
+ <a title="Download" href="https://kineticspace.googlecode.com/files/kineticspace%202.0.linux64.zip" onclick="_gaq.push([&#39;siteTracker._trackEvent&#39;, &#39;Download - Downloaded&#39;, &#39;//kineticspace.googlecode.com/files/kineticspace%202.0.linux64.zip&#39;, &#39;Featured, Type-Executable, OpSys-Linux&#39;]);_gaq.push([&#39;projectTracker._trackEvent&#39;, &#39;Download - Downloaded&#39;, &#39;//kineticspace.googlecode.com/files/kineticspace%202.0.linux64.zip&#39;, &#39;Featured, Type-Executable, OpSys-Linux&#39;]);">
+ </a>
+ <a href="https://code.google.com/p/kineticspace/downloads/detail?name=kineticspace%202.0.linux64.zip" title="Kinetic Space Version 2.0 – Linux 64 bit">kineticspace 2.0.linux64.zip</a>
+ </li>
+ 
+ <li class="psmeta nowrap">
+ <a title="Download" href="https://kineticspace.googlecode.com/files/kineticspace%202.0.macosx%20.zip" onclick="_gaq.push([&#39;siteTracker._trackEvent&#39;, &#39;Download - Downloaded&#39;, &#39;//kineticspace.googlecode.com/files/kineticspace%202.0.macosx%20.zip&#39;, &#39;Featured, Type-Executable, OpSys-OSX&#39;]);_gaq.push([&#39;projectTracker._trackEvent&#39;, &#39;Download - Downloaded&#39;, &#39;//kineticspace.googlecode.com/files/kineticspace%202.0.macosx%20.zip&#39;, &#39;Featured, Type-Executable, OpSys-OSX&#39;]);">
+ </a>
+ <a href="https://code.google.com/p/kineticspace/downloads/detail?name=kineticspace%202.0.macosx%20.zip" title="Kinetic Space Version 2.0 - Mac OS X">kineticspace 2.0.macosx .zip</a>
+ </li>
+ 
+ <li class="psmeta nowrap">
+ <a title="Download" href="https://kineticspace.googlecode.com/files/kineticspace%202.0.windows32.zip" onclick="_gaq.push([&#39;siteTracker._trackEvent&#39;, &#39;Download - Downloaded&#39;, &#39;//kineticspace.googlecode.com/files/kineticspace%202.0.windows32.zip&#39;, &#39;Featured, Type-Executable, OpSys-Windows&#39;]);_gaq.push([&#39;projectTracker._trackEvent&#39;, &#39;Download - Downloaded&#39;, &#39;//kineticspace.googlecode.com/files/kineticspace%202.0.windows32.zip&#39;, &#39;Featured, Type-Executable, OpSys-Windows&#39;]);">
+ </a>
+ <a href="https://code.google.com/p/kineticspace/downloads/detail?name=kineticspace%202.0.windows32.zip" title="Kinetic Space Version 2.0 – Windows 32 bit">kineticspace 2.0.windows32.zip</a>
+ </li>
+ 
+ <li class="psmeta nowrap">
+ <a title="Download" href="https://kineticspace.googlecode.com/files/kineticspace%202.0.windows64.zip" onclick="_gaq.push([&#39;siteTracker._trackEvent&#39;, &#39;Download - Downloaded&#39;, &#39;//kineticspace.googlecode.com/files/kineticspace%202.0.windows64.zip&#39;, &#39;Featured, Type-Executable, OpSys-Windows&#39;]);_gaq.push([&#39;projectTracker._trackEvent&#39;, &#39;Download - Downloaded&#39;, &#39;//kineticspace.googlecode.com/files/kineticspace%202.0.windows64.zip&#39;, &#39;Featured, Type-Executable, OpSys-Windows&#39;]);">
+ </a>
+ <a href="https://code.google.com/p/kineticspace/downloads/detail?name=kineticspace%202.0.windows64.zip" title="Kinetic Space Version 2.0 – Windows 64 bit">kineticspace 2.0.windows64.zip</a>
+ </li>
+ 
+ <li class="psmeta"><a href="https://code.google.com/p/kineticspace/downloads/list">Show all »</a></li>
+ <li class="psgap">
+ </li></ul>
+ 
+ 
+ 
+ 
+ 
+ <div class="phead">Links</div>
+ <ul class="pslist" style="white-space:nowrap">
+ 
+ 
+ <li class="psmeta"><b>External links</b></li>
+ 
+ <li class="psmeta">
+ <a href="http://www.colorfulbit.com/" rel="nofollow">KS 2 @ ColorfulBit</a>
+ </li>
+ 
+ <li class="psmeta">
+ <a href="http://www.youtube.com/watch?v=bj9pME4zrV4" rel="nofollow">KS 2 @ YouTube</a>
+ </li>
+ 
+ <li class="psmeta">
+ <a href="http://kinect.dashhacks.com/kinect-hacks/2011/07/23/recording-recognizable-gestures-live-performance-applications-kinect-space" rel="nofollow">KS @ Dash Hacks</a>
+ </li>
+ 
+ <li class="psmeta">
+ <a href="http://jp.techcrunch.com/archives/20110805kinetic-space-framework-allows-pcs-to-read-dance-moves-sign-language/" rel="nofollow">KS @ TechCrunch Japan</a>
+ </li>
+ 
+ <li class="psmeta">
+ <a href="http://www.kinecthacks.com/kinect-spaces-gesture-recognition" rel="nofollow">KS @ Kinetic Hacks</a>
+ </li>
+ 
+ <li class="psmeta">
+ <a href="http://www.youtube.com/watch?v=e0c2B3PBvRw" rel="nofollow">KS @ YouTube</a>
+ </li>
+ 
+ <li class="psmeta">
+ <a href="http://www.openni.org/News/Blog/tabid/153/EntryId/19/An-Interview-with-Developer-Matthias-Wolfel.aspx" rel="nofollow">Interview @ OpenNI Blog</a>
+ </li>
+ 
+ <li class="psgap">
+ 
+ 
+ </li></ul>
+ 
+ </td>
+ <td id="wikicontent" class="psdescription">
+ <h1><a name="Summary"></a>Summary<a href="https://code.google.com/p/kineticspace/#Summary" class="section_anchor"></a></h1><p>The <i>Kinetic Space</i> provides a tool which allows everybody to record and automatically recognize customized gestures using depth images as provided by the Kinect sensors. The software observes and comprehends the user interaction by processing the skeleton of the user. The unique analysis routines allow to not only detect simple gestures such as pushing, clicking, forming a circle or waving, but also to recognize more complicated gestures as, for instance, used in dance performances or sign language. In addition it provides a visual feedback how good individual body parts resemble a given gesture. </p><p>Six highlights of the software are that the gestures: </p><ul><li><i>can be easily trained</i>: the user can simply train the system by recording the movement/gesture to be detected without having to write a single line of code </li></ul><p>  </p><ul><li><i>are person independent</i>: the system can be trained by one person and used by others  </li></ul><p></p><ul><li><i>are orientation independent</i>: the system can recognize gestures even if the trained and tested gesture does not have the same orientations  </li></ul><ul><li><i>are speed independent</i>: the system is able to recognize the gesture also if it is performed faster or slower compared to the training and is able to provide this information </li></ul><ul><li><i>can be adjusted</i>: the gesture configuration can be fully controlled by a graphical interface (version 2.0) </li></ul><ul><li><i>can be analyzed</i>: the current input data can be compared with a particular gesture; feedback of the similarity between the gestures is given for every body part </li></ul><p>The software has already been used by media artists, dancers and alike to  connect and to control a wide range of third party applications/software such as Max/MSP, Pure Data, VVVV, Resolume, etc. via the OSC protocol. The software is written in Processing and based on SimpleOpenNI, OpenNI and NITE. </p><h1><a name="Some_Screen_Shots"></a>Some Screen Shots<a href="https://code.google.com/p/kineticspace/#Some_Screen_Shots" class="section_anchor"></a></h1><p><img src="./kineticspace - Training, Analyzing and Recognizing 3D Gestures - Google Project Hosting_files/overview.jpg"> </p><h1><a name="Watch_the_Video_for_more_Information"></a>Watch the Video for more Information<a href="https://code.google.com/p/kineticspace/#Watch_the_Video_for_more_Information" class="section_anchor"></a></h1><p>
+<iframe width="425" height="344" frameborder="0" src="./kineticspace - Training, Analyzing and Recognizing 3D Gestures - Google Project Hosting_files/bj9pME4zrV4.htm">
+</iframe>
+ </p><h1><a name="What_the_Press_is_Saying"></a>What the Press is Saying<a href="https://code.google.com/p/kineticspace/#What_the_Press_is_Saying" class="section_anchor"></a></h1><p><i>For all of you that  found yourselves wanting to use Kinect to control something but had no idea what to do with it, or how to get the data from it, you’re in luck. Kineticspace is a tool available for Linux/mac/windows that gives you the tools necessary to set up gesture controls quickly and easily. […]</i> </p><blockquote>– Hack a Day  2012/06/11 
+</blockquote><p></p><p><i>[…] What is it good for? Well, it can read a gesture from one person and register it on another and you can train it to register tiny movements and, potentially, allow for full motion control of your PC. Minority Report it isn’t, but that future is getting closer and closer.</i>  </p><blockquote>– Tech Crunch  2011/08/05 
+</blockquote><p></p><p><i>Map your gestures and have it ready for other people to use and make reference of. The Kinect Spaces is a gesture recognition and mapping software that gives programmers a reliable tool in creating and saving gestures via Kinect for their software use. This video by Matthias Wölfel shows us the nitty-gritty details of the program as well as how the Kinect Space can prove to be valuable to all Kinect hackers out there. […] This is indeed a great addition in further enhancing the Kinect controls!</i> </p><blockquote>– Kinect Hacks  2011/07/21 
+</blockquote><p></p><h1><a name="Interview_with_the_Developer"></a>Interview with the Developer<a href="https://code.google.com/p/kineticspace/#Interview_with_the_Developer" class="section_anchor"></a></h1><p>Read an interview with the developer of Kinetic Space in the OpenNI blog: <a href="http://www.openni.org/News/Blog/tabid/153/EntryId/19/An-Interview-with-Developer-Matthias-Wolfel.aspx" rel="nofollow">Go to Interview</a> </p><h1><a name="Go_Professional"></a>Go Professional<a href="https://code.google.com/p/kineticspace/#Go_Professional" class="section_anchor"></a></h1><p>We have commercialized Kinetic Space to provide a better service. Please visit our <a href="http://www.colorfulbit.com/" rel="nofollow">company website</a>. </p>
+ </td>
+ </tr>
+</tbody></table>
+<script src="./kineticspace - Training, Analyzing and Recognizing 3D Gestures - Google Project Hosting_files/prettify_core_compiled.js"></script>
+<script type="text/javascript">
+ prettyPrint();
+</script>
+
+ 
+ 
+ 
+ <script type="text/javascript" src="./kineticspace - Training, Analyzing and Recognizing 3D Gestures - Google Project Hosting_files/ph_core.js"></script>
+ 
+ 
+ 
+ 
+</div> 
+
+<div id="footer" dir="ltr">
+ <div class="text">
+ <a href="https://code.google.com/projecthosting/terms.html">Terms</a> -
+ <a href="http://www.google.com/privacy.html">Privacy</a> -
+ <a href="https://code.google.com/p/support/">Project Hosting Help</a>
+ </div>
+</div>
+ <div class="hostedBy" style="margin-top: -20px;">
+ <span style="vertical-align: top;">Powered by <a href="http://code.google.com/projecthosting/">Google Project Hosting</a></span>
+ </div>
+
+ 
+ 
+
+
+ 
+ 
+
+
+<div class="menuDiv instance0" id="menuDiv-projects-dropdown" style="display: none;"><div class="menuCategory default"></div><div class="menuCategory controls"><hr class="menuSeparator"><a class="menuItem" href="https://code.google.com/hosting/" style="display: block;">Find open source projects...</a><a class="menuItem" href="https://code.google.com/hosting/createProject" style="display: block;">Create a project...</a></div></div><div class="menuDiv instance1" id="menuDiv-multilogin-dropdown" style="display: none;"><div class="menuCategory default"><span class="menuText" style="display: block;"><b>blykgod@gmail.com</b></span></div><div class="menuCategory controls"><hr class="menuSeparator"><a class="menuItem" href="http://www.google.com/accounts/AddSession?service=code&continue=https%3A%2F%2Fcode.google.com%2Fp%2Fkineticspace%2F" style="display: block;"><nobr>Sign in with another account...</nobr></a></div></div></body></html>
