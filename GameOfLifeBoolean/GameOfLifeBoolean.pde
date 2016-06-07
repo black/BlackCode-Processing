@@ -1,4 +1,4 @@
-int rows=50, cols=50;
+int rows=80, cols=80;
 int w, h;
 boolean[][] cell;
 boolean[][] futureCell;
@@ -63,4 +63,3 @@ boolean checkRules(int i, int j, int num) {
   else futurelife = cell[i][j];
   return futurelife;
 }
-

@@ -499,6 +499,7 @@ public class Camera extends Eye implements Copyable {
   }
 
   /**
+   * 
    * Sets the {@link #zNearCoefficient()} value.
    */
   public void setZNearCoefficient(float coef) {
@@ -515,8 +516,8 @@ public class Camera extends Eye implements Copyable {
    * {@link #sceneCenter()}. This guarantees an optimal use of the z-buffer range and
    * minimizes aliasing. See the {@link #zNear()} and {@link #zFar()} documentations.
    * <p>
-   * Default value is square root of 3.0 (so that a cube of size {@link #sceneRadius()} is
-   * not clipped).
+   * Default value is square root of 3.0 (so that a cube of size 2*{@link #sceneRadius()}
+   * is not clipped).
    * <p>
    * However, since the {@link #sceneRadius()} is used for other purposes (see
    * showEntireScene(), flySpeed(), ...) and you may want to change this value to define

@@ -1,27 +1,18 @@
 package rita;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import rita.support.Constants;
-import rita.support.FeaturedIF;
-import rita.support.JSONLexicon;
-import rita.support.LetterToSound;
-import rita.support.PosTagger;
+import rita.support.*;
 
 public class RiString implements FeaturedIF, Constants, Comparable<RiString> {
 
   static boolean DBUG_CACHED_FEATURES = false;
   
   static List<String> trackedFeatures = Arrays.asList(new String[] { 
-      "tokens", "stresses", "phonemes", "syllables", "pos", "text" });
+      TOKENS, STRESSES, PHONEMES, SYLLABLES, POS,  TEXT
+  });
 
   static {
     RiTa.init();
@@ -56,8 +47,8 @@ public class RiString implements FeaturedIF, Constants, Comparable<RiString> {
   }
 
   public String subSequence(int start, int end) {
-    start = Math.min(start < 0 ? delegate.length() + start : start,
-	length() - 1);
+    
+    start = Math.min(start < 0 ? delegate.length() + start : start, length() - 1);
     end = Math.min(end < 0 ? delegate.length() + end : end, length() - 1);
 
     if (end < start) {
@@ -79,7 +70,7 @@ public class RiString implements FeaturedIF, Constants, Comparable<RiString> {
     if (features == null || features.size() < 1)
       initFeatureMap();
 
-    String phonemes = E, syllables = E, stresses = E;
+    String phonemes = E, syllables = E, stresses = E, ipaPhones = null;
 
     for (int i = 0; i < words.length; i++) {
 
@@ -88,30 +79,31 @@ public class RiString implements FeaturedIF, Constants, Comparable<RiString> {
       String phones = null;
 
       if (lex != null)
-	phones = lex.getRawPhones(words[i]); // fetch phones from lex
+	phones = RiLexicon.getRawPhones(lex, words[i]); // fetch phones from lex
 
       if (phones == null || phones.length() < 1) {
 
-	if (lts == null)
-	  lts = LetterToSound.getInstance();
-
-	if (!RiTa.SILENT && !RiTa.SILENT_LTS && RiLexicon.enabled
-	    && words[i].matches("[a-zA-Z]+"))
-	  System.out.println("[RiTa] Used LTS-rules for '" + words[i] + "'");
+	if (lts == null) lts = LetterToSound.getInstance();
 
 	phones = lts.getPhones(words[i]); // next try LTS
 
 	if (phones == null || phones.length() < 1) {
 
-	  phones = words[i]; // still nothing, use the raw word
-			     // (should be punct)
+	  phones = words[i]; // still nothing, use the raw chars (should be punct)
 	  useRaw = true;
+	} 
+	else if (!RiTa.SILENT && !RiTa.SILENT_LTS && RiLexicon.enabled
+	    && words[i].matches("[a-zA-Z]+")) 
+	{
+	  System.out.println("[RiTa] Used LTS-rules for '" + words[i] + "'");
 	}
       }
 
-      // System.out.println(i+") '"+ phones+"'");
+      //System.out.println(i+") '"+ phones+"'");
 
-      phonemes += phones.replaceAll("[0-2]", E).replace(SP, DASH) + SP;
+      phonemes += ((RiTa.PHONEME_TYPE == IPA) ? Phoneme.arpaToIPA(phones): 
+	phones.replaceAll("[0-2]", E).replace(SP, DASH)) + SP;
+      
       syllables += phones.replaceAll("[0-2]", E).replace(SP, FS) + SP;
 
       if (!useRaw) {
@@ -124,8 +116,8 @@ public class RiString implements FeaturedIF, Constants, Comparable<RiString> {
 	  if (stressyls[j].length() < 1)
 	    continue;
 
-	  stresses += (stressyls[j].indexOf(RiTa.STRESSED) > -1) ? RiTa.STRESSED
-	      : RiTa.UNSTRESSED;
+	  stresses += (stressyls[j].indexOf(RiTa.STRESSED) > -1) ? 
+	      RiTa.STRESSED : RiTa.UNSTRESSED;
 
 	  if (j < stressyls.length - 1)
 	    stresses += FS;
@@ -133,13 +125,12 @@ public class RiString implements FeaturedIF, Constants, Comparable<RiString> {
       } else {
 
 	// no phones, just use raw word (punct)
-
 	stresses += words[i];
       }
 
-      if (!stresses.endsWith(SP))
-	stresses += SP;
+      if (!stresses.endsWith(SP)) stresses += SP;
     }
+      
 
     this.features.put(TOKENS, RiTa.join(words));
     this.features.put(STRESSES, stresses.trim());
@@ -149,7 +140,7 @@ public class RiString implements FeaturedIF, Constants, Comparable<RiString> {
 
     return this;
   }
-
+  
   void initFeatureMap() {
     if (this.features == null)
       this.features = new HashMap<String, String>();
@@ -193,7 +184,8 @@ public class RiString implements FeaturedIF, Constants, Comparable<RiString> {
       this.initFeatureMap();
     
     String s = features.get(featureName);
-    if (s == null && (trackedFeatures.indexOf(featureName) > -1) && (!features.containsKey(featureName))) {
+    if (s == null && (trackedFeatures.indexOf(featureName) > -1))
+    {
       this.analyze();
       s = features.get(featureName);
     }
@@ -625,186 +617,8 @@ public class RiString implements FeaturedIF, Constants, Comparable<RiString> {
   }
 
   public String substring(int start) {
-    start = Math.min(start < 0 ? delegate.length() + start : start,
-	length() - 1);
-    return this.delegate.substring(start);
-  }
-
-  /**
-   * @exclude
-   */
-  public static String syllabify(String input) {
-
-    return syllabify(input.split("-"));
-  }
-
-  /**
-   * Syllabifies the input, given an array of phonemes in CMU Pronunciation
-   * Dictionary format (with optional stress numbers after vowels), e.g. ["B",
-   * "AE1", "T"] or ["B", "AE", "T"]
-   * 
-   * @exclude private
-   * 
-   *          TODO: broken, see KnowIssuesTest (check against JS)
-   */
-  public static String syllabify(String[] sylls) {
-
-    boolean dbug = false;
-
-    if (dbug)
-      System.out.println("syllabify: " + RiTa.asList(sylls));
-
-    List<String> internuclei = new ArrayList<String>();
-
-    // returned data structure: 3D array
-    List<String[][]> syllables = new ArrayList<String[][]>();
-
-    for (int i = 0; i < sylls.length; i++) {
-
-      String phoneme = sylls[i].trim();
-      int stress = -1;
-
-      if (phoneme.length() < 1)
-	continue;
-
-      if (Character.isDigit(lastChar(phoneme))) {
-
-	stress = Integer.parseInt(last(phoneme));
-	phoneme = phoneme.substring(0, phoneme.length() - 1);
-      }
-
-      if (dbug)
-	System.out.println(i + ") " + phoneme + " stress=" + stress + " inter="
-	    + RiTa.join(internuclei, ":"));
-
-      if (inArray((String[]) Phones.get("vowels"), phoneme)) {
-
-	// Split the consonants seen since the last nucleus into coda
-	// and onset.
-	String[] coda = null, onset = null;
-
-	// Make the largest onset we can. The 'split' variable marks the
-	// break point.
-	for (int split = 0; split < internuclei.size() + 1; split++) {
-
-	  coda = RiTa.strArr(internuclei.subList(0, split));
-	  onset = RiTa.strArr(internuclei.subList(split, internuclei.size()));
-
-	  if (dbug)
-	    System.out.println("  " + split + ") onset="
-		+ RiTa.join(onset, ":") + "  coda=" + RiTa.join(coda, ":")
-		+ "  inter=" + RiTa.join(internuclei, ":"));
-
-	  // If we are looking at a valid onset, or if we're at the
-	  // start of the word
-	  // (in which case an invalid onset is better than a coda
-	  // that doesn't follow
-	  // a nucleus), or if we've gone through all of the onsets
-	  // and we didn't find
-	  // any that are valid, then split the nonvowels we've seen
-	  // at this location.
-	  boolean bool = inArray((String[]) Phones.get("onsets"),
-	      RiTa.join(onset, " "));
-	  if (bool || syllables.size() == 0 || onset.length == 0) {
-	    if (dbug)
-	      System.out.println("  break " + phoneme);
-	    break;
-	  }
-	}
-
-	// if
-	// (dbug)System.out.println("  onset="+join(",",onset)+"  coda="+join(",",coda));
-
-	// Tack the coda onto the coda of the last syllable. Can't do it
-	// if this
-	// is the first syllable.
-	if (syllables.size() > 0) {
-
-	  // syllables[syllables.length-1][3] =
-	  // syllables[syllables.length-1][3] || [];
-	  // System.out.println('
-	  // len='+syllables[syllables.length-1][3].length);
-
-	  // extend(syllables[syllables.length-1][3], coda);
-	  String[][] last = syllables.get(syllables.size() - 1);
-	  last[3] = extend(last[3], coda);
-
-	  // if (dbug)
-	  // System.out.println("  tack: "+coda+" -> len="+syllables[syllables.length-1][3].length+" ["+syllables[syllables.length-1][3]+"]");
-	}
-
-	// Make a new syllable out of the onset and nucleus.
-
-	// var toPush = [ [stress], onset, [phoneme], [] ];
-	String[][] toPush = new String[4][];
-	toPush[0] = new String[] { "" + stress };
-	toPush[1] = onset;
-	toPush[2] = new String[] { phoneme };
-	toPush[3] = new String[0];
-
-	syllables.add(toPush);
-
-	// At this point we've processed the internuclei list.
-	internuclei.clear();
-      }
-
-      else if (!inArray((String[]) Phones.get("consonants"), phoneme)
-	  && !phoneme.equals(SP)) {
-	throw new Error("Invalid phoneme: " + phoneme);
-      }
-
-      else { // a consonant
-
-	// System.out.println('inter.push: '+phoneme);
-	internuclei.add(phoneme);
-      }
-    }
-
-    // Done looping through phonemes. We may have consonants left at the
-    // end. We may have even not found a nucleus.
-    if (internuclei.size() > 0) {
-
-      if (syllables.size() == 0) {
-
-	String[][] toPush = new String[4][];
-
-	// syllables.push([ [None], internuclei, [], [] ]);
-
-	toPush[0] = new String[] { E };
-	toPush[1] = RiTa.strArr(internuclei);
-	toPush[2] = new String[0];
-	toPush[3] = new String[0];
-      } else {
-
-	String[][] last = syllables.get(syllables.size() - 1);
-	last[3] = extend(last[3], RiTa.strArr(internuclei));
-      }
-    }
-
-    int i = 0;
-    String[][][] result = new String[syllables.size()][][];
-    for (Iterator<String[][]> it = syllables.iterator(); it.hasNext(); i++)
-      result[i] = (String[][]) it.next();
-
-    // hack to deal with bad output syllables like: 'g-ih-1-ng' or 'l-ow-1'
-    return RiString.stringify(result).replaceAll("-1[ -]", "1-")
-	.replaceAll("-1$", "1");
-  }
-
-  static String[] extend(String[] l1, String[] l2) { // python extend array
-
-    String[] tmp = new String[l1.length + l2.length];
-    int i = 0;
-    for (; i < l1.length; i++) {
-      tmp[i] = l1[i];
-    }
-
-    for (; i < tmp.length; i++) {
-
-      tmp[i] = l2[i];
-    }
-
-    return tmp;
+    int newstart = Math.min(start < 0 ? delegate.length() + start : start, length() - 1);
+    return this.delegate.substring(newstart);
   }
 
   static final Map<String, String[]> Phones = new HashMap<String, String[]>();
@@ -906,7 +720,8 @@ public class RiString implements FeaturedIF, Constants, Comparable<RiString> {
   }
 
   public static void main(String[] args) {
-    RiLexicon.enabled = false;
+   // RiLexicon.enabled = false;
+    //RiTa.PHONEME_TYPE = RiTa.IPA;
     RiString ri = new RiString("The laggin dragon");
     ri.analyze();
     System.out.println(ri.features());

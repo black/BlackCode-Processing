@@ -33,17 +33,18 @@ import remixlab.util.*;
  * parameter). To attach a generic-frame to {@code MyObject} use code like this:
  * 
  * <pre>
- * {@code
- * public class MyObject {
- *   public GenericFrame gFrame;
+ * {
+ *   &#64;code
+ *   public class MyObject {
+ *     public GenericFrame gFrame;
  * 
- *   public void draw() {
- *     gFrame.scene().pushModelView();
- *     gFrame.applyWorldTransformation();
- *     drawMyObject();
- *     gFrame.scene().popModelView();
+ *     public void draw() {
+ *       gFrame.scene().pushModelView();
+ *       gFrame.applyWorldTransformation();
+ *       drawMyObject();
+ *       gFrame.scene().popModelView();
+ *     }
  *   }
- * }
  * }
  * </pre>
  * 
@@ -93,7 +94,7 @@ import remixlab.util.*;
  * the transformation it represents may be applied to a different scene. See
  * {@link #applyTransformation()} and {@link #applyTransformation(AbstractScene)}.
  * <p>
- * Two generic-frames can be synced together ( {@link #sync(GenericFrame, GenericFrame)}),
+ * Two generic-frames can be synced together ({@link #sync(GenericFrame, GenericFrame)}),
  * meaning that they will share their global parameters (position, orientation and
  * magnitude) taken the one that has been most recently updated. Syncing can be useful to
  * share frames among different off-screen scenes (see ProScene's CameraCrane and the
@@ -1086,7 +1087,13 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
       return;
     GenericFrame source = (f1.lastGlobalUpdate() > f2.lastGlobalUpdate()) ? f1 : f2;
     GenericFrame target = (f1.lastGlobalUpdate() > f2.lastGlobalUpdate()) ? f2 : f1;
-    target.fromFrame(source);
+
+    // target.fromFrame(source);
+    // TODO testing and docs
+
+    target.setPosition(source.position());
+    target.setOrientation(source.orientation());
+    target.setMagnitude(source.magnitude());
   }
 
   // Fx
@@ -1256,7 +1263,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
   /**
    * Returns the wheel sensitivity.
    * <p>
-   * Default value is 5.0. A higher value will make the wheel action more efficient
+   * Default value is 15.0. A higher value will make the wheel action more efficient
    * (usually meaning faster motion). Use a negative value to invert the operation
    * direction.
    * 

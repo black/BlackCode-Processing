@@ -14,7 +14,6 @@ package remixlab.proscene;
 
 import remixlab.bias.core.*;
 import remixlab.bias.event.*;
-import remixlab.bias.ext.Profile;
 
 /**
  * Proscene mouse-agent. A Processing fully fledged mouse {@link remixlab.bias.core.Agent}
@@ -26,15 +25,7 @@ import remixlab.bias.ext.Profile;
  * @see remixlab.proscene.DroidTouchAgent
  */
 public class MouseAgent extends Agent {
-  public static final int LEFT_ID = Profile.registerMotionID(37, 2), CENTER_ID = Profile.registerMotionID(3, 2),
-      RIGHT_ID = Profile.registerMotionID(39, 2), WHEEL_ID = Profile.registerMotionID(8, 1),
-      NO_BUTTON = Profile.registerMotionID(BogusEvent.NO_ID, 2);
-
-  protected int[] motionIDs = { LEFT_ID, CENTER_ID, RIGHT_ID, WHEEL_ID, NO_BUTTON };
-  protected int[] dof2IDs = { LEFT_ID, CENTER_ID, RIGHT_ID, NO_BUTTON };
-  protected int[] dof1IDs = { WHEEL_ID };
-  protected int[] clickIDs = { LEFT_ID, CENTER_ID, RIGHT_ID };
-
+  public static int LEFT_ID, CENTER_ID, RIGHT_ID, WHEEL_ID, NO_BUTTON;
   protected float xSens = 1f;
   protected float ySens = 1f;
   protected Scene scene;
@@ -54,6 +45,15 @@ public class MouseAgent extends Agent {
   public MouseAgent(Scene scn) {
     super(scn.inputHandler());
     scene = scn;
+    LEFT_ID = scene().registerMotionID(37, this, 2);
+    CENTER_ID = scene().registerMotionID(3, this, 2);
+    RIGHT_ID = scene().registerMotionID(39, this, 2);
+    WHEEL_ID = scene().registerMotionID(8, this, 1);
+    NO_BUTTON = scene().registerMotionID(BogusEvent.NO_ID, this, 2);
+    // click ids are anonymous (since they are the same as motions)
+    scene().registerClickID(LEFT_ID, this);
+    scene().registerClickID(CENTER_ID, this);
+    scene().registerClickID(RIGHT_ID, this);
     setPickingMode(PickingMode.MOVE);
   }
 
@@ -161,47 +161,15 @@ public class MouseAgent extends Agent {
   }
 
   /**
-   * Returns an array of motion id's (DOF1 and DOF2) this agent registers at the
-   * {@link remixlab.bias.ext.Profile}.
-   */
-  public int[] motionIDs() {
-    return motionIDs;
-  }
-
-  /**
-   * Returns an array of the DOF2 motion id's this agent registers at the
-   * {@link remixlab.bias.ext.Profile}.
-   */
-  public int[] dof2IDs() {
-    return dof2IDs;
-  }
-
-  /**
-   * Returns an array of the DOF1 motion id's this agent registers at the
-   * {@link remixlab.bias.ext.Profile}.
-   */
-  public int[] dof1IDs() {
-    return dof1IDs;
-  }
-
-  /**
-   * Returns an array of the click id's this agent uses.
-   */
-  public int[] clickIDs() {
-    return clickIDs;
-  }
-
-  /**
    * Internal use. Other Agents should follow a similar pattern: 1. Register some motion
    * ids within the Profile; and, 2. Define the default bindings on the frame parameter.
    * 
    * @see remixlab.bias.ext.Profile#registerMotionID(int)
    * @see remixlab.bias.ext.Profile#registerMotionID(int, int)
    */
-  protected void setDefaultBindings(GenericP5Frame frame) {
-    frame.removeMotionBindings(motionIDs());
-    for (int i = 1; i < 4; i++)
-      frame.removeClickBindings(clickIDs(), i);
+  protected void setDefaultBindings(InteractiveFrame frame) {
+    frame.removeMotionBindings(this);
+    frame.removeClickBindings(this);
 
     frame.setMotionBinding(LEFT_ID, "rotate");
     frame.setMotionBinding(CENTER_ID, frame.isEyeFrame() ? "zoomOnRegion" : "screenRotate");

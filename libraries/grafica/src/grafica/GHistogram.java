@@ -1,9 +1,9 @@
 /**
  * grafica
- * Create simple and configurable 2D plots with Processing. 
- * https://github.com/jagracar/grafica
+ * Create simple and configurable 2D plots with Processing.
+ * http://jagracar.com/grafica.php
  *
- * Copyright (c) 2013 Javier Gracia Carpio http://www.openprocessing.org/user/16300
+ * Copyright (c) 2015 Javier Gracia Carpio http://jagracar.com
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,9 +20,9 @@
  * Free Software Foundation, Inc., 59 Temple Place, Suite 330,
  * Boston, MA  02111-1307  USA
  * 
- * @author      Javier Gracia Carpio http://www.openprocessing.org/user/16300
- * @modified    04/13/2014
- * @version     1.2.0 (3)
+ * @author      Javier Gracia Carpio http://jagracar.com
+ * @modified    03/15/2016
+ * @version     1.5.0 (6)
  */
 
 package grafica;
@@ -35,7 +35,7 @@ import processing.core.PFont;
 /**
  * Histogram class.
  * 
- * @author Javier Gracia Carpio http://www.openprocessing.org/user/16300
+ * @author Javier Gracia Carpio http://jagracar.com
  */
 public class GHistogram implements PConstants {
     // The parent Processing applet

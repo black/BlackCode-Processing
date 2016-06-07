@@ -15,7 +15,6 @@
  */
 
 import remixlab.proscene.*;
-import remixlab.dandelion.core.*;
 import remixlab.bias.core.*;
 import remixlab.bias.event.*;
 
@@ -116,7 +115,7 @@ void displayControls() {
     scene.endScreenDrawing();
   }
 
-  GenericFrame iFrame;
+  InteractiveFrame iFrame;
   if ( isIFrame ) {
     iFrame = interactiveFrame;
     scene.beginScreenDrawing();
@@ -169,15 +168,15 @@ void decreaseSensitivity(Sensitivity sens) {
     decreaseSensitivity(scene.eyeFrame(), sens);
 }	
 
-void increaseSensitivity(GenericFrame iFrame, Sensitivity sens) {
+void increaseSensitivity(InteractiveFrame iFrame, Sensitivity sens) {
   changeSensitivity(iFrame, sens, true);
 }
 
-void decreaseSensitivity(GenericFrame iFrame, Sensitivity sens) {
+void decreaseSensitivity(InteractiveFrame iFrame, Sensitivity sens) {
   changeSensitivity(iFrame, sens, false);
 }	
 
-void changeSensitivity(GenericFrame iFrame, Sensitivity sens, boolean increase) {
+void changeSensitivity(InteractiveFrame iFrame, Sensitivity sens, boolean increase) {
   float step = 1;
   float res;
   switch (sens) {
@@ -214,7 +213,7 @@ void changeSensitivity(GenericFrame iFrame, Sensitivity sens, boolean increase) 
   }
 }
 
-boolean areDefaultsSet(GenericFrame iFrame) {
+boolean areDefaultsSet(InteractiveFrame iFrame) {
   if (   equals(iFrame.rotationSensitivity(), defRotSens)
       && equals(iFrame.translationSensitivity(), defTransSens)
       && equals(iFrame.spinningSensitivity(), defSpngSens)
@@ -225,7 +224,7 @@ boolean areDefaultsSet(GenericFrame iFrame) {
   return false;
 }
 
-void setDefaults(GenericFrame iFrame) {
+void setDefaults(InteractiveFrame iFrame) {
   iFrame.setRotationSensitivity(defRotSens);
   iFrame.setTranslationSensitivity(defTransSens);
   iFrame.setSpinningSensitivity(defSpngSens);

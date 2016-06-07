@@ -127,7 +127,7 @@ public class StdCamera extends Camera {
     super(scn);
     // camera frame is a gFrame by default, but we want an iFrame
     // to bind 'u' and 'v' actions to it
-    setFrame(new EyeFrame(this));
+    setFrame(new InteractiveFrame(this));
     standard = false;
   }
 

@@ -55,35 +55,57 @@ public class KnownIssuesTest implements Constants
     deepEqual(output, expected);
   }
   
+  
   @Test
-  public void testLastStressedVowelPhonemeToEnd() { // @TODO: Cyrus
-    RiLexicon lex = new RiLexicon();
+  public void testLTS() 
+  {    
+    String[] fails = { 
+	"be", "bed", "bled", "break", 
+	"bred", "brooch", "eyed", "fed", 
+	"fled", "floors", "great", "guests", 
+	"guise", "he", "keyed", "led", 
+	"me", "noun", "poured", "purrs", 
+	"red", "rein", "reined", "rouge", 
+	"rough", "roughed", "say", "scares", 
+	"scenes", "scour", "scoured", "scours", 
+	"seized", "serge", "she", "shed", 
+	"shred", "sleight", "slough", "souls", 
+	"sped", "squared", "squeak", "stares", 
+	"steak", "suede", "sure", "tear", 
+	"through", "touch", "touched", "tough", 
+	"toughs", "we", "wed", "whoosh", 
+	"yes", "youth", "youths",
+	};
     
-    String result = lex.lastStressedVowelPhonemeToEnd("savage", false);
-    equal(result, "ih-jh");
-  }
+    String[] expectedResults = {
+	"b-iy", "b-eh-d", "b-l-eh-d", "b-r-ey-k", 
+	"b-r-eh-d", "b-r-uw-ch", "ay-d", "f-eh-d", 
+	"f-l-eh-d", "f-l-ao-r-z", "g-r-ey-t", "g-eh-s-t-s", 
+	"g-ay-z", "hh-iy", "k-iy-d", "l-eh-d", 
+	"m-iy", "n-aw-n", "p-ao-r-d", "p-er-z", 
+	"r-eh-d", "r-ey-n", "r-ey-n-d", "r-uw-zh", 
+	"r-ah-f", "r-ah-f-t", "s-ey", "s-k-eh-r-z", 
+	"s-iy-n-z", "s-k-aw er", "s-k-aw er-d", "s-k-aw er-z", 
+	"s-iy-z-d", "s-er-jh", "sh-iy", "sh-eh-d", 
+	"sh-r-eh-d", "s-l-ay-t", "s-l-ah-f", "s-ow-l-z", 
+	"s-p-eh-d", "s-k-w-eh-r-d", "s-k-w-iy-k", "s-t-eh-r-z", 
+	"s-t-ey-k", "s-w-ey-d", "sh-uh-r", "t-eh-r", 
+	"th-r-uw", "t-ah-ch", "t-ah-ch-t", "t-ah-f", 
+	"t-ah-f-s", "w-iy", "w-eh-d", "w-uw-sh", 
+	"y-eh-s", "y-uw-th", "y-uw-dh-z",
+	};
 
-  @Test
-  public void testRhyming()
-  {
-    RiLexicon lex = new RiLexicon();
-    Map<String, String> data = lex.lexicalData();
-
-    String[] tests = { 
-	"savage", "ravage",
-	"savage", "disparage",
-	"savage", "cabbage"
-    }; 
-    for (int i = 0; i < tests.length; i+=2) {
-      //System.out.print(i/2+") "+tests[i]+"("+data.get(tests[i]).split("\\|")[0]+") ?= "+tests[i+1]+"("+data.get(tests[i+1]).split("\\|")[0]+")");
-      equal(true, lex.isRhyme(tests[i], tests[i+1]));
+    RiLexicon.enabled = false; 
+    
+    for (int i = 0; i < fails.length; i++) {
+      String phones = RiTa.getPhonemes(fails[i]);
+      equal(expectedResults[i], phones);
     }
     
-    //deepEqual(true, lex.isRhyme("savage", "ravage"));
-    //deepEqual(true, lex.isRhyme("savage", "disparage"));
-    //deepEqual(true, lex.isRhyme("savage", "cabbage"));
-    // ...
+    RiLexicon.enabled = true;    
   }
+  
+  @SuppressWarnings("boxing")
 
   @Test
   public void testPosTagging()
@@ -143,10 +165,10 @@ public class KnownIssuesTest implements Constants
      */
   }
 
+
   @Test
   public void testRandomIterator()
   {
-
     JSONLexicon lexicon = JSONLexicon.getInstance();
     long ts = System.currentTimeMillis();
     lexicon.randomPosIterator("nns");
@@ -163,10 +185,11 @@ public class KnownIssuesTest implements Constants
   {
     equal(1,1);
     RiLexicon lex = new RiLexicon();
-    String[] failing = { "dog", "dragging", "mellow" };
+    String[] failing = { "dog", "dragging", "mellow", "yoyo", "yo", "hawaii", "california",
+	"elizabeth", "wikipedia" };
     for (int i = 0; i < failing.length; i++) {
       String phones = LetterToSound.getInstance().getPhones(failing[i]);
-      String phones2 = lex.lexImpl.getRawPhones(failing[i]);
+      String phones2 = lex.getRawPhones(failing[i], false);
       System.out.println(failing[i] + " -> "+phones + "[lts] ?= " + phones2
 	  + " \t\t ["+phones.equals(phones2)+"]");
       //equal(phones, phones2);
@@ -176,7 +199,7 @@ public class KnownIssuesTest implements Constants
     @Test
   public void testSyllabify2() 
   {
-    String s = new RiLexicon().lexImpl.getRawPhones("yoyo",true);
+    String s = new RiLexicon().getRawPhones("yoyo",true);
     equal(s,"y-oy1 ow1"); // TODO: Is this correct? check in JS
   }
     

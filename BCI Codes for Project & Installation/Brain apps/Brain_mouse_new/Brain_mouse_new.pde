@@ -2,12 +2,13 @@
 import com.sun.awt.AWTUtilities;
 import java.awt.AWTException;
 import java.awt.event.InputEvent;
-import javax.swing.JFrame;
+//import javax.swing.JFrame;
 import java.awt.Robot;
 import java.awt.GraphicsDevice.*; 
 import java.awt.*;
 import java.awt.geom.*;
 import javax.swing.*;
+import java.net.*;
 
 Robot robot;
 /*----------------------------------------*/
@@ -70,14 +71,12 @@ void setup()
   size(win_w, win_h);
   pg3D = createGraphics(win_w, win_h, JAVA2D);
   ThinkGearSocket neuroSocket = new ThinkGearSocket(this);
-  /* try 
-  {
+  try {
     neuroSocket.start();
   } 
- 
-  catch (ConnectException e){
-    e.printStackTrace();
-  }*/
+  catch (ConnectException e) {
+    println("Is ThinkGear running??");
+  }
 
   try {
     robot = new Robot();
@@ -168,8 +167,7 @@ void draw()
       if ( abs(dx) < 200  ) {
         println(abs(dx)+ " Y = 600 " ); 
         x = x + 0.05;
-      }
-      else
+      } else
       {
         x= x+1;
       }
@@ -179,8 +177,7 @@ void draw()
       if ( abs(dx) < 50 ) {
         println(abs(dx)+ " Y = 0 " );  
         x = x - 0.05;
-      }
-      else
+      } else
       {
         x= x-1;
       }
@@ -190,8 +187,7 @@ void draw()
       if ( abs(dy) < 200  ) {
         println(abs(dy) + " X = 600 " ); 
         y = y + 0.05;
-      }
-      else
+      } else
       {
         y= y+1;
       }
@@ -201,8 +197,7 @@ void draw()
       if ( abs(dy) < 200 ) {
         println(abs(dy)+ " X = 0 " ); 
         y = y - 0.05;
-      }
-      else
+      } else
       {
         y= y-1;
       }
@@ -211,7 +206,7 @@ void draw()
     /* -------------Under graphics-------------*/
     pg3D.fill(0);
     pg3D.textSize(15);
-    robot.mouseMove(frame.getLocation().x+(int)x,frame.getLocation().y+(int)y);
+    robot.mouseMove(frame.getLocation().x+(int)x, frame.getLocation().y+(int)y);
 
     /*-----------CIRCLE MOVING----------------------*/
   }
@@ -232,8 +227,8 @@ void draw()
 void blinkEvent(int blinkStrength) 
 {
   blinkSt = blinkStrength;
-  if(blinkSt>50){
-  count = count +1;
+  if (blinkSt>50) {
+    count = count +1;
   }
   println(count);
 }

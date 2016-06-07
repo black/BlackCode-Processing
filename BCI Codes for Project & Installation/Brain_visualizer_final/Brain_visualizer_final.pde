@@ -61,6 +61,7 @@ void blinkEvent(int blinkStrength) {
 
   println("blinkStrength: " + blinkStrength);
 }
+
 public void eegEvent(int delta, int theta, int low_alpha, int high_alpha, int low_beta, int high_beta, int low_gamma, int mid_gamma) {
   //--------------------------------------------------
   if (high_alpha > max_AH) {

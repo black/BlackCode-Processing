@@ -17,6 +17,14 @@ textarea {
     color: #222;
 }
 
+#view-src a{
+   -moz-user-select: none; /* Firefox */
+}
+
+#version-div a:hover{
+   text-decoration:none!important;
+}
+
 html, body {
     font-weight: 300;
     font-size: 16px;
@@ -872,9 +880,16 @@ code {
 a{
     color:#006B8F;
     text-decoration: none;
-
 }
-   a:hover{
+
+a.nodec{
+    color:#333;
+}
+a.nodec:hover{
+    text-decoration: none !important;
+}
+
+a:hover{
     text-decoration:underline;
 }
 
@@ -1237,13 +1252,22 @@ td p{
 td h3{
     text-align: left!important;
 }
+.refbar{
+    margin-left:-40px!important;
+    margin-right:0!important;
+    padding:0!important;
+    width:140!important;
+    text-align: left;
+}
 /*Examples page*/
 .examples img{
     width:150px;
     height:150px;
+    border:1px solid #eee;
 }
 .examples .exampleitem{
     text-align: center;
+    margin-bottom: 30px;
 }
 /*Tutorial*/
 .gd-section.tutorial p{
@@ -1679,7 +1703,9 @@ html, body {
     height:100%!important;
     width:auto!important;
 }
-
+.refbar{
+    margin-left:0px!important;
+}
 
 }
 

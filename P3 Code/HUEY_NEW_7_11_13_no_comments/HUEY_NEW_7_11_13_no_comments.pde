@@ -244,25 +244,26 @@ void draw() {
           PVector p2 = new PVector(xx, yy);
           poop.add(p2);
         }
-        //-------------------
-        for (int l=0;l<poop.size();l++) {
-          sortEdgeCoordinates(l);
-        }
-        //-------------------
+        //        //-------------------
+        //        for (int l=0;l<poop.size();l++) {
+        //          sortEdgeCoordinates(l);
+        //        }
+        //        //-------------------
       }
     }
   }
 
-  for (int k=0; k<path.size(); k+=10) {
-    PVector P1 = (PVector) path.get(k);
+  for (int k=0; k<poop.size(); k+=10) {
+    PVector P1 = (PVector) poop.get(k);
     color Col = (color) random(#000000);
-    if ( userCount < userColors.length ) { 
-      Col = userColors[userCount];
+    if ( userCount > userColors.length ) { 
+      userCount = 0;
     }
-    else userCount = 0;
-    for (int j=k+1; j<path.size(); j+=10) {
-      PVector P2 = (PVector) path.get(j);
-      if (P1.dist(P2)<30) {
+    else Col = userColors[userCount];
+
+    for (int j=k+1; j<poop.size(); j+=10) {
+      PVector P2 = (PVector) poop.get(j);
+      if (P1.dist(P2)<100) {
         stroke(Col, 10);
         strokeWeight(10);
         line(P1.x, P1.y, P2.x, P2.y);
@@ -499,9 +500,8 @@ void draw() {
               hist.add(0, d);
               for (int p = 0; p < hist.size(); p++) {
                 PVector v = (PVector) hist.get(p);
-                float joinChance = p/hist.size() +
-                  d.dist(v)/joinDist;
-                if (joinChance < random(0.4))
+                float joinChance = p/hist.size() + d.dist(v)/joinDist;
+                if (joinChance < random(1.2))
                   pg.line(d.x, d.y, v.x, v.y);
               }
             }
@@ -581,7 +581,7 @@ void draw() {
       for (int i=0; i<splatpoop.size(); i++) { // abhinav Splash 
         Splash s = (Splash) splatpoop.get(i);
         s.display();
-        s.update();
+        //s.update();
         if (s.y>height) splatpoop.remove(i);
       }
 
@@ -600,8 +600,11 @@ void draw() {
       // We remove the background color of the handimage first then we add our picked color to our hand cursor image........ 
       float handImgx=map(handPosRealWorld.x, 0, 640, 0, width);
       float handImgy=map(handPosRealWorld.y, 0, 480, 0, height);
-      if (openPalm.get(handId)!=null && !openPalm.get(handId)) layer.image(handopen, handImgx, handImgy);  
-      if (openPalm.get(handId)!=null && openPalm.get(handId)) layer.image(handclose, handImgx, handImgy);  
+      layer.pushStyle();
+      layer.imageMode(CENTER);
+      if (openPalm.get(handId)!=null && !openPalm.get(handId)) layer.image(handopen, handImgx, handImgy+10);  
+      if (openPalm.get(handId)!=null && openPalm.get(handId)) layer.image(handclose, handImgx, handImgy+10);
+      layer.popStyle();  
       handopen.loadPixels();
       handclose.loadPixels();
       //--------------------Abhinav Modifications ----------------
@@ -630,9 +633,8 @@ void draw() {
 
       layer.fill(picker);
       layer.ellipse(int(handImgx), int(handImgy)-30, 20, 20);     
-      layer.fill(255, 0, 0);
-      layer.ellipse(int(handImgx+20), int(handImgy-30), 8, 8);
-      layer.ellipse(int(x1), int(y1), 4, 4);
+
+      // layer.ellipse(int(x1), int(y1), 4, 4);
       layer.fill(usericon);
 
       layer.ellipse(int(handImgx-50), int(handImgy)+50, 6, 6);

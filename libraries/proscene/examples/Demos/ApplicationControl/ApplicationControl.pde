@@ -29,7 +29,7 @@ InteractiveFrame   e;
 InteractiveRect    r;
 PGraphics          canvas;
 Scene              scene;
-boolean            showAid  = true;
+boolean            showControl  = true;
 
 float  radiusX  = 40, radiusY = 40;
 int    colour  = color(255, 0, 0);
@@ -112,7 +112,7 @@ public void draw() {
   scene.endDraw();
   canvas.endDraw();
   image(canvas, scene.originCorner().x(), scene.originCorner().y());
-  if (showAid) {
+  if (showControl) {
     ctrlCanvas.beginDraw();
     ctrlScene.beginDraw();
     ctrlCanvas.background(125, 125, 125, 125);
@@ -128,7 +128,7 @@ void handleAgents() {
   ctrlScene.disableMotionAgent();
   scene.enableKeyboardAgent();
   ctrlScene.disableKeyboardAgent();
-  if ((oX < mouseX) && (oY < mouseY) && showAid) {
+  if ((oX < mouseX) && (oY < mouseY) && showControl) {
     scene.disableMotionAgent();
     ctrlScene.enableMotionAgent();
     scene.disableKeyboardAgent();
@@ -138,5 +138,5 @@ void handleAgents() {
 
 public void keyPressed() {
   if (key == ' ')
-    showAid = !showAid;
+    showControl = !showControl;
 }

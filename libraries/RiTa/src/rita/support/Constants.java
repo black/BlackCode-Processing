@@ -2,54 +2,13 @@ package rita.support;
 
 public interface Constants extends EnglishConstants
 {
-  // ==== RiTaEvent ============ 
-  
-  enum EventType {  
-    MoveTo,
-    ColorTo,
-    FadeIn,
-    FadeOut,
-    TextTo, 
-    Timer,
-    ScaleTo,
-    RotateTo,
-    TextEntered,
-    Lerp,
-    BoundingAlpha,
-    Internal,
-    DataLoaded,
-    Unknown
-  };
-
-  String MOVE_TO = EventType.MoveTo.name();
-  String COLOR_TO = EventType.ColorTo.name();
-  String FADE_IN = EventType.FadeIn.name();
-  String FADE_OUT = EventType.FadeOut.name();
-  String TEXT_TO = EventType.TextTo.name();
-  String TIMER = EventType.Timer.name();
-  String SCALE_TO = EventType.ScaleTo.name();
-  String ROTATE_TO = EventType.RotateTo.name();
-  String TEXT_ENTERED = EventType.TextEntered.name();
-  String LERP = EventType.Lerp.name();
-  String BOUNDING_ALPHA = EventType.BoundingAlpha.name();
-  String INTERNAL = EventType.Internal.name();
-  String DATA_LOADED = EventType.DataLoaded.name();
-  String UNKNOWN = EventType.Unknown.name();
-  
-  String[] ALL_PHONES  = {
-    "aa","ae","ah","ao","aw","ax","ay","b","ch","d","dh",
-    "eh","er","ey","f","g","hh","ih","iy","jh", "k","l",
-    "m","n","ng","ow","oy","p","r","s","sh","t","th","uh",
-    "uw","v","w","y","z","zh",
-  };
-  
+ 
   // ==== Features ============ 
   
   String SLASH = "/";
   String WORD_BOUNDARY = " ";
   String PHONEME_BOUNDARY = "-";
   String SYLLABLE_BOUNDARY = SLASH;  
-  String SENTENCE_BOUNDARY = "|";
   String SYLLABLES = "syllables";
   String PHONEMES = "phonemes";
   String STRESSES = "stresses";
@@ -60,6 +19,19 @@ public interface Constants extends EnglishConstants
   String POS = "pos";
   String ID = "id";
 
+  // ==== Phonemes  ============== 
+  
+  int IPA = 2, ARPA = 1;
+  String[] ALL_PHONES  = {
+    "aa","ae","ah","ao","aw","ay","b","ch","d","dh",
+    "eh","er","ey","f","g","hh","ih","iy","jh", "k","l",
+    "m","n","ng","ow","oy","p","r","s","sh","t","th","uh",
+    "uw","v","w","y","z","zh",
+  };
+  String IPA_STRESS = "ˈ";
+  String IPA_2NDSTRESS = "ˌ";
+  String VOWELS = "aeiou";
+  
   // ==== Tokenizer  ============= 
   
   int REGEX_TOKENIZER = 2;
@@ -196,7 +168,6 @@ public interface Constants extends EnglishConstants
   String WS = "\\s+";
   String UTF8 = "UTF-8";
 
-  
   char STRESSED   = '1',  UNSTRESSED = '0';
   boolean LOAD_USER_ADDENDA = false;
 
@@ -205,18 +176,43 @@ public interface Constants extends EnglishConstants
   String BN = "\n", BRN = "\r\n", DASH = "-", AMP = "&", EQ="=", USC = "_";
   String LP = "(", RP = ")", LB = "[", RB = "]", BS = "\\";
   
-  String END_STRING = "</?string>";
-  String END_KEY = "</?key>";
-  String END_DICT = "</dict>";
-  String VALUE = "Value";
-  String NAME = "Name";
-  String KEY = "<key>";
-  String DICT = "<dict>";
-  String STRING = "<string>";
-  String DOMAIN = "Domain";
-  
   /** offset to use for page numbers in the PageLayout footer*/
   int PAGE_NO_OFFSET = 35;
   
-  float _defFontSize = 14;
+  float _DEFAULT_FONT_SIZE = 14;
+  
+  // ==== RiTaEvent ============ 
+  
+  enum EventType {  
+    MoveTo,
+    ColorTo,
+    FadeIn,
+    FadeOut,
+    TextTo, 
+    Timer,
+    ScaleTo,
+    RotateTo,
+    TextEntered,
+    Lerp,
+    BoundingAlpha,
+    Internal,
+    DataLoaded,
+    Unknown
+  };
+
+  String MOVE_TO = EventType.MoveTo.name();
+  String COLOR_TO = EventType.ColorTo.name();
+  String FADE_IN = EventType.FadeIn.name();
+  String FADE_OUT = EventType.FadeOut.name();
+  String TEXT_TO = EventType.TextTo.name();
+  String TIMER = EventType.Timer.name();
+  String SCALE_TO = EventType.ScaleTo.name();
+  String ROTATE_TO = EventType.RotateTo.name();
+  String TEXT_ENTERED = EventType.TextEntered.name();
+  String LERP = EventType.Lerp.name();
+  String BOUNDING_ALPHA = EventType.BoundingAlpha.name();
+  String INTERNAL = EventType.Internal.name();
+  String DATA_LOADED = EventType.DataLoaded.name();
+  String UNKNOWN = EventType.Unknown.name();
+  
 }

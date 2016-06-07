@@ -1,0 +1,8605 @@
+current hand ID- 1
+number of hands = 1
+current hand ID- 1
+number of hands = 1
+current hand ID- 1
+number of hands = 1
+current hand ID- 1
+number of hands = 1
+current hand ID- 1
+number of hands = 1
+current hand ID- 1
+number of hands = 1
+current hand ID- 1
+number of hands = 1
+current hand ID- 1
+number of hands = 1
+current hand ID- 1
+number of hands = 1
+current hand ID- 1
+number of hands = 1
+current hand ID- 1
+number of hands = 1
+current hand ID- 1
+number of hands = 1
+current hand ID- 1
+number of hands = 1
+current hand ID- 1
+number of hands = 1
+current hand ID- 1
+number of hands = 1
+current hand ID- 1
+number of hands = 1
+current hand ID- 1
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 2
+hand ID CC - 2
+number of hands = 1
+current hand ID- 3
+number of hands = 1
+current hand ID- 3
+number of hands = 1
+current hand ID- 3
+number of hands = 1
+current hand ID- 3
+number of hands = 1
+current hand ID- 3
+number of hands = 1
+current hand ID- 3
+number of hands = 1
+current hand ID- 3
+number of hands = 1
+current hand ID- 3
+number of hands = 1
+current hand ID- 3
+number of hands = 1
+current hand ID- 3
+number of hands = 1
+current hand ID- 3
+number of hands = 1
+current hand ID- 3
+number of hands = 1
+current hand ID- 3
+number of hands = 1
+current hand ID- 3
+number of hands = 1
+current hand ID- 3
+number of hands = 1
+current hand ID- 3
+number of hands = 1
+current hand ID- 3
+number of hands = 1
+current hand ID- 3
+number of hands = 1
+current hand ID- 3
+number of hands = 1
+current hand ID- 3
+number of hands = 1
+current hand ID- 3
+number of hands = 1
+current hand ID- 3
+number of hands = 1
+current hand ID- 3
+number of hands = 1
+current hand ID- 3
+number of hands = 1
+current hand ID- 3
+number of hands = 1
+current hand ID- 3
+number of hands = 1
+current hand ID- 3
+number of hands = 1
+current hand ID- 3
+number of hands = 1
+current hand ID- 3
+number of hands = 1
+current hand ID- 3
+number of hands = 1
+current hand ID- 3
+number of hands = 1
+current hand ID- 3
+number of hands = 1
+current hand ID- 3
+number of hands = 1
+current hand ID- 3
+number of hands = 1
+current hand ID- 3
+number of hands = 1
+current hand ID- 3
+number of hands = 1
+current hand ID- 3
+number of hands = 1
+current hand ID- 3
+number of hands = 1
+current hand ID- 3
+number of hands = 1
+current hand ID- 3
+number of hands = 1
+current hand ID- 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand ID- 3
+hand ID CC - 3
+number of hands = 1
+current hand 

@@ -422,7 +422,7 @@ public abstract class Eye implements Copyable {
   }
 
   // TODO experimental
-  /// *
+  // /*
   protected GrabberEyeFrame detachFrame() {
     GrabberEyeFrame frame = new GrabberEyeFrame(gScene);
     scene().pruneBranch(frame);

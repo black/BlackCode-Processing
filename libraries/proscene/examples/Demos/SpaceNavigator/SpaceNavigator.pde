@@ -56,12 +56,16 @@ ControlButton button1; // Buttons
 ControlButton button2;
 
 public class HIDAgent extends Agent {
-  // array of sensitivities that will be multiply the sliders input
-  // pretty much found as trial an error
+  // array of sensitivities that will multiply the sliders input
+  // found pretty much as trial an error
   float [] sens = {10, 10, 10, 10, 10, 10};
   
   public HIDAgent(Scene scn) {
     super(scn.inputHandler());
+    // the scene.registerMotionID expects the degrees-of-freedom of the gesture and returns
+    // an unique id that may be use to bind (frame) actions to the gesture, pretty much in
+    // the same way as it's done with the LEFT and RIGHT mouse gestures.
+    SN_ID = scn.registerMotionID(this, 6);
     addGrabber(scene.eyeFrame());
     setDefaultGrabber(scene.eyeFrame());
   }
@@ -90,10 +94,7 @@ void setup() {
   texmap = loadImage("world32k.jpg");    
   initializeSphere(sDetail);
   scene = new Scene(this);
-  // the scene.registerMotionID expects the degrees-of-freedom of the gesture and returns
-  // an unique id that may be use to bind (frame) actions to the gesture, pretty much in
-  // the same way as it's done with the LEFT and RIGHT mouse gestures.
-  SN_ID = scene.registerMotionID(6);
+  
   scene.setGridVisualHint(false);
   scene.setAxesVisualHint(false);  
   scene.setRadius(260);
@@ -140,9 +141,7 @@ void keyPressed() {
       scene.camera().setUpVector(Vec.subtract(scene.camera().position(), scene.anchor()));
       //The rest is just to make the scene appear in front of us. We could have just used
       //the space navigator itself to make that happen too.
-      Quat q = new Quat();
-      q.fromEulerAngles(a,0,0);
-      scene.camera().frame().rotate(q);
+      scene.camera().frame().rotate(new Quat(a, 0, 0));
     }
 }
 

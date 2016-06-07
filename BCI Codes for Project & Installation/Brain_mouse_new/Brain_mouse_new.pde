@@ -8,7 +8,7 @@ import java.awt.GraphicsDevice.*;
 import java.awt.*;
 import java.awt.geom.*;
 import javax.swing.*;
-
+import java.net.*;
 Robot robot;
 /*----------------------------------------*/
 import neurosky.*;

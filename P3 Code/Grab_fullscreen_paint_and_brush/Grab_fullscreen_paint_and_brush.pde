@@ -49,14 +49,6 @@ void draw()
   grids();
   //-----------------------
   translate(displayWidth/2, displayHeight/2, 0);
-  //imageMode(CENTER);
-  //float reScaleX = (float) displayWidth / kinect.depthWidth();
-  //float reScaleY = (float) displayHeight / kinect.depthHeight();
-  // pushMatrix();
-  //scale(1.0f);
-  //image(kinect.depthImage(), 0, 0);
-  //popMatrix();
-  //-----------------------
   pushStyle();
   if (handsTrackFlag)  
   {

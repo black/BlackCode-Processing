@@ -64,15 +64,14 @@ public class KeyAgent extends Agent {
   }
 
   // debug
-  /*
-   * protected String printEvent(KeyboardEvent event) { return " mod: " +
-   * KeyboardEvent.modifiersText(event.modifiers()) + " vkey: " + event.id() + " char: " +
-   * event.key(); }
-   * 
-   * protected String printAction(KeyboardEvent event) { return " scene: " +
-   * scene.profile().actionName(event.shortcut()) + " eye: " +
-   * scene.eyeFrame().profile().actionName(event.shortcut()); }
-   */
+
+  // protected String printEvent(KeyboardEvent event) {
+  // return " mod: " + KeyboardEvent.modifiersText(event.modifiers()) + " vkey: " +
+  // event.id() + " char: " + event.key(); }
+  //
+  // protected String printAction(KeyboardEvent event) {
+  // return " scene: " + scene.profile().action(event.shortcut()) + " eye: " +
+  // scene.eyeFrame().profile().action(event.shortcut()); }
 
   /**
    * Same as {@code return java.awt.event.KeyEvent.getExtendedKeyCodeForChar(key)}.

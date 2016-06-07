@@ -98,8 +98,8 @@ void setup()
   pg = createGraphics(width, height); //drawing layer.
   layer=createGraphics(width, height); //all drawing stack into this layer except background.
 
-  server=new Server(this, 5234); // enabling server 
-  c = new Client(this, "172.21.168.42", 5001); // create a client instant if you are already started make sure you press a mouse click so it'll start to create a new client instant change client ip address.
+  server=new Server(this, 5001); // enabling server 
+  c = new Client(this, "192.168.1.114", 5001); // create a client instant if you are already started make sure you press a mouse click so it'll start to create a new client instant change client ip address.
 
   endPosClick=new PVector();
 
@@ -716,7 +716,7 @@ void mousePressed() {
 
 void mouseReleased() {
   // d.stopDragging();
-  c = new Client(this, "172.21.168.42", 5001);
+  c = new Client(this, "192.168.1.114", 5001);
   start=true;
 }
 

@@ -31,6 +31,8 @@ import rita.support.Concorder;
 import rita.support.Conjugator;
 import rita.support.Constants;
 import rita.support.EntityLookup;
+import rita.support.JSONLexicon;
+import rita.support.LetterToSound;
 import rita.support.MinEditDist;
 import rita.support.PAppletIF;
 import rita.support.Pluralizer;
@@ -45,10 +47,13 @@ import rita.support.Stemmer;
  * A set of static properties and utility functions for the package
  */
 public class RiTa implements Constants {
-  public final static String VERSION = "1.1.27";
+  public final static String VERSION = "1.1.38";
 
   /** For tokenization, Can't -> Can not, etc. */
   public static boolean SPLIT_CONTRACTIONS = false;
+  
+  /** For Phonemization: ARPA or IPA   */
+  public static int PHONEME_TYPE = ARPA;
 
   /** Stops all RiTa output to the console */
   public static boolean SILENT = false;
@@ -63,8 +68,6 @@ public class RiTa implements Constants {
   public static Object context = null; // generally a PApplet
 
   private static boolean INITD = false;
-
-  protected static String[] guesses = { "src/data", "data", "" };
 
   static {
     if (!INITD)
@@ -104,7 +107,7 @@ public class RiTa implements Constants {
   public static String getPhonemes(String[] s) {
     return getFeature(s, PHONEMES);
   }
-
+  
   public static String getStresses(String s) {
     return getFeature(s, STRESSES);
   }
@@ -1053,7 +1056,7 @@ public class RiTa implements Constants {
     }
 
     InputStream is = null;
-
+    String[] guesses = { "src/data", "data", "" };
     for (int i = 0; i < guesses.length; i++) {
       String guess = streamName;
       if (guesses[i].length() > 0) {
@@ -1163,9 +1166,9 @@ public class RiTa implements Constants {
 	  PAppletIF pApplet = (PAppletIF) RiDynamic.cast(parent,
 	      PAppletIF.class);
 	  return pApplet.loadStrings(fileName);
-	} else
-	  System.err.println("[WARN] RiTa.loadString(s): Expecting a PApplet"
-	      + " as 2nd argument, but found: " + parent.getClass());
+	} 
+	System.err.println("[WARN] RiTa.loadString(s): Expecting a PApplet" +
+	    " as 2nd argument, but found: " + parent.getClass());
       }
     }
 
@@ -1560,8 +1563,12 @@ public class RiTa implements Constants {
   }
 
   public static void out(Object[] l) {
-    if (l == null || l.length < 1) {
+    if (l == null) {
       System.out.println("null");
+      return;
+    }
+    if (l.length < 1) {
+      System.out.println("[]");
       return;
     }
     for (int j = 0; j < l.length; j++)
@@ -1601,7 +1608,7 @@ public class RiTa implements Constants {
       }
     }.start();
   }
-
+  
   public static String[] kwic(String text, String word, Map options) {
     return Concorder.cachedKwic(text, word, options);
   }
@@ -1637,4 +1644,8 @@ public class RiTa implements Constants {
 	: new MinEditDist().computeAdjusted(s1, s2);
   }
 
+  public static void main(String[] args) {
+    RiTa.PHONEME_TYPE = RiTa.IPA;
+    System.out.println(RiTa.getPhonemes("become"));
+  }
 }

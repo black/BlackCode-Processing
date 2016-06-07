@@ -6,6 +6,7 @@ import java.awt.GraphicsDevice.*;
 import java.awt.*;
 import java.awt.geom.*;
 import javax.swing.*;
+import java.net.*;
 
 Robot robot;
 /*---------------*/
@@ -104,24 +105,19 @@ void draw() {
       if (i<=450) {
         if (j==70 && i==150) {
           i = 250;
-        }
-        else if (j==120 && i==400) {
+        } else if (j==120 && i==400) {
           i= 0;
-        }
-        else {
+        } else {
           i=i+50;
         }
-      }
-      else {
+      } else {
         i=0;
       }
-    }  
-    else {
+    } else {
       if (j==120)
       {
         j=20;
-      }
-      else {
+      } else {
         j=j +50;
       }
     }
@@ -145,14 +141,12 @@ void draw() {
   if (press==0) {
     fill(0, 80);
     rect(i, j, 500, 50, r, r, r, r);
-  }
-  else if (press==1)
+  } else if (press==1)
   {
     if ((j==70 && i==150)|| (j==120 && i==400)) {
       fill(#006AD8, 80);
       rect(i, j, 100, 50, r, r, r, r);
-    }
-    else {
+    } else {
       fill(0, 80);
       rect(i, j, 50, 50, r, r, r, r);
     }

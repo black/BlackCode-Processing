@@ -1,49 +1,49 @@
 package rita.test;
 
 import static org.junit.Assert.fail;
-import static rita.support.QUnitStubs.deepEqual;
-import static rita.support.QUnitStubs.equal;
-import static rita.support.QUnitStubs.ok;
+import static rita.support.QUnitStubs.*;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import processing.core.PApplet;
-import rita.RiLexicon;
-import rita.RiTa;
-import rita.RiTaEvent;
-import rita.RiTaException;
+import rita.*;
 
 public class RiTaTest
 {  
-  public static final boolean REMOTE_TESTING = true;
+  public static boolean REMOTE_TESTING = false;
+  
+  static {
+  
+    // only if set as in the env
+    String doRemotes = System.getenv("RITA_DO_REMOTE") ;
+    if ((doRemotes != null && doRemotes.equals("true"))) 
+      REMOTE_TESTING = true;
+
+    // but never on TravisCI
+    String isCI = System.getenv("CI") ;
+    if ((isCI != null && isCI.equals("true"))) 
+      REMOTE_TESTING = false;
+    
+    if (!REMOTE_TESTING)
+      System.out.println("[INFO] Skipping remote URL tests...");
+  }
   
   @Before
   public void initialize() {
-    RiTa.SILENT = true;
+    RiTa.SILENT = false;
     RiLexicon.enabled = true;
   }
  
   @Test
   public void testStart()
   {
-    if (REMOTE_TESTING) {
-      
-      ok("skip for remote testing");
-      return;
-    }
-        
     RiTa.start(null);
     RiTa.start(this);
-    RiTa.start(new PApplet());
+    //RiTa.start(new PApplet());
   }
 
   @Test
@@ -65,7 +65,7 @@ public class RiTaTest
   @Test
   public void loadString_AbsFile()
   {
-    if (REMOTE_TESTING) {
+    if (!REMOTE_TESTING) {
       ok("skip for remote testing");
       return;
     }
@@ -76,7 +76,7 @@ public class RiTaTest
   @Test
   public void loadString_Url()
   {
-    if (REMOTE_TESTING) {
+    if (!REMOTE_TESTING) {
       ok("skip for remote testing");
       return;
     }
@@ -87,7 +87,7 @@ public class RiTaTest
   @Test
   public void loadString_FileAsUrl()
   {
-    if (REMOTE_TESTING) {
+    if (!REMOTE_TESTING) {
       ok("skip for remote testing");
       return;
     }
@@ -123,7 +123,7 @@ public class RiTaTest
   @Test
   public void loadString_UrlStrMulti()
   {
-    if (REMOTE_TESTING) {
+    if (!REMOTE_TESTING) {
       ok("skip for remote testing");
       return;
     }
@@ -138,7 +138,7 @@ public class RiTaTest
   @Test
   public void loadString_UrlMulti()
   {
-    if (REMOTE_TESTING) {
+    if (!REMOTE_TESTING) {
       ok("skip for remote testing");
       return;
     }
@@ -157,7 +157,7 @@ public class RiTaTest
   @Test
   public void loadUrl()
   {
-    if (REMOTE_TESTING) {
+    if (!REMOTE_TESTING) {
       ok("skip for remote testing");
       return;
     }
@@ -720,10 +720,56 @@ public class RiTaTest
   {
     equal(1, RiTa.distance(1, 3, 2, 3));
     equal(28, RiTa.distance(30, 1, 2, 1));
-    equal(5.656854152679443, RiTa.distance(0, 0, 4, 4)); // 5.656854249492381
-                                                         // inRitaJS
-    equal(5.099019527435303, RiTa.distance(3, 3, 8, 4)); // 5.0990195135927845
-                                                         // in RitaJS
+    equal(5.656854152679443, RiTa.distance(0, 0, 4, 4)); 
+    equal(5.099019527435303, RiTa.distance(3, 3, 8, 4));
+  }
+
+  @Test
+  public void testGetPhonemesStringIPA()
+  {
+    RiTa.PHONEME_TYPE = RiTa.IPA;
+    
+    String[] words = {
+	"become", "bɪˈkʌm",
+	"parsley", "ˈpɑːɹs li",
+	"catnip", "ˈkætˈnɪp",
+	"garlic", "ˈgɑːɹ lɪk",
+	"dill", "dɪl",
+    };
+
+    for (int i = 0; i < words.length; i+=2) {
+      equal(words[i+1], RiTa.getPhonemes(words[i]));
+    }
+    
+    RiTa.PHONEME_TYPE = RiTa.ARPA;
+  }
+  
+  @Test
+  public void testGetPhonemesStringArrayIPA()
+  {
+    RiTa.PHONEME_TYPE = RiTa.IPA;
+
+    String[][] inputs = {
+	{"become"},
+	{"parsley"},
+	{"catnip"},
+	{"garlic"},
+	{"dill"},
+    };
+    
+    String[] outputs = {
+	"bɪˈkʌm",
+	"ˈpɑːɹs li",
+	"ˈkætˈnɪp",
+	"ˈgɑːɹ lɪk",
+	"dɪl",
+    };
+    
+    for (int i = 0; i < inputs.length; i++) {
+      equal(outputs[i], RiTa.getPhonemes(inputs[i]));
+    }
+    
+    RiTa.PHONEME_TYPE = RiTa.ARPA;
   }
 
   @Test
@@ -731,24 +777,31 @@ public class RiTaTest
   {
     String txt = "The dog ran faster than the other dog.  But the other dog was prettier.";
     String result = RiTa.getPhonemes(txt);
-    String answer = "dh-ax d-ao-g r-ae-n f-ae-s-t-er dh-ae-n dh-ax ah-dh-er d-ao-g . b-ah-t dh-ax ah-dh-er d-ao-g w-aa-z p-r-ih-t-iy-er .";
-    //System.out.println("getPhonemes: " + result);
+    String answer = "dh-ah d-ao-g r-ae-n f-ae-s-t-er dh-ae-n dh-ah ah-dh-er d-ao-g . b-ah-t dh-ah ah-dh-er d-ao-g w-aa-z p-r-ih-t-iy-er .";
     equal(result, answer);
     
     result = RiTa.getPhonemes("The");
-    answer = "dh-ax";
+    answer = "dh-ah";
     equal(result, answer);
 
     result = RiTa.getPhonemes("The.");
-    answer = "dh-ax .";
+    answer = "dh-ah .";
+    equal(result, answer);
+    
+    result = RiTa.getPhonemes("flowers");
+    answer = "f-l-aw-er-z";
+    equal(result, answer);
+    
+    result = RiTa.getPhonemes("mice");
+    answer = "m-ay-s";
     equal(result, answer);
 
     result = RiTa.getPhonemes("The boy jumped over the wild dog.");
-    answer = "dh-ax b-oy jh-ah-m-p-t ow-v-er dh-ax w-ay-l-d d-ao-g .";
+    answer = "dh-ah b-oy jh-ah-m-p-t ow-v-er dh-ah w-ay-l-d d-ao-g .";
     equal(result, answer);
 
     result = RiTa.getPhonemes("The boy ran to the store.");
-    answer = "dh-ax b-oy r-ae-n t-uw dh-ax s-t-ao-r .";
+    answer = "dh-ah b-oy r-ae-n t-uw dh-ah s-t-ao-r .";
     equal(result, answer);
 
     result = RiTa.getPhonemes("");
@@ -759,32 +812,30 @@ public class RiTaTest
   @Test
   public void testGetPhonemesStringArray()
   {
-
     String[] input = { "The" };
     String result = RiTa.getPhonemes(input);
-    String answer = "dh-ax";
+    String answer = "dh-ah";
     equal(result, answer);
 
     input = new String[] { "The." };
     result = RiTa.getPhonemes(input);
-    answer = "dh-ax .";
+    answer = "dh-ah .";
     equal(result, answer);
 
     input = new String[] { "The", "boy", "jumped", "over", "the", "wild", "dog." };
     result = RiTa.getPhonemes(input);
-    answer = "dh-ax b-oy jh-ah-m-p-t ow-v-er dh-ax w-ay-l-d d-ao-g .";
+    answer = "dh-ah b-oy jh-ah-m-p-t ow-v-er dh-ah w-ay-l-d d-ao-g .";
     equal(result, answer);
 
     input = new String[] { "The boy ran to the store." };
     result = RiTa.getPhonemes(input);
-    answer = "dh-ax b-oy r-ae-n t-uw dh-ax s-t-ao-r .";
+    answer = "dh-ah b-oy r-ae-n t-uw dh-ah s-t-ao-r .";
     equal(result, answer);
 
     input = new String[] { "The dog ran faster than the other dog.",
         "But the other dog was prettier." };
     result = RiTa.getPhonemes(input);
-    answer = "dh-ax d-ao-g r-ae-n f-ae-s-t-er dh-ae-n dh-ax ah-dh-er d-ao-g . b-ah-t dh-ax ah-dh-er d-ao-g w-aa-z p-r-ih-t-iy-er .";
-    //System.out.println("getPhonemes(array)" + result);
+    answer = "dh-ah d-ao-g r-ae-n f-ae-s-t-er dh-ae-n dh-ah ah-dh-er d-ao-g . b-ah-t dh-ah ah-dh-er d-ao-g w-aa-z p-r-ih-t-iy-er .";
     equal(result, answer);
 
     input = new String[] { "" };
@@ -794,29 +845,44 @@ public class RiTaTest
   }
   
   @Test
-  public void testGetPhonemesStringArrayLTS() // TODO: outputs generall do not match (see KnownIssues)
+  public void testGetPhonemesStringArrayLTS() // TODO: outputs generally do not match (see KnownIssues)
   {
     RiLexicon.enabled = false;
     
     String[] input = { "The" };
     String result = RiTa.getPhonemes(input);
-    String answer = "dh-ax";
+    String answer = "dh-ah";
     equal(result, answer);
 
     input = new String[] { "The." };
     result = RiTa.getPhonemes(input);
-    answer = "dh-ax .";
+    answer = "dh-ah .";
     equal(result, answer);
     
     input = new String[] { "the" };
     result = RiTa.getPhonemes(input);
-    answer = "dh-ax";
+    answer = "dh-ah";
     equal(result, answer);
     
     input = new String[] { "" };
     result = RiTa.getPhonemes(input);
     answer = "";
     equal(result, answer);
+    
+    // TODO: add a few longer tests
+    
+    RiLexicon.enabled = true;
+  }
+  
+  @Test
+  public void testGetStressesStringLTS()
+  {
+    RiLexicon.enabled = false;
+
+    // TODO: See KnownIssueTests
+    equal(RiTa.getStresses(""), "");
+    
+    RiLexicon.enabled = true;
   }
 
   @Test
@@ -832,15 +898,14 @@ public class RiTaTest
 
     result = RiTa.getStresses("The emperor had no clothes on. The King is fat.");
     answer = "0 1/0/0 1 1 1 1 . 0 1 1 1 .";
-    //System.out.println("getStresses" + result);
     equal(result, answer);
 
     result = RiTa.getStresses("to preSENT, to exPORT, to deCIDE, to beGIN");
-    answer = "1 0/1 , 1 0/1 , 1 0/1 , 1 0/1";
+    answer = "1 1/0 , 1 1/0 , 1 0/1 , 1 0/1";
     equal(result, answer);
 
     result = RiTa.getStresses("to present, to export, to decide, to begin");
-    answer = "1 0/1 , 1 0/1 , 1 0/1 , 1 0/1";
+    answer = "1 1/0 , 1 1/0 , 1 0/1 , 1 0/1";
     equal(result, answer);
 
     String txt = "The dog ran faster than the other dog.  But the other dog was prettier.";
@@ -868,19 +933,18 @@ public class RiTaTest
 
     input = new String[] { "to preSENT,", "to exPORT,", "to deCIDE,", "to beGIN" };
     result = RiTa.getStresses(input);
-    answer = "1 0/1 , 1 0/1 , 1 0/1 , 1 0/1";
+    answer = "1 1/0 , 1 1/0 , 1 0/1 , 1 0/1";
     equal(result, answer);
 
     input = new String[] { "to present, to export, to decide, to begin" };
     result = RiTa.getStresses(input);
-    answer = "1 0/1 , 1 0/1 , 1 0/1 , 1 0/1";
+    answer = "1 1/0 , 1 1/0 , 1 0/1 , 1 0/1";
     equal(result, answer);
 
     input = new String[] { "The dog ran faster than the other dog.",
         "But the other dog was prettier." };
     result = RiTa.getStresses(input);
     answer = "0 1 1 1/0 1 0 1/0 1 . 1 0 1/0 1 1 1/0/0 .";
-    //System.out.println("getStresses(array)" + result);
     equal(result, answer);
 
     input = new String[] { "" };
@@ -894,28 +958,26 @@ public class RiTaTest
   {
     String txt = "The dog ran faster than the other dog. But the other dog was prettier.";
     String result = RiTa.getSyllables(txt);
-    String answer = "dh-ax d-ao-g r-ae-n f-ae-s/t-er dh-ae-n dh-ax ah-dh/er d-ao-g . b-ah-t dh-ax ah-dh/er d-ao-g w-aa-z p-r-ih-t/iy/er .";
+    String answer = "dh-ah d-ao-g r-ae-n f-ae/s-t-er dh-ae-n dh-ah ah/dh-er d-ao-g . b-ah-t dh-ah ah/dh-er d-ao-g w-aa-z p-r-ih/t-iy/er .";
     equal(result, answer);
 
     txt = "The emperor had no clothes on.";
     result = RiTa.getSyllables(txt);
-    answer = "dh-ax eh-m-p/er/er hh-ae-d n-ow k-l-ow-dh-z aa-n .";
+    answer = "dh-ah eh-m/p-er/er hh-ae-d n-ow k-l-ow-dh-z aa-n .";
     equal(result, answer);
 
     txt = "The Laggin Dragon";
     result = RiTa.getSyllables(txt);
-    answer = "dh-ax l-ae/g-ih-n d-r-ae-g/aa-n";
+    answer = "dh-ah l-ae/g-ih-n d-r-ae/g-ah-n";
     equal(result, answer);
     
     txt = "the laggin dragon";
     result = RiTa.getSyllables(txt);
-    //System.out.println(result);
-    answer = "dh-ax l-ae/g-ih-n d-r-ae-g/aa-n";
+    answer = "dh-ah l-ae/g-ih-n d-r-ae/g-ah-n";
     equal(result, answer);
 
     result = RiTa.getSyllables("@#$%&*()");
     answer = "@ # $ % & * ( )";
-    //System.out.println(result);
     equal(result, answer);
 
     result = RiTa.getSyllables("");
@@ -930,30 +992,27 @@ public class RiTaTest
     String[] txt = { "The dog ran faster than the other dog.",
         "But the other dog was prettier." };
     String result = RiTa.getSyllables(txt);
-    String answer = "dh-ax d-ao-g r-ae-n f-ae-s/t-er dh-ae-n dh-ax ah-dh/er d-ao-g . b-ah-t dh-ax ah-dh/er d-ao-g w-aa-z p-r-ih-t/iy/er .";
+    String answer = "dh-ah d-ao-g r-ae-n f-ae/s-t-er dh-ae-n dh-ah ah/dh-er d-ao-g . b-ah-t dh-ah ah/dh-er d-ao-g w-aa-z p-r-ih/t-iy/er .";
     equal(result, answer);
 
     txt = new String[] { "The", "emperor", "had", "no", "clothes", "on." };
     result = RiTa.getSyllables(txt);
-    answer = "dh-ax eh-m-p/er/er hh-ae-d n-ow k-l-ow-dh-z aa-n .";
+    answer = "dh-ah eh-m/p-er/er hh-ae-d n-ow k-l-ow-dh-z aa-n .";
     equal(result, answer);
 
     txt = new String[] { "The", "Laggin", "Dragon" };
     result = RiTa.getSyllables(txt);
-    //System.out.println(result);
-    answer = "dh-ax l-ae/g-ih-n d-r-ae-g/aa-n";
+    answer = "dh-ah l-ae/g-ih-n d-r-ae/g-ah-n";
     equal(result, answer);
     
     txt = new String[] { "the", "laggin", "dragon" };
     result = RiTa.getSyllables(txt);
-    //System.out.println(result);
-    answer = "dh-ax l-ae/g-ih-n d-r-ae-g/aa-n";
+    answer = "dh-ah l-ae/g-ih-n d-r-ae/g-ah-n";
     equal(result, answer);
 
     txt = new String[] { "@#", "$%", "&*", "()" };
     result = RiTa.getSyllables(txt);
     answer = "@ # $ % & * ( )";
-    //System.out.println(result);
     equal(result, answer);
 
     txt = new String[] { "" };
@@ -1017,10 +1076,6 @@ public class RiTaTest
     resultArr = RiTa.getPosTags("asserting"); 
     answerArr = new String[] {"vbg"};
     deepEqual(answerArr,resultArr);
-    
-    resultArr = RiTa.getPosTags("assenting"); // added to dict
-    answerArr = new String[] {"vbg"};
-    deepEqual(answerArr,resultArr);  
 
     resultArr = RiTa.getPosTags("asfaasd");
     answerArr = new String[] {"nn"};
@@ -1031,6 +1086,10 @@ public class RiTaTest
     deepEqual(answerArr,resultArr);
     
     resultArr = RiTa.getPosTags("innings");
+    answerArr = new String[] {"nns"};
+    deepEqual(answerArr,resultArr);
+    
+    resultArr = RiTa.getPosTags("teeth");
     answerArr = new String[] {"nns"};
     deepEqual(answerArr,resultArr);
     
@@ -1251,6 +1310,11 @@ public class RiTaTest
     result = RiTa.getPosTagsInline(txtArr);
     answer = "clothes/nns";
     deepEqual(result, answer);
+    
+    txtArr = new String[] { "teeth" };
+    result = RiTa.getPosTagsInline(txtArr);
+    answer = "teeth/nns";
+    deepEqual(result, answer);
 
     txtArr = new String[] { "There", "is", "a", "cat." };
     result = RiTa.getPosTagsInline(txtArr);
@@ -1450,7 +1514,7 @@ public class RiTaTest
     m.put("ignorePunctuation", false);
     String txt = RiTa.loadString("kafka.txt");
     lines = RiTa.kwic(txt,",",m);
-    equal(lines.length,1292);
+    equal(lines.length,1091);
     m.put("ignorePunctuation", true);
     lines = RiTa.kwic(txt,",",m);
     equal(lines.length,0);
@@ -1486,6 +1550,11 @@ public class RiTaTest
     equal(lines.length,0);
     lines = RiTa.kwic(txt,"sister",m);
     equal(lines.length,0);
+    
+    // test against issue #169
+    m.put("wordCount", 5);
+    lines = RiTa.kwic(txt,"door",m);
+    equal(lines.length,86);
   }
   
   @Test
@@ -1875,8 +1944,6 @@ public class RiTaTest
   @Test
   public void testPluralize()
   {
-    //System.out.println(RiTa.stem("dogs"));
-    
     equal("eyes", RiTa.pluralize("eye"));
     equal("blondes", RiTa.pluralize("blonde"));
     equal("blondes", RiTa.pluralize("blond"));
@@ -1893,7 +1960,6 @@ public class RiTaTest
 
     equal("sheep", RiTa.pluralize("sheep"));
     equal("shrimps", RiTa.pluralize("shrimp"));
-    //System.out.println("pluralize" + RiTa.pluralize("series"));
     equal("series", RiTa.pluralize("series"));
     equal("mice", RiTa.pluralize("mouse"));
 
@@ -1925,6 +1991,17 @@ public class RiTaTest
     equal("stimuli", RiTa.pluralize("stimulus"));
     equal("alumni", RiTa.pluralize("alumnus"));
     equal("corpora", RiTa.pluralize("corpus"));
+    
+    equal("women", RiTa.pluralize("woman"));
+    equal("men", RiTa.pluralize("man"));
+    equal("congressmen", RiTa.pluralize("congressman"));
+    equal("aldermen", RiTa.pluralize("alderman"));
+    equal("freshmen", RiTa.pluralize("freshman"));
+    
+    equal("bikinis", RiTa.pluralize("bikini")); 
+    equal("martinis", RiTa.pluralize("martini"));
+    equal("menus", RiTa.pluralize("menu"));
+    equal("gurus", RiTa.pluralize("guru"));
   }
 
   @Test
@@ -1940,7 +2017,6 @@ public class RiTaTest
     equal(RiTa.singularize("lochs"), "loch");
     equal(RiTa.singularize("stomachs"), "stomach");
 
- 
     equal(RiTa.singularize("people"), "person");
     equal(RiTa.singularize("monies"), "money");
     equal(RiTa.singularize("vertebrae"), "vertebra");
@@ -1990,7 +2066,6 @@ public class RiTaTest
     equal("louse", RiTa.singularize("lice"));
     equal("child", RiTa.singularize("children"));
     equal(RiTa.singularize("chinese"), "chinese");
-    //System.out.println("RiTa.singularize :" + RiTa.singularize("taxis"));
     equal(RiTa.singularize("taxis"), "taxi");
     
     equal(RiTa.singularize("gases"), "gas");
@@ -2003,6 +2078,16 @@ public class RiTaTest
     equal(RiTa.singularize("stimuli"), "stimulus");
     equal(RiTa.singularize("alumni"), "alumnus");
     equal(RiTa.singularize("corpora"), "corpus");
+    
+    equal("man", RiTa.singularize("men"));
+    equal("woman", RiTa.singularize("women"));
+    equal("congressman", RiTa.singularize("congressmen")); 
+    equal("alderman", RiTa.singularize("aldermen"));
+    equal("freshman", RiTa.singularize("freshmen"));
+    equal("fireman", RiTa.singularize("firemen"));
+    equal("grandchild", RiTa.singularize("grandchildren"));
+    equal("menu", RiTa.singularize("menus"));
+    equal("guru", RiTa.singularize("gurus"));
   }
 
   @Test
@@ -2213,7 +2298,7 @@ public class RiTaTest
   @Test
   public void testTimer() // failing in travis
   {
-    if (REMOTE_TESTING) {
+    if (!REMOTE_TESTING) {
       ok("skip for remote testing");
       return;
     }
@@ -2234,7 +2319,7 @@ public class RiTaTest
   @Test
   public void testPauseTimer() // failing in travis
   {
-    if (REMOTE_TESTING) {
+    if (!REMOTE_TESTING) {
       ok("skip for remote testing");
       return;
     }
@@ -2263,7 +2348,7 @@ public class RiTaTest
   @Test
   public void testStopTimer() // failing in travis
   {
-    if (REMOTE_TESTING) {
+    if (!REMOTE_TESTING) {
       ok("skip for remote testing");
       return;
     }

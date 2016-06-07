@@ -16,7 +16,7 @@ import processing.event.KeyEvent;
 /**
  * controlP5 is a processing gui library.
  * 
- * 2006-2012 by Andreas Schlegel
+ * 2006-2015 by Andreas Schlegel
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public License
@@ -33,8 +33,8 @@ import processing.event.KeyEvent;
  * Boston, MA 02111-1307 USA
  * 
  * @author Andreas Schlegel (http://www.sojamo.de)
- * @modified 07/30/2015
- * @version 2.2.5
+ * @modified 04/14/2016
+ * @version 2.2.6
  * 
  */
 
@@ -127,24 +127,26 @@ public class DropdownList extends Controller< DropdownList > implements ControlL
 				// n += itemRange; /* UP */
 				int index = ( int ) n + itemIndexOffset;
 
-				Map m = items.get( index );
-
-				switch ( _myType ) {
-				case ( LIST ):
-					setValue( index );
-					for ( Object o : items ) {
-						( ( Map ) o ).put( "state" , false );
+				if (index < items.size()) {
+					Map m = items.get( index );
+	
+					switch ( _myType ) {
+					case ( LIST ):
+						setValue( index );
+						for ( Object o : items ) {
+							( ( Map ) o ).put( "state" , false );
+						}
+						m.put( "state" , !ControlP5.b( m.get( "state" ) ) );
+						break;
+					case ( DROPDOWN ):
+						setValue( index );
+						setOpen( false );
+						getCaptionLabel( ).setText( ( m.get( "text" ).toString( ) ) );
+						break;
+					case ( CHECKBOX ):
+						m.put( "state" , !ControlP5.b( m.get( "state" ) ) );
+						break;
 					}
-					m.put( "state" , !ControlP5.b( m.get( "state" ) ) );
-					break;
-				case ( DROPDOWN ):
-					setValue( index );
-					setOpen( false );
-					getCaptionLabel( ).setText( ( m.get( "text" ).toString( ) ) );
-					break;
-				case ( CHECKBOX ):
-					m.put( "state" , !ControlP5.b( m.get( "state" ) ) );
-					break;
 				}
 
 			}
