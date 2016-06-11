@@ -1,6 +1,8 @@
 import processing.video.*;
 import neurosky.*;
 import org.json.*;
+import java.net.*;
+
 
 ThinkGearSocket neuroSocket;
 int blinkSt = 0;
@@ -12,13 +14,13 @@ void setup()
 {
   size(640, 480);
   ThinkGearSocket neuroSocket = new ThinkGearSocket(this);
-//  try 
-//  {
-//    neuroSocket.start();
-//  } 
-//  catch (ConnectException e) {
-//    e.printStackTrace();
-//  }
+  try 
+  {
+    neuroSocket.start();
+  } 
+  catch (ConnectException e) {
+    e.printStackTrace();
+  }
   smooth();
   font = loadFont("ArialNarrow-48.vlw");
   textFont(font);

@@ -1,11 +1,18 @@
 import com.sun.awt.AWTUtilities;
-import neurosky.*;
-import org.json.*;
 import java.awt.AWTException;
 import java.awt.event.InputEvent;
+import javax.swing.JFrame;
 import java.awt.Robot;
+import java.awt.GraphicsDevice.*; 
+import java.awt.*;
+import java.awt.geom.*;
+import javax.swing.*;
 import java.net.*;
 
+/*----------------------------------------*/
+import neurosky.*;
+import org.json.*;
+/*-------------------------------*/
 ThinkGearSocket neuroSocket;
 Robot robot;
 /*-------------------------------*/
@@ -40,6 +47,7 @@ void setup()
     neuroSocket.start();
   } 
   catch (ConnectException e) {
+    e.printStackTrace();
     println("Is ThinkGear running??");
   }
   try { 
@@ -63,7 +71,7 @@ void draw()
   textFont(f);
   noStroke();
   //   text("Blink: " + blinkSt,30,38);
-  /*---------------------------------
+  /*---------------------------------*/
    
    if (blink>0 && count==0) 
    {
@@ -186,8 +194,12 @@ void draw()
 void blinkEvent(int blinkStrength) 
 {
   blinkSt = blinkStrength;
+  if(blinkSt>50){
   blink = 1;
+  }
+  println(count);
 }
+
 
 void stop() {
   neuroSocket.stop();
