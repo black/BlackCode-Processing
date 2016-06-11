@@ -1,3 +1,0 @@
-
-kineticspace
-kineticspace.jar,core.jar,SimpleOpenNI.jar,controlP5.jar,oscP5.jar,gluegen-rt.jar,jogl.jar,opengl.jar
