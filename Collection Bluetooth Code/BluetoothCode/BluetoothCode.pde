@@ -11,7 +11,7 @@ void setup()
   cam.setMinimumDistance(0);
   cam.setMaximumDistance(1000);
   println(Serial.list());
-  Bluetooth = new Serial(this, Serial.list()[1], 9600);
+  Bluetooth = new Serial(this, Serial.list()[0], 9600);
   x = 0 ;
   y = 0;
   z = 0;
@@ -33,10 +33,11 @@ void draw() {
       x = Float.parseFloat(str[2]); 
       y = Float.parseFloat(str[3]);
       z = Float.parseFloat(str[4]);
-      println("X: " + x + "\nY: " +y + "\nZ: " + z);
+      //println("X: " + x + "\nY: " +y + "\nZ: " + z);
     }
   }
   // translate(x, y, z);
+  println("X: " + x + "\nY: " +y + "\nZ: " + z);
   pushMatrix();
   if (Xrot)rotateX(radians(x));
   if (Yrot)rotateY(radians(y));
