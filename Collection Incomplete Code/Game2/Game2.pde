@@ -12,13 +12,13 @@ void draw() {
   screenFlush(); 
 
   // translate(width-loc.x, width-loc.y);
-  pointsGen();
+  if (!press)pointsGen();
   myCar();
   for (int i=0; i<poop.size (); i++) {
     Particle P  = poop.get(i);
     P.show();
     if (press) {
-      if (loc.dist(P.loc)<50) { 
+      if (loc.dist(P.loc)<width/2) { 
         loc = oRotate(loc, P.loc, PI/180);
       }
     } else {
@@ -42,12 +42,9 @@ void mouseReleased() {
   press = false;
 }
 
-void pointsGen() { 
-  int time=second();
-  println(time);
-  if ( time%4==0 ) {
-    poop.add(new Particle(random(width), 0));
-    time=0;
+void pointsGen() {  
+  if ( millis()%200==0 ) {
+    poop.add(new Particle(random(width), 0)); 
     println( frameRate+ " framerate" );
   }
 }
