@@ -89,7 +89,7 @@ void leftBoob() {
   noStroke();
   ellipse( l2.x, l2.y+5, 10, 10);
   // Move the second one according to the mouse
-  if (mousePressed) {
+  if (mousePressed && dist(mouseX, mouseY, l2.x, l2.y)<10) {
     l2.lock();
     l2.x = mouseX;
     l2.y = mouseY;
@@ -117,7 +117,8 @@ void rightBoob() {
   noStroke();
   ellipse( r2.x, r2.y+5, 10, 10);
   // Move the second one according to the mouse
-  if (mousePressed) {
+  if (mousePressed && dist(mouseX, mouseY, r2.x, r2.y)<10) {
+
     r2.lock();
     r2.x = mouseX;
     r2.y = mouseY;

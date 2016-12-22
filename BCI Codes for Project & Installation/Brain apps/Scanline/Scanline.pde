@@ -1,60 +1,44 @@
-// New technique to rotate line
-PVector U, V;
-int df=2;
-boolean move;
-int r=15;
+ArrayList particles = new ArrayList();
+boolean pressed;
 void setup() {
-  size(500, 300);
-  U = new PVector(width/2, height/2);
-  V = new PVector(0, 0);
-  move = false;
-}
-
-void draw() {
-  background(-1);
-  ellipse(U.x, U.y, 2*r, 2*r);
-  line(U.x, U.y, V.x, V.y);
-  if (!move) {
-    lineScanner();
-    t =0;
-  } else {
-    moveCircle(); 
-    if (t < 1.0) {
-      t += 0.0025f;
+  size(200, 200);
+  background(0);
+  fill(255);
+  textSize(90);
+  text("ABHINAV", 30, 130);
+  for (int x = 0; x < width; x++) {
+    for (int y = 0; y < height; y++) {
+      if (get(x, y) == color(255)) {
+        particles.add(new Particle(x, y));
+      }
     }
   }
 }
-
-void lineScanner() {
-  if (V.y==0 && V.x<width) {
-    V.x+=df;
-  } else if (V.x==width && V.y<height) {
-    V.y+=df;
-  } else if (V.y==height && 0<V.x) {
-    V.x-=df;
-  } else if (V.x==0 && 0<V.y) {
-    V.y-=df;
+void draw() {
+  background(0);
+  for (int i = 0; i < particles.size (); i++) {
+    Particle p = (Particle) particles.get(i);
+    p.display();
+    p.update();
+  }
+}
+class Particle {
+  int x, y;
+  Particle(int x0, int y0) {
+    x = x0;
+    y = y0;
+  }
+  void display() {
+    stroke(255, 0, 0);
+    point(x, y);
+  }
+  void update() {
+    x += floor(random(-1, 2));
+    y += floor(random(-1, 2));
   }
 }
 
-float t=0.0;
-void moveCircle() {
-  //  float dir = (U.x<V.x)?1:-1;
-  //  U.x = U.x+dir;
-  //  U.y = equationOfline(U.x);
-  U.x = U.x+t*(V.x-U.x);
-  U.y = U.y+t*(V.y-U.y);
-}
-
-float equationOfline(float x) {
-  float dy = V.y-U.y;
-  float dx = V.x-U.x; 
-  float y =(dy/dx)*(x-V.x)+V.y;
-  return y;
-}
-
-
 void mousePressed() {
-  move=!move;
+  pressed = true;
 }
 

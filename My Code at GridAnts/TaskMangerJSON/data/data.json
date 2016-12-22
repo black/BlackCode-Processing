@@ -1,62 +1,42 @@
 [
   {
-    "message": " TEXT 1 ",
     "id": 0,
+    "message": " TEXT 1 ",
     "date": "11 Mar 2015    11:22"
   },
   {
-    "message": " TEXT 2 ",
     "id": 1,
+    "message": " TEXT 2 ",
     "date": "12 Mar 2015    11:22"
   },
   {
-    "message": " TEXT 3 ",
     "id": 2,
+    "message": " TEXT 3 ",
     "date": "13 Mar 2015    11:22"
   },
   {
-    "message": " NEW TEXT",
     "id": 3,
+    "message": " NEW TEXT",
     "date": "18 Mar 2015    3:33"
   },
   {
-    "id": 5,
     "message": " FINAL TEXT OTHER TEXT",
-    "date": "18 Mar 2015    3:33"
-  },
-  {
     "id": 5,
-    "message": " FINAL TEXT OTHER TEXT",
     "date": "18 Mar 2015    3:33"
   },
   {
-    "message": " I am not certain if this works or not",
+    "message": " FINAL TEXT OTHER TEXT",
+    "id": 5,
+    "date": "18 Mar 2015    3:33"
+  },
+  {
     "id": 6,
+    "message": " I am not certain if this works or not",
     "date": "9 Sep 2015    10:47"
   },
   {
-    "id": 7,
     "message": " sAsASAsASA",
+    "id": 7,
     "date": "13 Sep 2015    6:04"
-  },
-  {
-    "message": " fhgfhfhggghfh jjg jhg jhgk hk kjlkjl jlj ljlkj klj;lj lk ;k ",
-    "id": 11,
-    "date": "5 Apr 2016    11:59"
-  },
-  {
-    "message": " fhgfhfhggghfh jjg jhg jhgk hk kjlkjl jlj ljlkj klj;lj lk ;k ",
-    "id": 11,
-    "date": "5 Apr 2016    11:59"
-  },
-  {
-    "message": " fhgfhfhggghfh jjg jhg jhgk hk kjlkjl jlj ljlkj klj;lj lk ;k ",
-    "id": 11,
-    "date": "5 Apr 2016    11:59"
-  },
-  {
-    "message": " fhgfhfhggghfh jjg jhg jhgk hk kjlkjl jlj ljlkj klj;lj lk ;k ",
-    "id": 11,
-    "date": "5 Apr 2016    11:59"
   }
 ]

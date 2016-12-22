@@ -1,4 +1,4 @@
-int rows=350, cols=350;
+int rows=100, cols=100;
 int w, h;
 boolean[][] cell;
 boolean[][] futureCell;

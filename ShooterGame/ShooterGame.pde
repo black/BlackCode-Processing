@@ -64,7 +64,7 @@ class Shooter {
     line(loc.x, loc.y, 0, 0);
     dir = PVector.sub(new PVector(0, 0), loc);
     dir.normalize() ;
-    dir.mult(1);
+    dir.mult(3); // bullet speed
   }
   void shooting(boolean fire) {
     if (fire) {
