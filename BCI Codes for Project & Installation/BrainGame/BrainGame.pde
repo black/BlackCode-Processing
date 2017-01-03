@@ -26,7 +26,7 @@ void setup() {
   minim = new Minim(this);
   for (int i=0; i<150; i++) {
     poop.add(new Particle(random(width), random(height), 0.05, 3));
-    player.add(minim.loadFile("1.mp3", 2048));
+    //player.add(minim.loadFile("1.mp3", 2048));
   }
   c = (color)random(#000000);
 }
@@ -46,8 +46,8 @@ void draw() {
       P.update(); 
       P.bounce();
       if (M.loc.dist(P.loc)<R) {
-        AudioPlayer play = player.get(i);   
-        play.play(); 
+//        AudioPlayer play = player.get(i);   
+//        play.play(); 
         for (int k=0; k<30; k++) {
           Blast KP = new Blast(P.loc.x+random(-100, 100), P.loc.y+random(-100, 100));
           blastList.add(KP);

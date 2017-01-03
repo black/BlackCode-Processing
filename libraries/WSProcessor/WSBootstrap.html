@@ -1,0 +1,75 @@
+<head>
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="-1">
+    <script>
+	//number of decimal places wanted, used with Number.toFixed(x) for Javascrip 1.5+
+	var decPlaces = 2;
+	//interval in millsec for how quickly the measurements get sent
+	var interval = 100;
+	//the event handler for MotionEvent
+	var x=0, y=0, z=0;
+	window.ondevicemotion = function(event) {
+		//this.x = event.accelerationIncludingGravity.x;
+		//this.y = event.accelerationIncludingGravity.y;
+		//this.z = event.accelerationIncludingGravity.z;
+		this.x = event.accelerationIncludingGravity.x.toFixed(decPlaces);
+		this.y = event.accelerationIncludingGravity.y.toFixed(decPlaces);
+		this.z = event.accelerationIncludingGravity.z.toFixed(decPlaces);
+		//ws.send("x:" + this.x + ":y:" + this.y + ":z:" + this.z);
+	};
+		
+	//the event handler for OrientationEvent
+	var alpha=0, beta=0, gamma=0;
+	window.ondeviceorientation = function(event) {
+		//this.alpha = Math.round(event.alpha);
+		//this.beta = Math.round(event.beta);
+		//this.gamma = Math.round(event.gamma);
+		this.alpha = event.alpha.toFixed(decPlaces);
+		this.beta = event.beta.toFixed(decPlaces);
+		this.gamma = event.gamma.toFixed(decPlaces);
+	};
+	
+	if('WebSocket' in window) {
+      //use the following if the server IP is static and known
+	  var ws = new WebSocket("ws://aaa.bbb.ccc.ddd:eeee");
+	  //use the following instead if the server IP is dynamic, the URL will then be:
+	  //http://<server_URL>?sIP=<IP_of_server>:<port>
+	  //http://stackoverflow.com/questions/979975/how-to-get-the-value-from-url-parameter
+	  //var ws = new WebSocket("ws://"+location.search.split('sIP=')[1]);
+      
+      ws.onopen = function() {
+        alert("CONNECTIIIONNN");
+        //ws.send( {'test': 'message'} );
+        ws.send('a long string');
+      };
+      
+      ws.onclose = function(evt) {
+       alert("Connection closed");
+      };
+      
+      ws.onerror = function(evt) {
+		if(ws) alert("Error: " + evt.data);
+		else alert("Cannot connect to server");
+      };
+      
+      ws.onmessage = function(evt) {
+        alert("Got a message: " + evt.data);
+      };
+	
+	  //control how often the measurements are being sent in millisec
+	  setInterval(function() {
+			ws.send("x:" + this.x + ":y:" + this.y + ":z:" + this.z
+					+ ":a:" + this.alpha + ":b:" + this.beta + ":g:" + this.gamma);
+	  }, interval);
+	  
+	} else {
+		alert("Your browser does not support the WebSockets API");
+	}
+    
+    </script>
+</head>
+
+Try moving your device!
+
+<body>
+</body>
