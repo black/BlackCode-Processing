@@ -1,6 +1,7 @@
 PVector U, V;
 int df=2;
 boolean move;
+
 void setup() {
   size(500, 300);
   U = new PVector(width/2, height/3);
@@ -40,8 +41,6 @@ void moveCircle() {
   U.x = U.x+t*(V.x-U.x);
   U.y = U.y+t*(V.y-U.y);
 }
- 
-
 
 void mousePressed() {
   move=!move;

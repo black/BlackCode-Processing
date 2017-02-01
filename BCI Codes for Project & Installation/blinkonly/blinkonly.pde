@@ -30,37 +30,31 @@ void setup()
 }
 
 
-void draw() 
-{
+void draw() {
   background(0);
   image(cap, 0, 0);
-  if (blink>0) 
-  {
+  if (blink>0) {
     fill(255, 255, 0);
     text("Blink: " + blinkSt, 20, 350);
-    if (blink>15) 
-    {
+    if (blink>15) {
       blink = 0;
-    } 
-    else 
-    {
+    } else {
       blink++;
     }
   }
 }
 
-void captureEvent(Capture _c) 
-{
+void captureEvent(Capture _c) {
   _c.read();
 }
 
-void blinkEvent(int blinkStrength) 
-{
+void blinkEvent(int blinkStrength) {
   blinkSt = blinkStrength;
   blink = 1;
 }
- 
+
 void stop() {
   neuroSocket.stop();
   super.stop();
 }
+
