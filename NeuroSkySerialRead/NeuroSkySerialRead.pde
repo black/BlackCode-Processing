@@ -1,11 +1,16 @@
 import processing.serial.*;
 Serial myPort;  // Create object from Serial class
-String myString="";  
-String arrayval="";  
-String[] lable = {
-  "SYNC", "SYNC", "PLENGTH", "SIGNALQ", "SIGNAL", "BATTERY LEVEL", "BATTERY LEVEL", "ATTEN", "ATTENL", "MED", "MEDL", "CHKSUM"
-};
-byte[] inBufferfinal = new byte[12]; 
+/*---------------*/
+boolean debug = false;
+boolean newPacket = false;
+//payloadData[64] = {0};
+
+int poorQuality = 250;
+int attention = 0;
+int meditation = 0;
+int lastReceivedPacket = 0;
+int timeOut = 5000;
+/*---------------*/
 void setup() {
   size(600, 400); 
   String[] portName = Serial.list();
@@ -20,33 +25,97 @@ void setup() {
 
 void draw() {  
   background(255);
-  fill(0);
-  text(myString, width/2, height/2);
 }
 
-void serialEvent(Serial myPort) {
-  myString = "";
-  arrayval = "";   
-  while (myPort.available () > 0) {
-    byte[] temp = myPort.readBytes();  
-    myPort.readBytes(temp); 
-    if (temp != null) {
-      for (int i=0; i<temp.length; i++) {
-        myString = myString + temp[i];
-      }
-    }
+byte readFirstByte() {
+  int byteRead = 0x00;
+  if (Serial.available()) {
+    byteRead = Serial.read();
   }
+  return byteRead;
 }
 
-//void visualizer(int lengthofbyte, byte[] val) {
-//  noStroke();
-//  fill(0);
-//  for (int i=0; i<lengthofbyte; i++) {
-//    int h = val[i];
-//    String str = lable[i];
-//    rect(230, i*20+20, h, 20);
-//    text(str, 50, i*20+40);
-//    text(h, 20, i*20+40);
-//  }
-//}
+byte readOneByte() {
+  int byteRead;
+  int n = 0;
+  while (!Serial.available () && n < 10000) n++;
+  byteRead = Serial.read();
+  return byteRead;
+}
+
+void update() {
+  newPacket = false;
+  // Look for sync bytes
+  if (readFirstByte() == 170) {
+    if (readOneByte() == 170) {
+
+      byte payloadLength = readOneByte();
+      if (payloadLength > 169) {                      //Payload length can not be greater than 169
+        return;
+      }
+
+      byte generatedChecksum = 0;        
+      for (int i = 0; i < payloadLength; i++) {  
+        payloadData[i] = readOneByte();              //Read payload into memory
+        generatedChecksum += payloadData[i];
+      }   
+
+      byte checksum = readOneByte();                 //Read checksum byte from stream      
+      generatedChecksum = 255 - generatedChecksum;   //Take one's compliment of generated checksum
+
+        if (checksum == generatedChecksum) {
+        poorQuality = 200;
+        attention = 0;
+        meditation = 0;
+
+        for (int i = 0; i < payloadLength; i++) {    // Parse the payload
+          switch (payloadData[i]) {
+          case 2:
+            i++;            
+            poorQuality = payloadData[i];
+            newPacket = true;            
+            break;
+          case 4:
+            i++;
+            attention = payloadData[i];                        
+            break;
+          case 5:
+            i++;
+            meditation = payloadData[i];
+            break;
+          case 0x80:
+            i = i + 3;
+            break;
+          case 0x83:
+            i = i + 25;      
+            break;
+          default:
+            break;
+          }
+        }
+
+        if (newPacket) {
+          if (debug) {
+            Serial.print("PoorQuality: ");
+            Serial.print(poorQuality, DEC);
+            Serial.print(" Attention: ");
+            Serial.print(attention, DEC);
+            Serial.print(" Meditation: ");
+            Serial.print(meditation, DEC);
+            Serial.print(" Time since last packet: ");
+            Serial.print((millis() - lastReceivedPacket)/1000.0, 3);
+            Serial.print("\n");
+          }
+          lastReceivedPacket = millis();
+        } else if (millis() - lastReceivedPacket > timeOut) {
+          poorQuality = 200;
+          attention = 0;
+          meditation = 0;
+        }
+      } else {
+        // Checksum Error
+      }  // end if else for checksum
+    } // end if read 0xAA byte
+  } // end if read 0xAA byte
+}
 

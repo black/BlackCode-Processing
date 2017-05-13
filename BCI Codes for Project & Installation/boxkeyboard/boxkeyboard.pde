@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.geom.*;
 import javax.swing.*;
 import java.util.*;
+import java.net.*;
 /*-----------------------*/
 import neurosky.*;
 import org.json.*;
