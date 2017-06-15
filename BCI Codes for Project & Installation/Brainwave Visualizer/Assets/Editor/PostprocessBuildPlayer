@@ -1,9 +1,0 @@
-#!/usr/bin/env ruby
-
-if ARGV[1] =~ /^standaloneOSX/
-  `cp "Assets/Editor/UnityPlayerIcon.icns" "#{ARGV[0]}/Contents/Resources/"`
-  `cp "Assets/recorded_raw.xml" "#{ARGV[0]}/Contents/"`
-elsif ARGV[1] =~ /^standaloneWin32/
-  `cp "Assets/recorded_raw.xml" "#{File.dirname ARGV[0]}/Brainwave Visualizer_Data/"`
-end
-
