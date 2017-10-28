@@ -1,4 +1,6 @@
 import peasy.*;
+import gifAnimation.*; 
+GifMaker gifExport;
 
 PeasyCam cam;
 ArrayList<PVector> poop = new ArrayList();
@@ -8,6 +10,7 @@ void setup() {
   size(500, 500, P3D);
   colorMode(HSB);
   cam = new PeasyCam(this, 500);
+  gifExport = new GifMaker(this, "lorenz.gif");
 }
 
 void draw() { 
@@ -34,5 +37,11 @@ void draw() {
     }
   }
   endShape();
+  gifExport.setDelay(1);
+  gifExport.addFrame();
+}
+
+void keyPressed() {
+  gifExport.finish();                 // write file
 }
 

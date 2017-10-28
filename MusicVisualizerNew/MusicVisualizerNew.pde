@@ -19,7 +19,7 @@ void draw() {
     PVector Q = getPoint(r, 10, -ang);
     PVector R = getPoint(r, dr, ang);
     point(Q.x, Q.y);
-    // line(P.x, P.y, R.x, R.y);
+   line(P.x, P.y, R.x, R.y);
     vertex(Q.x, Q.y);
   }
   endShape();
