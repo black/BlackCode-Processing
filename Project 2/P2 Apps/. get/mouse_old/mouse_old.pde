@@ -72,20 +72,19 @@ void draw()
   noStroke();
   //   text("Blink: " + blinkSt,30,38);
   /*---------------------------------*/
-   
-   if (blink>0 && count==0) 
-   {
-   blink = 0;
-   count=1;
-   delay(100);
-   } 
-   else if(blink>0 && count==1)
-   {
-   blink = 0;
-   count=0;
-   delay(100);
-   }
-   
+
+  if (blink>0 && count==0) 
+  {
+    blink = 0;
+    count=1;
+    delay(100);
+  } else if (blink>0 && count==1)
+  {
+    blink = 0;
+    count=0;
+    delay(100);
+  }
+
   /*----------------------------------*/
   if (count ==0) {
     text("ROTATE", 30, 20);
@@ -194,8 +193,8 @@ void draw()
 void blinkEvent(int blinkStrength) 
 {
   blinkSt = blinkStrength;
-  if(blinkSt>50){
-  blink = 1;
+  if (blinkSt>50) {
+    blink = 1;
   }
   println(count);
 }
@@ -205,5 +204,4 @@ void stop() {
   neuroSocket.stop();
   super.stop();
 }
-
 
