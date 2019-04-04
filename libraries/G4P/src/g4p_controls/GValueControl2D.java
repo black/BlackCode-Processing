@@ -48,10 +48,21 @@ public abstract class GValueControl2D extends GAbstractControl {
 	protected int valueType = DECIMAL;
 	protected int precision = 2;
 
+	/**
+	 * Base class for 2 dimensional slider
+	 * @param theApplet  the main sketch or GWindow control for this control
+	 * @param p0 x position based on control mode
+	 * @param p1 y position based on control mode
+	 * @param p2 x position or width based on control mode
+	 * @param p3 y position or height based on control mode
+	 */
 	public GValueControl2D(PApplet theApplet, float p0, float p1, float p2, float p3) {
 		super(theApplet, p0, p1, p2, p3);
 	}
 
+	/**
+	 * Handle easing
+	 */
 	public void pre(){
 		if(Math.abs(parametricTargetX - parametricPosX) > epsilon || Math.abs(parametricTargetY - parametricPosY) > epsilon){
 			parametricPosX += (parametricTargetX - parametricPosX) / easing;

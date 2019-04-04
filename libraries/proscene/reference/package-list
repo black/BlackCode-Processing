@@ -1,6 +1,5 @@
-remixlab.bias.core
+remixlab.bias
 remixlab.bias.event
-remixlab.bias.ext
 remixlab.dandelion.constraint
 remixlab.dandelion.core
 remixlab.dandelion.geom

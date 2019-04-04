@@ -48,7 +48,7 @@ package g4p_controls;
  *	VALUE_STEADY		Value has reached a steady state <br>
  *	DRAGGING			The mouse is being dragged over a component <br>
  *
- * 	GCheckbox & GOption events <br>
+ * 	GCheckbox &amp; GOption events <br>
  *	SELECTED			( "Option selected <br>
  *	DESELECTED			( "Option de-selected <br>
  *
@@ -63,7 +63,6 @@ public enum GEvent {
 	LOST_FOCUS			( "LOST_FOCUS", "TextField/Area lost focus" ),
 	GETS_FOCUS			( "GETS_FOCUS", "TextField/Area got focus" ),
 	
-	
 	// GPanel events 
 	COLLAPSED  			( "COLLAPSED", "Control was collapsed" ),
 	EXPANDED 			( "EXPANDED", "Control was expanded" ),
@@ -71,15 +70,15 @@ public enum GEvent {
 
 	// Button control events (PRESSED and RELEASED are not fired by default)
 	CLICKED  			( "CLICKED", "Mouse button was clicked" ),
-	PRESSED  			( "PRESSED", "Mouse button was pressed" ),
-	RELEASED  			( "RELEASED", "Mouse button was released" ),
+	PRESSED  			( "PRESSED", "Mouse button was clicked" ),
+	RELEASED  			( "RELEASED", "Mouse button was clicked" ),
 
 	// Slider control events events 
 	VALUE_CHANGING		( "VALUE_CHANGING", "Value is changing" ),
 	VALUE_STEADY		( "VALUE_STEADY", "Value has reached a steady state" ),
 	DRAGGING			( "DRAGGING", "The mouse is being dragged over a component"),
 	
-	/// GCheckbox & GOption events
+	// GCheckbox & GOption events
 	SELECTED			( "SELECTED", "Option selected" ),
 	DESELECTED			( "DESELECTED", "Option de-selected" );
 
@@ -93,14 +92,14 @@ public enum GEvent {
 	}
 	
 	/**
-	 * Get a textual description of this event
+	 * @return a textual description of this event
 	 */
 	public String getDesc(){
 		return description;
 	}
 	
 	/**
-	 * Get the error identifier.
+	 * @return the error identifier.
 	 */
 	public String getType(){
 		return type;

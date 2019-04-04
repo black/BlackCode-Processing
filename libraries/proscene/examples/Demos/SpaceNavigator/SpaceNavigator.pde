@@ -14,7 +14,7 @@
  */
 
 import remixlab.proscene.*;
-import remixlab.bias.core.*;
+import remixlab.bias.*;
 import remixlab.bias.event.*;
 import remixlab.dandelion.geom.*;
 import remixlab.dandelion.core.*;
@@ -40,7 +40,7 @@ float SINCOS_PRECISION = 0.5;
 int SINCOS_LENGTH = int(360.0 / SINCOS_PRECISION);
 
 Scene scene;
-int SN_ID;// id of the SpaceNavigator gesture
+static int SN_ID;
 InteractiveFrame iFrame;
 HIDAgent hidAgent;
 
@@ -62,10 +62,10 @@ public class HIDAgent extends Agent {
   
   public HIDAgent(Scene scn) {
     super(scn.inputHandler());
-    // the scene.registerMotionID expects the degrees-of-freedom of the gesture and returns
-    // an unique id that may be use to bind (frame) actions to the gesture, pretty much in
+    // SN_ID will be assigned an unique id with 6 DOF's. The id may be
+    // used to bind (frame) actions to the gesture, pretty much in
     // the same way as it's done with the LEFT and RIGHT mouse gestures.
-    SN_ID = scn.registerMotionID(this, 6);
+    SN_ID = MotionShortcut.registerID(6, "SN_SENSOR");
     addGrabber(scene.eyeFrame());
     setDefaultGrabber(scene.eyeFrame());
   }
@@ -89,7 +89,7 @@ public class HIDAgent extends Agent {
 }
 
 void setup() {
-  size(640, 360, P3D);
+  size(800, 600, P3D);
   openSpaceNavigator();
   texmap = loadImage("world32k.jpg");    
   initializeSphere(sDetail);
@@ -102,21 +102,29 @@ void setup() {
 
   hidAgent = new HIDAgent(scene);
   
-  //the iFrame is added to all scene agents (that's why we previously instantiated the hidAgent)
-  iFrame = new InteractiveFrame(scene);
-  iFrame.translate(new Vec(180, 180, 0));
+  // the iFrame is added to all scene agents (that's why we previously instantiated the hidAgent)
+  // Thanks to the Processing Foundation for providing the rocket shape
+  iFrame = new InteractiveFrame(scene, loadShape("rocket.obj"));
+  iFrame.translate(new Vec(275, 180, 0));
+  iFrame.scale(0.3);
   
   // we bound some frame DOF6 actions to the gesture on both frames
   scene.eyeFrame().setMotionBinding(SN_ID, "translateRotateXYZ");
   iFrame.setMotionBinding(SN_ID, "translateRotateXYZ");
+  // and the custom behavior to the right mouse button
+  iFrame.setMotionBinding(RIGHT, "customBehavior");
 
   smooth();
+}
+
+void customBehavior(InteractiveFrame frame, MotionEvent event) {
+  frame.screenRotate(event);
 }
 
 void draw() {    
   background(0);    
   renderGlobe();
-  renderIFrame();
+  scene.drawFrames();
 }
 
 void keyPressed() {
@@ -151,25 +159,6 @@ void renderGlobe() {
   noStroke();
   textureMode(IMAGE);  
   texturedSphere(globeRadius, texmap);
-}
-
-void renderIFrame() {
-  // Save the current model view matrix
-  pushMatrix();
-  // Multiply matrix to get in the frame coordinate system.
-  // applyMatrix(scene.interactiveFrame().matrix()) is handy but inefficient 
-  iFrame.applyTransformation(); //optimum
-  // Draw an axis using the Scene static function
-  scene.drawAxes(20);
-  // Draw a second box
-  if (iFrame.grabsInput()) {
-    fill(255, 0, 0);
-    box(12, 17, 22);
-  } else {
-    fill(0, 0, 255);
-    box(10, 15, 20);
-  }  
-  popMatrix();
 }
 
 void initializeSphere(int res) {

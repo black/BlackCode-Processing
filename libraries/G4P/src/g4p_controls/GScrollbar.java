@@ -57,6 +57,7 @@ class GScrollbar extends GAbstractControl {
 	 */
 	public GScrollbar(PApplet theApplet, float p0, float p1, float p2, float p3) {
 		super(theApplet, p0, p1, p2, p3);
+		makeBuffer();
 		hotspots = new HotSpot[]{
 				new HSrect(1, 0, 0, 16, height),			// low cap
 				new HSrect(2, width - 16, 0, 16, height),	// high cap
@@ -139,12 +140,15 @@ class GScrollbar extends GAbstractControl {
 		int spot = whichHotSpot(ox, oy);
 
 		// If over the track then see if we are over the thumb
-		if(spot >= 9){
-			if(isOverThumb(ox, oy))
-				spot = 10;
-			else
-				spot = -1; // Over empty track so ignore
-		}
+		if(spot >= 9 && isOverThumb(ox, oy))
+			spot = 10;
+
+//		if(spot >= 9){
+//			if(isOverThumb(ox, oy))
+//				spot = 10;
+//			else
+//				spot = -1; // Over empty track so ignore
+//		}
 		if(spot != currSpot){
 			currSpot = spot;
 			bufferInvalid = true;
@@ -185,6 +189,17 @@ class GScrollbar extends GAbstractControl {
 				loseFocus(parent);
 			}
 			break;
+		case MouseEvent.WHEEL:
+			if(currSpot > -1 && z >= focusObjectZ()){
+				float pv = value + event.getCount() * 0.01f * G4P.wheelForScrollbar;
+				pv = pv < 0 ? 0 : pv > 1 ? 1 : pv;
+				setValue(pv, filler);
+				isValueChanging = true;
+				bufferInvalid = true;
+				dragging = true;
+				fireEvent(this, GEvent.CHANGED);
+			}
+			break;
 		case MouseEvent.RELEASE:
 			if(focusIsWith == this && dragging){
 				loseFocus(parent);
@@ -194,7 +209,7 @@ class GScrollbar extends GAbstractControl {
 			}
 			break;
 		case MouseEvent.DRAG:
-			if(focusIsWith == this){
+			if(focusIsWith == this && spot == 10){
 				float movement = ox - last_ox;
 				last_ox = ox;
 				float deltaV = movement / (width - 32);

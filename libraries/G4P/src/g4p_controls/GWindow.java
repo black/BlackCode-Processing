@@ -52,13 +52,14 @@ public abstract class GWindow extends PApplet implements GConstants, GConstantsI
 	 * Factory method to create and start a new window. The renderer
 	 * must be JAVA2D, P2D or P3D otherwise this method returns null.
 	 * 
+	 * @param app the main sketch window PApplet instance ('this')
 	 * @param title text to appear in frame title bar
 	 * @param px horizontal position of top-left corner
 	 * @param py vertical position of top-left corner
 	 * @param w width of drawing surface
 	 * @param h height of surface
-	 * @param r renderer must be JAVA2D, P3D or P3D
-	 * @return the window created (in case the user wants its.
+	 * @param renderer renderer must be JAVA2D, P3D or P3D
+	 * @return the window created (use this to get a handle on your window)
 	 */
 	public static GWindow getWindow(PApplet app, String title, int px, int py, int w, int h, String renderer){
 		G4P.registerSketch(app);
@@ -128,7 +129,7 @@ public abstract class GWindow extends PApplet implements GConstants, GConstantsI
 		unregisterMethod("post", this);
 		unregisterMethod("mouseEvent", this);
 		unregisterMethod("keyEvent", this);
-		// bely and braces
+		// belt and braces
 		preHandlerObject = null;
 		drawHandlerObject = null;
 		postHandlerObject = null;
@@ -140,7 +141,7 @@ public abstract class GWindow extends PApplet implements GConstants, GConstantsI
 	 * To provide a unique fields for this window create a class that inherits
 	 * from GWinData with public access fields. Then use this method to associate
 	 * the data with this window.
-	 * @param data
+	 * @param data the GWinData object associated with this window
 	 */
 	public void addData(GWinData data){
 		this.data = data;
@@ -167,7 +168,8 @@ public abstract class GWindow extends PApplet implements GConstants, GConstantsI
 	}
 
 	/**
-	 * Set the colour scheme to be used by all controls on this window.
+	 * Invalidate all the buffers so that they have to be updated before 
+	 * being drawn.
 	 * @param cs colour scheme e.g. G4P.GREEN_SCHEME
 	 */
 	void invalidateBuffers(){
@@ -197,35 +199,52 @@ public abstract class GWindow extends PApplet implements GConstants, GConstantsI
 			control.setAlpha(alpha);
 	}
 
-	/** Set the windows visibility */
+	/** 
+	 * Set the windows visibility 
+	 * 
+	 * @param visible whether the window is to be visible or not
+	 */
 	public void setVisible(boolean visible){
 		surface.setVisible(visible);
 	}
 	
-	/** Returns the windows visibility */
+	/** 
+	 * @return true if this window is visible else false
+	  */
 	public abstract boolean isVisible();
 
-	/** Set the window title */
+	/** 
+	 * Set the window title
+	 * @param title the window's title bar text 
+	 */
 	public void setTitle(String title){
 		surface.setTitle(title);
 	}
-	/** Get the windowTitle */
+	/** 
+	 * @return the window's title bar text
+	 */
 	public abstract String getTitle();
 	
-	/** Set the windows position */
+	/** 
+	 * Set the windows position 
+	 * @param x horizontal position of window 
+	 * @param y vertical position of window 
+	 */
 	public void setLocation(int x, int y){
 		surface.setLocation(x, y);
 	}
 	
 	/**
-	Returns a PVector with the windows top-left coordinates.
+	 * @param pos the PVector to populate
+	 * @return a PVector with the windows top-left coordinates.
 	*/
 	public abstract PVector getPosition(PVector pos);
 	
 	/** 
 	 * Sets whether this window should always be above other windows. If there are 
 	 * multiple always-on-top windows, their relative order is unspecified and 
-	 * platform dependent. 
+	 * platform dependent.
+	 * @param ontop if true the window will always remain above other windows 
 	 */
 	public void setAlwaysOnTop(boolean ontop) {
 		surface.setAlwaysOnTop(ontop);
@@ -335,6 +354,7 @@ public abstract class GWindow extends PApplet implements GConstants, GConstantsI
 
 	/**
 	 * Execute any mouse event handler associated with this window and its controls
+	 * @param event the mouse event to process
 	 */
 	public void mouseEvent(MouseEvent event) {
 		if(mouseHandlerObject != null){
@@ -353,6 +373,7 @@ public abstract class GWindow extends PApplet implements GConstants, GConstantsI
 
 	/**
 	 * Execute any key event handler associated with this window and its controls
+	 * @param event the key event to process
 	 */
 	public void keyEvent(KeyEvent event) {
 		if(keyHandlerObject != null){
@@ -471,13 +492,13 @@ public abstract class GWindow extends PApplet implements GConstants, GConstantsI
 	 * Attempt to create the on-close-window event handler for this GWindow. 
 	 * The default event handler is a method that returns void and has a single
 	 * parameter of type GWindow (this will be a reference to the window that is
-	 * closing) <br/>
+	 * closing) <br>
 	 * 
-	 * The handler will <b>not be called</> if the setActionOnClose flag is set 
-	 * to EXIT_APP <br/>
+	 * The handler will <b>not be called</b> if the setActionOnClose flag is set 
+	 * to EXIT_APP <br>
 	 * If the flag is set to CLOSE_WINDOW then the handler is called when the window
 	 * is closed by clicking on the window-close-icon or using either the close or 
-	 * forceClose methods. <br/>
+	 * forceClose methods. <br>
 	 * If the flag is set to KEEP_OPEN the window can only be closed using the
 	 * forceClose method. In this case the handler will be called.
 	 * 
@@ -488,12 +509,12 @@ public abstract class GWindow extends PApplet implements GConstants, GConstantsI
 	public void addOnCloseHandler(Object obj, String methodName){
 		try{
 			closeHandlerObject = obj;
-			closetHandlerMethodName = methodName;
-			closetHandlerMethod = obj.getClass().getMethod(methodName, new Class<?>[] { PApplet.class, GWinData.class } );
+			closeHandlerMethodName = methodName;
+			closetHandlerMethod = obj.getClass().getMethod(methodName, new Class<?>[] { GWindow.class } );
 		} catch (Exception e) {
-			GMessenger.message(NONEXISTANT, new Object[] {this, methodName, new Class<?>[] { PApplet.class, GWinData.class } } );
+			GMessenger.message(NONEXISTANT, new Object[] {this, methodName, new Class<?>[] { GWindow.class } } );
 			closeHandlerObject = null;
-			closetHandlerMethodName = "";
+			closeHandlerMethodName = "";
 		}
 	}
 
@@ -568,10 +589,10 @@ public abstract class GWindow extends PApplet implements GConstants, GConstantsI
 		if(closeHandlerObject != null){
 			try {
 				closetHandlerMethod.invoke(closeHandlerObject, 
-						new Object[] { this, data });
+						new Object[] { this });
 			} catch (Exception e) {
 				GMessenger.message(EXCP_IN_HANDLER, 
-						new Object[] {preHandlerObject, preHandlerMethodName, e} );
+						new Object[] {closeHandlerObject, closeHandlerMethodName, e} );
 			}
 		}
 	}
@@ -652,9 +673,10 @@ public abstract class GWindow extends PApplet implements GConstants, GConstantsI
 			switch(actionOnClose){
 			case EXIT_APP:
 				// Next two come from processing.opengl PSurfaceJOGL.java
-				// performCloseAction();
+				//performCloseAction();
 				//dispose();
-				exitActual();
+				//exitActual();
+				exit();
 				break;
 			case CLOSE_WINDOW:
 				performCloseAction();
@@ -714,7 +736,7 @@ public abstract class GWindow extends PApplet implements GConstants, GConstantsI
 	/** The method in closeHandlerObject to execute */
 	protected Method closetHandlerMethod = null;
 	/** the name of the method to handle the event */ 
-	protected String closetHandlerMethodName;
+	protected String closeHandlerMethodName;
 
 	protected boolean is3D;
 }

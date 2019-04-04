@@ -94,18 +94,19 @@ interface GConstantsInternal {
 	
 	// Padding for text controls
 	int TPAD2	= 2;
-	int TPAD6 = 6;
-
 	int TPAD4	= 4;
+	int TPAD6	= 6;
 	int TPAD8	= 8;
 
 	// ### Scroll bar type constants ###
 	int SCROLLBAR_VERTICAL 		= GConstants.SCROLLBARS_VERTICAL_ONLY; 		// 1
 	int SCROLLBAR_HORIZONTAL 	= GConstants.SCROLLBARS_HORIZONTAL_ONLY;	// 2
 
-	float HORZ_SCROLL_RATE 		= 4;
-	float VERT_SCROLL_RATE 		= 8;
+	// Constants for mouse wheel handling code
+	float WHEEL_DELTA			= 0.01f;
+	float WHEEL_STICK_FACTOR	= 0.51f;
 
+	// End Of Line character
 	char EOL	= '\n';
 
 	// Z order used to control transfer of focus between controls

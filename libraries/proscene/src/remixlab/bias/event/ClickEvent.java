@@ -1,6 +1,6 @@
 /**************************************************************************************
  * bias_tree
- * Copyright (c) 2014-2016 National University of Colombia, https://github.com/remixlab
+ * Copyright (c) 2014-2017 National University of Colombia, https://github.com/remixlab
  * @author Jean Pierre Charalambos, http://otrolado.info/
  *
  * All rights reserved. Library that eases the creation of interactive
@@ -10,7 +10,7 @@
 
 package remixlab.bias.event;
 
-import remixlab.bias.core.BogusEvent;
+import remixlab.bias.BogusEvent;
 import remixlab.util.EqualsBuilder;
 import remixlab.util.HashCodeBuilder;
 
@@ -18,7 +18,6 @@ import remixlab.util.HashCodeBuilder;
  * A click event encapsulates a {@link remixlab.bias.event.ClickShortcut} and it's defined
  * by the number of clicks. A click event holds the position where the event occurred (
  * {@link #x()} and {@link #y()}).
- * 
  */
 public class ClickEvent extends BogusEvent {
   @Override
@@ -45,9 +44,9 @@ public class ClickEvent extends BogusEvent {
   protected final int numberOfClicks;
 
   /**
-   * Constructs a single click ClickEvent at the given position and from the given button
-   * defining the events {@link #shortcut()}
-   * 
+   * Constructs a single click ClickEvent at the given position and from the given
+   * gesture-id defining the events {@link #shortcut()}
+   *
    * @param x
    * @param y
    * @param b
@@ -60,9 +59,9 @@ public class ClickEvent extends BogusEvent {
   }
 
   /**
-   * Constructs a ClickEvent at the given position, from the given button defining the
+   * Constructs a ClickEvent at the given position, from the given gesture-id defining the
    * events {@link #shortcut()}, and with the given number of clicks.
-   * 
+   *
    * @param x
    * @param y
    * @param b
@@ -76,9 +75,10 @@ public class ClickEvent extends BogusEvent {
   }
 
   /**
-   * Constructs a ClickEvent at the given position, from the given button and modifiers
-   * which defines the events {@link #shortcut()}, and with the given number of clicks.
-   * 
+   * Constructs a ClickEvent at the given position, from the given gesture-id and
+   * modifiers which defines the events {@link #shortcut()}, and with the given number of
+   * clicks.
+   *
    * @param x
    * @param y
    * @param modifiers

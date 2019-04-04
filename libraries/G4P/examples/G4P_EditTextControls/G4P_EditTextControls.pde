@@ -1,4 +1,4 @@
-/*
+/**
  This sketch is to demonstrate some features of the GPassword, 
  GTextField and GTextArea controls. 
  

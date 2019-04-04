@@ -1,6 +1,6 @@
 /**************************************************************************************
  * dandelion_tree
- * Copyright (c) 2014-2016 National University of Colombia, https://github.com/remixlab
+ * Copyright (c) 2014-2017 National University of Colombia, https://github.com/remixlab
  * @author Jean Pierre Charalambos, http://otrolado.info/
  *
  * All rights reserved. Library that eases the creation of interactive
@@ -10,18 +10,22 @@
 
 package remixlab.dandelion.core;
 
-import java.util.ArrayList;
+import remixlab.bias.Agent;
+import remixlab.bias.BogusEvent;
+import remixlab.bias.Grabber;
+import remixlab.bias.event.ClickEvent;
+import remixlab.bias.event.KeyboardEvent;
+import remixlab.bias.event.MotionEvent;
+import remixlab.dandelion.core.AbstractScene.Platform;
+import remixlab.dandelion.geom.*;
+import remixlab.fpstiming.TimingTask;
+import remixlab.util.Copyable;
+import remixlab.util.Util;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-
-import remixlab.bias.core.*;
-import remixlab.bias.event.*;
-import remixlab.dandelion.core.KeyFrameInterpolator.KeyFrame;
-import remixlab.dandelion.geom.*;
-import remixlab.fpstiming.TimingTask;
-import remixlab.util.*;
 
 /**
  * Abstract base class for 3D {@link remixlab.dandelion.core.Camera}s and 2D
@@ -58,8 +62,7 @@ import remixlab.util.*;
  */
 public abstract class Eye implements Copyable {
   class GrabberEyeFrame extends GenericFrame {
-    public final int LEFT_ID = 37, CENTER_ID = 3, RIGHT_ID = 39, WHEEL_ID = 8, NO_BUTTON = BogusEvent.NO_ID,
-        // 1.b. Keys
+    public final int LEFT_ID = 37, CENTER_ID = 3, RIGHT_ID = 39, WHEEL_ID = 8, NO_BUTTON = BogusEvent.NO_ID, // 1.b. Keys
         LEFT_KEY = 37, RIGHT_KEY = 39, UP_KEY = 38, DOWN_KEY = 40;
 
     public GrabberEyeFrame(AbstractScene _scene) {
@@ -80,23 +83,31 @@ public abstract class Eye implements Copyable {
     }
 
     @Override
+    protected GrabberEyeFrame detach() {
+      GrabberEyeFrame frame = new GrabberEyeFrame(scene());
+      scene().pruneBranch(frame);
+      frame.setWorldMatrix(this);
+      return frame;
+    }
+
+    @Override
     public void performInteraction(MotionEvent event) {
       switch (event.shortcut().id()) {
-      case LEFT_ID:
-        rotate(event);
-        break;
-      case CENTER_ID:
-        screenRotate(event);
-        break;
-      case RIGHT_ID:
-        translate(event);
-        break;
-      case WHEEL_ID:
-        if (scene().is3D() && isEyeFrame())
-          translateZ(event);
-        else
-          scale(event);
-        break;
+        case LEFT_ID:
+          rotate(event);
+          break;
+        case CENTER_ID:
+          screenRotate(event);
+          break;
+        case RIGHT_ID:
+          translate(event);
+          break;
+        case WHEEL_ID:
+          if (scene().is3D() && isEyeFrame())
+            translateZ(event);
+          else
+            scale(event);
+          break;
       }
     }
 
@@ -112,8 +123,6 @@ public abstract class Eye implements Copyable {
 
     @Override
     public void performInteraction(KeyboardEvent event) {
-      if (bypassKey(event))
-        return;
       if (event.isShiftDown()) {
         if (event.id() == UP_KEY)
           translateY(true);
@@ -138,43 +147,15 @@ public abstract class Eye implements Copyable {
     }
   }
 
-  @Override
-  public int hashCode() {
-    return new HashCodeBuilder(17, 37).append(fpCoefficientsUpdate).append(dist).append(normal)
-        .append(lastNonFrameUpdate).append(lastFPCoeficientsUpdateIssued).append(fpCoefficients).append(gFrame)
-        .append(interpolationKfi).append(viewMat).append(projectionMat).append(scnCenter).append(scnRadius)
-        .append(scrnHeight).append(scrnWidth).
-        // append(tempFrame).
-        append(viewport).append(anchorPnt).toHashCode();
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    if (obj == null)
-      return false;
-    if (obj == this)
-      return true;
-    if (obj.getClass() != getClass())
-      return false;
-
-    Eye other = (Eye) obj;
-    return new EqualsBuilder().append(fpCoefficientsUpdate, other.fpCoefficientsUpdate).append(normal, other.normal)
-        .append(dist, other.dist).append(gFrame, other.gFrame).append(lastNonFrameUpdate, other.lastNonFrameUpdate)
-        .append(lastFPCoeficientsUpdateIssued, other.lastFPCoeficientsUpdateIssued)
-        .append(fpCoefficients, other.fpCoefficients).append(interpolationKfi, other.interpolationKfi)
-        .append(viewMat, other.viewMat).append(projectionMat, other.projectionMat).append(scnCenter, other.scnCenter)
-        .append(scnRadius, other.scnRadius).append(scrnHeight, other.scrnHeight).append(scrnWidth, other.scrnWidth)
-        // .append(tempFrame, other.tempFrame)
-        .append(viewport, other.viewport).append(anchorPnt, other.anchorPnt).isEquals();
-  }
-
   /**
    * Enumerates the different visibility states an object may have respect to the Eye
    * boundary.
    */
   public enum Visibility {
     VISIBLE, SEMIVISIBLE, INVISIBLE
-  };
+  }
+
+  ;
 
   // F r a m e
   protected GenericFrame gFrame;
@@ -386,15 +367,14 @@ public abstract class Eye implements Copyable {
   }
 
   protected void modified() {
-    lastNonFrameUpdate = gScene.timingHandler().frameCount();
+    lastNonFrameUpdate = AbstractScene.frameCount;
   }
 
   /**
    * Max between {@link remixlab.dandelion.core.GenericFrame#lastUpdate()} and
    * {@link #lastNonFrameUpdate()}.
-   * 
+   *
    * @return last frame the Eye was updated
-   * 
    * @see #lastNonFrameUpdate()
    */
   public long lastUpdate() {
@@ -403,7 +383,6 @@ public abstract class Eye implements Copyable {
 
   /**
    * @return last frame a local Eye parameter (different than the Frame) was updated.
-   * 
    * @see #lastUpdate()
    */
   public long lastNonFrameUpdate() {
@@ -414,26 +393,12 @@ public abstract class Eye implements Copyable {
 
   /**
    * Same as {@code scene.flip()}.
-   * 
+   *
    * @see remixlab.dandelion.core.AbstractScene#flip()
    */
   public void flip() {
     gScene.flip();
   }
-
-  // TODO experimental
-  // /*
-  protected GrabberEyeFrame detachFrame() {
-    GrabberEyeFrame frame = new GrabberEyeFrame(gScene);
-    scene().pruneBranch(frame);
-    frame.fromFrame(frame());
-    return frame;
-  }
-  // */
-
-  /*
-   * public final InteractiveFrame detachFrame() { return frame().detach(); } //
-   */
 
   /**
    * Internal use. Temporarily attach a frame to the Eye which is useful to some
@@ -491,8 +456,9 @@ public abstract class Eye implements Copyable {
       while (itr.hasNext())
         itr.next().setFrame(frame());
     } else {
-      System.out.println("Warning no eye frame set as the eye class (" + this.getClass().getSimpleName()
-          + ") and the frame eye class (" + g.eye().getClass().getSimpleName() + ") are different");
+      System.out.println(
+          "Warning no eye frame set as the eye class (" + this.getClass().getSimpleName() + ") and the frame eye class ("
+              + g.eye().getClass().getSimpleName() + ") are different");
     }
   }
 
@@ -501,7 +467,7 @@ public abstract class Eye implements Copyable {
    * Cameras set {@link #orientation()}, so that it looks at point {@code target} defined
    * in the world coordinate system (The Camera {@link #position()} is not modified.
    * Simply {@link remixlab.dandelion.core.Camera#setViewDirection(Vec)}).
-   * 
+   *
    * @see #at()
    * @see #setUpVector(Vec)
    * @see #setOrientation(Rotation)
@@ -516,7 +482,7 @@ public abstract class Eye implements Copyable {
   /**
    * Convenience wrapper function that simply returns
    * {@code frame().spinningSensitivity()}
-   * 
+   *
    * @see remixlab.dandelion.core.GenericFrame#spinningSensitivity()
    */
   public final float spinningSensitivity() {
@@ -526,7 +492,7 @@ public abstract class Eye implements Copyable {
   /**
    * Convenience wrapper function that simply calls
    * {@code frame().setSpinningSensitivity(sensitivity)}
-   * 
+   *
    * @see remixlab.dandelion.core.GenericFrame#setSpinningSensitivity(float)
    */
   public final void setSpinningSensitivity(float sensitivity) {
@@ -536,7 +502,7 @@ public abstract class Eye implements Copyable {
   /**
    * Convenience wrapper function that simply returns
    * {@code frame().rotationSensitivity()}
-   * 
+   *
    * @see remixlab.dandelion.core.GenericFrame#rotationSensitivity()
    */
   public final float rotationSensitivity() {
@@ -546,7 +512,7 @@ public abstract class Eye implements Copyable {
   /**
    * Convenience wrapper function that simply calls
    * {@code frame().setRotationSensitivity(sensitivity)}
-   * 
+   *
    * @see remixlab.dandelion.core.GenericFrame#setRotationSensitivity(float)
    */
   public final void setRotationSensitivity(float sensitivity) {
@@ -556,7 +522,7 @@ public abstract class Eye implements Copyable {
   /**
    * Convenience wrapper function that simply returns
    * {@code frame().translationSensitivity()}
-   * 
+   *
    * @see remixlab.dandelion.core.GenericFrame#translationSensitivity()
    */
   public final float translationSensitivity() {
@@ -566,7 +532,7 @@ public abstract class Eye implements Copyable {
   /**
    * Convenience wrapper function that simply calls
    * {@code frame().setTranslationSensitivity(sensitivity)}
-   * 
+   *
    * @see remixlab.dandelion.core.GenericFrame#setTranslationSensitivity(float)
    */
   public final void setTranslationSensitivity(float sensitivity) {
@@ -575,7 +541,7 @@ public abstract class Eye implements Copyable {
 
   /**
    * Convenience wrapper function that simply returns {@code frame().scalingSensitivity()}
-   * 
+   *
    * @see remixlab.dandelion.core.GenericFrame#scalingSensitivity()
    */
   public final float scalingSensitivity() {
@@ -585,7 +551,7 @@ public abstract class Eye implements Copyable {
   /**
    * Convenience wrapper function that simply calls
    * {@code frame().setScalingSensitivity(sensitivity)}
-   * 
+   *
    * @see remixlab.dandelion.core.GenericFrame#setScalingSensitivity(float)
    */
   public final void setScalingSensitivity(float sensitivity) {
@@ -625,7 +591,7 @@ public abstract class Eye implements Copyable {
 
   /**
    * Convenience function that simply calls {@code setUpVector(up, true)}.
-   * 
+   *
    * @see #setUpVector(Vec, boolean)
    */
   public void setUpVector(Vec up) {
@@ -648,7 +614,7 @@ public abstract class Eye implements Copyable {
    * <p>
    * When {@code noMove} is true, the Eye {@link #position()} is left unchanged, which is
    * an intuitive behavior when the Eye is in first person mode.
-   * 
+   *
    * @see #lookAt(Vec)
    * @see #setOrientation(Rotation)
    */
@@ -685,7 +651,7 @@ public abstract class Eye implements Copyable {
    * Note that {@link remixlab.dandelion.core.AbstractScene#radius()} (resp.
    * {@link remixlab.dandelion.core.AbstractScene#setRadius(float)} simply call this
    * method on its associated Eye.
-   * 
+   *
    * @see #setSceneBoundingBox(Vec, Vec)
    */
   public float sceneRadius() {
@@ -730,7 +696,7 @@ public abstract class Eye implements Copyable {
    * only meaningful when the action binding is MOVE_FORWARD or is MOVE_BACKWARD.
    * <p>
    * Set to 0.5% of the {@link #sceneRadius()} by {@link #setSceneRadius(float)} .
-   * 
+   *
    * @see #setFlySpeed(float)
    */
   public float flySpeed() {
@@ -767,7 +733,7 @@ public abstract class Eye implements Copyable {
    * included in a {@link #sceneRadius()} ball.
    * <p>
    * Default value is the world origin. Use {@link #setSceneCenter(Vec)} to change it.
-   * 
+   *
    * @see #setSceneBoundingBox(Vec, Vec)
    * @see remixlab.dandelion.core.Camera#zNear()
    * @see remixlab.dandelion.core.Camera#zFar()
@@ -844,7 +810,7 @@ public abstract class Eye implements Copyable {
    * This method might however be convenient when the Eye is not associated with a Scene.
    * It actually sets the {@link #screenHeight()} to 100 and the {@link #screenWidth()}
    * accordingly.
-   * 
+   *
    * @see remixlab.dandelion.core.Camera#setFOVToFitScene()
    */
   public void setAspectRatio(float aspect) {
@@ -894,7 +860,7 @@ public abstract class Eye implements Copyable {
 
   /**
    * Convenience function that simply returns {@code getProjectionMatrix(false)}
-   * 
+   *
    * @see #getProjection(Mat, boolean)
    */
   public Mat getProjection() {
@@ -903,7 +869,7 @@ public abstract class Eye implements Copyable {
 
   /**
    * Convenience function that simply returns {@code getProjection(new Mat(), recompute)}
-   * 
+   *
    * @see #getProjection(Mat, boolean)
    */
   public Mat getProjection(boolean recompute) {
@@ -912,7 +878,7 @@ public abstract class Eye implements Copyable {
 
   /**
    * Convenience function that simply returns {@code getProjection(m, false)}
-   * 
+   *
    * @see #getProjection(Mat, boolean)
    */
   public Mat getProjection(Mat m) {
@@ -927,7 +893,7 @@ public abstract class Eye implements Copyable {
    * define the Eye projection matrix. Otherwise it returns the projection matrix
    * previously computed, e.g., as with
    * {@link remixlab.dandelion.core.MatrixHelper#loadProjection()}.
-   * 
+   *
    * @see #getView(Mat, boolean)
    * @see remixlab.dandelion.core.MatrixHelper#loadProjection()
    * @see remixlab.dandelion.core.MatrixHelper#loadModelView()
@@ -946,7 +912,7 @@ public abstract class Eye implements Copyable {
 
   /**
    * Fills the projection matrix with the {@code proj} matrix values.
-   * 
+   *
    * @see #setProjection(float[])
    * @see #setProjection(float[], boolean)
    */
@@ -956,7 +922,7 @@ public abstract class Eye implements Copyable {
 
   /**
    * Convenience function that simply calls {@code setProjectionMatrix(source, false)}.
-   * 
+   *
    * @see #setProjection(Mat)
    * @see #setProjection(float[], boolean)
    */
@@ -967,7 +933,7 @@ public abstract class Eye implements Copyable {
   /**
    * Fills the projection matrix with the {@code source} matrix values (defined in
    * row-major order).
-   * 
+   *
    * @see #setProjection(Mat)
    * @see #setProjection(float[])
    */
@@ -997,7 +963,7 @@ public abstract class Eye implements Copyable {
    * <b>Note:</b> You must call this method if your Eye is not associated with a Scene and
    * is used for offscreen computations (using {@code projectedCoordinatesOf()} for
    * instance).
-   * 
+   *
    * @see #setProjection(Mat)
    */
   public abstract void computeProjection();
@@ -1005,7 +971,7 @@ public abstract class Eye implements Copyable {
   /**
    * Convenience function that simply returns {@code getOrthoWidthHeight(new
    * float[2])}.
-   * 
+   *
    * @see #getBoundaryWidthHeight(float[])
    */
   public float[] getBoundaryWidthHeight() {
@@ -1029,7 +995,7 @@ public abstract class Eye implements Copyable {
    * on screen, as intuitively expected.
    * <p>
    * Overload this method to change this behavior if desired.
-   * 
+   *
    * @see #rescalingOrthoFactor()
    */
   public float[] getBoundaryWidthHeight(float[] target) {
@@ -1063,7 +1029,7 @@ public abstract class Eye implements Copyable {
   /**
    * Simply returns {@code 1} which is valid for 2d Windows. Value is different for ortho
    * Cameras and thus the method is overridden by the camera class.
-   * 
+   *
    * @see #getBoundaryWidthHeight(float[])
    */
   public float rescalingOrthoFactor() {
@@ -1112,7 +1078,7 @@ public abstract class Eye implements Copyable {
 
   /**
    * Convenience function that simply returns {@code getViewMatrix(false)}
-   * 
+   *
    * @see #getView(boolean)
    * @see #getView(Mat)
    * @see #getView(Mat, boolean)
@@ -1127,7 +1093,7 @@ public abstract class Eye implements Copyable {
 
   /**
    * Convenience function that simply returns {@code getViewMatrix(new Mat(), recompute)}
-   * 
+   *
    * @see #getView()
    * @see #getView(Mat)
    * @see #getView(Mat, boolean)
@@ -1142,7 +1108,7 @@ public abstract class Eye implements Copyable {
 
   /**
    * Convenience function that simply returns {@code getViewMatrix(m, false)}
-   * 
+   *
    * @see #getView()
    * @see #getView(boolean)
    * @see #getView(Mat, boolean)
@@ -1162,7 +1128,7 @@ public abstract class Eye implements Copyable {
    * If {@code recompute} is {@code true} first calls {@link #computeView()} to define the
    * Eye view matrix. Otherwise it returns the view matrix previously computed, e.g., as
    * with {@link remixlab.dandelion.core.MatrixHelper#loadModelView()}.
-   * 
+   *
    * @see #getView()
    * @see #getView(boolean)
    * @see #getView(Mat)
@@ -1184,7 +1150,7 @@ public abstract class Eye implements Copyable {
 
   /**
    * Convenience function that simply calls {@code fromView(mv, true)}.
-   * 
+   *
    * @see #fromView(Mat, boolean)
    */
   public void fromView(Mat mv) {
@@ -1203,7 +1169,7 @@ public abstract class Eye implements Copyable {
 
   /**
    * Convenience function that simply returns {@code projectedCoordinatesOf(src, null)}.
-   * 
+   *
    * @see #projectedCoordinatesOf(Vec, Frame)
    */
   public final Vec projectedCoordinatesOf(Vec src) {
@@ -1213,7 +1179,7 @@ public abstract class Eye implements Copyable {
   /**
    * Convenience function that simply returns
    * {@code projectedCoordinatesOf(projview, src, null)}.
-   * 
+   *
    * @see #projectedCoordinatesOf(Vec, Frame)
    */
   public final Vec projectedCoordinatesOf(Mat projview, Vec src) {
@@ -1223,7 +1189,7 @@ public abstract class Eye implements Copyable {
   /**
    * Convenience function that simply returns
    * {@code projectedCoordinatesOf(null, src, frame)}.
-   * 
+   *
    * @see #projectedCoordinatesOf(Vec, Frame)
    */
   public final Vec projectedCoordinatesOf(Vec src, Frame frame) {
@@ -1248,7 +1214,7 @@ public abstract class Eye implements Copyable {
    * {@link #getView()}, {@link #getProjection()} and {@link #getViewport()}) and is
    * completely independent of the processing matrices. You can hence define a virtual Eye
    * and use this method to compute projections out of a classical rendering context.
-   * 
+   *
    * @see #unprojectedCoordinatesOf(Vec, Frame)
    */
   public final Vec projectedCoordinatesOf(Mat projview, Vec src, Frame frame) {
@@ -1265,7 +1231,7 @@ public abstract class Eye implements Copyable {
 
   /**
    * Convenience function that simply returns {@code unprojectedCoordinatesOf(src, null)}.
-   * 
+   * <p>
    * #see {@link #unprojectedCoordinatesOf(Vec, Frame)}
    */
   public final Vec unprojectedCoordinatesOf(Vec src) {
@@ -1275,7 +1241,7 @@ public abstract class Eye implements Copyable {
   /**
    * Convenience function that simply returns
    * {@code unprojectedCoordinatesOf(projviewInv, src, null)}.
-   * 
+   * <p>
    * #see {@link #unprojectedCoordinatesOf(Vec, Frame)}
    */
   public final Vec unprojectedCoordinatesOf(Mat projviewInv, Vec src) {
@@ -1285,7 +1251,7 @@ public abstract class Eye implements Copyable {
   /**
    * Convenience function that simply returns
    * {@code unprojectedCoordinatesOf(null, src, frame)}.
-   * 
+   * <p>
    * #see {@link #unprojectedCoordinatesOf(Vec, Frame)}
    */
   public final Vec unprojectedCoordinatesOf(Vec src, Frame frame) {
@@ -1326,7 +1292,7 @@ public abstract class Eye implements Copyable {
    * change in the matrices, you should buffer the entire inverse projection matrix (view,
    * projection and then viewport) to speed-up the queries. See the gluUnProject man page
    * for details.
-   * 
+   *
    * @see #projectedCoordinatesOf(Vec, Frame)
    * @see #setScreenWidthAndHeight(int, int)
    */
@@ -1376,15 +1342,11 @@ public abstract class Eye implements Copyable {
 
   /**
    * Similar to {@code gluProject}: map object coordinates to window coordinates.
-   * 
-   * @param objx
-   *          Specify the object x coordinate.
-   * @param objy
-   *          Specify the object y coordinate.
-   * @param objz
-   *          Specify the object z coordinate.
-   * @param windowCoordinate
-   *          Return the computed window coordinates.
+   *
+   * @param objx             Specify the object x coordinate.
+   * @param objy             Specify the object y coordinate.
+   * @param objz             Specify the object z coordinate.
+   * @param windowCoordinate Return the computed window coordinates.
    */
   public boolean project(float objx, float objy, float objz, float[] windowCoordinate) {
     return project(null, objx, objy, objz, windowCoordinate);
@@ -1443,17 +1405,12 @@ public abstract class Eye implements Copyable {
 
   /**
    * Similar to {@code gluUnProject}: map window coordinates to object coordinates.
-   * 
-   * @param projectionViewInverseMat
-   *          Specify the cached (projection * modelvview)^1 matrix.
-   * @param winx
-   *          Specify the window x coordinate.
-   * @param winy
-   *          Specify the window y coordinate.
-   * @param winz
-   *          Specify the window z coordinate.
-   * @param objCoordinate
-   *          Return the computed object coordinates.
+   *
+   * @param projectionViewInverseMat Specify the cached (projection * modelvview)^1 matrix.
+   * @param winx                     Specify the window x coordinate.
+   * @param winy                     Specify the window y coordinate.
+   * @param winz                     Specify the window z coordinate.
+   * @param objCoordinate            Return the computed object coordinates.
    */
   // Warning projectionViewInverseMat should be invertible (not checked here)
   // cached version
@@ -1503,14 +1460,32 @@ public abstract class Eye implements Copyable {
 
   // 7. KEYFRAMED PATHS
 
+  /**
+   * Returns the eye {@code <id, KeyFrameInterpolator>} map.
+   *
+   * @see #keyFrameInterpolatorArray()
+   * @see #keyFrameInterpolatorList()
+   */
   public HashMap<Integer, KeyFrameInterpolator> keyFrameInterpolatorMap() {
     return kfi;
   }
 
+  /**
+   * Returns the eye {@code paths} as an array.
+   *
+   * @see #keyFrameInterpolatorMap()
+   * @see #keyFrameInterpolatorList()
+   */
   public KeyFrameInterpolator[] keyFrameInterpolatorArray() {
     return kfi.values().toArray(new KeyFrameInterpolator[0]);
   }
 
+  /**
+   * Returns the eye {@code paths} as a list.
+   *
+   * @see #keyFrameInterpolatorArray()
+   * @see #keyFrameInterpolatorMap()
+   */
   public List<KeyFrameInterpolator> keyFrameInterpolatorList() {
     return Arrays.asList(keyFrameInterpolatorArray());
   }
@@ -1568,11 +1543,11 @@ public abstract class Eye implements Copyable {
       info = false;
     }
 
-    GenericFrame keyFrame = detachFrame();
+    GenericFrame keyFrame = frame().detach();
     keyFrame.setPickingPrecision(GenericFrame.PickingPrecision.FIXED);
-    keyFrame.setGrabsInputThreshold(20);
+    keyFrame.setGrabsInputThreshold(AbstractScene.platform() == Platform.PROCESSING_ANDROID ? 50 : 20);
     if (gScene.pathsVisualHint())
-      gScene.motionAgent().addGrabber(keyFrame);
+      gScene.inputHandler().addGrabber(keyFrame);
     kfi.get(key).addKeyFrame(keyFrame);
 
     if (info)
@@ -1587,14 +1562,16 @@ public abstract class Eye implements Copyable {
   /**
    * Removes all the Frames from all the pools of the agents registered at the
    * {@link remixlab.dandelion.core.AbstractScene#inputHandler()}.
-   * 
-   * @see #addPathToMotionAgent()
+   *
+   * @see #attachPath(int)
    */
   protected void detachPath(int key) {
     if (kfi.containsKey(key)) {
       KeyFrameInterpolator k = kfi.get(key);
       for (int i = 0; i < k.keyFrames().size(); ++i)
-        gScene.pruneBranch(k.keyFrames().get(i).frame());
+        gScene.inputHandler().removeGrabber(k.keyFrames().get(i).frame());
+      // Doesn't work since branch is already detached, i.e., frame is not reachable
+      // gScene.pruneBranch(k.keyFrames().get(i).frame());
     }
   }
 
@@ -1606,24 +1583,15 @@ public abstract class Eye implements Copyable {
   /**
    * Re-adds all the Frames to all the pools of the agents registered at the
    * {@link remixlab.dandelion.core.AbstractScene#inputHandler()}.
-   * 
-   * @see #removePathFromMotionAgent()
+   *
+   * @see #detachPath(int)
    */
   protected void attachPath(int key) {
     if (kfi.containsKey(key)) {
       KeyFrameInterpolator k = kfi.get(key);
       for (int i = 0; i < k.keyFrames().size(); ++i)
-        gScene.motionAgent().addGrabber(k.keyFrames().get(i).frame());
+        gScene.inputHandler().addGrabber(k.keyFrames().get(i).frame());
     }
-  }
-
-  protected List<GenericFrame> keyFrames() {
-    List<GenericFrame> frames = new ArrayList<GenericFrame>();
-    for (KeyFrameInterpolator k : keyFrameInterpolatorMap().values())
-      for (KeyFrame keyFrame : k.keyFrames())
-        // if(scene.motionAgent().hasGrabber(keyFrame.frame()))//also works ;)
-        frames.add(keyFrame.frame());
-    return frames;
   }
 
   /**
@@ -1722,7 +1690,7 @@ public abstract class Eye implements Copyable {
    * frustum equations to be updated only occasionally (rare). Use
    * {@link remixlab.dandelion.core.AbstractScene#enableBoundaryEquations()} which
    * automatically update the frustum equations every frame instead.
-   * 
+   *
    * @see #computeBoundaryEquations(float[][])
    */
   public abstract float[][] computeBoundaryEquations();
@@ -1763,7 +1731,7 @@ public abstract class Eye implements Copyable {
    * frustum equations to be updated only occasionally (rare). Use
    * {@link remixlab.dandelion.core.AbstractScene#enableBoundaryEquations()} which
    * automatically update the frustum equations every frame instead.
-   * 
+   *
    * @see #computeBoundaryEquations()
    */
   public abstract float[][] computeBoundaryEquations(float[][] coef);
@@ -1772,7 +1740,7 @@ public abstract class Eye implements Copyable {
    * Enables or disables automatic update of the eye boundary plane equations every frame
    * according to {@code flag}. Computation of the equations is expensive and hence is
    * disabled by default.
-   * 
+   *
    * @see #updateBoundaryEquations()
    */
   public void enableBoundaryEquations(boolean flag) {
@@ -1783,7 +1751,7 @@ public abstract class Eye implements Copyable {
    * Returns {@code true} if automatic update of the eye boundary plane equations is
    * enabled and {@code false} otherwise. Computation of the equations is expensive and
    * hence is disabled by default.
-   * 
+   *
    * @see #updateBoundaryEquations()
    */
   public boolean areBoundaryEquationsEnabled() {
@@ -1798,7 +1766,7 @@ public abstract class Eye implements Copyable {
    * boundary equations to be updated only occasionally (rare). Use
    * {@link remixlab.dandelion.core.AbstractScene#enableBoundaryEquations()} which
    * automatically update the boundary equations every frame instead.
-   * 
+   *
    * @see #distanceToBoundary(int, Vec)
    * @see #isPointVisible(Vec)
    * @see #ballVisibility(Vec, float)
@@ -1831,7 +1799,7 @@ public abstract class Eye implements Copyable {
    * {@link #computeBoundaryEquations()} ) or enable them to be automatic updated in your
    * Scene setup (with
    * {@link remixlab.dandelion.core.AbstractScene#enableBoundaryEquations()}).
-   * 
+   *
    * @see #distanceToBoundary(int, Vec)
    * @see #isPointVisible(Vec)
    * @see #ballVisibility(Vec, float)
@@ -1843,8 +1811,7 @@ public abstract class Eye implements Copyable {
   public float[][] getBoundaryEquations() {
     if (!gScene.areBoundaryEquationsEnabled())
       System.out.println("The viewpoint boundary equations may be outdated. Please "
-          + "enable automatic updates of the equations in your PApplet.setup "
-          + "with Scene.enableBoundaryEquations()");
+          + "enable automatic updates of the equations in your PApplet.setup " + "with Scene.enableBoundaryEquations()");
     return fpCoefficients;
   }
 
@@ -1861,7 +1828,7 @@ public abstract class Eye implements Copyable {
    * {@link #computeBoundaryEquations()} ) or enable them to be automatic updated in your
    * Scene setup (with
    * {@link remixlab.dandelion.core.AbstractScene#enableBoundaryEquations()}).
-   * 
+   *
    * @see #isPointVisible(Vec)
    * @see #ballVisibility(Vec, float)
    * @see #boxVisibility(Vec, Vec)
@@ -1873,8 +1840,7 @@ public abstract class Eye implements Copyable {
   public float distanceToBoundary(int index, Vec pos) {
     if (!gScene.areBoundaryEquationsEnabled())
       System.out.println("The viewpoint boundary equations (needed by distanceToBoundary) may be outdated. Please "
-          + "enable automatic updates of the equations in your PApplet.setup "
-          + "with Scene.enableBoundaryEquations()");
+          + "enable automatic updates of the equations in your PApplet.setup " + "with Scene.enableBoundaryEquations()");
     Vec myVec = new Vec(fpCoefficients[index][0], fpCoefficients[index][1], fpCoefficients[index][2]);
     return Vec.dot(pos, myVec) - fpCoefficients[index][3];
   }
@@ -1888,7 +1854,7 @@ public abstract class Eye implements Copyable {
    * {@link #computeBoundaryEquations()} ) or enable them to be automatic updated in your
    * Scene setup (with
    * {@link remixlab.dandelion.core.AbstractScene#enableBoundaryEquations()}).
-   * 
+   *
    * @see #distanceToBoundary(int, Vec)
    * @see #ballVisibility(Vec, float)
    * @see #boxVisibility(Vec, Vec)
@@ -1911,7 +1877,7 @@ public abstract class Eye implements Copyable {
    * {@link #computeBoundaryEquations()} ) or enable them to be automatic updated in your
    * Scene setup (with
    * {@link remixlab.dandelion.core.AbstractScene#enableBoundaryEquations()}).
-   * 
+   *
    * @see #distanceToBoundary(int, Vec)
    * @see #isPointVisible(Vec)
    * @see #boxVisibility(Vec, Vec)
@@ -1934,7 +1900,7 @@ public abstract class Eye implements Copyable {
    * {@link #computeBoundaryEquations()} ) or enable them to be automatic updated in your
    * Scene setup (with
    * {@link remixlab.dandelion.core.AbstractScene#enableBoundaryEquations()}).
-   * 
+   *
    * @see #distanceToBoundary(int, Vec)
    * @see #isPointVisible(Vec)
    * @see #ballVisibility(Vec, float)
@@ -1969,7 +1935,7 @@ public abstract class Eye implements Copyable {
    * Returns the pixel to scene (units) ratio at {@code position}.
    * <p>
    * Convenience function that simply returns {@code 1 / sceneToPixelRatio(position)}.
-   * 
+   *
    * @see #sceneToPixelRatio(Vec)
    */
   public float pixelToSceneRatio(Vec position) {
@@ -1987,7 +1953,7 @@ public abstract class Eye implements Copyable {
    * (orthogonal to the {@link #viewDirection()} and passing through the
    * {@link #sceneCenter()}) that is used to define the 3D rectangle that is eventually
    * fitted.
-   * 
+   *
    * @see #fitScreenRegion(Rect)
    */
   public void interpolateToZoomOnRegion(Rect rectangle) {
@@ -1995,9 +1961,9 @@ public abstract class Eye implements Copyable {
       stopInterpolations();
 
     interpolationKfi.deletePath();
-    interpolationKfi.addKeyFrame(detachFrame());
+    interpolationKfi.addKeyFrame(frame().detach());
     GenericFrame originalFrame = frame();
-    GenericFrame tempFrame = detachFrame();
+    GenericFrame tempFrame = frame().detach();
     replaceFrame(tempFrame);
     fitScreenRegion(rectangle);
     setFrame(originalFrame);
@@ -2013,7 +1979,7 @@ public abstract class Eye implements Copyable {
    * See {@link #showEntireScene()}.
    * <p>
    * The {@link #orientation()} of the Eye is not modified.
-   * 
+   *
    * @see #interpolateToZoomOnPixel(Point)
    */
   public void interpolateToFitScene() {
@@ -2021,9 +1987,9 @@ public abstract class Eye implements Copyable {
       stopInterpolations();
 
     interpolationKfi.deletePath();
-    interpolationKfi.addKeyFrame(detachFrame());
+    interpolationKfi.addKeyFrame(frame().detach());
     GenericFrame originalFrame = frame();
-    GenericFrame tempFrame = detachFrame();
+    GenericFrame tempFrame = frame().detach();
     replaceFrame(tempFrame);
     showEntireScene();
     setFrame(originalFrame);
@@ -2033,7 +1999,7 @@ public abstract class Eye implements Copyable {
 
   /**
    * Convenience function that simply calls {@code interpolateTo(fr, 1)}.
-   * 
+   *
    * @see #interpolateTo(GenericFrame, float)
    */
   public void interpolateTo(GenericFrame fr) {
@@ -2046,7 +2012,7 @@ public abstract class Eye implements Copyable {
    * <p>
    * {@code fr} is expressed in world coordinates. {@code duration} tunes the
    * interpolation speed.
-   * 
+   *
    * @see #interpolateTo(GenericFrame)
    * @see #interpolateToFitScene()
    * @see #interpolateToZoomOnPixel(Point)
@@ -2056,7 +2022,7 @@ public abstract class Eye implements Copyable {
       stopInterpolations();
 
     interpolationKfi.deletePath();
-    interpolationKfi.addKeyFrame(detachFrame());
+    interpolationKfi.addKeyFrame(frame().detach());
     interpolationKfi.addKeyFrame(fr, duration);
     interpolationKfi.startInterpolation();
   }
@@ -2069,7 +2035,7 @@ public abstract class Eye implements Copyable {
    * sphere fits the screen. Its {@link #orientation()} and its
    * {@link remixlab.dandelion.core.Camera#fieldOfView()} are unchanged. You should
    * therefore orientate the Camera before you call this method.
-   * 
+   *
    * @see #lookAt(Vec)
    * @see #setOrientation(Rotation)
    * @see #setUpVector(Vec, boolean)
@@ -2114,7 +2080,7 @@ public abstract class Eye implements Copyable {
    * <p>
    * Simply projects the current position on a line passing through {@link #sceneCenter()}
    * .
-   * 
+   *
    * @see #showEntireScene()
    */
   public void centerScene() {
@@ -2141,7 +2107,7 @@ public abstract class Eye implements Copyable {
    * coordinate system where the camera is pointing at (just in front of
    * {@link #viewDirection()}). Useful for setting the Processing camera() which uses a
    * similar approach of that found in gluLookAt.
-   * 
+   *
    * @see #lookAt(Vec)
    */
   public abstract Vec at();
@@ -2156,7 +2122,7 @@ public abstract class Eye implements Copyable {
    * {@link remixlab.dandelion.core.Camera#pointUnderPixel(Point)} is found. Otherwise a
    * KeyFrameInterpolator is created that animates the Camera on a one second path that
    * brings the Camera closer to the point under {@code pixel}.
-   * 
+   *
    * @see #interpolateToFitScene()
    */
   public abstract void interpolateToZoomOnPixel(Point pixel);

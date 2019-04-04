@@ -81,8 +81,8 @@ public class GTabManager {
 	 * Remove a control from the tab manager. This does not affect the tab
 	 * order of the remaining controls.
 	 * 
-	 * @param control
-	 * @return true if remove successfully
+	 * @param control the control to remove from this tab manager
+	 * @return true if removed, else false
 	 */
 	public boolean removeControl(Focusable control){
 		int index = textControls.lastIndexOf(control);

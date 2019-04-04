@@ -3,7 +3,7 @@
   	http://www.lagers.org.uk/g4p/index.html
 	http://sourceforge.net/projects/g4p/files/?source=navbar
 
-  Copyright (c) 2008 Peter Lager
+  Copyright (c) 2016 Peter Lager
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -27,7 +27,6 @@ import g4p_controls.HotSpot.HSmask;
 import g4p_controls.StyledString.TextLayoutInfo;
 
 import java.awt.Graphics2D;
-import java.awt.font.TextLayout;
 import java.util.LinkedList;
 
 import processing.core.PApplet;
@@ -38,20 +37,33 @@ import processing.event.MouseEvent;
  * This class is the Button component.
  * 
  * The button face can have either text or an image or both just
- * pick the right constructor.
+ * pick the right constructor. <br>
  * 
  * Three types of event can be generated :-  <br>
  * <b> PRESSED  RELEASED  CLICKED </b><br>
  * 
- * To simplify event handling the button only fires off CLICKED events 
- * if the mouse button is pressed and released over the button face 
- * (the default behaviour). <br>
+ * By default the button only fires the CLICKED event which is typical of 
+ * most GUIs. G4P supports two other events PRESSED and RELEASED which can
+ * be enabled using <pre>button1.fireAllEvents(true);</pre><br>
  * 
- * Using <pre>button1.fireAllEvents(true);</pre> enables the other 2 events
- * for button <b>button1</b>. A PRESSED event is created if the mouse button
- * is pressed down over the button face, the CLICKED event is then generated 
- * if the mouse button is released over the button face. Releasing the 
- * button off the button face creates a RELEASED event. <br>
+ * A PRESSED event is created if the mouse button is pressed down over the 
+ * button face. When the mouse button is released one of two events will 
+ * be generated, the RELEASED event if the mouse has moved since the 
+ * PRESSED event or CLICKED event if it has not moved. If you use this 
+ * feature remember to test the event type in the event-handler.<br>
+ * 
+ * Note that if you disable the button in its event handler e.g.
+ * 
+ * If you want the button is disable itself it should only be done on the 
+ * CLICKED event e.g.
+ * <pre>
+ * public void handleButtonEvents(GButton button, GEvent event) {
+ *   if (button == button1 && event == GEvent.CLICKED) {
+ *       button1.setEnabled(false);
+ *   }
+ * }
+ * do not try this with the RELEASED or PRESSED event as it will lead to inconsistent 
+ * behaviour.
  * 
  * The image file can either be a single image which is used for 
  * all button states, or be a composite of 3 images (tiled horizontally)
@@ -64,11 +76,18 @@ import processing.event.MouseEvent;
  * @author Peter Lager
  *
  */
-public class GButton extends GTextIconAlignBase {
+public class GButton extends GTextIconBase {
 
 	private static boolean roundCorners = true;
 	private static float CORNER_RADIUS = 6;
 
+	/**
+	 * By default buttons are created with rounded corners. <br>
+	 * 
+	 *  This method can be used to change this setting for buttons yet to be created. Note that it does not affect any existing buttons.
+	 *   
+	 * @param useRoundCorners true for round corners or false for square corners.
+	 */
 	public static void useRoundCorners(boolean useRoundCorners){
 		roundCorners = useRoundCorners;
 	}
@@ -79,12 +98,30 @@ public class GButton extends GTextIconAlignBase {
 	// Only report CLICKED events
 	protected boolean reportAllButtonEvents = false;
 
+	/**
+	 * New button without text
+	 * @param theApplet  the main sketch or GWindow control for this control
+	 * @param p0 x position based on control mode
+	 * @param p1 y position based on control mode
+	 * @param p2 x position or width based on control mode
+	 * @param p3 y position or height based on control mode
+	 */
 	public GButton(PApplet theApplet, float p0, float p1, float p2, float p3) {
 		this(theApplet, p0, p1, p2, p3, "");
 	}
 
+	/**
+	 * New button with text
+	 * @param theApplet  the main sketch or GWindow control for this control
+	 * @param p0 x position based on control mode
+	 * @param p1 y position based on control mode
+	 * @param p2 x position or width based on control mode
+	 * @param p3 y position or height based on control mode
+	 * @param text the button face text 
+	 */
 	public GButton(PApplet theApplet, float p0, float p1, float p2, float p3, String text) {
 		super(theApplet, p0, p1, p2, p3);
+		// Create mask for hotspots
 		PGraphics mask = winApp.createGraphics((int) width, (int) height, JAVA2D);
 		mask.beginDraw();
 		mask.background(255);
@@ -93,16 +130,25 @@ public class GButton extends GTextIconAlignBase {
 		mask.strokeWeight(1);
 		if(roundCorners)
 			mask.rect(0, 0, width-2, height-2, CORNER_RADIUS);
-		else
-			mask.rect(0, 0, width-2, height-2);	
+		else 
+			mask.rect(0, 0, width-2, height-2);
 		mask.endDraw();
-
 		hotspots = new HotSpot[]{
 				new HSmask(1, mask)		// control surface
 		};
 
-		setText(text);
+		// Initialise text and icon alignment
+		PAD = roundCorners ? 4 : 2;
+		textAlignH = GAlign.CENTER;
+		textAlignV = GAlign.MIDDLE;
+		iconPos = GAlign.EAST;
+		iconAlignH = GAlign.CENTER;
+		iconAlignV = GAlign.MIDDLE;
+		calcZones(false, true);
+		setText(text);	
+
 		z = Z_SLIPPY;
+		
 		// Now register control with applet
 		createEventHandler(G4P.sketchWindow, "handleButtonEvents", 
 				new Class<?>[]{ GButton.class, GEvent.class }, 
@@ -115,9 +161,9 @@ public class GButton extends GTextIconAlignBase {
 	}
 
 	/**
-	 * If the parameter is true all 3 event types are generated, if false
-	 * only CLICKED events are generated (default behaviour).
-	 * @param all
+	 * If the parameter is true all 3 event types PRESSED, RELEASED and CLICKED
+	 * are generated, if false only CLICKED events are generated (default behaviour).
+	 * @param all true for all events
 	 */
 	public void fireAllEvents(boolean all){
 		reportAllButtonEvents = all;
@@ -144,7 +190,7 @@ public class GButton extends GTextIconAlignBase {
 	 * 
 	 * <pre>
 	 * void handleButtonEvents(void handleButtonEvents(GButton button, GEvent event) {
-	 *	  if(button == btnName && event == GEvent.CLICKED){
+	 *	  if(button == btnName &amp;&amp; event == GEvent.CLICKED){
 	 *        // code for button click event
 	 *    }
 	 * </pre> <br>
@@ -240,7 +286,7 @@ public class GButton extends GTextIconAlignBase {
 			bufferInvalid = false;
 			buffer.beginDraw();
 			// Set the font and read the latest test
-			Graphics2D g2d = (Graphics2D) buffer.g2;
+			Graphics2D g2d = buffer.g2;
 			g2d.setFont(localFont);
 			LinkedList<TextLayoutInfo> lines = stext.getLines(g2d);
 			// Draw the button head
@@ -257,45 +303,21 @@ public class GButton extends GTextIconAlignBase {
 			default:
 				buffer.fill(palette[4].getRGB());
 			}
+			// Draw button background
 			if(roundCorners)
 				buffer.rect(0, 0, width-2, height-2, CORNER_RADIUS);
 			else
 				buffer.rect(0, 0, width-2, height-2);
 			
-			// Calculate text and icon placement
-			calcAlignment();
-			// If there is an icon draw it
-			if(iconW != 0)
-				buffer.image(bicon[status], siX, siY);
-			float wrapWidth = stext.getWrapWidth();
-			float sx = 0, tw = 0;
-			buffer.translate(stX, stY);
-			for(TextLayoutInfo lineInfo : lines){
-				TextLayout layout = lineInfo.layout;
-				buffer.translate(0, layout.getAscent());
-				//System.out.println(layout.toString());
-				switch(textAlignH){
-				case CENTER:
-					tw = layout.getVisibleAdvance();
-					tw = (tw > wrapWidth) ? tw - wrapWidth : tw;
-					sx = (wrapWidth - tw)/2;
-					break;
-				case RIGHT:
-					tw = layout.getVisibleAdvance();
-					tw = (tw > wrapWidth) ? tw - wrapWidth : tw;
-					sx = wrapWidth - tw;
-					break;
-				case LEFT:
-				case JUSTIFY:
-				default:
-					sx = 0;		
-				}
-				// display text
-				g2d.setColor(palette[2]);
-				layout.draw(g2d, sx, 0);
-				buffer.translate(0, layout.getDescent() + layout.getLeading());
+			// Now draw the Icon
+			if(icon != null){
+				icon.setFrame(status);
+				buffer.image(icon.getFrame(), iconX, iconY);
 			}
+			//	Now draw the button surface (text and icon
+			displayText(g2d, lines);
 			buffer.endDraw();
 		}	
 	}
+	
 }

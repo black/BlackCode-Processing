@@ -88,11 +88,6 @@ public final class GPassword extends GAbstractControl implements Focusable{
 	protected TextLayoutHitInfo startTLHI = new TextLayoutHitInfo();
 	protected TextLayoutHitInfo endTLHI = new TextLayoutHitInfo();
 
-	// The scrollbars available
-//	protected final int scrollbarPolicy;
-//	protected boolean autoHide = false;
-//	protected GScrollbar hsb, vsb;
-
 	protected GTimer caretFlasher;
 	protected boolean showCaret = false;
 
@@ -105,11 +100,11 @@ public final class GPassword extends GAbstractControl implements Focusable{
 	/**
 	 * Create a password field without a scrollbar.
 	 * 
-	 * @param theApplet
-	 * @param p0
-	 * @param p1
-	 * @param p2
-	 * @param p3
+	 * @param theApplet  the main sketch or GWindow control for this control
+	 * @param p0 x position based on control mode
+	 * @param p1 y position based on control mode
+	 * @param p2 x position or width based on control mode
+	 * @param p3 y position or height based on control mode
 	 */
 	public GPassword(PApplet theApplet, float p0, float p1, float p2, float p3) {
 		this(theApplet, p0, p1, p2, p3, SCROLLBARS_NONE);
@@ -128,17 +123,16 @@ public final class GPassword extends GAbstractControl implements Focusable{
 	 * </ul>
 	 * e.g. SCROLLBARS_HORIZONTAL_ONLY | SCROLLBARS_AUTOHIDE
 	 * <br>
-	 * @param theApplet
-	 * @param p0
-	 * @param p1
-	 * @param p2
-	 * @param p3
-	 * @param sbPolicy
+	 * @param theApplet  the main sketch or GWindow control for this control
+	 * @param p0 x position based on control mode
+	 * @param p1 y position based on control mode
+	 * @param p2 x position or width based on control mode
+	 * @param p3 y position or height based on control mode
+	 * @param sbPolicy scrollbar policy
 	 */
 	public GPassword(PApplet theApplet, float p0, float p1, float p2, float p3, int sbPolicy) {
 		super(theApplet, p0, p1, p2, p3);
-//		scrollbarPolicy = sbPolicy;
-//		autoHide = ((sbPolicy & SCROLLBARS_AUTOHIDE) == SCROLLBARS_AUTOHIDE);
+		makeBuffer();
 		caretFlasher = new GTimer(theApplet, this, "flashCaret", 400);
 		caretFlasher.start();
 		opaque = true;
@@ -148,7 +142,6 @@ public final class GPassword extends GAbstractControl implements Focusable{
 		children = new LinkedList<GAbstractControl>();
 		tx = ty = 2;
 		tw = width - 2 * 2;
-//		th = height - ((scrollbarPolicy & SCROLLBAR_HORIZONTAL) != 0 ? 11 : 0);
 		th = height;
 		gpTextDisplayArea = new GeneralPath();
 		gpTextDisplayArea.moveTo( 0,  0);
@@ -162,19 +155,11 @@ public final class GPassword extends GAbstractControl implements Focusable{
 				new HSrect(9, 0, 0, width, height)		// control surface
 		};
 
-		G4P.pushStyle();
+//		G4P.pushStyle();
 		G4P.showMessages = false;
-
 		z = Z_STICKY;
-
 		G4P.control_mode = GControlMode.CORNER;
-//		if((scrollbarPolicy & SCROLLBAR_HORIZONTAL) != 0){
-//			hsb = new GScrollbar(theApplet, 0, 0, tw, 10);
-//			addControl(hsb, tx, ty + th + 2, 0);
-//			hsb.addEventHandler(this, "hsbEventHandler");
-//			hsb.setAutoHide(autoHide);
-//		}
-		G4P.popStyle();
+//		G4P.popStyle();
 		//		z = Z_STICKY;
 		createEventHandler(G4P.sketchWindow, "handlePasswordEvents", 
 				new Class<?>[]{ GPassword.class, GEvent.class }, 
@@ -189,7 +174,7 @@ public final class GPassword extends GAbstractControl implements Focusable{
 	/**
 	 * Set the character that will be displayed instead of the actual character
 	 * entered by the user. <br>
-	 * Default value is '#'
+	 * @param c the character to use instead of plain text. The default value is '#'
 	 */
 	public void setVisibleChar(char c){
 		int ascii = (int) c;
@@ -207,7 +192,7 @@ public final class GPassword extends GAbstractControl implements Focusable{
 	}
 	
 	/**
-	 * Get the current length of the password entered.
+	 * @return the current length of the password entered.
 	 */
 	public int getWordLength(){
 		return wordLength;
@@ -217,7 +202,7 @@ public final class GPassword extends GAbstractControl implements Focusable{
 	 * Sets the max length of the password. This method is ignored if the control
 	 * already holds some user input. <br>
 	 * The default value is 10.
-	 * @param ml the new max length (must be >= 1)
+	 * @param ml the new max length (must be &ge; 1)
 	 */
 	public void setMaxWordLength(int ml){
 		if(wordLength == 0 && ml >= 1)
@@ -258,12 +243,12 @@ public final class GPassword extends GAbstractControl implements Focusable{
 			float max_ptx = caretX - tw + 2;
 			if(endTLHI != null){
 				if(ptx > caretX){ 								// Scroll to the left (text moves right)
-					ptx -= HORZ_SCROLL_RATE;
+					ptx -= localFont.getSize()/3;
 					if(ptx < 0) ptx = 0;
 					horzScroll = true;
 				}
 				else if(ptx < max_ptx){ 						// Scroll to the right (text moves left)?
-					ptx += HORZ_SCROLL_RATE;
+					ptx += localFont.getSize()/1.5f;
 					if(ptx > max_ptx) ptx = max_ptx;
 					horzScroll = true;
 				}
@@ -284,7 +269,7 @@ public final class GPassword extends GAbstractControl implements Focusable{
 		}
 	}
 
-	/**
+	/*
 	 * Do not call this directly. A timer calls this method as and when required.
 	 */
 	public void flashCaret(GTimer timer){

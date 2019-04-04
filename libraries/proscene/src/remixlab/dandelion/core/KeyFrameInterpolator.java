@@ -1,6 +1,6 @@
 /**************************************************************************************
  * dandelion_tree
- * Copyright (c) 2014-2016 National University of Colombia, https://github.com/remixlab
+ * Copyright (c) 2014-2017 National University of Colombia, https://github.com/remixlab
  * @author Jean Pierre Charalambos, http://otrolado.info/
  *
  * All rights reserved. Library that eases the creation of interactive
@@ -10,11 +10,16 @@
 
 package remixlab.dandelion.core;
 
-import java.util.*;
-
 import remixlab.dandelion.geom.*;
 import remixlab.fpstiming.TimingTask;
-import remixlab.util.*;
+import remixlab.util.Copyable;
+import remixlab.util.EqualsBuilder;
+import remixlab.util.HashCodeBuilder;
+import remixlab.util.Util;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
 
 /**
  * A keyFrame Catmull-Rom Frame interpolator.
@@ -79,9 +84,7 @@ import remixlab.util.*;
 public class KeyFrameInterpolator implements Copyable {
   @Override
   public int hashCode() {
-    return new HashCodeBuilder(17, 37).append(currentFrmValid).append(mainFrame).append(interpolationSpd)
-        .append(interpolationStrt).append(interpolationTm).append(keyFrameList).append(lpInterpolation).append(path)
-        .append(pathIsValid).append(period).append(valuesAreValid).toHashCode();
+    return new HashCodeBuilder(17, 37).append(keyFrameList).toHashCode();
   }
 
   @Override
@@ -94,11 +97,7 @@ public class KeyFrameInterpolator implements Copyable {
       return false;
 
     KeyFrameInterpolator other = (KeyFrameInterpolator) obj;
-    return new EqualsBuilder().append(currentFrmValid, other.currentFrmValid).append(mainFrame, other.mainFrame)
-        .append(interpolationSpd, other.interpolationSpd).append(interpolationStrt, other.interpolationStrt)
-        .append(interpolationTm, other.interpolationTm).append(keyFrameList, other.keyFrameList)
-        .append(lpInterpolation, other.lpInterpolation).append(path, other.path).append(pathIsValid, other.pathIsValid)
-        .append(period, other.period).append(valuesAreValid, other.valuesAreValid).isEquals();
+    return new EqualsBuilder().append(keyFrameList, other.keyFrameList).isEquals();
   }
 
   /**
@@ -107,7 +106,7 @@ public class KeyFrameInterpolator implements Copyable {
   protected abstract class KeyFrame implements Copyable {
     @Override
     public int hashCode() {
-      return new HashCodeBuilder(17, 37).append(frm).toHashCode();
+      return new HashCodeBuilder(17, 37).append(frame()).append(time()).toHashCode();
     }
 
     @Override
@@ -120,7 +119,7 @@ public class KeyFrameInterpolator implements Copyable {
         return false;
 
       KeyFrame other = (KeyFrame) obj;
-      return new EqualsBuilder().append(frm, other.frm).isEquals();
+      return new EqualsBuilder().append(frame(), other.frame()).append(time(), other.time()).isEquals();
     }
 
     protected Vec tgPVec;
@@ -254,7 +253,7 @@ public class KeyFrameInterpolator implements Copyable {
    * <p>
    * Creates an anonymous {@link #frame()} to be interpolated by this
    * KeyFrameInterpolator.
-   * 
+   *
    * @see #KeyFrameInterpolator(AbstractScene, Frame)
    */
   public KeyFrameInterpolator(AbstractScene scn) {
@@ -355,7 +354,7 @@ public class KeyFrameInterpolator implements Copyable {
    * {@link #checkValidity()}.
    */
   protected void checked() {
-    lUpdate = gScene.timingHandler().frameCount();
+    lUpdate = AbstractScene.frameCount;
   }
 
   /**
@@ -412,7 +411,7 @@ public class KeyFrameInterpolator implements Copyable {
    * the interpolation (provided that your main loop is fast enough).
    * <p>
    * A negative value will result in a reverse interpolation of the keyFrames.
-   * 
+   *
    * @see #interpolationPeriod()
    */
   public float interpolationSpeed() {
@@ -428,7 +427,7 @@ public class KeyFrameInterpolator implements Copyable {
    * {@link #interpolationTime()} at each update, and the {@link #frame()} state is
    * modified accordingly (see {@link #interpolateAtTime(float)}). Default value is 40
    * milliseconds.
-   * 
+   *
    * @see #setInterpolationPeriod(int)
    */
   public int interpolationPeriod() {
@@ -460,7 +459,9 @@ public class KeyFrameInterpolator implements Copyable {
    */
   public void setInterpolationTime(float time) {
     interpolationTm = time;
-  };
+  }
+
+  ;
 
   /**
    * Sets the {@link #interpolationSpeed()}. Negative or null values are allowed.
@@ -558,7 +559,7 @@ public class KeyFrameInterpolator implements Copyable {
 
   /**
    * Convenience function that simply calls {@code startInterpolation(-1)}.
-   * 
+   *
    * @see #startInterpolation(int)
    */
   public void startInterpolation() {
@@ -734,9 +735,8 @@ public class KeyFrameInterpolator implements Copyable {
    * KeyFrameInterpolator path.
    * <p>
    * Use it in your KeyFrameInterpolator path drawing routine.
-   * 
-   * @see remixlab.dandelion.core.AbstractScene#drawPath(KeyFrameInterpolator, int, int,
-   *      float)
+   *
+   * @see remixlab.dandelion.core.AbstractScene#drawPath(KeyFrameInterpolator, int, int, float)
    */
   public List<Frame> path() {
     updatePath();
@@ -759,9 +759,8 @@ public class KeyFrameInterpolator implements Copyable {
         updateModifiedFrameValues();
 
       if (keyFrameList.get(0) == keyFrameList.get(keyFrameList.size() - 1))
-        // TODO experimenting really
-        path.add(new Frame(keyFrameList.get(0).position(), keyFrameList.get(0).orientation(),
-            keyFrameList.get(0).magnitude()));
+        path.add(
+            new Frame(keyFrameList.get(0).position(), keyFrameList.get(0).orientation(), keyFrameList.get(0).magnitude()));
       else {
         KeyFrame[] kf = new KeyFrame[4];
         kf[0] = keyFrameList.get(0);
@@ -782,11 +781,12 @@ public class KeyFrameInterpolator implements Copyable {
           for (int step = 0; step < nbSteps; ++step) {
             Frame frame = new Frame();
             float alpha = step / (float) nbSteps;
-            frame.setPosition(Vec.add(kf[1].position(), Vec.multiply(
-                Vec.add(kf[1].tgP(), Vec.multiply(Vec.add(pvec1, Vec.multiply(pvec2, alpha)), alpha)), alpha)));
+            frame.setPosition(Vec.add(kf[1].position(),
+                Vec.multiply(Vec.add(kf[1].tgP(), Vec.multiply(Vec.add(pvec1, Vec.multiply(pvec2, alpha)), alpha)), alpha)));
             if (gScene.is3D()) {
-              frame.setOrientation(Quat.squad((Quat) kf[1].orientation(), ((KeyFrame3D) kf[1]).tgQ(),
-                  ((KeyFrame3D) kf[2]).tgQ(), (Quat) kf[2].orientation(), alpha));
+              frame.setOrientation(
+                  Quat.squad((Quat) kf[1].orientation(), ((KeyFrame3D) kf[1]).tgQ(), ((KeyFrame3D) kf[2]).tgQ(),
+                      (Quat) kf[2].orientation(), alpha));
             } else {
               // linear interpolation
               float start = kf[1].orientation().angle();
@@ -841,17 +841,13 @@ public class KeyFrameInterpolator implements Copyable {
    * returned.
    */
   public GenericFrame keyFrame(int index) {
-    /**
-     * AbstractKeyFrame kf = keyFr.get(index); return new Frame(kf.orientation(),
-     * kf.position(), kf.magnitude());
-     */
     return keyFrameList.get(index).frame();
   }
 
   /**
    * Returns the time corresponding to the {@code index} keyFrame. index has to be in the
    * range 0.. {@link #numberOfKeyFrames()}-1.
-   * 
+   *
    * @see #keyFrame(int)
    */
   public float keyFrameTime(int index) {
@@ -863,7 +859,7 @@ public class KeyFrameInterpolator implements Copyable {
    * <p>
    * Simply corresponds to {@link #lastTime()} - {@link #firstTime()}. Returns 0.0 if the
    * path has less than 2 keyFrames.
-   * 
+   *
    * @see #keyFrameTime(int)
    */
   public float duration() {
@@ -874,7 +870,7 @@ public class KeyFrameInterpolator implements Copyable {
    * Returns the time corresponding to the first keyFrame, expressed in seconds.
    * <p>
    * Returns 0.0 if the path is empty.
-   * 
+   *
    * @see #lastTime()
    * @see #duration()
    * @see #keyFrameTime(int)
@@ -889,7 +885,7 @@ public class KeyFrameInterpolator implements Copyable {
   /**
    * Returns the time corresponding to the last keyFrame, expressed in seconds.
    * <p>
-   * 
+   *
    * @see #firstTime()
    * @see #duration()
    * @see #keyFrameTime(int)
@@ -991,8 +987,8 @@ public class KeyFrameInterpolator implements Copyable {
     else
       alpha = (time - keyFrameList.get(currentFrame1.nextIndex()).time()) / dt;
 
-    Vec pos = Vec.add(keyFrameList.get(currentFrame1.nextIndex()).position(),
-        Vec.multiply(Vec.add(keyFrameList.get(currentFrame1.nextIndex()).tgP(),
+    Vec pos = Vec.add(keyFrameList.get(currentFrame1.nextIndex()).position(), Vec.multiply(
+        Vec.add(keyFrameList.get(currentFrame1.nextIndex()).tgP(),
             Vec.multiply(Vec.add(pv1, Vec.multiply(pv2, alpha)), alpha)), alpha));
 
     float mag = Util.lerp(keyFrameList.get(currentFrame1.nextIndex()).magnitude(),

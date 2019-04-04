@@ -1,317 +1,209 @@
-/*
- The most complicated example so far. This will display the Mandelbrot
- set in a separate window. Draw a rectangle over the image to create 
- a new Mandelbrot in a new window ...
- 
- for Processing V3
- (c) 2015 Peter Lager
- 
+/**
+ * Mandelbrot Explorer 
+ * This is an advanced example of using multiple windows. 
+ * This sketch
+ * 1) uses the double data type to give higher magnification
+ *    (~3x10^13) of the Mandelbrot. 
+ * 2) creats separate threads to perform the complex calculations 
+ *    and create the images
+ * 3) demonstrates how to create a class to hold the Mandelbrot 
+ *    data for each plot
+ * 
+ * for Processing V3
+ * 
+ * Copyright (c) 2019 Peter Lager
  */
 
 import g4p_controls.*;
-import java.awt.Color;
 
-final int MAX_ITERATE = 128;
+// You can experiment with these values to change the color range
+final int MAX_NBR_COLORS = 400;
+final int MAX_COLOR_LOOPS = 3;
+final int MAX_ITERATE = MAX_NBR_COLORS * MAX_COLOR_LOOPS;
 
+// Define the maximum width and height of a plot. Must be square 
+// for correct aspect ratio
 final int MAX_WIDTH = 400;
-final int MAX_HEIGHT = 400;
+final int MAX_HEIGHT = MAX_WIDTH;
 
-final int MIN_WIDTH = 30;
-final int MIN_HEIGHT = 30;
-
+// The colors to be used in the plot
 int[] colors = new int[MAX_ITERATE];
 
-GButton btnStart;
-GLabel label;
+// The position for the new new window
+int winPosX = 100, winPosY = 100;
 
-int locX = 100, locY = 100;
+// The data used for the main sketch display of the full 
+// Mandelbrot set
+MandelbrotData fullSet;
 
-String t0, t1, t2;
+void settings() {
+  size(MAX_WIDTH, MAX_HEIGHT + 120);
+}
 
-
-public void setup() {
-  size(300, 160);
-  G4P.setGlobalColorScheme(G4P.ORANGE_SCHEME);
-  btnStart = new GButton(this, (width - 80)/2, height - 30, 80, 20, "START");
-  t0 = "MANDELBROT GALORE\n";
-  t1 = "Click on the START button to see the Mandelbrot set in a separate window. ";
-  t2 = " To zoom into the set drag a box on the area you are interested in and ";
-  t2 += "he enlarged image will appear in a new window.";
-  label = new GLabel(this, 20, 20, 260, 200, t0 + t1 + t2);
-  label.setTextAlign(GAlign.CENTER, GAlign.TOP);
+void setup() {
   createColours();
+  createInstructions();
+  fullSet = new MandelbrotData(-2d, -1.25d, 0.5d, 1.25d, MAX_WIDTH, MAX_HEIGHT);
+  new Thread(fullSet).start();
+  registerMethod("mouseEvent", this);
+}
+
+void createInstructions() {
+  GLabel lblTitle = new GLabel(this, 10, MAX_HEIGHT + 4, MAX_WIDTH - 20, 20, "MANDELBROT EXPLORER");
+  lblTitle.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
+  lblTitle.setTextBold();
+  GLabel lblText = new GLabel(this, 10, MAX_HEIGHT + 24, MAX_WIDTH - 20, 100);
+  String t = "This image shows the full Mandelbrot set. Drag a "
+    + "selection box over the area you want to examine "
+    + "in greater detail and it will be shown in a new "
+    + "window. You can repeat this on the new window to "
+    + "zoom further or on any window to view other areas.";
+  lblText.setText(t);
+  lblText.setTextAlign(GAlign.JUSTIFY, GAlign.TOP);
+  lblText.setTextBold();
+}
+
+void draw() {
+  background(200, 200, 255);
+  renderPlot(this, fullSet);
+}
+
+void mouseEvent(MouseEvent event) {
+  processMouseEvent(this, fullSet, event);
 }
 
 /**
- * Draw for the main sketch window
- */
-public void draw() {
-  background(230, 230, 230);
-}
-
-/**
- Create the colours to be used.
- */
-public void createColours() {
-  colors[MAX_ITERATE-1] = color(0);
-  float hue = 0.0f;
-  float bright = 1.0f;
-  float binc = 0.009f/MAX_ITERATE;
-  for (int i = 0; i < MAX_ITERATE - 2; i++) {
-    colors[i] = Color.HSBtoRGB(hue, 1.0f, bright);
-    hue = (hue + 0.1309f) % 1.0f ;
-    bright -= binc;
-  }
-}
-
-/**
- * Create a PImage of the correct size and using the data
- * for a window create the Mandelbrot image. Signal when
- * complete by setting imgDone = true
+ * Handles mouse events for the main display and any open
+ * windows (GWindow objects)
  * 
- * @param data
+ * @param appc main sketch of window showing the Mandelbrot plot.
+ * @param data the data for the Mandelbrot plot (each plot has its own unique data)
+ * @param event the mouse event to process
  */
-public void calcMandlebrot(MyWinData data) {
-  double x0, x1, y0, y1, deltaX, deltaY;
-  double colX, rowY;
-  x0 = data.sx;
-  x1 = data.ex;
-  y0 = data.sy;
-  y1 = data.ey;
-  deltaX = (x1 - x0)/data.w;
-  deltaY = (y1 - y0)/data.h;
-  data.img.loadPixels();
-  int count = 0;
-  Complex c = new Complex();
-  Complex z = new Complex();
-
-  colX = x0;
-  rowY = y0;
-  int minC = 999, maxC = -999;
-  for (int row = 0; row < data.h; row++) {
-    colX = x0;
-    for (int col = 0; col < data.w; col++) {
-      count = 0;
-      c.set(colX, rowY);
-      z.set(colX, rowY);
-      while (count < MAX_ITERATE-1 && z.sizeSquared () < 4.0) {
-        z = z.squared().add(c); 
-        count++;
-      }
-      if (count < minC) minC = count;
-      if (count > maxC) maxC = count;
-      data.img.pixels[col + row * data.w] = colors[count];
-      colX += deltaX;
+void processMouseEvent(PApplet appc, GWinData data, MouseEvent event) {
+  MandelbrotData md = (MandelbrotData)data;
+  // Ignore mouse events if still making Mandelbrot image
+  if (md.working) {
+    return;
+  }
+  int mX = constrain(appc.mouseX, 0, md.w - 1);
+  int mY = constrain(appc.mouseY, 0, md.h - 1);
+  switch(event.getAction()) {
+  case MouseEvent.PRESS:
+    md.msx = md.mex = mX;
+    md.msy = md.mey = mY;
+    appc.loop();
+    appc.frameRate(60);
+    break;
+  case MouseEvent.RELEASE:
+    md.mex = mX;
+    md.mey = mY;
+    // Make sure the coordinates are top left / bottom left
+    int temp;
+    if (md.msx > md.mex) {
+      temp = md.msx; 
+      md.msx = md.mex; 
+      md.mex = temp;
     }
-    rowY += deltaY;
+    if (md.msy > md.mey) {
+      temp = md.msy; 
+      md.msy = md.mey; 
+      md.mey = temp;
+    }
+    int deltaX = md.mex - md.msx;
+    int deltaY = md.mey - md.msy;
+    if (deltaX >= 1 && deltaY >= 1) {
+      // Calculate the new Mandelbrot plane coordinates
+      double nsx, nex, nsy, ney;
+      nsx = dmap((double)md.msx, (double)0, (double)md.w, md.sx, md.ex);
+      nex = dmap((double)md.mex, (double)0, (double)md.w, md.sx, md.ex);
+      nsy = dmap((double)md.msy, (double)0, (double)md.h, md.sy, md.ey);
+      ney = dmap((double)md.mey, (double)0, (double)md.h, md.sy, md.ey);
+      makeNewBrotWindow(nsx, nex, nsy, ney);
+      md.msx = md.mex = md.msy = md.mey = 0;
+      appc.frameRate(1);
+    } else if ( (deltaX == 0) ^ (deltaY == 0)) {
+      G4P.showMessage(this, "Selection box size must be at least 1x1 pixel.", "Invalid Selection Box", G4P.WARNING);
+    }
+    break;
+  case MouseEvent.DRAG:
+    md.mex = mX;
+    md.mey = mY;
+    break;
   }
-  data.img.updatePixels();
-  data.imgDone = true;
 }
 
 /**
- * Create and display a new Frame for a Mandelbrot
- * make it as big as possible to fit MAX_WIDTH and MAX_HEIGHT
- * but reject if this results in the width or height being less
- * than the minimum vales (MIN_WIDTH, MIN_HEIGHT.
- * 
- * @param nsx
- * @param nex
- * @param nsy
- * @param ney
- * @return
+ * Maps the value in the first range (1) to the equivalent position
+ * in the second range (2) 
  */
-public boolean makeNewBrotWindow(double nsx, double nex, double nsy, double ney, int action) {
-  MyWinData mydata = new MyWinData();
+double dmap(double value, double start1, double stop1, double start2, double stop2) {
+  return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
+}
+
+/**
+ * Attempts to create a window for a new Mandelbrot plot. If the selection 
+ * box width or height are less than is MIN_WIDTH and MIN_HEIGHT then this 
+ * will be ignored.
+ */
+void makeNewBrotWindow(double nsx, double nex, double nsy, double ney) {
   GWindow window = null;
+  int w, h;
   // Using doubles for greater magnification range
-  double mag = 2.5 / (nex-nsx);
+  double mag = 2.5d / (nex-nsx);
   String s = String.format("%.2E", mag);
   String title = "Mandelbrot (x "+s+")";
   float ratio = (float) ((nex-nsx)/(ney-nsy));
-  if (ratio > MAX_WIDTH/MAX_HEIGHT) {
-    mydata.w = MAX_WIDTH;
-    mydata.h = (int)( MAX_HEIGHT / ratio);
+  if (ratio > ((float)MAX_WIDTH)/MAX_HEIGHT) {
+    w = MAX_WIDTH;
+    h = (int)( MAX_HEIGHT / ratio);
   } else {
-    mydata.h = MAX_HEIGHT;
-    mydata.w = (int)( MAX_WIDTH * ratio);
+    h = MAX_HEIGHT;
+    w = (int)( MAX_WIDTH * ratio);
   }
-  mydata.sx = nsx;
-  mydata.sy = nsy;
-  mydata.ex = nex;
-  mydata.ey = ney;
-  mydata.imgDone = false;
-
-  if (mydata.w >= MIN_WIDTH && mydata.h >= MIN_HEIGHT) {
-    mydata.img = new PImage(mydata.w, mydata.h);
-    window = GWindow.getWindow(this, title, locX, locY, mydata.w, mydata.h, JAVA2D);
-    // Need to replace with screen.width and screen.height for
-    // Processing 1.5.1
-    locX = (locX + mydata.w + 20)%(displayWidth - MAX_WIDTH);
-    locY = (locY + 20)%(displayHeight - MAX_HEIGHT);
-    window.addData(mydata);
-    window.addDrawHandler(this, "windowDraw");
-    window.addMouseHandler(this, "windowMouse");
-    window.setActionOnClose(action);
-    calcMandlebrot(mydata);
-    return true;
-  }
-  return false;
-}
-
-
-/**
- * Click the button to create the windows.
- * @param button
- */
-public void handleButtonEvents(GButton button, GEvent event) {
-  if (btnStart == button) {
-    makeNewBrotWindow(-2.0f, 0.5f, -1.25f, 1.25f, GWindow.KEEP_OPEN);
-    btnStart.setVisible(false);
-    label.setText(t0 + t2);
-  }
-}
-
-/**
- * Handles mouse events for ALL GWindow objects
- * 
- * @param appc the PApplet object embeded into the frame
- * @param data the data for the GWindow being used
- * @param event the mouse event
- */
-public void windowMouse(PApplet appc, GWinData data, MouseEvent event) {
-  MyWinData d = (MyWinData)data;
-  if (d.imgDone == false)
-    return;
-  switch(event.getAction()) {
-  case MouseEvent.PRESS:
-    d.msx = d.mex = appc.mouseX;
-    d.msy = d.mey = appc.mouseY;
-    appc.loop();
-    appc.frameRate(30);
-    break;
-  case MouseEvent.RELEASE:
-    d.mex = appc.mouseX;
-    d.mey = appc.mouseY;
-    // Make sure the coordinates are top left / bottom left
-    int temp;
-    if (d.msx > d.mex) {
-      temp = d.msx; 
-      d.msx = d.mex; 
-      d.mex = temp;
-    }
-    if (d.msy > d.mey) {
-      temp = d.msy; 
-      d.msy = d.mey; 
-      d.mey = temp;
-    }
-    // Calculate the new Mandelbrot plane coordinates
-    double nsx, nex, nsy, ney;
-    nsx = dmap((double)d.msx, (double)0, (double)d.w, d.sx, d.ex);
-    nex = dmap((double)d.mex, (double)0, (double)d.w, d.sx, d.ex);
-    nsy = dmap((double)d.msy, (double)0, (double)d.h, d.sy, d.ey);
-    ney = dmap((double)d.mey, (double)0, (double)d.h, d.sy, d.ey);
-    makeNewBrotWindow(nsx, nex, nsy, ney, GWindow.CLOSE_WINDOW);
-    d.msx = d.mex = d.msy = d.mey = 0;
-    appc.noLoop();
-    break;
-  case MouseEvent.DRAG:
-    d.mex = appc.mouseX;
-    d.mey = appc.mouseY;
-    break;
-  }
-}
-
-/**
- * Copied from PApplet and converted floats to doubles 
- * @param value
- * @param istart
- * @param istop
- * @param ostart
- * @param ostop
- * @return
- */
-double dmap(double value, double istart, double istop, double ostart, double ostop) {
-  return ostart + (ostop - ostart) * ((value - istart) / (istop - istart));
+  MandelbrotData mm = new MandelbrotData(nsx, nsy, nex, ney, w, h);
+  window = GWindow.getWindow(this, title, winPosX, winPosY, w, h, JAVA2D);
+  winPosX = (winPosX + w + 20)%(displayWidth - MAX_WIDTH);
+  winPosY = (winPosY + 20)%(displayHeight - MAX_HEIGHT);
+  window.addData(mm);
+  window.addDrawHandler(this, "renderPlot");
+  window.addMouseHandler(this, "processMouseEvent");
+  window.setActionOnClose(G4P.CLOSE_WINDOW);
+  new Thread(mm).start();
 }
 
 /**
  * Handles drawing to the windows PApplet area
  * 
- * @param appc the PApplet object embeded into the frame
- * @param data the data for the GWindow being used
+ * @param appc main sketch of window showing the Mandelbrot plot.
+ * @param data the data for the Mandelbrot plot (each plot has its own unique data)
  */
-public void windowDraw(PApplet appc, GWinData data) {
-  MyWinData d = (MyWinData)data;
-  if (d.imgDone) {
-    appc.image(d.img, 0, 0);
-    if (d.msx != d.mex || d.msy != d.mey) {
-      appc.strokeWeight(2);
-      appc.stroke(255);
-      appc.noFill();
-      appc.rectMode(CORNERS);
-      appc.rect(d.msx, d.msy, d.mex, d.mey);
+void renderPlot(PApplet appc, GWinData data) {
+  MandelbrotData d = (MandelbrotData)data;
+  appc.image(d.pg, 0, 0);
+  // Draw selection box
+  if (d.msx != d.mex || d.msy != d.mey) {
+    appc.strokeWeight(2);
+    appc.stroke(255);
+    appc.noFill();
+    appc.rectMode(CORNERS);
+    appc.rect(d.msx, d.msy, d.mex, d.mey);
+  }
+}
+
+/**
+ * Create the colors to be used in the plots.
+ */
+void createColours() {
+  colorMode(HSB, 1.0f, 1.0f, 1.0f);
+  float hue = 0.0f;
+  float deltaHue = 0.95f / MAX_NBR_COLORS;
+  float deltaBrightness = 0.2f / MAX_COLOR_LOOPS;
+  for (int ln = 0; ln < MAX_COLOR_LOOPS; ln++) {
+    for (int cn = 0; cn < MAX_NBR_COLORS; cn++) {
+      colors[ln * MAX_NBR_COLORS + cn] = color(hue + cn * deltaHue, 1.0f, 1.0f - ln * deltaBrightness);
     }
   }
-}
-
-/**
- A basic complex number class.
- */
-class Complex {
-  public double real;
-  public double img;
-
-  Complex() {
-    real = img = 0.0f;
-  }
-
-  public Complex(float r, float i) {
-    super();
-    this.real = r;
-    this.img = i;
-  }
-
-  public void set(double colX, double rowY) {
-    real = colX;
-    img = rowY;
-  }
-
-  public Complex add(Complex c) {
-    real += c.real;
-    img += c.img;
-    return this;
-  }
-
-  public void mult(Complex c) {
-    double nReal = real * c.real - img * c.img;
-    double nImg = real * c.img + img * c.real;
-    real = nReal;
-    img = nImg;
-  }
-
-  public Complex squared() {
-    double nReal = (real - img)*(real + img);
-    double nImg = 2 * real * img;
-    real = nReal;
-    img = nImg;  
-    return this;
-  }
-
-  public double sizeSquared() {
-    return real * real + img * img;
-  }
-}
-
-/**
- * Simple class that extends GWinData and holds the data that is specific
- * to a particular window.
- */
-class MyWinData extends GWinData {
-
-  public int msx, msy, mex, mey;
-  public double sx, sy, ex, ey;
-  public int w, h;
-  public PImage img;
-  public boolean imgDone;
+  colorMode(RGB, 256, 256, 256);
+  colors[MAX_ITERATE - 1] = color(0);
 }

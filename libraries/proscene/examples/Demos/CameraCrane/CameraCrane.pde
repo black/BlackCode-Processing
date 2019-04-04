@@ -60,8 +60,8 @@ public void setup() {
   armCam = new ArmCam(60, -60, 2);
   heliCam = new HeliCam();
 
-  heliScene.camera().frame().fromFrame(heliCam.frame(3));
-  armScene.camera().frame().fromFrame(armCam.frame(5));  
+  heliScene.camera().frame().setWorldMatrix(heliCam.frame(3));
+  armScene.camera().frame().setWorldMatrix(armCam.frame(5));  
 
   armScene.eyeFrame().setMotionBinding(LEFT, "lookAround");
   armScene.eyeFrame().setMotionBinding(CENTER, null);
@@ -77,58 +77,22 @@ public void setup() {
 
 // off-screen rendering
 public void draw() {
-  handleMouse();
   InteractiveFrame.sync(armScene.camera().frame(), armCam.frame(5));
   InteractiveFrame.sync(heliScene.camera().frame(), heliCam.frame(3));
-  canvas.beginDraw();
   mainScene.beginDraw();
   drawing(mainScene);
   mainScene.endDraw();
-  canvas.endDraw();
-  image(canvas, 0, 0);
+  mainScene.display();
 
-  armCanvas.beginDraw();
   armScene.beginDraw();
   drawing(armScene);
   armScene.endDraw();
-  armCanvas.endDraw();
-  // We retrieve the scene upper left coordinates defined above.
-  image(armCanvas, armScene.originCorner().x(), armScene.originCorner().y());
+  armScene.display();
 
-  heliCanvas.beginDraw();
   heliScene.beginDraw();
   drawing(heliScene);
   heliScene.endDraw();
-  heliCanvas.endDraw();
-  // We retrieve the scene upper left coordinates defined above.
-  image(heliCanvas, heliScene.originCorner().x(), heliScene.originCorner().y());
-}
-
-public void handleMouse() {
-  if (mouseY < canvas.height) {
-    mainScene.enableMotionAgent();
-    mainScene.enableKeyboardAgent();
-    armScene.disableMotionAgent();
-    armScene.disableKeyboardAgent();
-    heliScene.disableMotionAgent();
-    heliScene.disableKeyboardAgent();
-  } else {
-    if (mouseX < canvas.width / 2) {
-      mainScene.disableMotionAgent();
-      mainScene.disableKeyboardAgent();
-      armScene.enableMotionAgent();
-      armScene.enableKeyboardAgent();
-      heliScene.disableMotionAgent();
-      heliScene.disableKeyboardAgent();
-    } else {
-      mainScene.disableMotionAgent();
-      mainScene.disableKeyboardAgent();
-      armScene.disableMotionAgent();
-      armScene.disableKeyboardAgent();
-      heliScene.enableMotionAgent();
-      heliScene.enableKeyboardAgent();
-    }
-  }
+  heliScene.display();
 }
 
 // the actual drawing function, shared by the two scenes

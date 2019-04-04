@@ -99,6 +99,11 @@ public interface GConstants {
 	int ORIENT_TRACK 	=  0;
 	int ORIENT_RIGHT	=  1;
 	
+	// Mouse wheel direction constants. FORWARD is default
+	// Do not change these values as they are used directly
+	int FORWARD			= 1;	// Default value 
+	int REVERSE			= -1;
+	
 	// Stick mode
 	int X4 				= 1;
 	int X8 				= 2;

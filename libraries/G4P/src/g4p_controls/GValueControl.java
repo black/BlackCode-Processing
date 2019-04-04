@@ -55,6 +55,7 @@ public abstract class GValueControl extends GAbstractControl {
 	protected int nbrTicks = 2;
 	protected boolean stickToTicks = false;
 	protected boolean showTicks = false;
+	protected float wheelDelta = WHEEL_DELTA;
 	
 	protected boolean limitsInvalid = true;
 	protected boolean valueInvalid = true;
@@ -62,10 +63,21 @@ public abstract class GValueControl extends GAbstractControl {
 	// Offset to between mouse and thumb centre
 	protected float offset;
 	
+	/**
+	 * Base class for sliders and knobs
+	 * @param theApplet  the main sketch or GWindow control for this control
+	 * @param p0 x position based on control mode
+	 * @param p1 y position based on control mode
+	 * @param p2 x position or width based on control mode
+	 * @param p3 y position or height based on control mode
+	 */
 	public GValueControl(PApplet theApplet, float p0, float p1, float p2, float p3) {
 		super(theApplet, p0, p1, p2, p3);
 	}
 	
+	/**
+	 * Handle easing
+	 */
 	public void pre(){
 		if(Math.abs(parametricTarget - parametricPos) > epsilon){
 			parametricPos += (parametricTarget - parametricPos) / easing;
@@ -152,8 +164,8 @@ public abstract class GValueControl extends GAbstractControl {
 	 * Sets the range of values to be returned. This method will
 	 * assume that you want to set the valueType to DECIMAL
 	 * 
-	 * @param start
-	 * @param end
+	 * @param start the start value of the range
+	 * @param end the end value of the range
 	 */
 	public void setLimits(float start, float end){
 		startLimit = start;
@@ -194,7 +206,7 @@ public abstract class GValueControl extends GAbstractControl {
 	/**
 	 * Set the value for the slider. <br>
 	 * The user must ensure that the value is valid for the slider range.
-	 * @param v
+	 * @param v the new value for this control
 	 */
 	public void setValue(float v){
 		if(valueType == INTEGER)
@@ -209,7 +221,7 @@ public abstract class GValueControl extends GAbstractControl {
 	/**
 	 * For DECIMAL values this sets the number of decimal places to 
 	 * be displayed.
-	 * @param nd must be >= 1 otherwise will use 1
+	 * @param nd must be &ge; 1 otherwise will use 1
 	 */
 	public void setPrecision(int nd){
 		nd = PApplet.constrain(nd, 1, 5);
@@ -251,10 +263,10 @@ public abstract class GValueControl extends GAbstractControl {
 	/**
 	 * Set the numberFormat, precision and units in one go. <br>
 	 * Valid number formats are INTEGER, DECIMAL, EXPONENT <br>
-	 * Precision must be >= 1 and is ignored for INTEGER.
+	 * Precision must be &ge; 1 and is ignored for INTEGER.
 	 * 
 	 * @param numberFormat INTEGER, DECIMAL or EXPONENT
-	 * @param precision must be >= 1
+	 * @param precision must be &ge; 1
 	 * @param unit for example  kg, m, ($), fps
 	 */
 	public void setNumberFormat(int numberFormat, int precision, String unit){
@@ -265,10 +277,10 @@ public abstract class GValueControl extends GAbstractControl {
 	/**
 	 * Set the numberFormat and precision in one go. <br>
 	 * Valid number formats are INTEGER, DECIMAL, EXPONENT <br>
-	 * Precision must be >= 1 and is ignored for INTEGER.
+	 * Precision must be &ge; 1 and is ignored for INTEGER.
 	 * 
 	 * @param numberFormat G4P.INTEGER, G4P.DECIMAL orG4P. EXPONENT
-	 * @param precision must be >= 1
+	 * @param precision must be &ge; 1
 	 */
 	public void setNumberFormat(int numberFormat, int precision){
 		switch(numberFormat){
@@ -287,7 +299,7 @@ public abstract class GValueControl extends GAbstractControl {
 	/**
 	 * Set the numberFormat and precision in one go. <br>
 	 * Valid number formats are INTEGER, DECIMAL, EXPONENT <br>
-	 * Precision must be >= 1 and is ignored for INTEGER.
+	 * Precision must be &ge; 1 and is ignored for INTEGER.
 	 * 
 	 * @param numberFormat G4P.INTEGER, G4P.DECIMAL or G4P.EXPONENT
 	 */
@@ -305,14 +317,14 @@ public abstract class GValueControl extends GAbstractControl {
 	}
 	
 	/**
-	 * Get the current value as a float
+	 * @return the current value as a float
 	 */
 	public float getValueF(){
 		return startLimit + (endLimit - startLimit) * parametricPos;
 	}
 
 	/**
-	 * Get the current value as an integer. <br>
+	 * @return the current value as an integer. <br>
 	 * DECIMAL and EXPONENT value types will be rounded to the nearest integer.
 	 */
 	public int getValueI(){
@@ -323,6 +335,7 @@ public abstract class GValueControl extends GAbstractControl {
 	 * If we are using labels then this will get the label text
 	 * associated with the current value. <br>
 	 * If labels have not been set then return null
+	 * @return the value as text
 	 */
 	public String getValueS(){
 		return getNumericDisplayString(getValueF());
@@ -338,7 +351,7 @@ public abstract class GValueControl extends GAbstractControl {
 
 	/**
 	 * Set the amount of easing to be used when a value is changing. The default value
-	 * is 1 (no easing) values > 1 will cause the value to rush from its starting value
+	 * is 1 (no easing) values &gt; 1 will cause the value to rush from its starting value
 	 * and decelerate towards its final values. In other words it smoothes the movement
 	 * of the slider thumb or knob rotation.
 	 * 
@@ -357,7 +370,7 @@ public abstract class GValueControl extends GAbstractControl {
 	}
 
 	/**
-	 * The number of ticks must be >= 2 since 2 are required for the slider limits.
+	 * The number of ticks must be &ge;2 since 2 are required for the slider limits.
 	 * 
 	 * @param noOfTicks the nbrTicks to set
 	 */
@@ -367,17 +380,11 @@ public abstract class GValueControl extends GAbstractControl {
 		if(nbrTicks != noOfTicks){
 			nbrTicks = noOfTicks;
 			bufferInvalid = true;
-			if(stickToTicks)
+			if(stickToTicks){
+				wheelDelta = WHEEL_STICK_FACTOR / (nbrTicks - 1);
 				parametricTarget = findNearestTickValueTo(parametricPos);
+			}
 		}
-	}
-
-	/**
-	 * Is the value constrained to the tick marks?
-	 * @return the stickToTicks true if values constrained else false
-	 */
-	public boolean isStickToTicks() {
-		return stickToTicks;
 	}
 
 	/**
@@ -389,10 +396,23 @@ public abstract class GValueControl extends GAbstractControl {
 		this.stickToTicks = stickToTicks;
 		if(stickToTicks){
 			setShowTicks(true);
+			wheelDelta = WHEEL_STICK_FACTOR / (nbrTicks - 1);
 			parametricTarget = findNearestTickValueTo(parametricPos);
 			bufferInvalid = true;
 		}
+		else {
+			wheelDelta = WHEEL_DELTA;
+		}
 	}
+
+	/**
+	 * Is the value constrained to the tick marks?
+	 * @return the stickToTicks true if values constrained else false
+	 */
+	public boolean isStickToTicks() {
+		return stickToTicks;
+	}
+
 
 	/**
 	 * These are normalised values i.e. between 0.0 and 1.0 inclusive
@@ -403,6 +423,19 @@ public abstract class GValueControl extends GAbstractControl {
 		float tickSpace = 1.0f / (nbrTicks - 1);
 		int tn =  (int) (p / tickSpace + 0.5f);
 		return tickSpace * tn;
+	}
+	
+	/**
+	 * Calculate the correct value of the parametticTarget
+	 * 
+	 * @param pt the value to correct
+	 * @return the corrected value 0.0 - 1.0 incl
+	 */
+	protected float calcParametricTarget(float pt){
+		pt = pt < 0 ? 0 : pt > 1 ? 1 : pt;
+		if(stickToTicks)
+			pt = findNearestTickValueTo(pt);
+		return pt;
 	}
 	
 	/**

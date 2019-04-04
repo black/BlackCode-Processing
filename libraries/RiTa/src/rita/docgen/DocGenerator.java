@@ -34,7 +34,7 @@ public class DocGenerator extends PApplet
   
   static String[] CLASS_NAMES = { 
     "RiTa", "RiString","RiText","RiGrammar",
-    "RiMarkov","RiLexicon","RiTaEvent","RiWordNet" 
+    "RiMarkov","RiTaEvent","RiWordNet" 
   };
 
   static boolean DBUG = false;
@@ -73,7 +73,7 @@ public class DocGenerator extends PApplet
     }
 
     outputTemplate = DATA_DIR + "/"+OUTPUT_TYPE+"/template."+OUTPUT_TYPE;
-        
+    System.out.println("Total files to generate:" + CLASS_NAMES.length);   
     for (int i = 0; i < CLASS_NAMES.length; i++)
     {
       pln("\n******     " + CLASS_NAMES[i] + "     ******\n");

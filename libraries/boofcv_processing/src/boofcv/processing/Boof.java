@@ -20,6 +20,7 @@ package boofcv.processing;
 
 import boofcv.abst.feature.associate.AssociateDescription;
 import boofcv.abst.feature.associate.ScoreAssociation;
+import boofcv.abst.feature.detdesc.ConfigCompleteSift;
 import boofcv.abst.feature.detdesc.DetectDescribePoint;
 import boofcv.abst.feature.detect.interest.ConfigGeneralDetector;
 import boofcv.abst.feature.tracker.PointTracker;
@@ -29,12 +30,17 @@ import boofcv.abst.tracker.ConfigCirculantTracker;
 import boofcv.abst.tracker.ConfigComaniciu2003;
 import boofcv.abst.tracker.ConfigTld;
 import boofcv.abst.tracker.TrackerObjectQuad;
+import boofcv.alg.feature.detect.template.TemplateMatching;
 import boofcv.alg.filter.derivative.GImageDerivativeOps;
 import boofcv.alg.flow.ConfigBroxWarping;
 import boofcv.alg.tracker.klt.PkltConfig;
 import boofcv.alg.tracker.sfot.SfotConfig;
+import boofcv.factory.background.ConfigBackgroundBasic;
+import boofcv.factory.background.ConfigBackgroundGmm;
 import boofcv.factory.feature.associate.FactoryAssociation;
 import boofcv.factory.feature.detdesc.FactoryDetectDescribe;
+import boofcv.factory.feature.detect.template.FactoryTemplateMatching;
+import boofcv.factory.feature.detect.template.TemplateScoreType;
 import boofcv.factory.feature.tracker.FactoryPointTracker;
 import boofcv.factory.fiducial.ConfigFiducialBinary;
 import boofcv.factory.fiducial.ConfigFiducialImage;
@@ -45,9 +51,15 @@ import boofcv.factory.flow.ConfigHornSchunck;
 import boofcv.factory.flow.ConfigHornSchunckPyramid;
 import boofcv.factory.flow.ConfigOpticalFlowBlockPyramid;
 import boofcv.factory.flow.FactoryDenseOpticalFlow;
+import boofcv.factory.scene.ClassifierAndSource;
+import boofcv.factory.scene.FactoryImageClassifier;
 import boofcv.factory.segmentation.*;
 import boofcv.factory.tracker.FactoryTrackerObjectQuad;
 import boofcv.struct.image.*;
+import georegression.geometry.ConvertRotation3D_F64;
+import georegression.struct.EulerType;
+import georegression.struct.so.Rodrigues_F64;
+import org.ejml.data.DMatrixRMaj;
 import processing.core.PConstants;
 import processing.core.PImage;
 
@@ -66,7 +78,7 @@ public class Boof {
 	 */
 	public static SimpleGray gray(PImage image, ImageDataType type) {
 		if (type == ImageDataType.F32) {
-			ImageFloat32 out = new ImageFloat32(image.width, image.height);
+			GrayF32 out = new GrayF32(image.width, image.height);
 
 			switch (image.format) {
 				case PConstants.RGB:
@@ -80,7 +92,7 @@ public class Boof {
 
 			return new SimpleGray(out);
 		} else if (type == ImageDataType.U8) {
-			ImageUInt8 out = new ImageUInt8(image.width, image.height);
+			GrayU8 out = new GrayU8(image.width, image.height);
 
 			switch (image.format) {
 				case PConstants.RGB:
@@ -106,13 +118,13 @@ public class Boof {
 	 */
 	public static SimpleColor colorMS(PImage image, ImageDataType type) {
 		if (type == ImageDataType.F32) {
-			MultiSpectral<ImageFloat32> out =
-					new MultiSpectral<ImageFloat32>(ImageFloat32.class, image.width, image.height, 3);
+			Planar<GrayF32> out =
+					new Planar<GrayF32>(GrayF32.class, image.width, image.height, 3);
 
 			switch (image.format) {
 				case PConstants.RGB:
 				case PConstants.ARGB:
-					ConvertProcessing.convert_RGB_MSF32(image, out);
+					ConvertProcessing.convert_RGB_PF32(image, out);
 					break;
 
 				default:
@@ -121,13 +133,13 @@ public class Boof {
 
 			return new SimpleColor(out);
 		} else if (type == ImageDataType.U8) {
-			MultiSpectral<ImageUInt8> out =
-					new MultiSpectral<ImageUInt8>(ImageUInt8.class, image.width, image.height, 3);
+			Planar<GrayU8> out =
+					new Planar<GrayU8>(GrayU8.class, image.width, image.height, 3);
 
 			switch (image.format) {
 				case PConstants.RGB:
 				case PConstants.ARGB:
-					ConvertProcessing.convert_RGB_MSU8(image, out);
+					ConvertProcessing.convert_RGB_PU8(image, out);
 					break;
 
 				default:
@@ -251,11 +263,11 @@ public class Boof {
 
 	public static SimpleDetectDescribePoint detectSift( ImageDataType imageType ) {
 		if( imageType != ImageDataType.F32 )
-			throw new IllegalArgumentException("Only ImageFloat32 is supported, e.g. ImageDataType.F32");
+			throw new IllegalArgumentException("Only GrayF32 is supported, e.g. ImageDataType.F32");
 
-		DetectDescribePoint ddp = FactoryDetectDescribe.sift(null,null,null,null);
+		DetectDescribePoint ddp = FactoryDetectDescribe.sift(new ConfigCompleteSift());
 
-		return new SimpleDetectDescribePoint(ddp, ImageType.single(ImageFloat32.class));
+		return new SimpleDetectDescribePoint(ddp, ImageType.single(GrayF32.class));
 	}
 
 	public static SimpleAssociateDescription associateGreedy( SimpleDetectDescribePoint detector ,
@@ -275,7 +287,7 @@ public class Boof {
 	 */
 	public static SimpleFiducial fiducialSquareBinaryRobust( double width  ) {
 		return new SimpleFiducial(FactoryFiducial.squareBinary(new ConfigFiducialBinary(width),
-				ConfigThreshold.local(ThresholdType.LOCAL_SQUARE, 15), ImageUInt8.class));
+				ConfigThreshold.local(ThresholdType.LOCAL_MEAN, 15), GrayU8.class));
 	}
 
 	/**
@@ -283,7 +295,7 @@ public class Boof {
 	 */
 	public static SimpleFiducialSquareImage fiducialSquareImageRobust() {
 		return new SimpleFiducialSquareImage(FactoryFiducial.squareImage(new ConfigFiducialImage(),
-				ConfigThreshold.local(ThresholdType.LOCAL_SQUARE,15), ImageUInt8.class));
+				ConfigThreshold.local(ThresholdType.LOCAL_MEAN,15), GrayU8.class));
 	}
 
 	/**
@@ -294,7 +306,7 @@ public class Boof {
 	 */
 	public static SimpleFiducial fiducialSquareBinary( double width , int threshold ) {
 		return new SimpleFiducial(FactoryFiducial.squareBinary(new ConfigFiducialBinary(width),
-				ConfigThreshold.fixed(threshold), ImageUInt8.class));
+				ConfigThreshold.fixed(threshold), GrayU8.class));
 	}
 
 	/**
@@ -304,7 +316,61 @@ public class Boof {
 	 */
 	public static SimpleFiducialSquareImage fiducialSquareImage( int threshold ) {
 		return new SimpleFiducialSquareImage(FactoryFiducial.squareImage(new ConfigFiducialImage(),
-				ConfigThreshold.fixed(threshold), ImageUInt8.class));
+				ConfigThreshold.fixed(threshold), GrayU8.class));
 	}
 
+	/**
+	 * Returns a class for converting equirectangular images into pinhole images
+	 */
+	public static EquirectangularToPinhole equirectangularToPinhole() {
+		return new EquirectangularToPinhole();
+	}
+
+	public static DMatrixRMaj eulerXYZ(double rotX , double rotY , double rotZ ) {
+		return ConvertRotation3D_F64.eulerToMatrix(EulerType.XYZ,rotX,rotY,rotZ,null);
+	}
+
+	public static DMatrixRMaj rodrigues( double angle , double axisX , double axisY , double axisZ ) {
+		return ConvertRotation3D_F64.rodriguesToMatrix(new Rodrigues_F64(angle,axisX,axisY,axisZ),null);
+	}
+
+	public static DMatrixRMaj quaternion( double w , double x , double y , double z ) {
+		return ConvertRotation3D_F64.quaternionToMatrix(w,x,y,z,null);
+	}
+
+	public static SimpleImageClassification imageClassification( String which ) {
+		ClassifierAndSource cs;
+		if( which.compareTo("VGG") == 0 ) {
+			cs = FactoryImageClassifier.vgg_cifar10();
+		} else if( which.compareTo("NIN") == 0 ) {
+			cs = FactoryImageClassifier.nin_imagenet();
+		} else {
+			throw new IllegalArgumentException("Unknown model.  Valid options.  VGG, NIN");
+		}
+
+		return new SimpleImageClassification(cs);
+	}
+
+	public static SimpleQrCode detectQR() {
+		return new SimpleQrCode();
+	}
+
+	public static PImage renderQR( String message , int pixelPerModule ) {
+		return SimpleQrCode.generate(message,pixelPerModule);
+	}
+
+	public static SimpleMotionDetection motionDetector( ConfigBackgroundGmm config ) {
+		return new SimpleMotionDetection(config);
+	}
+
+	public static SimpleMotionDetection motionDetector( ConfigBackgroundBasic config ) {
+		return new SimpleMotionDetection(config);
+	}
+
+	public static SimpleTemplateMatching templateMatching( TemplateScoreType type ) {
+		if( type == null )
+			type = TemplateScoreType.SUM_DIFF_SQ;
+		TemplateMatching<GrayU8> alg =  FactoryTemplateMatching.createMatcher(type,GrayU8.class);
+		return new SimpleTemplateMatching(alg);
+	}
 }

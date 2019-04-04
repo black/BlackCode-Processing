@@ -3,7 +3,7 @@
  * Pick an object in a 3D scene easily.
  * http://n.clavaud.free.fr/processing/library/picking/
  *
- * Copyright (c) 2013 Nicolas Clavaud http://n.clavaud.free.fr/
+ * Copyright (c) 2013-2016 Nicolas Clavaud http://n.clavaud.free.fr/
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,8 +21,8 @@
  * Boston, MA  02111-1307  USA
  * 
  * @author      Nicolas Clavaud http://n.clavaud.free.fr/
- * @modified    08/27/2013
- * @version     0.2.1 (6)
+ * @modified    11/03/2016
+ * @version     0.3.1 (8)
  */
 
 package picking;
@@ -30,7 +30,7 @@ package picking;
 import processing.core.*;
 
 public class Picker {
-  public final static String VERSION = "0.2.1";
+  public final static String VERSION = "0.3.1";
 
   /**
    * Processing applet
@@ -47,8 +47,9 @@ public class Picker {
   public Picker(PApplet parent) {
     this.parent = parent;
     buffer = (Buffer) parent.createGraphics(parent.width, parent.height, "picking.Buffer");
-    buffer.callCheckSettings();
+    buffer.beginDraw();
     buffer.background(0);
+    buffer.endDraw();
 
     parent.registerMethod("pre", this);
     parent.registerMethod("draw", this);
@@ -126,6 +127,6 @@ public class Picker {
   }
 
   private void welcome() {
-    System.out.println("Picking 0.2.1 by Nicolas Clavaud http://n.clavaud.free.fr/");
+    System.out.println("Picking 0.3.1 by Nicolas Clavaud http://n.clavaud.free.fr/");
   }
 }

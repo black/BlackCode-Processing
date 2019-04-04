@@ -48,9 +48,8 @@ import processing.core.PImage;
  * <li>red_yellow18px</li>
  * <li>blue18px</li>
  * <li>purple18px</li>
- * </ul
- * <p>
- * A skin requires 5 image files for different parts of the slider which must be stored in their own 
+ * </ul>
+ * <p>A skin requires 5 image files for different parts of the slider which must be stored in their own 
  * folder (the folder name is also used as the skin name) and this folder should be place inside the 
  * sketch's data folder.</p>
  * <p>The image files have specific names. 
@@ -60,7 +59,7 @@ import processing.core.PImage;
  * <li>An extendible centre segment(<b>centre.???</b>)</li>
  * <li>Draggable thumb (<b>handle.???</b> and <b>handle_mouseover.???</b>)</li>
  * </ul>
- * Where ??? is the image type file extension. The image type can be any that Processing can handle, the
+ * <p>Where ??? is the image type file extension. The image type can be any that Processing can handle, the
  * most common types will be png, jpg or gif but tga is also permitted</p>
  * 
  * <p>There are very few restrictions about the images you use but when designing the images you should consider
@@ -89,11 +88,11 @@ public class GCustomSlider extends GLinearTrackControl {
 	/**
 	 * Create a custom slider using the default skin.
 	 * 
-	 * @param theApplet
-	 * @param p0
-	 * @param p1
-	 * @param p2
-	 * @param p3
+	 * @param theApplet  the main sketch or GWindow control for this control
+	 * @param p0 x position based on control mode
+	 * @param p1 y position based on control mode
+	 * @param p2 x position or width based on control mode
+	 * @param p3 y position or height based on control mode
 	 */
 	public GCustomSlider(PApplet theApplet, float p0, float p1, float p2, float p3) {
 		this(theApplet, p0, p1, p2, p3, null);
@@ -102,15 +101,17 @@ public class GCustomSlider extends GLinearTrackControl {
 	/**
 	 * Create a custom slider using the skin specified.
 	 * 
-	 * @param theApplet
-	 * @param p0
-	 * @param p1
-	 * @param p2
-	 * @param p3
+	 * @param theApplet  the main sketch or GWindow control for this control
+	 * @param p0 x position based on control mode
+	 * @param p1 y position based on control mode
+	 * @param p2 x position or width based on control mode
+	 * @param p3 y position or height based on control mode
 	 * @param skin the name of the skin (this is also the name of the folder holding the images)
 	 */
 	public GCustomSlider(PApplet theApplet, float p0, float p1, float p2, float p3, String skin) {
 		super(theApplet, p0, p1, p2, p3);
+		makeBuffer();
+
 		skin = (skin == null) ? "grey_blue" : skin.trim();
 		setStyle(skin);
 		
@@ -180,7 +181,7 @@ public class GCustomSlider extends GLinearTrackControl {
 			g2d.setFont(localFont);
 
 			// Back ground colour
-			buffer.background(opaque ? palette[6].getRGB() : palette[2].getRGB() & 0xFFFFFF);
+			buffer.background(opaque ? palette[6].getRGB() : palette[2].getRGB() & 0xFFFFFF | 0x00010101);
 			// Draw track, thumb, ticks etc.
 			buffer.pushMatrix();
 			buffer.translate(width/2, height/2);

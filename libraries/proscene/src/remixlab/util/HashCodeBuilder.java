@@ -21,7 +21,7 @@ package remixlab.util;
  * <p>
  * Assists in implementing {@link Object#hashCode()} methods.
  * </p>
- * 
+ * <p>
  * <p>
  * This class enables a good <code>hashCode</code> method to be built for any class. It
  * follows the rules laid out in the book
@@ -29,24 +29,24 @@ package remixlab.util;
  * Joshua Bloch. Writing a good <code>hashCode</code> method is actually quite difficult.
  * This class aims to simplify the process.
  * </p>
- * 
+ * <p>
  * <p>
  * All relevant fields from the object should be included in the <code>hashCode</code>
  * method. Derived fields may be excluded. In general, any field used in the
  * <code>equals</code> method must be used in the <code>hashCode</code> method.
  * </p>
- * 
+ * <p>
  * <p>
  * To use this class write code as follows:
  * </p>
- * 
+ * <p>
  * <pre>
  * public class Person {
  *   String name;
  *   int age;
  *   boolean smoker;
  *   ...
- * 
+ *
  *   public int hashCode() {
  *     // you pick a hard-coded, randomly chosen, non-zero, odd number
  *     // ideally different for each class
@@ -58,12 +58,12 @@ package remixlab.util;
  *   }
  * }
  * </pre>
- * 
+ * <p>
  * <p>
  * If required, the superclass <code>hashCode()</code> can be added using
  * {@link #appendSuper}.
  * </p>
- * 
+ * <p>
  * <p>
  * Alternatively, there is a method that uses reflection to determine the fields to test.
  * Because these fields are usually private, the method, <code>reflectionHashCode</code>,
@@ -71,17 +71,17 @@ package remixlab.util;
  * fields. This will fail under a security manager, unless the appropriate permissions are
  * set up correctly. It is also slower than testing explicitly.
  * </p>
- * 
+ * <p>
  * <p>
  * A typical invocation for this method would look like:
  * </p>
- * 
+ * <p>
  * <pre>
  * public int hashCode() {
  *   return HashCodeBuilder.reflectionHashCode(this);
  * }
  * </pre>
- * 
+ *
  * @author Apache Software Foundation
  * @author Gary Gregory
  * @author Pete Gieser
@@ -116,17 +116,14 @@ public class HashCodeBuilder {
    * Two randomly chosen, non-zero, odd numbers must be passed in. Ideally these should be
    * different for each class, however this is not vital.
    * </p>
-   * 
+   * <p>
    * <p>
    * Prime numbers are preferred, especially for the multiplier.
    * </p>
-   * 
-   * @param initialNonZeroOddNumber
-   *          a non-zero, odd number used as the initial value
-   * @param multiplierNonZeroOddNumber
-   *          a non-zero, odd number used as the multiplier
-   * @throws IllegalArgumentException
-   *           if the number is zero or even
+   *
+   * @param initialNonZeroOddNumber    a non-zero, odd number used as the initial value
+   * @param multiplierNonZeroOddNumber a non-zero, odd number used as the multiplier
+   * @throws IllegalArgumentException if the number is zero or even
    */
   public HashCodeBuilder(int initialNonZeroOddNumber, int multiplierNonZeroOddNumber) {
     if (initialNonZeroOddNumber == 0) {
@@ -153,9 +150,8 @@ public class HashCodeBuilder {
    * This adds <code>iConstant * 1</code> to the <code>hashCode</code> and not a
    * <code>1231</code> or <code>1237</code> as done in java.lang.Boolean.
    * </p>
-   * 
-   * @param value
-   *          the boolean to add to the <code>hashCode</code>
+   *
+   * @param value the boolean to add to the <code>hashCode</code>
    * @return this
    */
   public HashCodeBuilder append(boolean value) {
@@ -167,9 +163,8 @@ public class HashCodeBuilder {
    * <p>
    * Append a <code>hashCode</code> for a <code>boolean</code> array.
    * </p>
-   * 
-   * @param array
-   *          the array to add to the <code>hashCode</code>
+   *
+   * @param array the array to add to the <code>hashCode</code>
    * @return this
    */
   public HashCodeBuilder append(boolean[] array) {
@@ -189,9 +184,8 @@ public class HashCodeBuilder {
    * <p>
    * Append a <code>hashCode</code> for a <code>byte</code>.
    * </p>
-   * 
-   * @param value
-   *          the byte to add to the <code>hashCode</code>
+   *
+   * @param value the byte to add to the <code>hashCode</code>
    * @return this
    */
   public HashCodeBuilder append(byte value) {
@@ -205,9 +199,8 @@ public class HashCodeBuilder {
    * <p>
    * Append a <code>hashCode</code> for a <code>byte</code> array.
    * </p>
-   * 
-   * @param array
-   *          the array to add to the <code>hashCode</code>
+   *
+   * @param array the array to add to the <code>hashCode</code>
    * @return this
    */
   public HashCodeBuilder append(byte[] array) {
@@ -225,9 +218,8 @@ public class HashCodeBuilder {
    * <p>
    * Append a <code>hashCode</code> for a <code>char</code>.
    * </p>
-   * 
-   * @param value
-   *          the char to add to the <code>hashCode</code>
+   *
+   * @param value the char to add to the <code>hashCode</code>
    * @return this
    */
   public HashCodeBuilder append(char value) {
@@ -239,9 +231,8 @@ public class HashCodeBuilder {
    * <p>
    * Append a <code>hashCode</code> for a <code>char</code> array.
    * </p>
-   * 
-   * @param array
-   *          the array to add to the <code>hashCode</code>
+   *
+   * @param array the array to add to the <code>hashCode</code>
    * @return this
    */
   public HashCodeBuilder append(char[] array) {
@@ -259,9 +250,8 @@ public class HashCodeBuilder {
    * <p>
    * Append a <code>hashCode</code> for a <code>double</code>.
    * </p>
-   * 
-   * @param value
-   *          the double to add to the <code>hashCode</code>
+   *
+   * @param value the double to add to the <code>hashCode</code>
    * @return this
    */
   public HashCodeBuilder append(double value) {
@@ -272,9 +262,8 @@ public class HashCodeBuilder {
    * <p>
    * Append a <code>hashCode</code> for a <code>double</code> array.
    * </p>
-   * 
-   * @param array
-   *          the array to add to the <code>hashCode</code>
+   *
+   * @param array the array to add to the <code>hashCode</code>
    * @return this
    */
   public HashCodeBuilder append(double[] array) {
@@ -292,9 +281,8 @@ public class HashCodeBuilder {
    * <p>
    * Append a <code>hashCode</code> for a <code>float</code>.
    * </p>
-   * 
-   * @param value
-   *          the float to add to the <code>hashCode</code>
+   *
+   * @param value the float to add to the <code>hashCode</code>
    * @return this
    */
   public HashCodeBuilder append(float value) {
@@ -306,9 +294,8 @@ public class HashCodeBuilder {
    * <p>
    * Append a <code>hashCode</code> for a <code>float</code> array.
    * </p>
-   * 
-   * @param array
-   *          the array to add to the <code>hashCode</code>
+   *
+   * @param array the array to add to the <code>hashCode</code>
    * @return this
    */
   public HashCodeBuilder append(float[] array) {
@@ -326,9 +313,8 @@ public class HashCodeBuilder {
    * <p>
    * Append a <code>hashCode</code> for an <code>int</code>.
    * </p>
-   * 
-   * @param value
-   *          the int to add to the <code>hashCode</code>
+   *
+   * @param value the int to add to the <code>hashCode</code>
    * @return this
    */
   public HashCodeBuilder append(int value) {
@@ -340,9 +326,8 @@ public class HashCodeBuilder {
    * <p>
    * Append a <code>hashCode</code> for an <code>int</code> array.
    * </p>
-   * 
-   * @param array
-   *          the array to add to the <code>hashCode</code>
+   *
+   * @param array the array to add to the <code>hashCode</code>
    * @return this
    */
   public HashCodeBuilder append(int[] array) {
@@ -360,9 +345,8 @@ public class HashCodeBuilder {
    * <p>
    * Append a <code>hashCode</code> for a <code>long</code>.
    * </p>
-   * 
-   * @param value
-   *          the long to add to the <code>hashCode</code>
+   *
+   * @param value the long to add to the <code>hashCode</code>
    * @return this
    */
   // NOTE: This method uses >> and not >>> as Effective Java and
@@ -378,9 +362,8 @@ public class HashCodeBuilder {
    * <p>
    * Append a <code>hashCode</code> for a <code>long</code> array.
    * </p>
-   * 
-   * @param array
-   *          the array to add to the <code>hashCode</code>
+   *
+   * @param array the array to add to the <code>hashCode</code>
    * @return this
    */
   public HashCodeBuilder append(long[] array) {
@@ -398,9 +381,8 @@ public class HashCodeBuilder {
    * <p>
    * Append a <code>hashCode</code> for an <code>Object</code>.
    * </p>
-   * 
-   * @param object
-   *          the Object to add to the <code>hashCode</code>
+   *
+   * @param object the Object to add to the <code>hashCode</code>
    * @return this
    */
   public HashCodeBuilder append(Object object) {
@@ -442,9 +424,8 @@ public class HashCodeBuilder {
    * <p>
    * Append a <code>hashCode</code> for an <code>Object</code> array.
    * </p>
-   * 
-   * @param array
-   *          the array to add to the <code>hashCode</code>
+   *
+   * @param array the array to add to the <code>hashCode</code>
    * @return this
    */
   public HashCodeBuilder append(Object[] array) {
@@ -462,9 +443,8 @@ public class HashCodeBuilder {
    * <p>
    * Append a <code>hashCode</code> for a <code>short</code>.
    * </p>
-   * 
-   * @param value
-   *          the short to add to the <code>hashCode</code>
+   *
+   * @param value the short to add to the <code>hashCode</code>
    * @return this
    */
   public HashCodeBuilder append(short value) {
@@ -476,9 +456,8 @@ public class HashCodeBuilder {
    * <p>
    * Append a <code>hashCode</code> for a <code>short</code> array.
    * </p>
-   * 
-   * @param array
-   *          the array to add to the <code>hashCode</code>
+   *
+   * @param array the array to add to the <code>hashCode</code>
    * @return this
    */
   public HashCodeBuilder append(short[] array) {
@@ -496,9 +475,8 @@ public class HashCodeBuilder {
    * <p>
    * Adds the result of super.hashCode() to this builder.
    * </p>
-   * 
-   * @param superHashCode
-   *          the result of calling <code>super.hashCode()</code>
+   *
+   * @param superHashCode the result of calling <code>super.hashCode()</code>
    * @return this HashCodeBuilder, used to chain calls.
    * @since 2.0
    */
@@ -511,7 +489,7 @@ public class HashCodeBuilder {
    * <p>
    * Return the computed <code>hashCode</code>.
    * </p>
-   * 
+   *
    * @return <code>hashCode</code> based on the fields appended
    */
   public int toHashCode() {
@@ -520,9 +498,8 @@ public class HashCodeBuilder {
 
   /**
    * Returns the computed <code>hashCode</code>.
-   * 
+   *
    * @return <code>hashCode</code> based on the fields appended
-   * 
    * @since 3.0
    */
   public Integer build() {
@@ -534,7 +511,7 @@ public class HashCodeBuilder {
    * The computed <code>hashCode</code> from toHashCode() is returned due to the
    * likelyhood of bugs in mis-calling toHashCode() and the unlikelyness of it mattering
    * what the hashCode for HashCodeBuilder itself is.
-   * 
+   *
    * @return <code>hashCode</code> based on the fields appended
    * @since 2.5
    */

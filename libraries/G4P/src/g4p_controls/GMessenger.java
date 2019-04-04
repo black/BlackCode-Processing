@@ -56,7 +56,7 @@ class GMessenger implements GConstants, GConstantsInternal {
 			nonexistantEventHandler(info);
 			break;
 		case INVALID_TYPE:
-			inavlidControlType(info);
+			invalidControlType(info);
 			break;
 		case INVALID_PAPPLET:
 			unmatchedPApplet(info);
@@ -118,7 +118,6 @@ class GMessenger implements GConstants, GConstantsInternal {
 					output.append(", ");
 			}
 		}
-
 		output.append(") { /* code */ }\n");
 		System.out.println(output.toString());
 	}
@@ -157,10 +156,9 @@ class GMessenger implements GConstants, GConstantsInternal {
 	 * info[0] the group class
 	 * info[1] the G4P control class
 	 */
-	private static void inavlidControlType(Object[] info){
+	private static void invalidControlType(Object[] info){
 		String groupClassName = info[0].getClass().getSimpleName();
 		String className = info[1].getClass().getSimpleName();
-
 		System.out.println("Controls of type " + className+" cannot be added to a control group (" + groupClassName  + "\n");
 	}
 

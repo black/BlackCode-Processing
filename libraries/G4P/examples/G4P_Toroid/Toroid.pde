@@ -29,102 +29,106 @@ class Toroid {
 
   boolean modelChange = false;
 
-  public Toroid(){
+  public Toroid() {
     fillVertexArrays();
   }
 
-  public void setSegmentDetail(int segments){
+  public void setSegmentDetail(int segments) {
     this.segments = segments; 
     fillVertexArrays();
   }
 
-  public void setEllipseDetail(int points){
+  public void setEllipseDetail(int points) {
     pts = points;
     fillVertexArrays();
   }
 
-  public void setEllipseRadius(float eradius){
+  public void setEllipseRadius(float eradius) {
     radius = eradius;
     fillVertexArrays();
   }
 
-  public void setLatheRadius(float lradius){
+  public void setLatheRadius(float lradius) {
     latheRadius = lradius;
     fillVertexArrays();
   }
 
-  public void setIsHelix(boolean helix){
+  public void setIsHelix(boolean helix) {
     isHelix = helix;
     fillVertexArrays();
-}
+  }
 
-  public void setIsWire(boolean wire){
+  public void setIsWire(boolean wire) {
     isWireFrame = wire;
   }
 
-  void fillVertexArrays(){
+  void fillVertexArrays() {
     // initialize point arrays
     vertices = new PVector[pts+1];
     vertices2 = new PVector[pts+1];
 
     // fill arrays
-    for(int i=0; i<=pts; i++){
+    for (int i=0; i<=pts; i++) {
       vertices[i] = new PVector();
       vertices2[i] = new PVector();
       vertices[i].x = latheRadius + sin(radians(angle))*radius;
-      if (isHelix){
+      if (isHelix) {
         vertices[i].z = cos(radians(angle))*radius-(helixOffset* segments)/2;
-      } 
-      else{
+      } else {
         vertices[i].z = cos(radians(angle))*radius;
       }
       angle+=360.0/pts;
     }
   }
 
-  void draw(){
-    pushStyle();
-    if(isHelix)
+  void update(PGraphics3D pg) {
+    pg.beginDraw();
+    pg.background(230, 170, 80);
+    // lighting setup
+    pg.ambientLight(60, 80, 10);
+    pg.directionalLight(0, 128, 0, 0.5f, 1, -2f);
+    //center and spin toroid
+    pg.translate(view.width()/2, view.height()/2, -180);
+    pg.rotateX(frameCount*PI/133.0);
+    pg.rotateY(frameCount*PI/170.0);
+    pg.rotateZ(frameCount*PI/90.0);
+    // Toroid or helix
+    if (isHelix)
       fillVertexArrays();
-    pushMatrix();
-    if (isWireFrame){
-      stroke(64, 64, 128);
-      strokeWeight(1);
-      noFill();
-    } 
-    else {
-      noStroke();
-      fill(40, 40, 255);
+    // Wire frame or solid?
+    if (isWireFrame) {
+      pg.stroke(64, 140, 80);
+      pg.strokeWeight(1);
+      pg.noFill();
+    } else {
+      pg.noStroke();
+      pg.fill(60, 255, 180);
     }
-
-    // draw toroid
+    // Start rendering toroid or helix
     latheAngle = 0;
-    for(int i=0; i<=segments; i++){
-      beginShape(QUAD_STRIP);
-      for(int j=0; j<=pts; j++){
-        if (i>0){
-          vertex(vertices2[j].x, vertices2[j].y, vertices2[j].z);
+    for (int i=0; i<=segments; i++) {
+      pg.beginShape(QUAD_STRIP);
+      for (int j=0; j<=pts; j++) {
+        if (i>0) {
+          pg.vertex(vertices2[j].x, vertices2[j].y, vertices2[j].z);
         }
         vertices2[j].x = cos(radians(latheAngle))*vertices[j].x;
         vertices2[j].y = sin(radians(latheAngle))*vertices[j].x;
         vertices2[j].z = vertices[j].z;
         // optional helix offset
-        if (isHelix){
+        if (isHelix) {
           vertices[j].z+=helixOffset;
         } 
-        vertex(vertices2[j].x, vertices2[j].y, vertices2[j].z);
+        pg.vertex(vertices2[j].x, vertices2[j].y, vertices2[j].z);
       }
       // create extra rotation for helix
-      if (isHelix){
-        latheAngle+=720.0/segments;
-      } 
-      else {
-        latheAngle+=360.0/segments;
+      if (isHelix) {
+        latheAngle += 720.0/segments;
+      } else {
+        latheAngle += 360.0/segments;
       }
-      endShape();
+      pg.endShape();
     }
-    popMatrix();
-    popStyle();
+    pg.endDraw();
   }
-
 }

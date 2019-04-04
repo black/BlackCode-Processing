@@ -1,6 +1,6 @@
 /*******************************************************************************
  * dandelion_tree (version 1.0.0)
- * Copyright (c) 2014-2016 National University of Colombia, https://github.com/remixlab
+ * Copyright (c) 2014-2017 National University of Colombia, https://github.com/remixlab
  * @author Jean Pierre Charalambos, http://otrolado.info/
  *
  * All rights reserved. Library that eases the creation of interactive
@@ -10,7 +10,9 @@
 
 package remixlab.dandelion.geom;
 
-import remixlab.util.*;
+import remixlab.util.EqualsBuilder;
+import remixlab.util.HashCodeBuilder;
+import remixlab.util.Util;
 
 /**
  * A 2D {@link remixlab.dandelion.geom.Rotation} represented by an {@link #angle()}.
@@ -173,8 +175,7 @@ public class Rot implements Rotation {
     if ((Util.zero(fromNorm)) || (Util.zero(toNorm)))
       angle = 0;
     else
-      // angle =(float) Math.acos( (double)Vec.dot(from, to) / ( fromNorm *
-      // toNorm ));
+      // angle =(float) Math.acos( (double)Vec.dot(from, to) / ( fromNorm * toNorm ));
       angle = (float) Math.atan2(from.x() * to.y() - from.y() * to.x(), from.x() * to.x() + from.y() * to.y());
   }
 

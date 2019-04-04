@@ -1,6 +1,6 @@
 /**************************************************************************************
  * fpstiming_tree
- * Copyright (c) 2014-2016 National University of Colombia, https://github.com/remixlab
+ * Copyright (c) 2014-2017 National University of Colombia, https://github.com/remixlab
  * @author Jean Pierre Charalambos, http://otrolado.info/
  *
  * All rights reserved. Library that eases the creation of interactive
@@ -24,9 +24,8 @@ public class SeqTimer implements Timer {
 
   /**
    * Defines a single shot sequential (single-threaded) timer.
-   * 
-   * @param h
-   *          timing handler owner
+   *
+   * @param h timing handler owner
    */
   public SeqTimer(TimingHandler h) {
     this(h, false, null);
@@ -34,9 +33,8 @@ public class SeqTimer implements Timer {
 
   /**
    * Defines a sequential (single-threaded) timer.
-   * 
-   * @param h
-   *          timing handler owner
+   *
+   * @param h          timing handler owner
    * @param singleShot
    */
   public SeqTimer(TimingHandler h, boolean singleShot) {

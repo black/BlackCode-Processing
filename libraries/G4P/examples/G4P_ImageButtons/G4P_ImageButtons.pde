@@ -4,7 +4,7 @@
  image files.
  
  for Processing V2 and V3
- (c) 2015 Peter Lager
+ (c) 2018 Peter Lager
  */
 
 import g4p_controls.*;
@@ -17,22 +17,40 @@ void setup() {
   size(580, 220);
   cursor(CROSS);
   String[] files;
-
+  
+  // ###########################################################3
+  // INFO BUTTON
+  // get the images form mouse-off, -over and -pressed then
+  // create the button using a mask to define the hit-zone
   files = new String[] { 
     "infooff.png", "infoover.png", "infodown.png"
   };
   btnInfo = new GImageButton(this, 20, 14, files, "infomask.png");
 
+  // ###########################################################3
+  // GHOST BUTTON
+  // get the images form mouse-off, -over and -pressed then
+  // create the button using non-transparent pixels  to define 
+  // the hit-zone
   files = new String[] { 
     "ghost0.png", "ghost1.png", "ghost2.png"
   };
   btnGhost = new GImageButton(this, 40, 90, files);
 
+  // ###########################################################3
+  // TOM & JERRY BUTTON
+  // get the images form mouse-off, -over and -pressed then
+  // create the button using a mask to define the hit-zone
   files = new String[] { 
     "tjoff.jpg", "tjover.jpg", "tjdown.jpg"
   };
   btnTJ = new GImageButton(this, 150, 10, files, "tjmask.png");
 
+  // ###########################################################3
+  // COINS BUTTON
+  // get the images form mouse-off, -over and -pressed then
+  // create the button using non-transparent pixels  to define 
+  // the hit-zone
   files = new String[] { 
     "coins0.png", "coins1.png", "coins2.png"
   };

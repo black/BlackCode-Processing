@@ -75,7 +75,8 @@ public class GClip implements ClipboardOwner {
 
 	/**
 	 * Copy a string to the clipboard
-	 * @param chars
+	 * @param chars the characters to be stored on the clipboard
+	 * @return true for a successful copy to clipboard
 	 */
 	public static boolean copy(String chars){
 		if(gclip == null)
@@ -128,6 +129,7 @@ public class GClip implements ClipboardOwner {
 	/**
 	 * Copy a string to the clipboard. If the Clipboard has not been created
 	 * then create it.
+	 * @param chars the characters to be stored on the clipboard
 	 * @return true for a successful copy to clipboard
 	 */
 	private boolean copyString(String chars){

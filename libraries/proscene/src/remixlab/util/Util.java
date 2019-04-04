@@ -1,6 +1,6 @@
 /**************************************************************************************
  * util_tree
- * Copyright (c) 2014-2016 National University of Colombia, https://github.com/remixlab
+ * Copyright (c) 2014-2017 National University of Colombia, https://github.com/remixlab
  * @author Jean Pierre Charalambos, http://otrolado.info/
  *
  * All rights reserved. Library that eases the creation of interactive
@@ -87,13 +87,14 @@ public class Util {
 
   /**
    * @return Euclidean distance between points (x1,y1,z1,rx1,y1,rz1) and
-   *         (x2,y2,z2,rx2,y2,rz2).
+   * (x2,y2,z2,rx2,y2,rz2).
    */
   public static float distance(float x1, float y1, float z1, float rx1, float ry1, float rz1, float x2, float y2,
-      float z2, float rx2, float ry2, float rz2) {
-    return (float) Math.sqrt((float) Math.pow((x2 - x1), 2.0) + (float) Math.pow((y2 - y1), 2.0)
-        + (float) Math.pow((z2 - z1), 2.0) + (float) Math.pow((rx2 - rx1), 2.0) + (float) Math.pow((ry2 - ry1), 2.0)
-        + (float) Math.pow((rz2 - rz1), 2.0));
+                               float z2, float rx2, float ry2, float rz2) {
+    return (float) Math.sqrt(
+        (float) Math.pow((x2 - x1), 2.0) + (float) Math.pow((y2 - y1), 2.0) + (float) Math.pow((z2 - z1), 2.0)
+            + (float) Math.pow((rx2 - rx1), 2.0) + (float) Math.pow((ry2 - ry1), 2.0) + (float) Math
+            .pow((rz2 - rz1), 2.0));
   }
 
   /**

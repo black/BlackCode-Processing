@@ -47,7 +47,7 @@ public class GToggleGroup {
 
 	/**
 	 * Add a GOption object to this group.
-	 * @param tc
+	 * @param tc the toggle control
 	 */
 	public void addControl(GToggleControl tc){
 		tc.setToggleGroup(this);
@@ -55,7 +55,7 @@ public class GToggleGroup {
 	
 	/**
 	 * Add a set of comma separated GOptions.
-	 * @param controls
+	 * @param controls a list of controls to add
 	 */
 	public void addControls(GToggleControl... controls ){
 		for(GToggleControl tc : controls)
@@ -64,6 +64,7 @@ public class GToggleGroup {
 	
 	/**
 	 * Used internally to change selection
+	 * @param tc the toggle control
 	 */
 	void makeSelected(GToggleControl tc){
 		deselected = selected;

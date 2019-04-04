@@ -1,6 +1,6 @@
 /**************************************************************************************
  * dandelion_tree
- * Copyright (c) 2014-2016 National University of Colombia, https://github.com/remixlab
+ * Copyright (c) 2014-2017 National University of Colombia, https://github.com/remixlab
  * @author Jean Pierre Charalambos, http://otrolado.info/
  *
  * All rights reserved. Library that eases the creation of interactive
@@ -10,31 +10,37 @@
 
 package remixlab.dandelion.core;
 
+import remixlab.bias.Agent;
+import remixlab.bias.BogusEvent;
+import remixlab.bias.Grabber;
+import remixlab.bias.InputHandler;
+import remixlab.bias.event.*;
+import remixlab.dandelion.constraint.Constraint;
+import remixlab.dandelion.geom.*;
+import remixlab.fpstiming.Animator;
+import remixlab.fpstiming.AnimatorObject;
+import remixlab.fpstiming.TimingHandler;
+import remixlab.fpstiming.TimingTask;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import remixlab.bias.core.*;
-import remixlab.bias.event.*;
-import remixlab.dandelion.constraint.*;
-import remixlab.dandelion.geom.*;
-import remixlab.fpstiming.*;
-
 /**
- * A 2D or 3D {@link remixlab.bias.core.Grabber} scene.
- * 
+ * A 2D or 3D {@link Grabber} scene.
+ * <p>
  * Main package class representing an interface between Dandelion and the outside world.
  * For an introduction to DANDELION please refer to
  * <a href="http://nakednous.github.io/projects/dandelion">this</a>.
  * <p>
- * Instantiated scene {@link remixlab.dandelion.core.GenericFrame}s form a scene-graph of
- * transformations which may be traverse with {@link #traverseGraph()}. The frame
+ * Instantiated scene {@link remixlab.dandelion.core.GenericFrame}s form a scene-tree of
+ * transformations which may be traverse with {@link #traverseTree()}. The frame
  * collection belonging to the scene may be retrieved with {@link #frames(boolean)}. The
  * scene provides other useful routines to handle the hierarchy, such as
  * {@link #pruneBranch(GenericFrame)}, {@link #appendBranch(List)},
  * {@link #isFrameReachable(GenericFrame)}, {@link #branch(GenericFrame, boolean)}, and
- * {@link #clearGraph()}.
+ * {@link #clearTree()}.
  * <p>
  * Each AbstractScene provides the following main object instances:
  * <ol>
@@ -44,8 +50,8 @@ import remixlab.fpstiming.*;
  * <li>A {@link #timingHandler()} which control (single-threaded) timing operations. For
  * details please refer to the {@link remixlab.fpstiming.TimingHandler} class.</li>
  * <li>An {@link #inputHandler()} which handles all user input through
- * {@link remixlab.bias.core.Agent}s (for details please refer to the
- * {@link remixlab.bias.core.InputHandler} class). The {@link #inputHandler()} holds a
+ * {@link Agent}s (for details please refer to the
+ * {@link InputHandler} class). The {@link #inputHandler()} holds a
  * (default) {@link #motionAgent()} and a (default) {@link #keyboardAgent()} which should
  * be instantiated by derived classes at construction time.</li>
  * <li>A {@link #matrixHelper()} which handles matrix operations either through the
@@ -62,10 +68,10 @@ import remixlab.fpstiming.*;
  * <li>By checking if the scene's {@link #timer()} was triggered within the frame.
  * </ol>
  * <p>
- * A grabber scene implements the {@link remixlab.bias.core.Grabber} interface and thus
+ * A grabber scene implements the {@link Grabber} interface and thus
  * can react to user (keyboard) gestures, (see {@link #performInteraction(KeyboardEvent)}
  * and {@link #checkIfGrabsInput(KeyboardEvent)}). For example, with the following code:
- * 
+ * <p>
  * <pre>
  * {@code
  * protected void performInteraction(KeyboardEvent event) {
@@ -74,10 +80,10 @@ import remixlab.fpstiming.*;
  * }
  * }
  * </pre>
- * 
+ * <p>
  * your custom scene will {@link #toggleCameraType()} when the key 'z' is pressed
  * (provided that scene is the {@link #keyboardAgent()}
- * {@link remixlab.bias.core.Agent#inputGrabber()}).
+ * {@link Agent#inputGrabber()}).
  */
 public abstract class AbstractScene extends AnimatorObject implements Grabber {
   protected boolean dottedGrid;
@@ -150,11 +156,11 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
    * {@link #is2D()} or {@link #is3D()}.</li>
    * <li>Instantiate the {@link #motionAgent()} and the {@link #keyboardAgent()} and
    * enable them (register them at the {@link #inputHandler()}) and possibly some other
-   * {@link remixlab.bias.core.Agent}s as well and .</li>
+   * {@link Agent}s as well and .</li>
    * <li>Define whether or not the Scene {@link #isOffscreen()}.</li>
    * <li>Call {@link #init()} at the end of the constructor.</li>
    * </ol>
-   * 
+   *
    * @see #timingHandler()
    * @see #inputHandler()
    * @see #setMatrixHelper(MatrixHelper)
@@ -177,10 +183,10 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
   /**
    * Returns the top-level frames (those which referenceFrame is null).
    * <p>
-   * All leading frames are also reachable by the {@link #traverseGraph()} algorithm for
+   * All leading frames are also reachable by the {@link #traverseTree()} algorithm for
    * which they are the seeds.
-   * 
-   * @see #frames()
+   *
+   * @see #frames(boolean)
    * @see #isFrameReachable(GenericFrame)
    * @see #pruneBranch(GenericFrame)
    */
@@ -231,17 +237,20 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
    * {@link remixlab.dandelion.core.GenericFrame#visit()} on it.
    * <p>
    * Note that only reachable frames are visited by this algorithm.
-   * 
+   * <p>
+   * <b>Attention:</b> this method should be called after {@link #bindMatrices()} (i.e.,
+   * eye update) and before any other transformation of the modelview takes place.
+   *
    * @see #isFrameReachable(GenericFrame)
    * @see #pruneBranch(GenericFrame)
    */
-  public void traverseGraph() {
+  public void traverseTree() {
     for (GenericFrame frame : leadingFrames())
       visitFrame(frame);
   }
 
   /**
-   * Used by the traverse frame graph algorithm.
+   * Used by the traverse frame tree algorithm.
    */
   protected void visitFrame(GenericFrame frame) {
     pushModelView();
@@ -254,10 +263,10 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Same as {@code for(GenericFrame frame : leadingFrames()) pruneBranch(frame)}.
-   * 
+   *
    * @see #pruneBranch(GenericFrame)
    */
-  public void clearGraph() {
+  public void clearTree() {
     for (GenericFrame frame : leadingFrames())
       pruneBranch(frame);
   }
@@ -268,7 +277,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
    * A call to {@link #isFrameReachable(GenericFrame)} on all {@code frame} descendants
    * (including {@code frame}) will return false, after issuing this method. It also means
    * that all frames in the {@code frame} branch will become unreachable by the
-   * {@link #traverseGraph()} algorithm.
+   * {@link #traverseTree()} algorithm.
    * <p>
    * Frames in the {@code frame} branch will also be removed from all the agents currently
    * registered in the {@link #inputHandler()}.
@@ -281,22 +290,19 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
    * algorithm. In this case, the frame should be manually added to some agents to
    * interactively handle it.
    * <p>
-   * //TODO Note that if frame is not reachable ({@link #isFrameReachable(GenericFrame)})
-   * this method returns {@code null}.
+   * Note that if frame is not reachable ({@link #isFrameReachable(GenericFrame)}) this
+   * method returns {@code null}.
    * <p>
    * When collected, pruned frames behave like {@link remixlab.dandelion.geom.Frame},
    * otherwise they are eligible for garbage collection.
-   * 
-   * @see #clearGraph()
+   *
+   * @see #clearTree()
    * @see #appendBranch(List)
    * @see #isFrameReachable(GenericFrame)
    */
   public ArrayList<GenericFrame> pruneBranch(GenericFrame frame) {
-    // /*
-    // TODO
     if (!isFrameReachable(frame))
       return null;
-    // */
     ArrayList<GenericFrame> list = new ArrayList<GenericFrame>();
     collectFrames(list, frame, true);
     for (GenericFrame gFrame : list) {
@@ -314,7 +320,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
    * {@link #pruneBranch(GenericFrame)}.
    * <p>
    * All frames belonging to the branch are automatically added to all scene agents.
-   * 
+   * <p>
    * {@link #pruneBranch(GenericFrame)}
    */
   public void appendBranch(List<GenericFrame> branch) {
@@ -330,14 +336,14 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
   }
 
   /**
-   * Returns {@code true} if the frame is reachable by the {@link #traverseGraph()}
+   * Returns {@code true} if the frame is reachable by the {@link #traverseTree()}
    * algorithm and {@code false} otherwise.
    * <p>
    * Frames are make unreachable with {@link #pruneBranch(GenericFrame)} and reachable
    * again with
    * {@link remixlab.dandelion.core.GenericFrame#setReferenceFrame(GenericFrame)}.
-   * 
-   * @see #traverseGraph()
+   *
+   * @see #traverseTree()
    * @see #frames(boolean)
    */
   public boolean isFrameReachable(GenericFrame frame) {
@@ -347,11 +353,10 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
   }
 
   /**
-   * Returns a list of all the frames that are reachable by the {@link #traverseGraph()}
+   * Returns a list of all the frames that are reachable by the {@link #traverseTree()}
    * algorithm, including the EyeFrames (when {@code eyeframes} is {@code true}).
-   * 
-   * @ see {@link #isFrameReachable(GenericFrame)}
-   * 
+   *
+   * @see #isFrameReachable(GenericFrame)
    * @see remixlab.dandelion.core.GenericFrame#isEyeFrame()
    */
   public ArrayList<GenericFrame> frames(boolean eyeframes) {
@@ -365,7 +370,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
    * Collects {@code frame} and all its descendant frames. When {@code eyeframes} is
    * {@code true} eye-frames will also be collected. Note that for a frame to be collected
    * it must be reachable.
-   * 
+   *
    * @see #isFrameReachable(GenericFrame)
    */
   public ArrayList<GenericFrame> branch(GenericFrame frame, boolean eyeframes) {
@@ -378,7 +383,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
    * Collects {@code frame} and all its descendant frames. When {@code eyeframes} is
    * {@code true} eye-frames will also be collected. Note that for a frame to be collected
    * it must be reachable.
-   * 
+   *
    * @see #isFrameReachable(GenericFrame)
    */
   protected void collectFrames(List<GenericFrame> list, GenericFrame frame, boolean eyeframes) {
@@ -394,7 +399,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Same as {@code eye().addKeyFrameToPath(1)}.
-   * 
+   *
    * @see remixlab.dandelion.core.Eye#addKeyFrameToPath(int)
    */
   public void addKeyFrameToPath1() {
@@ -403,7 +408,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Same as {@code eye().addKeyFrameToPath(2)}.
-   * 
+   *
    * @see remixlab.dandelion.core.Eye#addKeyFrameToPath(int)
    */
   public void addKeyFrameToPath2() {
@@ -412,7 +417,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Same as {@code eye().addKeyFrameToPath(1)}.
-   * 
+   *
    * @see remixlab.dandelion.core.Eye#addKeyFrameToPath(int)
    */
   public void addKeyFrameToPath3() {
@@ -421,7 +426,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Same as {@code eye().deletePath(1)}.
-   * 
+   *
    * @see remixlab.dandelion.core.Eye#deletePath(int)
    */
   public void deletePath1() {
@@ -430,7 +435,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Same as {@code eye().deletePath(2)}.
-   * 
+   *
    * @see remixlab.dandelion.core.Eye#deletePath(int)
    */
   public void deletePath2() {
@@ -439,7 +444,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Same as {@code eye().deletePath(3)}.
-   * 
+   *
    * @see remixlab.dandelion.core.Eye#deletePath(int)
    */
   public void deletePath3() {
@@ -448,7 +453,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Same as {@code eye().playPath(1)}.
-   * 
+   *
    * @see remixlab.dandelion.core.Eye#playPath(int)
    */
   public void playPath1() {
@@ -457,7 +462,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Same as {@code eye().playPath(2)}.
-   * 
+   *
    * @see remixlab.dandelion.core.Eye#playPath(int)
    */
   public void playPath2() {
@@ -466,7 +471,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Same as {@code eye().playPath(3)}.
-   * 
+   *
    * @see remixlab.dandelion.core.Eye#playPath(int)
    */
   public void playPath3() {
@@ -475,7 +480,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Same as {@code eye().interpolateToFitScene()}.
-   * 
+   *
    * @see remixlab.dandelion.core.Eye#interpolateToFitScene()
    */
   public void interpolateToFitScene() {
@@ -484,7 +489,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Same as {@code eye().setAnchor(new Vec(0, 0, 0))}.
-   * 
+   *
    * @see remixlab.dandelion.core.Eye#setAnchor(Vec)
    */
   public void resetAnchor() {
@@ -497,50 +502,40 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
   // Grabber Implementation
 
   @Override
-  public void performInteraction(BogusEvent event) {
-    if (event instanceof KeyboardEvent)
-      performInteraction((KeyboardEvent) event);
-  }
-
-  @Override
   public boolean checkIfGrabsInput(BogusEvent event) {
     if (event instanceof KeyboardEvent)
       return checkIfGrabsInput((KeyboardEvent) event);
+    if (event instanceof ClickEvent)
+      return checkIfGrabsInput((ClickEvent) event);
+    if (event instanceof MotionEvent)
+      return checkIfGrabsInput((MotionEvent) event);
     return false;
   }
 
   /**
-   * Override this method when you want the object to perform an interaction from a
-   * {@link remixlab.bias.event.KeyboardEvent}.
+   * Internal use. You don't need to call this.
+   * <p>
+   * Automatically called by agents handling this frame.
    */
-  protected void performInteraction(KeyboardEvent event) {
-    AbstractScene.showMissingImplementationWarning("performInteraction(KeyboardEvent event)",
-        this.getClass().getName());
+  public boolean checkIfGrabsInput(MotionEvent event) {
+    if (event instanceof DOF1Event)
+      return checkIfGrabsInput((DOF1Event) event);
+    if (event instanceof DOF2Event)
+      return checkIfGrabsInput((DOF2Event) event);
+    if (event instanceof DOF3Event)
+      return checkIfGrabsInput((DOF3Event) event);
+    if (event instanceof DOF6Event)
+      return checkIfGrabsInput((DOF6Event) event);
+    return false;
   }
 
-  boolean vkeyAction;
-
   /**
-   * Internal use. Inspired in Processing key event flow. Bypasses the key event so that
-   * {@link remixlab.bias.event.KeyboardShortcut}s work smoothly. Call it at the beginning
-   * of your {@link #performInteraction(KeyboardEvent)} method to discard useless keyboard
-   * events.
+   * Internal use. You don't need to call this.
+   * <p>
+   * Automatically called by agents handling this frame.
    */
-  protected boolean bypassKey(BogusEvent event) {
-    if (event instanceof KeyboardEvent) {
-      if (event.fired())
-        if (event.id() == 0)// TYPE event
-          return vkeyAction;
-        else {
-          vkeyAction = true;
-          return false;
-        }
-      if (event.flushed()) {
-        if (event.flushed() && vkeyAction)
-          vkeyAction = false;
-        return true;
-      }
-    }
+  public boolean checkIfGrabsInput(ClickEvent event) {
+    AbstractScene.showMissingImplementationWarning("checkIfGrabsInput(clickEvent event)", this.getClass().getName());
     return false;
   }
 
@@ -548,13 +543,119 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
    * Override this method when you want the object to be picked from a
    * {@link remixlab.bias.event.KeyboardEvent}.
    */
-  protected boolean checkIfGrabsInput(KeyboardEvent event) {
+  public boolean checkIfGrabsInput(KeyboardEvent event) {
     AbstractScene.showMissingImplementationWarning("checkIfGrabsInput(KeyboardEvent event)", this.getClass().getName());
     return false;
   }
 
   /**
-   * Check if this object is the {@link remixlab.bias.core.Agent#inputGrabber()} . Returns
+   * Internal use. You don't need to call this. Automatically called by agents handling this frame.
+   * <p>
+   * Override this method when you want the object to be picked from a {@link remixlab.bias.event.DOF1Event}.
+   */
+  public boolean checkIfGrabsInput(DOF1Event event) {
+    AbstractScene.showMissingImplementationWarning("checkIfGrabsInput(DOF1Event event)", this.getClass().getName());
+    return false;
+  }
+
+  /**
+   * Internal use. You don't need to call this. Automatically called by agents handling this frame.
+   * <p>
+   * Override this method when you want the object to be picked from a {@link remixlab.bias.event.DOF1Event}.
+   */
+  public boolean checkIfGrabsInput(DOF2Event event) {
+    AbstractScene.showMissingImplementationWarning("checkIfGrabsInput(DOF2Event event)", this.getClass().getName());
+    return false;
+  }
+
+  /**
+   * Internal use. You don't need to call this. Automatically called by agents handling this frame.
+   */
+  public boolean checkIfGrabsInput(DOF3Event event) {
+    return checkIfGrabsInput(event.dof2Event());
+  }
+
+  /**
+   * Internal use. You don't need to call this. Automatically called by agents handling this frame.
+   */
+  public boolean checkIfGrabsInput(DOF6Event event) {
+    return checkIfGrabsInput(event.dof3Event().dof2Event());
+  }
+
+  @Override
+  public void performInteraction(BogusEvent event) {
+    if (event instanceof ClickEvent)
+      performInteraction((ClickEvent) event);
+    if (event instanceof MotionEvent)
+      performInteraction((MotionEvent) event);
+    if (event instanceof KeyboardEvent)
+      performInteraction((KeyboardEvent) event);
+  }
+
+  /**
+   * Calls performInteraction() on the proper motion event:
+   * {@link remixlab.bias.event.DOF1Event}, {@link remixlab.bias.event.DOF2Event},
+   * {@link remixlab.bias.event.DOF3Event} or {@link remixlab.bias.event.DOF6Event}.
+   * <p>
+   * Override this method when you want the object to perform an interaction from a
+   * {@link remixlab.bias.event.MotionEvent}.
+   */
+  protected void performInteraction(MotionEvent event) {
+    if (event instanceof DOF1Event)
+      performInteraction((DOF1Event) event);
+    if (event instanceof DOF2Event)
+      performInteraction((DOF2Event) event);
+    if (event instanceof DOF3Event)
+      performInteraction((DOF3Event) event);
+    if (event instanceof DOF6Event)
+      performInteraction((DOF6Event) event);
+  }
+
+  /**
+   * Override this method when you want the object to perform an interaction from a
+   * {@link remixlab.bias.event.DOF1Event}.
+   */
+  protected void performInteraction(DOF1Event event) {
+  }
+
+  /**
+   * Override this method when you want the object to perform an interaction from a
+   * {@link remixlab.bias.event.DOF2Event}.
+   */
+  protected void performInteraction(DOF2Event event) {
+  }
+
+  /**
+   * Override this method when you want the object to perform an interaction from a
+   * {@link remixlab.bias.event.DOF3Event}.
+   */
+  protected void performInteraction(DOF3Event event) {
+  }
+
+  /**
+   * Override this method when you want the object to perform an interaction from a
+   * {@link remixlab.bias.event.DOF6Event}.
+   */
+  protected void performInteraction(DOF6Event event) {
+  }
+
+  /**
+   * Override this method when you want the object to perform an interaction from a
+   * {@link remixlab.bias.event.ClickEvent}.
+   */
+  protected void performInteraction(ClickEvent event) {
+  }
+
+  /**
+   * Override this method when you want the object to perform an interaction from a
+   * {@link remixlab.bias.event.KeyboardEvent}.
+   */
+  protected void performInteraction(KeyboardEvent event) {
+    AbstractScene.showMissingImplementationWarning("performInteraction(KeyboardEvent event)", this.getClass().getName());
+  }
+
+  /**
+   * Check if this object is the {@link Agent#inputGrabber()} . Returns
    * {@code true} if this object grabs the agent and {@code false} otherwise.
    */
   public boolean grabsInput(Agent agent) {
@@ -599,8 +700,8 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
   // Keyboard
 
   /**
-   * Returns the default {@link remixlab.bias.core.Agent} keyboard agent.
-   * 
+   * Returns the default {@link Agent} keyboard agent.
+   *
    * @see #motionAgent()
    */
   public Agent keyboardAgent() {
@@ -610,7 +711,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
   /**
    * Returns {@code true} if the {@link #keyboardAgent()} is enabled and {@code false}
    * otherwise.
-   * 
+   *
    * @see #enableKeyboardAgent()
    * @see #disableKeyboardAgent()
    * @see #isMotionAgentEnabled()
@@ -621,7 +722,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Enables keyboard handling through the {@link #keyboardAgent()}.
-   * 
+   *
    * @see #isKeyboardAgentEnabled()
    * @see #disableKeyboardAgent()
    * @see #enableMotionAgent()
@@ -636,7 +737,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Returns the default motion agent.
-   * 
+   *
    * @see #keyboardAgent()
    */
   public Agent motionAgent() {
@@ -646,7 +747,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
   /**
    * Returns {@code true} if the {@link #motionAgent()} is enabled and {@code false}
    * otherwise.
-   * 
+   *
    * @see #enableMotionAgent()
    * @see #disableMotionAgent()
    * @see #isKeyboardAgentEnabled()
@@ -657,7 +758,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Enables motion handling through the {@link #motionAgent()}.
-   * 
+   *
    * @see #isMotionAgentEnabled()
    * @see #disableMotionAgent()
    * @see #enableKeyboardAgent()
@@ -669,8 +770,8 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
   }
 
   /**
-   * Disables the default {@link remixlab.bias.core.Agent} and returns it.
-   * 
+   * Disables the default {@link Agent} and returns it.
+   *
    * @see #isKeyboardAgentEnabled()
    * @see #enableKeyboardAgent()
    * @see #disableMotionAgent()
@@ -681,7 +782,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Disables the default motion agent and returns it.
-   * 
+   *
    * @see #isMotionAgentEnabled()
    * @see #enableMotionAgent()
    * @see #enableKeyboardAgent()
@@ -705,7 +806,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
   /**
    * Convenience wrapper function that simply calls
    * {@code timingHandler().registerTask(task)}.
-   * 
+   *
    * @see remixlab.fpstiming.TimingHandler#registerTask(TimingTask)
    */
   public void registerTimingTask(TimingTask task) {
@@ -739,7 +840,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
   /**
    * Convenience wrapper function that simply calls
    * {@code timingHandler().unregisterAnimator(object)}.
-   * 
+   *
    * @see remixlab.fpstiming.TimingHandler#unregisterAnimator(Animator)
    */
   public void unregisterAnimator(Animator object) {
@@ -749,7 +850,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
   /**
    * Convenience wrapper function that simply returns
    * {@code timingHandler().isAnimatorRegistered(object)}.
-   * 
+   *
    * @see remixlab.fpstiming.TimingHandler#isAnimatorRegistered(Animator)
    */
   public boolean isAnimatorRegistered(Animator object) {
@@ -759,7 +860,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
   // E V E N T H A N D L I N G
 
   /**
-   * Returns the scene {@link remixlab.bias.core.InputHandler}.
+   * Returns the scene {@link InputHandler}.
    */
   public InputHandler inputHandler() {
     return iHandler;
@@ -767,7 +868,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Convenience function that simply returns {@code inputHandler().info()}.
-   * 
+   *
    * @see #displayInfo(boolean)
    */
   public abstract String info();
@@ -781,11 +882,9 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Displays the {@link #info()} bindings.
-   * 
-   * @param onConsole
-   *          if this flag is true displays the help on console. Otherwise displays it on
-   *          the applet
-   * 
+   *
+   * @param onConsole if this flag is true displays the help on console. Otherwise displays it on
+   *                  the applet
    * @see #info()
    */
   public void displayInfo(boolean onConsole) {
@@ -802,7 +901,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
   /**
    * Sets the {@link remixlab.dandelion.core.MatrixHelper} defining how dandelion matrices
    * are to be handled.
-   * 
+   *
    * @see #matrixHelper()
    */
   public void setMatrixHelper(MatrixHelper r) {
@@ -811,7 +910,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Returns the {@link remixlab.dandelion.core.MatrixHelper}.
-   * 
+   *
    * @see #setMatrixHelper(MatrixHelper)
    */
   public MatrixHelper matrixHelper() {
@@ -822,7 +921,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
    * Wrapper for {@link remixlab.dandelion.core.MatrixHelper#beginScreenDrawing()}. Adds
    * exception when no properly closing the screen drawing with a call to
    * {@link #endScreenDrawing()}.
-   * 
+   *
    * @see remixlab.dandelion.core.MatrixHelper#beginScreenDrawing()
    */
   public void beginScreenDrawing() {
@@ -839,7 +938,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
   /**
    * Wrapper for {@link remixlab.dandelion.core.MatrixHelper#endScreenDrawing()} . Adds
    * exception if {@link #beginScreenDrawing()} wasn't properly called before
-   * 
+   *
    * @see remixlab.dandelion.core.MatrixHelper#endScreenDrawing()
    */
   public void endScreenDrawing() {
@@ -1048,7 +1147,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
    * {@link remixlab.dandelion.core.MatrixHelper#isProjectionViewInverseCached()} .
    * <p>
    * Use it only when continuously calling {@link #unprojectedCoordinatesOf(Vec)}.
-   * 
+   *
    * @see #optimizeUnprojectedCoordinatesOf(boolean)
    * @see #unprojectedCoordinatesOf(Vec)
    */
@@ -1061,7 +1160,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
    * {@link remixlab.dandelion.core.MatrixHelper#cacheProjectionViewInverse(boolean)} .
    * <p>
    * Use it only when continuously calling {@link #unprojectedCoordinatesOf(Vec)}.
-   * 
+   *
    * @see #isUnprojectedCoordinatesOfOptimized()
    * @see #unprojectedCoordinatesOf(Vec)
    */
@@ -1082,9 +1181,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
    * Low level setting of visual flags. You'd prefer {@link #setAxesVisualHint(boolean)},
    * {@link #setGridVisualHint(boolean)}, {@link #setPathsVisualHint(boolean)} and
    * {@link #setPickingVisualHint(boolean)}, unless you want to set them all at once,
-   * e.g.,
-   * {@code setVisualHints(Constants.AXES | Constants.GRID | Constants.PATHS | Constants.PICKING)}
-   * .
+   * e.g., {@code setVisualHints(Scene.AXES | Scene.GRID | Scene.PATHS | Scene.PICKING)}.
    */
   public void setVisualHints(int flag) {
     visualHintMask = flag;
@@ -1092,7 +1189,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Toggles the state of {@link #axesVisualHint()}.
-   * 
+   *
    * @see #axesVisualHint()
    * @see #setAxesVisualHint(boolean)
    */
@@ -1102,7 +1199,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Toggles the state of {@link #gridVisualHint()}.
-   * 
+   *
    * @see #setGridVisualHint(boolean)
    */
   public void toggleGridVisualHint() {
@@ -1111,7 +1208,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Toggles the state of {@link #pickingVisualHint()}.
-   * 
+   *
    * @see #setPickingVisualHint(boolean)
    */
   public void togglePickingVisualhint() {
@@ -1120,7 +1217,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Toggles the state of {@link #pathsVisualHint()}.
-   * 
+   *
    * @see #setPathsVisualHint(boolean)
    */
   public void togglePathsVisualHint() {
@@ -1255,75 +1352,54 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
   }
 
   /**
-   * Called before your main drawing, e.g., P5.pre().
-   * <p>
-   * Handles the {@link #avatar()}, then calls {@link #bindMatrices()} and finally
-   * {@link remixlab.dandelion.core.Eye#updateBoundaryEquations()} if
-   * {@link #areBoundaryEquationsEnabled()}.
+   * Called before your main drawing and performs the following:
+   * <ol>
+   * <li>Handles the {@link #avatar()}</li>
+   * <li>Calls {@link #bindMatrices()}</li>
+   * <li>Calls {@link remixlab.dandelion.core.Eye#updateBoundaryEquations()} if
+   * {@link #areBoundaryEquationsEnabled()}</li>
+   * <li>Calls {@link #proscenium()}</li>
+   * <li>Calls {@link #displayVisualHints()}.</li>
+   * </ol>
+   *
+   * @see #postDraw()
    */
   public void preDraw() {
-    if (avatar() != null && (!eye().anyInterpolationStarted())) {
-      // works:
-      /*
-       * eye().frame().setPosition(avatar().trackingEyeFrame().position());
-       * eye().frame().setOrientation(avatar().trackingEyeFrame().orientation()) ;
-       * eye().frame().setScaling(avatar().trackingEyeFrame().scaling()); //
-       */
-      // but prefer this one:
-      eye().frame().fromFrame(avatar().trackingEyeFrame());
-      // this one is buggy:
-      // GenericFrame.sync(eye().frame(), avatar().trackingEyeFrame());
-    }
-
+    // 1. Avatar
+    if (avatar() != null && (!eye().anyInterpolationStarted()))
+      eye().frame().setWorldMatrix(avatar().trackingEyeFrame());
+    // 2. Eye
     bindMatrices();
     if (areBoundaryEquationsEnabled() && (eye().lastUpdate() > lastEqUpdate || lastEqUpdate == 0)) {
       eye().updateBoundaryEquations();
-      lastEqUpdate = timingHandler().frameCount();
+      lastEqUpdate = frameCount;
     }
-  }
-
-  /**
-   * Called after your main drawing, e.g., P5.draw().
-   * <p>
-   * Calls:
-   * <ol>
-   * <li>{@link remixlab.fpstiming.TimingHandler#handle()}</li>
-   * <li>{@link remixlab.bias.core.InputHandler#handle()}</li>
-   * <li>{@link #proscenium()}</li>
-   * <li>{@link #invokeGraphicsHandler()}</li>
-   * <li>{@link #displayVisualHints()}.</li>
-   * </ol>
-   * 
-   * @see #proscenium()
-   * @see #invokeGraphicsHandler()
-   * @see #gridVisualHint()
-   * @see #visualHints()
-   */
-  public void postDraw() {
-    // 1. timers
-    timingHandler().handle();
-    if (frameCount < frameCount())
-      frameCount = frameCount();
-    if (frameCount < frameCount() + deltaCount)
-      frameCount = frameCount() + deltaCount;
-    // 2. Agents
-    inputHandler().handle();
     // 3. Alternative use only
     proscenium();
-    // 4. Draw external registered method (only in java sub-classes)
-    invokeGraphicsHandler(); // abstract
-    // 5. Display visual hints
+    // 4. Display visual hints
     displayVisualHints(); // abstract
   }
 
   /**
-   * Invokes an external drawing method (if registered). Called by {@link #postDraw()}.
-   * <p>
-   * Requires reflection and thus default implementation is empty. See proscene.Scene for
-   * an implementation.
+   * Called after your main drawing and performs the following:
+   * <ol>
+   * <li>Calls {@link remixlab.fpstiming.TimingHandler#handle()} and increments the the
+   * {@link #frameCount()}</li>
+   * <li>Increments the {@link #frameCount()}</li>
+   * <li>Calls {@link InputHandler#handle()}</li>
+   * </ol>
+   *
+   * @see #preDraw()
    */
-  protected boolean invokeGraphicsHandler() {
-    return false;
+  public void postDraw() {
+    // 1. timers
+    timingHandler().handle();
+    if (frameCount < timingHandler().frameCount())
+      frameCount = timingHandler().frameCount();
+    if (frameCount < timingHandler().frameCount() + deltaCount)
+      frameCount = timingHandler().frameCount() + deltaCount;
+    // 2. Agents
+    inputHandler().handle();
   }
 
   /**
@@ -1357,14 +1433,10 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
   }
 
   protected void drawPickingTargets() {
-    List<GenericFrame> gList = new ArrayList<GenericFrame>();
-    for (Grabber mg : motionAgent().grabbers())
-      if (mg instanceof GenericFrame)
-        if (!((GenericFrame) mg).isEyeFrame())
-          gList.add((GenericFrame) mg);
-    gList.removeAll(eye.keyFrames());
-    for (GenericFrame g : gList)
-      this.drawPickingTarget(g);
+    for (GenericFrame frame : frames(false))
+      // if(inputHandler().hasGrabber(frame))
+      if (frame.isVisualHintEnabled())
+        drawPickingTarget(frame);
   }
 
   /**
@@ -1392,25 +1464,22 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
   }
 
   protected void drawPaths() {
-    /*
-     * Iterator<Integer> itrtr = eye.kfi.keySet().iterator(); while (itrtr.hasNext()) {
-     * Integer key = itrtr.next(); drawPath(eye.keyFrameInterpolatorMap().get(key), 3,
-     * is3D() ? 5 : 2, radius()); }
-     */
+    // Iterator<Integer> itrtr = eye.kfi.keySet().iterator(); while (itrtr.hasNext()) {
+    // Integer key = itrtr.next();
+    // drawPath(eye.keyFrameInterpolatorMap().get(key), 3, is3D() ? 5 : 2, radius());
+    // }
+
     // alternative:
     // /*
     KeyFrameInterpolator[] k = eye.keyFrameInterpolatorArray();
     for (int i = 0; i < k.length; i++)
       drawPath(k[i], 3, 5, radius());
     // */
-
-    for (GenericFrame gFrame : eye.keyFrames())
-      drawPickingTarget(gFrame);
   }
 
   /**
    * Convenience function that simply calls {@code drawPath(kfi, 1, 6, 100)}.
-   * 
+   *
    * @see #drawPath(KeyFrameInterpolator, int, int, float)
    */
   public void drawPath(KeyFrameInterpolator kfi) {
@@ -1419,7 +1488,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Convenience function that simply calls {@code drawPath(kfi, 1, 6, scale)}
-   * 
+   *
    * @see #drawPath(KeyFrameInterpolator, int, int, float)
    */
   public void drawPath(KeyFrameInterpolator kfi, float scale) {
@@ -1428,7 +1497,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Convenience function that simply calls {@code drawPath(kfi, mask, nbFrames, * 100)}
-   * 
+   *
    * @see #drawPath(KeyFrameInterpolator, int, int, float)
    */
   public void drawPath(KeyFrameInterpolator kfi, int mask, int nbFrames) {
@@ -1451,7 +1520,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Convenience function that simply calls {@code drawGrid(100, 10)}
-   * 
+   *
    * @see #drawGrid(float, int)
    */
   public void drawGrid() {
@@ -1467,7 +1536,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Convenience function that simply calls {@code drawGrid(size, 10)}
-   * 
+   *
    * @see #drawGrid(float, int)
    */
   public void drawGrid(float size) {
@@ -1483,7 +1552,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Convenience function that simply calls {@code drawGrid(100, nbSubdivisions)}
-   * 
+   *
    * @see #drawGrid(float, int)
    */
   public void drawGrid(int nbSubdivisions) {
@@ -1492,7 +1561,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Convenience function that simply calls {@code drawTorusSolenoid(6)}.
-   * 
+   *
    * @see #drawTorusSolenoid(int, int, float, float)
    */
   public void drawTorusSolenoid() {
@@ -1502,7 +1571,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
   /**
    * Convenience function that simply calls
    * {@code drawTorusSolenoid(faces, 0.07f * radius())}.
-   * 
+   *
    * @see #drawTorusSolenoid(int, int, float, float)
    */
   public void drawTorusSolenoid(int faces) {
@@ -1511,7 +1580,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Convenience function that simply calls {@code drawTorusSolenoid(6, insideRadius)}.
-   * 
+   *
    * @see #drawTorusSolenoid(int, int, float, float)
    */
   public void drawTorusSolenoid(float insideRadius) {
@@ -1521,7 +1590,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
   /**
    * Convenience function that simply calls
    * {@code drawTorusSolenoid(faces, 100, insideRadius, insideRadius * 1.3f)}.
-   * 
+   *
    * @see #drawTorusSolenoid(int, int, float, float)
    */
   public void drawTorusSolenoid(int faces, float insideRadius) {
@@ -1530,7 +1599,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Draws a torus solenoid. Dandelion logo.
-   * 
+   *
    * @param faces
    * @param detail
    * @param insideRadius
@@ -1540,7 +1609,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Same as {@code cone(det, 0, 0, r, h);}
-   * 
+   *
    * @see #drawCone(int, float, float, float, float)
    */
   public void drawCone(int det, float r, float h) {
@@ -1549,7 +1618,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Same as {@code cone(12, 0, 0, r, h);}
-   * 
+   *
    * @see #drawCone(int, float, float, float, float)
    */
   public void drawCone(float r, float h) {
@@ -1558,7 +1627,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Same as {@code cone(det, 0, 0, r1, r2, h);}
-   * 
+   *
    * @see #drawCone(int, float, float, float, float, float)
    */
   public void drawCone(int det, float r1, float r2, float h) {
@@ -1567,7 +1636,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Same as {@code cone(18, 0, 0, r1, r2, h);}
-   * 
+   *
    * @see #drawCone(int, float, float, float, float, float)
    */
   public void drawCone(float r1, float r2, float h) {
@@ -1576,7 +1645,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Simply calls {@code drawArrow(length, 0.05f * length)}
-   * 
+   *
    * @see #drawArrow(float, float)
    */
   public void drawArrow(float length) {
@@ -1603,7 +1672,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
   /**
    * Draws a 3D arrow between the 3D point {@code from} and the 3D point {@code to}, both
    * defined in the current world coordinate system.
-   * 
+   *
    * @see #drawArrow(float, float)
    */
   public void drawArrow(Vec from, Vec to, float radius) {
@@ -1624,7 +1693,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Convenience function that simply calls {@code drawFilledCircle(40, center, radius)}.
-   * 
+   *
    * @see #drawFilledCircle(int, Vec, float)
    */
   public void drawFilledCircle(Vec center, float radius) {
@@ -1642,17 +1711,12 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
   /**
    * Draws a cylinder whose bases are formed by two cutting planes ({@code m} and
    * {@code n}), along the Camera positive {@code z} axis.
-   * 
+   *
    * @param detail
-   * @param w
-   *          radius of the cylinder and h is its height
-   * @param h
-   *          height of the cylinder
-   * @param m
-   *          normal of the plane that intersects the cylinder at z=0
-   * @param n
-   *          normal of the plane that intersects the cylinder at z=h
-   * 
+   * @param w      radius of the cylinder and h is its height
+   * @param h      height of the cylinder
+   * @param m      normal of the plane that intersects the cylinder at z=0
+   * @param n      normal of the plane that intersects the cylinder at z=h
    * @see #drawCylinder(float, float)
    */
   public abstract void drawHollowCylinder(int detail, float w, float h, Vec m, Vec n);
@@ -1660,7 +1724,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
   /**
    * Draws a cone along the positive {@code z} axis, with its base centered at
    * {@code (x,y)}, height {@code h}, and radius {@code r}.
-   * 
+   *
    * @see #drawCone(int, float, float, float, float, float)
    */
   public abstract void drawCone(int detail, float x, float y, float r, float h);
@@ -1669,7 +1733,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
    * Draws a truncated cone along the positive {@code z} axis, with its base centered at
    * {@code (x,y)}, height {@code h} , and radii {@code r1} and {@code r2} (basis and
    * height respectively).
-   * 
+   *
    * @see #drawCone(int, float, float, float, float)
    */
   public abstract void drawCone(int detail, float x, float y, float r1, float r2, float h);
@@ -1677,7 +1741,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
   /**
    * Draws axes of length {@code length} which origin correspond to the world coordinate
    * system origin.
-   * 
+   *
    * @see #drawGrid(float, int)
    */
   public abstract void drawAxes(float length);
@@ -1687,7 +1751,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
    * system).
    * <p>
    * {@code size} and {@code nbSubdivisions} define its geometry.
-   * 
+   *
    * @see #drawAxes(float)
    */
   public abstract void drawGrid(float size, int nbSubdivisions);
@@ -1697,7 +1761,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
    * coordinate system).
    * <p>
    * {@code size} and {@code nbSubdivisions} define its geometry.
-   * 
+   *
    * @see #drawAxes(float)
    */
   public abstract void drawDottedGrid(float size, int nbSubdivisions);
@@ -1757,9 +1821,9 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
    * {@link remixlab.dandelion.core.Eye#anchor()} is being set.
    * <p>
    * Simply calls {@link #drawCross(float, float, float)} on
-   * {@link remixlab.dandelion.core.Eye#projectedCoordinatesOf()} from
+   * {@link remixlab.dandelion.core.Eye#projectedCoordinatesOf(Vec)}} from
    * {@link remixlab.dandelion.core.Eye#anchor()}.
-   * 
+   *
    * @see #drawCross(float, float, float)
    */
   protected abstract void drawAnchorHint();
@@ -1772,47 +1836,40 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
   /**
    * Draws a cross on the screen centered under pixel {@code (px, py)}, and edge of size
    * {@code size}.
-   * 
+   *
    * @see #drawAnchorHint()
    */
   public abstract void drawCross(float px, float py, float size);
 
   /**
    * Draws a filled circle using screen coordinates.
-   * 
-   * @param subdivisions
-   *          Number of triangles approximating the circle.
-   * @param center
-   *          Circle screen center.
-   * @param radius
-   *          Circle screen radius.
+   *
+   * @param subdivisions Number of triangles approximating the circle.
+   * @param center       Circle screen center.
+   * @param radius       Circle screen radius.
    */
   public abstract void drawFilledCircle(int subdivisions, Vec center, float radius);
 
   /**
    * Draws a filled square using screen coordinates.
-   * 
-   * @param center
-   *          Square screen center.
-   * @param edge
-   *          Square edge length.
+   *
+   * @param center Square screen center.
+   * @param edge   Square edge length.
    */
   public abstract void drawFilledSquare(Vec center, float edge);
 
   /**
    * Draws the classical shooter target on the screen.
-   * 
-   * @param center
-   *          Center of the target on the screen
-   * @param length
-   *          Length of the target in pixels
+   *
+   * @param center Center of the target on the screen
+   * @param length Length of the target in pixels
    */
   public abstract void drawShooterTarget(Vec center, float length);
 
   /**
    * Draws all GrabberFrames' picking targets: a shooter target visual hint of
    * {@link remixlab.dandelion.core.GenericFrame#grabsInputThreshold()} pixels size.
-   * 
+   * <p>
    * <b>Attention:</b> the target is drawn either if the iFrame is part of camera path and
    * keyFrame is {@code true}, or if the iFrame is not part of camera path and keyFrame is
    * {@code false}.
@@ -1841,8 +1898,8 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Sets the avatar object to be tracked by the Camera when it is in Third Person mode.
-   * 
-   * @see #unsetAvatar()
+   *
+   * @see #resetAvatar()
    */
   public void setAvatar(Trackable t) {
     trck = t;
@@ -1867,11 +1924,11 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
   }
 
   /**
-   * If there's an avatar unset it. Returns previous avatar.
-   * 
+   * Returns the current avatar before resetting it (i.e., setting it to null).
+   *
    * @see #setAvatar(Trackable)
    */
-  public Trackable unsetAvatar() {
+  public Trackable resetAvatar() {
     Trackable prev = trck;
     if (prev != null) {
       inputHandler().resetTrackedGrabber();
@@ -1907,7 +1964,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
    * Replaces the current {@link #eye()} with {@code vp}.
    * <p>
    * The {@link #inputHandler()} will attempt to add the {@link #eyeFrame()} to all its
-   * {@link remixlab.bias.core.InputHandler#agents()}, such as the {@link #motionAgent()}
+   * {@link InputHandler#agents()}, such as the {@link #motionAgent()}
    * and {@link #keyboardAgent()}.
    */
   public void setEye(Eye vp) {
@@ -1964,7 +2021,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
   /**
    * If {@link #is3D()} returns the associated Camera, never {@code null}. If
    * {@link #is2D()} throws an exception.
-   * 
+   *
    * @see #eye()
    */
   public Camera camera() {
@@ -1976,7 +2033,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * If {@link #is3D()} sets the Camera. If {@link #is2D()} throws an exception.
-   * 
+   *
    * @see #setEye(Eye)
    */
   public void setCamera(Camera cam) {
@@ -1989,7 +2046,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
   /**
    * If {@link #is2D()} returns the associated Window, never {@code null}. If
    * {@link #is3D()} throws an exception.
-   * 
+   *
    * @see #eye()
    */
   public Window window() {
@@ -2001,7 +2058,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * If {@link #is2D()} sets the Window. If {@link #is3D()} throws an exception.
-   * 
+   *
    * @see #setEye(Eye)
    */
   public void setWindow(Window win) {
@@ -2013,7 +2070,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Same as {@code eye().frame().setConstraint(constraint)}.
-   * 
+   *
    * @see remixlab.dandelion.core.GenericFrame#setConstraint(Constraint)
    */
   public void setEyeConstraint(Constraint constraint) {
@@ -2022,7 +2079,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Same as {@code return eye().pointIsVisible(point)}.
-   * 
+   *
    * @see remixlab.dandelion.core.Eye#isPointVisible(Vec)
    */
   public boolean isPointVisible(Vec point) {
@@ -2031,7 +2088,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Same as {@code return eye().ballIsVisible(center, radius)}.
-   * 
+   *
    * @see remixlab.dandelion.core.Eye#ballVisibility(Vec, float)
    */
   public Eye.Visibility ballVisibility(Vec center, float radius) {
@@ -2040,7 +2097,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Same as {@code return eye().boxIsVisible(p1, p2)}.
-   * 
+   *
    * @see remixlab.dandelion.core.Eye#boxVisibility(Vec, Vec)
    */
   public Eye.Visibility boxVisibility(Vec p1, Vec p2) {
@@ -2051,7 +2108,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
    * Returns {@code true} if automatic update of the camera frustum plane equations is
    * enabled and {@code false} otherwise. Computation of the equations is expensive and
    * hence is disabled by default.
-   * 
+   *
    * @see #toggleBoundaryEquations()
    * @see #disableBoundaryEquations()
    * @see #enableBoundaryEquations()
@@ -2065,7 +2122,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
   /**
    * Toggles automatic update of the camera frustum plane equations every frame.
    * Computation of the equations is expensive and hence is disabled by default.
-   * 
+   *
    * @see #areBoundaryEquationsEnabled()
    * @see #disableBoundaryEquations()
    * @see #enableBoundaryEquations()
@@ -2082,7 +2139,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
   /**
    * Disables automatic update of the camera frustum plane equations every frame.
    * Computation of the equations is expensive and hence is disabled by default.
-   * 
+   *
    * @see #areBoundaryEquationsEnabled()
    * @see #toggleBoundaryEquations()
    * @see #enableBoundaryEquations()
@@ -2096,7 +2153,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
   /**
    * Enables automatic update of the camera frustum plane equations every frame.
    * Computation of the equations is expensive and hence is disabled by default.
-   * 
+   *
    * @see #areBoundaryEquationsEnabled()
    * @see #toggleBoundaryEquations()
    * @see #disableBoundaryEquations()
@@ -2111,7 +2168,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
    * Enables or disables automatic update of the camera frustum plane equations every
    * frame according to {@code flag}. Computation of the equations is expensive and hence
    * is disabled by default.
-   * 
+   *
    * @see #areBoundaryEquationsEnabled()
    * @see #toggleBoundaryEquations()
    * @see #disableBoundaryEquations()
@@ -2141,7 +2198,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
    * Same as {@code return camera().isFaceBackFacing(a, b, c)}.
    * <p>
    * This method is only available in 3D.
-   * 
+   *
    * @see remixlab.dandelion.core.Camera#isFaceBackFacing(Vec, Vec, Vec)
    */
   public boolean isFaceBackFacing(Vec a, Vec b, Vec c) {
@@ -2156,7 +2213,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
    * Same as {@code return camera().isConeBackFacing(vertex, normals)}.
    * <p>
    * This method is only available in 3D.
-   * 
+   *
    * @see remixlab.dandelion.core.Camera#isConeBackFacing(Vec, Vec[])
    */
   public boolean isConeBackFacing(Vec vertex, Vec[] normals) {
@@ -2171,7 +2228,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
    * Same as {@code return camera().isConeBackFacing(vertex, axis, angle)}.
    * <p>
    * This method is only available in 3D.
-   * 
+   *
    * @see remixlab.dandelion.core.Camera#isConeBackFacing(Vec, Vec, float)
    */
   public boolean isConeBackFacing(Vec vertex, Vec axis, float angle) {
@@ -2245,7 +2302,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
    * Returns the scene radius.
    * <p>
    * Convenience wrapper function that simply calls {@code camera().sceneRadius()}
-   * 
+   *
    * @see #setRadius(float)
    * @see #center()
    */
@@ -2257,7 +2314,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
    * Returns the scene center.
    * <p>
    * Convenience wrapper function that simply returns {@code camera().sceneCenter()}
-   * 
+   *
    * @see #setCenter(Vec) {@link #radius()}
    */
   public Vec center() {
@@ -2268,7 +2325,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
    * Returns the {@link remixlab.dandelion.core.Eye#anchor()}.
    * <p>
    * Convenience wrapper function that simply returns {@code eye().anchor()}
-   * 
+   *
    * @see #setCenter(Vec) {@link #radius()}
    */
   public Vec anchor() {
@@ -2287,7 +2344,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
    * <p>
    * Convenience wrapper function that simply calls
    * {@code camera().setSceneRadius(radius)}.
-   * 
+   *
    * @see #setCenter(Vec)
    */
   public void setRadius(float radius) {
@@ -2298,7 +2355,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
    * Sets the {@link #center()} of the Scene.
    * <p>
    * Convenience wrapper function that simply calls {@code }
-   * 
+   *
    * @see #setRadius(float)
    */
   public void setCenter(Vec center) {
@@ -2311,7 +2368,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
    * <p>
    * Convenience wrapper function that simply calls
    * {@code camera().setSceneBoundingBox(min,max)}
-   * 
+   *
    * @see #setRadius(float)
    * @see #setCenter(Vec)
    */
@@ -2331,7 +2388,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Convenience wrapper function that simply calls {@code camera().showEntireScene()}
-   * 
+   *
    * @see remixlab.dandelion.core.Camera#showEntireScene()
    */
   public void showAll() {
@@ -2345,7 +2402,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
    * Current implementation set no {@link remixlab.dandelion.core.Eye#anchor()}. Override
    * {@link remixlab.dandelion.core.Camera#pointUnderPixel(Point)} in your openGL based
    * camera for this to work.
-   * 
+   *
    * @see remixlab.dandelion.core.Eye#setAnchorFromPixel(Point)
    * @see remixlab.dandelion.core.Camera#pointUnderPixel(Point)
    */
@@ -2364,7 +2421,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
    * Current implementation set no {@link remixlab.dandelion.core.Camera#sceneCenter()}.
    * Override {@link remixlab.dandelion.core.Camera#pointUnderPixel(Point)} in your openGL
    * based camera for this to work.
-   * 
+   *
    * @see remixlab.dandelion.core.Camera#setSceneCenterFromPixel(Point)
    * @see remixlab.dandelion.core.Camera#pointUnderPixel(Point)
    */
@@ -2403,9 +2460,8 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Show warning, and keep track of it so that it's only shown once.
-   * 
-   * @param msg
-   *          the error message (which will be stored for later comparison)
+   *
+   * @param msg the error message (which will be stored for later comparison)
    */
   static public void showWarning(String msg) { // ignore
     if (warnings == null) {
@@ -2419,9 +2475,8 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Display a warning that the specified method is only available in 3D.
-   * 
-   * @param method
-   *          The method name (no parentheses)
+   *
+   * @param method The method name (no parentheses)
    */
   static public void showDepthWarning(String method) {
     showWarning(method + "() is not available in 2d");
@@ -2442,13 +2497,19 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
     showWarning(method + " can only be performed using a relative event.");
   }
 
+  /**
+   * Same as {@code showOnlyEyeWarning(method, true)}.
+   *
+   * @see #showOnlyEyeWarning(String, boolean)
+   */
   static public void showOnlyEyeWarning(String method) {
     showOnlyEyeWarning(method, true);
   }
 
   /**
-   * Display a warning that the specified method is only available for a frame (but not an
-   * eye-frame).
+   * Display a warning that the specified method is only available for an eye-frame if
+   * {@code eye} is {@code true} or a frame, different than an eye-frame, if {@code eye}
+   * is {@code false}.
    */
   static public void showOnlyEyeWarning(String method, boolean eye) {
     if (eye)
@@ -2506,7 +2567,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
    * <p>
    * <b>Attention:</b> When drawing a frame hierarchy as above, this method should be used
    * whenever possible.
-   * 
+   *
    * @see #applyWorldTransformation(Frame)
    */
   public void applyTransformation(Frame frame) {
@@ -2527,8 +2588,6 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
    * defined by the frame.
    */
   public void applyWorldTransformation(Frame frame) {
-    // TODO check for beta2 doing these with frames position(), orientation()
-    // and magnitude()
     Frame refFrame = frame.referenceFrame();
     if (refFrame != null) {
       applyWorldTransformation(refFrame);
@@ -2541,10 +2600,6 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
   /**
    * This method is called before the first drawing happen and should be overloaded to
    * initialize stuff. The default implementation is empty.
-   * <p>
-   * Typical usage include {@link #eye()} initialization ({@link #showAll()}) and Scene
-   * state setup ( {@link #setAxesVisualHint(boolean)} and
-   * {@link #setGridVisualHint(boolean)}.
    */
   public void init() {
   }
@@ -2570,7 +2625,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
   /**
    * Returns true if scene is left handed. Note that the scene is right handed by default.
    * However in proscene we set it as right handed (same as with P5).
-   * 
+   *
    * @see #setLeftHanded()
    */
   public boolean isLeftHanded() {
@@ -2580,7 +2635,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
   /**
    * Returns true if scene is right handed. Note that the scene is right handed by
    * default. However in proscene we set it as right handed (same as with P5).
-   * 
+   *
    * @see #setRightHanded()
    */
   public boolean isRightHanded() {
@@ -2589,7 +2644,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Set the scene as right handed.
-   * 
+   *
    * @see #isRightHanded()
    */
   public void setRightHanded() {
@@ -2598,7 +2653,7 @@ public abstract class AbstractScene extends AnimatorObject implements Grabber {
 
   /**
    * Set the scene as left handed.
-   * 
+   *
    * @see #isLeftHanded()
    */
   public void setLeftHanded() {

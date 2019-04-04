@@ -1,6 +1,6 @@
 /**************************************************************************************
  * dandelion_tree
- * Copyright (c) 2014-2016 National University of Colombia, https://github.com/remixlab
+ * Copyright (c) 2014-2017 National University of Colombia, https://github.com/remixlab
  * @author Jean Pierre Charalambos, http://otrolado.info/
  *
  * All rights reserved. Library that eases the creation of interactive
@@ -10,7 +10,8 @@
 
 package remixlab.dandelion.geom;
 
-import remixlab.util.*;
+import remixlab.util.EqualsBuilder;
+import remixlab.util.HashCodeBuilder;
 
 /**
  * Rectangle class that provides a quick replacement for the java.awt.Rectangle.
@@ -18,8 +19,7 @@ import remixlab.util.*;
 public class Rect {
   @Override
   public int hashCode() {
-    return new HashCodeBuilder(17, 37).append(this.x).append(this.y).append(this.width).append(this.height)
-        .toHashCode();
+    return new HashCodeBuilder(17, 37).append(this.x).append(this.y).append(this.width).append(this.height).toHashCode();
   }
 
   @Override
@@ -66,9 +66,8 @@ public class Rect {
 
   /**
    * Copy constructor
-   * 
-   * @param r
-   *          the rectangle to be copied
+   *
+   * @param r the rectangle to be copied
    */
   public Rect(Rect r) {
     this(r.x, r.y, r.width, r.height);
@@ -101,7 +100,7 @@ public class Rect {
 
   /**
    * Sets the x coordinate
-   * 
+   *
    * @param xVal
    */
   public void setX(int xVal) {
@@ -110,7 +109,7 @@ public class Rect {
 
   /**
    * Sets the y coordinate
-   * 
+   *
    * @param yVal
    */
   public void setY(int yVal) {
@@ -132,16 +131,14 @@ public class Rect {
   }
 
   /**
-   * @param w
-   *          width
+   * @param w width
    */
   public void setWidth(int w) {
     width = w;
   }
 
   /**
-   * @param h
-   *          height
+   * @param h height
    */
   public void setHeight(int h) {
     height = h;

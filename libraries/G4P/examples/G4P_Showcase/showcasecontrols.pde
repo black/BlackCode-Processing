@@ -64,15 +64,12 @@ public void makeDemoControls() {
   tmrTimer = new GTimer(this, this, "myTimerFunction", 300);  
   pnlControls.addControl(btnTimer);
   // When the timer is on we will see it in a GSketchPad control
-  // Create the GSkethPad control to position and display the graphic
-  spad = new GSketchPad(this, pWidth-210, pHeight-60, 100, 40);
-  // Now create and clear graphic to be used (JAVA parameter
-  // parameter is only needed for Processing 1.5.1)
-  pg = createGraphics(100, 46, JAVA2D);
-  // Add the graphic to the control. 
-  spad.setGraphic(pg);
+  // Create the GView control to position and display the graphic
+  view = new GView(this, pWidth-210, pHeight-60, 100, 40, JAVA2D);
+  // Now get the PGraphic so we can update it
+  pg = view.getGraphics();
   updateGraphic(3); // Method for drawing the graphic
-  pnlControls.addControl(spad);
+  pnlControls.addControl(view);
   // 4-way stick control
   astick = new GStick(this, pWidth - 290, pHeight - 80, 60, 60);
   pnlControls.addControl(astick);

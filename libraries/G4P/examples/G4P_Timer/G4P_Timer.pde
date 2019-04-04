@@ -1,4 +1,4 @@
-/*
+/**
  Balls of Vesuvius.  
  
  A simple program to demonstrate the use of the GTimer

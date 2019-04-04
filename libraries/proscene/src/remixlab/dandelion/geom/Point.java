@@ -1,6 +1,6 @@
 /**************************************************************************************
  * dandelion_tree
- * Copyright (c) 2014-2016 National University of Colombia, https://github.com/remixlab
+ * Copyright (c) 2014-2017 National University of Colombia, https://github.com/remixlab
  * @author Jean Pierre Charalambos, http://otrolado.info/
  *
  * All rights reserved. Library that eases the creation of interactive
@@ -10,7 +10,8 @@
 
 package remixlab.dandelion.geom;
 
-import remixlab.util.*;
+import remixlab.util.EqualsBuilder;
+import remixlab.util.HashCodeBuilder;
 
 /**
  * Point class that provides a quick replacement for the java.awt.Point.
@@ -53,9 +54,8 @@ public class Point {
 
   /**
    * Copy constructor
-   * 
-   * @param p
-   *          the point to be copied
+   *
+   * @param p the point to be copied
    */
   public Point(Point p) {
     this(p.x(), p.y());
@@ -119,7 +119,7 @@ public class Point {
   /**
    * Convenience wrapper function that simply returns {@code Point.distance(new
    * Point(x1, y1), new Point(x2, y2))}.
-   * 
+   *
    * @see #distance(Point, Point)
    */
   public static float distance(int x1, int y1, int x2, int y2) {
@@ -129,7 +129,7 @@ public class Point {
   /**
    * Convenience wrapper function that simply returns {@code Point.distance(new
    * Point(x1, y1), new Point(x2, y2))}.
-   * 
+   *
    * @see #distance(Point, Point)
    */
   public static float distance(float x1, float y1, float x2, float y2) {

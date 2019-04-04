@@ -1,6 +1,6 @@
 /**************************************************************************************
  * bias_tree
- * Copyright (c) 2014-2016 National University of Colombia, https://github.com/remixlab
+ * Copyright (c) 2014-2017 National University of Colombia, https://github.com/remixlab
  * @author Jean Pierre Charalambos, http://otrolado.info/
  *
  * All rights reserved. Library that eases the creation of interactive
@@ -44,29 +44,42 @@ public class DOF2Event extends MotionEvent {
 
   /**
    * Construct an absolute event from the given dof's and modifiers.
-   * 
-   * @param x
-   * @param y
+   *
+   * @param dx
+   * @param dy
    * @param modifiers
-   * @param button
+   * @param id
    */
-  public DOF2Event(float x, float y, int modifiers, int button) {
-    super(modifiers, button);
-    this.dx = x;
-    this.dy = y;
+  public DOF2Event(float dx, float dy, int modifiers, int id) {
+    super(modifiers, id);
+    this.dx = dx;
+    this.dy = dy;
+  }
+
+  /**
+   * Same as
+   * {@code this(prevEvent instanceof DOF2Event ? (DOF2Event) prevEvent : null, x, y, modifiers, id)}.
+   *
+   * @see #DOF2Event(DOF2Event, float, float, int, int)
+   */
+  public DOF2Event(MotionEvent prevEvent, float x, float y, int modifiers, int id) {
+    this(prevEvent instanceof DOF2Event ? (DOF2Event) prevEvent : null, x, y, modifiers, id);
   }
 
   /**
    * Construct a relative event from the given previous event, dof's and modifiers.
-   * 
+   * <p>
+   * If the {@link #id()} of the {@code prevEvent} is different then {@link #id()}, sets
+   * the {@link #distance()}, {@link #delay()} and {@link #speed()} all to {@code zero}.
+   *
    * @param prevEvent
    * @param x
    * @param y
    * @param modifiers
-   * @param button
+   * @param id
    */
-  public DOF2Event(DOF2Event prevEvent, float x, float y, int modifiers, int button) {
-    super(modifiers, button);
+  public DOF2Event(DOF2Event prevEvent, float x, float y, int modifiers, int id) {
+    super(modifiers, id);
     this.x = x;
     this.y = y;
     setPreviousEvent(prevEvent);
@@ -74,19 +87,32 @@ public class DOF2Event extends MotionEvent {
 
   /**
    * Construct an absolute event from the given dof's.
-   * 
-   * @param x
-   * @param y
+   *
+   * @param dx
+   * @param dy
    */
-  public DOF2Event(float x, float y) {
+  public DOF2Event(float dx, float dy) {
     super();
-    this.dx = x;
-    this.dy = y;
+    this.dx = dx;
+    this.dy = dy;
+  }
+
+  /**
+   * Same as
+   * {@code this(prevEvent instanceof DOF2Event ? (DOF2Event) prevEvent : null, x, y)}.
+   *
+   * @see #DOF2Event(DOF2Event, float, float)
+   */
+  public DOF2Event(MotionEvent prevEvent, float x, float y) {
+    this(prevEvent instanceof DOF2Event ? (DOF2Event) prevEvent : null, x, y);
   }
 
   /**
    * Construct a relative event from the given previous event, dof's and modifiers.
-   * 
+   * <p>
+   * If the {@link #id()} of the {@code prevEvent} is different then {@link #id()}, sets
+   * the {@link #distance()}, {@link #delay()} and {@link #speed()} all to {@code zero}.
+   *
    * @param prevEvent
    * @param x
    * @param y
@@ -122,10 +148,10 @@ public class DOF2Event extends MotionEvent {
   }
 
   @Override
-  public void setPreviousEvent(MotionEvent prevEvent) {
+  protected void setPreviousEvent(MotionEvent prevEvent) {
+    rel = true;
     if (prevEvent != null)
-      if (prevEvent instanceof DOF2Event) {
-        rel = true;
+      if (prevEvent instanceof DOF2Event && prevEvent.id() == this.id()) {
         this.dx = this.x() - ((DOF2Event) prevEvent).x();
         this.dy = this.y() - ((DOF2Event) prevEvent).y();
         distance = Util.distance(x, y, ((DOF2Event) prevEvent).x(), ((DOF2Event) prevEvent).y());
@@ -134,17 +160,11 @@ public class DOF2Event extends MotionEvent {
           speed = distance;
         else
           speed = distance / (float) delay;
-      } else {
-        this.dx = 0f;
-        this.dy = 0f;
-        delay = 0l;
-        speed = 0f;
-        distance = 0f;
       }
   }
 
   /**
-   * @return dof-1
+   * @return dof-1, only meaningful if the event {@link #isRelative()}
    */
   public float x() {
     return x;
@@ -158,14 +178,14 @@ public class DOF2Event extends MotionEvent {
   }
 
   /**
-   * @return previous dof-1
+   * @return previous dof-1, only meaningful if the event {@link #isRelative()}
    */
   public float prevX() {
     return x() - dx();
   }
 
   /**
-   * @return dof-2
+   * @return dof-2, only meaningful if the event {@link #isRelative()}
    */
   public float y() {
     return y;
@@ -179,7 +199,7 @@ public class DOF2Event extends MotionEvent {
   }
 
   /**
-   * @return previous dof-2
+   * @return previous dof-2, only meaningful if the event {@link #isRelative()}
    */
   public float prevY() {
     return y() - dy();
@@ -203,7 +223,7 @@ public class DOF2Event extends MotionEvent {
 
   /**
    * Convenience function that simply returns {@code return dof1Event(true)}
-   * 
+   *
    * @see #dof1Event(boolean)
    */
   public DOF1Event dof1Event() {
@@ -212,9 +232,8 @@ public class DOF2Event extends MotionEvent {
 
   /**
    * Reduces the event to a {@link remixlab.bias.event.DOF1Event} (lossy reduction).
-   * 
-   * @param fromX
-   *          if true keeps dof-1, else keeps dof-2
+   *
+   * @param fromX if true keeps dof-1, else keeps dof-2
    */
   public DOF1Event dof1Event(boolean fromX) {
     DOF1Event pe1;
@@ -234,7 +253,6 @@ public class DOF2Event extends MotionEvent {
         e1 = new DOF1Event(dy(), modifiers(), id());
       }
     }
-    e1.modifiedTimestamp(this.timestamp());
     e1.delay = this.delay();
     e1.speed = this.speed();
     e1.distance = this.distance();

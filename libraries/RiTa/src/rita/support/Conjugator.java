@@ -39,6 +39,7 @@ import rita.RiTaException;
  * Processing of English. Natural Language Engineering 7(3): 207--223.
  */
 public class Conjugator implements Constants {
+  
   public static final boolean DBUG = false;
 
   private static final String PAST_TENSE_RULE = "pastTense";
@@ -56,11 +57,14 @@ public class Conjugator implements Constants {
   private String particle, modal; // modal, eg "must"
   private int form = NORMAL; // other forms?? GERUND, INFINITIVE
   private Matcher matcher;
-
+  private static Pattern ANY_STEM_PTN; // USE Constants
+  
   public Conjugator() {
 
     allowsTense = true;
-    matcher = Pattern.compile(ANY_STEM).matcher("");
+    if (ANY_STEM_PTN == null)
+      ANY_STEM_PTN = Pattern.compile(ANY_STEM);
+    matcher = ANY_STEM_PTN.matcher("");
     this.createRuleMap();
   }
 
@@ -1018,7 +1022,8 @@ public class Conjugator implements Constants {
 
     if (form == INFINITIVE) {
       actualModal = "to";
-    } else if (allowsTense) // ( form.allowsTense() ) {
+    } 
+    else if (allowsTense) // ( form.allowsTense() ) {
     {
       if (tense == FUTURE_TENSE && modal == null) {
 	actualModal = "will";
@@ -1343,8 +1348,7 @@ public class Conjugator implements Constants {
    * A convenience method to set number, person, & tense, then conjugate, all in
    * one call
    */
-  public String conjugate(String number, String person, String tense,
-      String verb) {
+  public String conjugate(String number, String person, String tense, String verb) {
     // System.out.println("RiConjugator.conjugate("+number+","+person+","+tense+","+verb+")");
     setState(number, person, tense);
     return conjugate(verb);

@@ -3,7 +3,7 @@
   	http://www.lagers.org.uk/g4p/index.html
 	http://sourceforge.net/projects/g4p/files/?source=navbar
 
-  Copyright (c) 2012 Peter Lager
+  Copyright (c) 2016 Peter Lager
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -27,7 +27,6 @@ import g4p_controls.HotSpot.HSrect;
 import g4p_controls.StyledString.TextLayoutInfo;
 
 import java.awt.Graphics2D;
-import java.awt.font.TextLayout;
 import java.util.LinkedList;
 
 import processing.core.PApplet;
@@ -41,12 +40,20 @@ import processing.event.MouseEvent;
  * @author Peter Lager
  *
  */
-public abstract class GToggleControl extends GTextIconAlignBase {
+public abstract class GToggleControl extends GTextIconBase {
 
 	protected GToggleGroup group = null;
 
 	protected boolean selected = false;
 
+	/**
+	 * Toggle control for option and checkboxes
+	 * @param theApplet  the main sketch or GWindow control for this control
+	 * @param p0 x position based on control mode
+	 * @param p1 y position based on control mode
+	 * @param p2 x position or width based on control mode
+	 * @param p3 y position or height based on control mode
+	 */
 	public GToggleControl(PApplet theApplet, float p0, float p1, float p2, float p3) {
 		super(theApplet, p0, p1, p2, p3);
 		opaque = false;
@@ -55,63 +62,81 @@ public abstract class GToggleControl extends GTextIconAlignBase {
 		};
 	}
 
-	// This method is called if this control is added to a toggle group. A toggle group
-	// enforces single option selection from the group. Override this with an empty method
-	// to allow each toggle control to be independent of others.
+	/**
+	 * Set the icon to be used for this control. <br> 
+	 * Use the constants in GAlign e.g. <b>GAlign.LEFT</b> <br>
+	 * 
+	 * This is the only method that allows you to use an animated icon. Create and configure the icon before adding 
+	 * to this control. You can use the getIcon
+	 * 
+	 * You can pass <b>null</b> if you don't want to change a particular position/alignment.   <br>
+	 * 
+	 * @param g_icon the icon to use
+	 * @param pos GAlign.NORTH, SOUTH, EAST or WEST
+	 * @param horz GAlign.LEFT, CENTER or RIGHT
+	 * @param vert GAlign.TOP, MIDDLE, BOTTOM
+	 */
+	public void setIcon(GIcon g_icon, GAlign pos, GAlign horz, GAlign vert){
+		super.setIcon(g_icon, pos, horz, vert);
+		if(icon.me() != null){
+			GAnimIcon ai = (GAnimIcon)icon;
+			// Do not overwrite existing animations
+			if(!ai.hasClip("SELECT"))
+				ai.storeAnim("SELECT", ai.anim_clip.start, ai.anim_clip.end, ai.anim_clip.interval, 1) ;
+			if(!ai.hasClip("DESELECT"))
+				ai.storeAnim("DESELECT", ai.anim_clip.end, ai.anim_clip.start, ai.anim_clip.interval, 1) ;
+			setSelected(false);
+		}
+		bufferInvalid = true;
+	}
+
+	/**
+	 *  This method is called if this control is added to a toggle group. A toggle group
+	 *  enforces single option selection from the group. Override this with an empty method
+	 *  to allow each toggle control to be independent of others.
+	 * @param tg
+	 */
 	protected void setToggleGroup(GToggleGroup tg) {
 		this.group = tg;
 	}	
-	
+
 	/**
-	 * Get the toggle group. If null is returned then it is not part 
-	 * of the group.
+	 * Gets the toggle group for this control. 
+	 * @return the toggle group or null if not part of a toggle group.
 	 */
 	public GToggleGroup getToggleGroup(){
 		return group;
 	}
-	
+
 	/**
-	 * @return the selected
+	 * @return true if this control is selected else returns false.
 	 */
 	public boolean isSelected() {
 		return selected;
 	}
 
 	/**
-	 * @param selected the selected to set
+	 * Set whether this is or is not selected.
+	 * @param selected mark the control as selected or not
 	 */
 	public void setSelected(boolean selected) {
-		if(this.selected != selected)
-			bufferInvalid = true;
+		// Buffer is already invalid or the status has changed.
+		bufferInvalid = bufferInvalid | this.selected != selected; 
+		GAnimIcon ai = icon.me();
+		if(ai != null){
+			if(selected)
+				ai.animate("SELECT");
+			else
+				ai.animate("DESELECT");
+		}
 		if(selected && group != null)
 			group.makeSelected(this);
 		this.selected = selected;
 	}
 
-//	public void setSelected() {
-//		setSelected(true);
-//	}
-
-	/*
-	 * Only executed when clicked in the GUI.
-	 */
-	protected void hasBeenClicked(){
-		if(group == null){
-			// Independent action e.g. check box
-			selected = !selected;
-			bufferInvalid = true;
-		}
-		else {
-			// Only need to do something if we click on an unselected option
-			if(!selected)
-				setSelected(true);
-		}
-	}
-	
 	public void mouseEvent(MouseEvent event){
 		// If this option does not belong to a group then ignore mouseEvents
 		if(!visible || !enabled || !available) return;
-
 
 		calcTransformedOrigin(winApp.mouseX, winApp.mouseY);
 		currSpot = whichHotSpot(ox, oy);
@@ -131,20 +156,27 @@ public abstract class GToggleControl extends GTextIconAlignBase {
 			break;
 		case MouseEvent.CLICK:
 			if(focusIsWith == this){
-				hasBeenClicked();
+				// We have to do something if 
+				// 1) It has no group e.g. GCheckbox
+				// 2) If something unselected has been selected e.g. GOption 
+				if(!selected || group == null){
+					setSelected(!selected);
+					if(selected){
+						fireEvent(this, GEvent.SELECTED);
+					}
+					else if(group == null){
+						fireEvent(this, GEvent.DESELECTED);
+					}
+				}
 				loseFocus(null);
-				if(selected)
-					fireEvent(this, GEvent.SELECTED);
-				else if(group == null)
-					fireEvent(this, GEvent.DESELECTED);
 			}
 			break;
 		case MouseEvent.DRAG:
 			dragging = true;
 			break;
 		case MouseEvent.RELEASE:
-			// Release focus without firing an event - that would have 
-			// been done
+			// Release focus without firing an event - that would 
+			// have been done already
 			if(focusIsWith == this && dragging)
 				this.loseFocus(null);
 			dragging = false;
@@ -171,7 +203,7 @@ public abstract class GToggleControl extends GTextIconAlignBase {
 			winApp.tint(TINT_FOR_ALPHA, alphaLevel);
 		winApp.image(buffer, 0, 0);	
 		winApp.popMatrix();
-		
+
 		winApp.popStyle();
 	}
 
@@ -184,42 +216,16 @@ public abstract class GToggleControl extends GTextIconAlignBase {
 			// Get the latest lines of text
 			LinkedList<TextLayoutInfo> lines = stext.getLines(g2d);	
 			// Back ground colour
-			buffer.background(opaque ? palette[6].getRGB() : palette[2].getRGB() & 0xFFFFFF);
-			// Calculate text and icon placement
-			calcAlignment();
+			buffer.background(opaque ? palette[6].getRGB() : palette[2].getRGB() & 0xFFFFFF | 0x00010101);
 			// If there is an icon draw it
-			if(iconW != 0)
-				if(selected)
-					buffer.image(bicon[1], siX, siY);
-				else
-					buffer.image(bicon[0], siX, siY);
-			float wrapWidth = stext.getWrapWidth();
-			float sx = 0, tw = 0;
-			buffer.translate(stX, stY);
-			for(TextLayoutInfo lineInfo : lines){
-				TextLayout layout = lineInfo.layout;
-				buffer.translate(0, layout.getAscent());
-				switch(textAlignH){
-				case CENTER:
-					tw = layout.getAdvance();
-					tw = (tw > wrapWidth) ? tw - wrapWidth : tw;
-					sx = (wrapWidth - tw)/2;
-					break;
-				case RIGHT:
-					tw = layout.getAdvance();
-					tw = (tw > wrapWidth) ? tw - wrapWidth : tw;
-					sx = wrapWidth - tw;
-					break;
-				case LEFT:
-				case JUSTIFY:
-				default:
-					sx = 0;		
-				}
-				// display text
-				g2d.setColor(palette[2]);
-				lineInfo.layout.draw(g2d, sx, 0);
-				buffer.translate(0, layout.getDescent() + layout.getLeading());
+			if(icon.me() == null){
+				buffer.image(icon.getFrame(selected ? 1 : 0), iconX, iconY);
 			}
+			else {
+				buffer.image(icon.getFrame(), iconX, iconY);
+			}
+			//	Now draw the button surface (text and icon)
+			displayText(g2d, lines);
 			buffer.endDraw();
 		}	
 	}

@@ -11,8 +11,6 @@
 
 import remixlab.proscene.*;
 import remixlab.dandelion.geom.*;
-import remixlab.dandelion.core.*;
-import remixlab.bias.core.*;
 import remixlab.bias.event.*;
 
 Scene scene;
@@ -22,7 +20,6 @@ PFont font1, font2;
 
 void setup() {
   size(800, 500, P3D); // window size
-  //scene = new MyScene(this); // create a Scene instance
   scene = new Scene(this); // create a Scene instance
   scene.setAxesVisualHint(false); // hide axis
   scene.setGridVisualHint(false); // hide grid
@@ -41,7 +38,8 @@ void draw() {
   directionalLight(50, 50, 50, ((Quat)scene.camera().orientation()).x() - scene.camera().position().x(), ((Quat)scene.camera().orientation()).y() - scene.camera().position().y(), ((Quat)scene.camera().orientation()).z() - scene.camera().position().z());
   spotLight(150, 150, 150, scene.camera().position().x(), scene.camera().position().y(), scene.camera().position().z(), 0, 0, -1, 1, 20);
   spotLight(100, 100, 100, scene.camera().position().x(), scene.camera().position().y(), scene.camera().position().z(), 0, 0, 1, 1, 20);
-  board.draw();
+  board.update();
+  scene.drawFrames();
   scene.beginScreenDrawing();
   drawText();
   scene.endScreenDrawing();
@@ -51,7 +49,7 @@ public void drawText() {
   fill(#BBBBBB);
   textFont(font1);
   text("" + board.getMoves() + " moves.", 5, height - 20);
-  text("Press 'i' to scramble, 'o' to order, 'p' to change mode, 'q' to increase size, 'w' to decrease size.", 5, height - 5);  
+  text("Press 'i' to scramble, 'o' to order, 'p' to change mode, 'q' to increase size, 'w' to decrease size.", 5, height - 5);
   fill(#EEEEEE);
   text(board.isOrdered() && board.getMoves() > 0 ? "COMPLETED!" : "", 5, 28);
 }
@@ -59,25 +57,20 @@ public void drawText() {
 void keyPressed() {
   if (key == 'i' || key == 'I') {
     board.scramble();
-  } 
-  else if (key == 'o' || key == 'O') {
+  } else if (key == 'o' || key == 'O') {
     board.order();
-  } 
-  else if (key == 'p' || key == 'P') {
+  } else if (key == 'p' || key == 'P') {
     if (board.getImage() == null) {
       board.setImage(loadImage("image.png"));
-    } 
-    else {
+    } else {
       board.setImage(null);
     }
     board.order();
-  } 
-  else if (key == 'q') {
+  } else if (key == 'q') {
     if (board.getSize() < 5) {
       board.setSize(board.getSize() + 1);
     }
-  } 
-  else if (key == 'w') {
+  } else if (key == 'w') {
     if (board.getSize() > 3) {
       board.setSize(board.getSize() - 1);
     }

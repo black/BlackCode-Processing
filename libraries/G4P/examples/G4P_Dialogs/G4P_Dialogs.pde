@@ -1,16 +1,13 @@
-/*
+/**
  Simple sketch to experiment with the different dialogs
  available to you in the G4P library.
  
- The file diaologs will not work in an applet hosted on
- a website unless you digitally sign the jars.
- 
- The file dialogs match the behaviour of those in Processing 
+  The file dialogs match the behaviour of those in Processing 
  V1.5.1 i.e. immediate mode rather than on a seperate thread
  as in V2 and V3
  
  for Processing V2 and V3
- (c) 2015 Peter Lager
+ (c) 2018 Peter Lager
  
  */
 
@@ -212,12 +209,11 @@ public void createColorChooserGUI(int x, int y, int w, int h, int border) {
   title.setTextBold();
   btnColor = new GButton(this, x, y+26, 80, 20, "Choose");
   sel_col = color(255);
-  pg = createGraphics(60, 20, JAVA2D);
+  view = new GView(this, x+88, y+26, 60, 20, JAVA2D);
+  pg = view.getGraphics();
   pg.beginDraw();
   pg.background(sel_col);
   pg.endDraw();
-  spad = new GSketchPad(this, x+88, y+26, pg.width, pg.height);
-  spad.setGraphic(pg);
 }
 
 public void createMessageDialogGUI(int x, int y, int w, int h, int border) {
@@ -359,7 +355,7 @@ int od_mtype, od_otype;
 
 // Controls used for colour chooser dialog GUI 
 GButton btnColor;
-GSketchPad spad;
+GView view;
 PGraphics pg;
 int sel_col = -1;
 

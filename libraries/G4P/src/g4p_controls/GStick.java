@@ -44,7 +44,7 @@ import processing.event.MouseEvent;
  * range 0-7 and -1 when in the dead zone. <br>
  * <pre>
  *     5   6   7
- * 		\  |  /
+ *      \  |  /
  *       \ | /
  *   4 --- + --- 0         + is the dea zone so -1
  *       / | \
@@ -56,7 +56,7 @@ import processing.event.MouseEvent;
  * which give the values. <br>
  * <pre>
  * X= -1   0   +1 
- * 		\  |  /  -1
+ *      \  |  /  -1
  *       \ | /
  *     --- + ---  0
  *       / | \
@@ -109,14 +109,15 @@ public class GStick extends GAbstractControl {
 
 	/**
 	 * Create the stick inside the specified rectangle. 
-	 * @param theApplet
-	 * @param p0
-	 * @param p1
-	 * @param p2
-	 * @param p3
+	 * @param theApplet  the main sketch or GWindow control for this control
+	 * @param p0 x position based on control mode
+	 * @param p1 y position based on control mode
+	 * @param p2 x position or width based on control mode
+	 * @param p3 y position or height based on control mode
 	 */
 	public GStick(PApplet theApplet, float p0, float p1, float p2, float p3) {
 		super(theApplet, p0, p1, p2, p3);
+		makeBuffer();
 		// Enforce minimum size constraint
 		if(width < 40 || height < 40)
 			resize(PApplet.max(Math.round(width),40), PApplet.max(Math.round(height),40));
@@ -163,7 +164,7 @@ public class GStick extends GAbstractControl {
 	}
 	
 	/**
-	 * Get the current mode
+	 * @return the current stick mode
 	 */
 	public int getMode(){
 		return mode;
@@ -173,9 +174,9 @@ public class GStick extends GAbstractControl {
 	 * Returns the current position of the stick based on <br>
 	 * <pre>
 	 *     5   6   7
-	 * 		\  |  /
+	 *      \  |  /
 	 *       \ | /
-	 *   4 --- + --- 0         + is the dea zone so -1
+	 *   4 --- + --- 0         + is the dead zone so -1
 	 *       / | \
 	 *      /  |  \
 	 *     3   2   1
@@ -190,7 +191,7 @@ public class GStick extends GAbstractControl {
 	 * Get the X position of the stick from <br>
 	 *  * <pre>
 	 * X= -1   0   +1 
-	 * 		\  |  /  -1
+	 *      \  |  /  -1
 	 *       \ | /
 	 *     --- + ---  0
 	 *       / | \
@@ -207,7 +208,7 @@ public class GStick extends GAbstractControl {
 	 * Get the Y position of the stick from <br>
 	 *  * <pre>
 	 * X= -1   0   +1 
-	 * 		\  |  /  -1
+	 *      \  |  /  -1
 	 *       \ | /
 	 *     --- + ---  0
 	 *       / | \

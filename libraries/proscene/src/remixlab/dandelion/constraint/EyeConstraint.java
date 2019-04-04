@@ -1,6 +1,6 @@
 /**************************************************************************************
  * dandelion_tree
- * Copyright (c) 2014-2016 National University of Colombia, https://github.com/remixlab
+ * Copyright (c) 2014-2017 National University of Colombia, https://github.com/remixlab
  * @author Jean Pierre Charalambos, http://otrolado.info/
  *
  * All rights reserved. Library that eases the creation of interactive
@@ -10,7 +10,7 @@
 
 package remixlab.dandelion.constraint;
 
-import remixlab.dandelion.core.*;
+import remixlab.dandelion.core.Eye;
 import remixlab.dandelion.geom.*;
 import remixlab.util.Util;
 
@@ -51,27 +51,27 @@ public class EyeConstraint extends AxisPlaneConstraint {
     Vec res = translation.get();
     Vec proj;
     switch (translationConstraintType()) {
-    case FREE:
-      break;
-    case PLANE:
-      if (frame.is2D() && Util.nonZero(translationConstraintDirection().z()))
+      case FREE:
         break;
-      proj = eye().frame().inverseTransformOf(translationConstraintDirection());
-      if (frame.referenceFrame() != null)
-        proj = frame.referenceFrame().transformOf(proj);
-      res = Vec.projectVectorOnPlane(translation, proj);
-      break;
-    case AXIS:
-      if (frame.is2D() && Util.nonZero(translationConstraintDirection().z()))
+      case PLANE:
+        if (frame.is2D() && Util.nonZero(translationConstraintDirection().z()))
+          break;
+        proj = eye().frame().inverseTransformOf(translationConstraintDirection());
+        if (frame.referenceFrame() != null)
+          proj = frame.referenceFrame().transformOf(proj);
+        res = Vec.projectVectorOnPlane(translation, proj);
         break;
-      proj = eye().frame().inverseTransformOf(translationConstraintDirection());
-      if (frame.referenceFrame() != null)
-        proj = frame.referenceFrame().transformOf(proj);
-      res = Vec.projectVectorOnAxis(translation, proj);
-      break;
-    case FORBIDDEN:
-      res = new Vec(0.0f, 0.0f, 0.0f);
-      break;
+      case AXIS:
+        if (frame.is2D() && Util.nonZero(translationConstraintDirection().z()))
+          break;
+        proj = eye().frame().inverseTransformOf(translationConstraintDirection());
+        if (frame.referenceFrame() != null)
+          proj = frame.referenceFrame().transformOf(proj);
+        res = Vec.projectVectorOnAxis(translation, proj);
+        break;
+      case FORBIDDEN:
+        res = new Vec(0.0f, 0.0f, 0.0f);
+        break;
     }
     return res;
   }
@@ -85,26 +85,26 @@ public class EyeConstraint extends AxisPlaneConstraint {
   public Rotation constrainRotation(Rotation rotation, Frame frame) {
     Rotation res = rotation.get();
     switch (rotationConstraintType()) {
-    case FREE:
-      break;
-    case PLANE:
-      break;
-    case AXIS:
-      if (frame.is2D())
+      case FREE:
         break;
-      if (rotation instanceof Quat) {
-        Vec axis = frame.transformOf(eye().frame().inverseTransformOf(rotationConstraintDirection()));
-        Vec quat = new Vec(((Quat) rotation).quat[0], ((Quat) rotation).quat[1], ((Quat) rotation).quat[2]);
-        quat = Vec.projectVectorOnAxis(quat, axis);
-        res = new Quat(quat, 2.0f * (float) Math.acos(((Quat) rotation).quat[3]));
-      }
-      break;
-    case FORBIDDEN:
-      if (rotation instanceof Quat)
-        res = new Quat(); // identity
-      else
-        res = new Rot(); // identity
-      break;
+      case PLANE:
+        break;
+      case AXIS:
+        if (frame.is2D())
+          break;
+        if (rotation instanceof Quat) {
+          Vec axis = frame.transformOf(eye().frame().inverseTransformOf(rotationConstraintDirection()));
+          Vec quat = new Vec(((Quat) rotation).quat[0], ((Quat) rotation).quat[1], ((Quat) rotation).quat[2]);
+          quat = Vec.projectVectorOnAxis(quat, axis);
+          res = new Quat(quat, 2.0f * (float) Math.acos(((Quat) rotation).quat[3]));
+        }
+        break;
+      case FORBIDDEN:
+        if (rotation instanceof Quat)
+          res = new Quat(); // identity
+        else
+          res = new Rot(); // identity
+        break;
     }
     return res;
   }

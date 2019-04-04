@@ -1,6 +1,6 @@
 /**************************************************************************************
  * fpstiming_tree
- * Copyright (c) 2014-2016 National University of Colombia, https://github.com/remixlab
+ * Copyright (c) 2014-2017 National University of Colombia, https://github.com/remixlab
  * @author Jean Pierre Charalambos, http://otrolado.info/
  *
  * All rights reserved. Library that eases the creation of interactive
@@ -64,7 +64,7 @@ public class AnimatorObject implements Animator {
    * <p>
    * Use {@link #startAnimation()}, {@link #stopAnimation()} or {@link #toggleAnimation()}
    * to change this value.
-   * 
+   *
    * @see #startAnimation()
    * @see #animate()
    */
@@ -86,7 +86,7 @@ public class AnimatorObject implements Animator {
    * {@link #startAnimation()}. If {@link #animationStarted()}, you should
    * {@link #stopAnimation()} first. See {@link #restartAnimation()} and
    * {@link #setAnimationPeriod(long, boolean)}.
-   * 
+   *
    * @see #setAnimationPeriod(long, boolean)
    */
   @Override
@@ -96,7 +96,7 @@ public class AnimatorObject implements Animator {
 
   /**
    * Convenience function that simply calls {@code period(period, true)}.
-   * 
+   *
    * @see #setAnimationPeriod(long, boolean)
    */
   @Override
@@ -107,7 +107,7 @@ public class AnimatorObject implements Animator {
   /**
    * Sets the {@link #animationPeriod()}, in milliseconds. If restart is {@code true} and
    * {@link #animationStarted()} then {@link #restartAnimation()} is called.
-   * 
+   *
    * @see #startAnimation()
    */
   @Override
@@ -121,7 +121,7 @@ public class AnimatorObject implements Animator {
 
   /**
    * Stops animation.
-   * 
+   *
    * @see #animationStarted()
    */
   @Override
@@ -133,7 +133,7 @@ public class AnimatorObject implements Animator {
 
   /**
    * Starts the animation loop.
-   * 
+   *
    * @see #animationStarted()
    */
   @Override

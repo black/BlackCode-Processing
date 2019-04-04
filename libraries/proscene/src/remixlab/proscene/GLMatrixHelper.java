@@ -1,8 +1,8 @@
 /**************************************************************************************
  * ProScene (version 3.0.0)
- * Copyright (c) 2014-2016 National University of Colombia, https://github.com/remixlab
+ * Copyright (c) 2014-2017 National University of Colombia, https://github.com/remixlab
  * @author Jean Pierre Charalambos, http://otrolado.info/
- * 
+ *
  * All rights reserved. Library that eases the creation of interactive scenes
  * in Processing, released under the terms of the GNU Public License v3.0
  * which is available at http://www.gnu.org/licenses/gpl.html
@@ -167,12 +167,11 @@ class GLMatrixHelper extends MatrixHelper {
   @Override
   public void setModelView(Mat source) {
     if (gScene.is3D())
-      pggl().setMatrix(Scene.toPMatrix(source));// in P5 this caches
-    // projmodelview
+      pggl().setMatrix(Scene.toPMatrix(source));// in P5 this caches projmodelview
     else {
       pggl().modelview.set(Scene.toPMatrix(source));
-      pggl().projmodelview.set(
-          Mat.multiply(gScene.eye().getProjection(false), gScene.eye().getView(false)).getTransposed(new float[16]));
+      pggl().projmodelview
+          .set(Mat.multiply(gScene.eye().getProjection(false), gScene.eye().getView(false)).getTransposed(new float[16]));
     }
   }
 }

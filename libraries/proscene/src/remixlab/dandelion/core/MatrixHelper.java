@@ -1,6 +1,6 @@
 /**************************************************************************************
  * dandelion_tree
- * Copyright (c) 2014-2016 National University of Colombia, https://github.com/remixlab
+ * Copyright (c) 2014-2017 National University of Colombia, https://github.com/remixlab
  * @author Jean Pierre Charalambos, http://otrolado.info/
  *
  * All rights reserved. Library that eases the creation of interactive
@@ -10,7 +10,8 @@
 
 package remixlab.dandelion.core;
 
-import remixlab.dandelion.geom.*;
+import remixlab.dandelion.geom.Mat;
+import remixlab.dandelion.geom.Vec;
 import remixlab.util.Util;
 
 /**
@@ -27,7 +28,7 @@ public abstract class MatrixHelper {
   /**
    * Instantiates the {@link #projectionView()} matrix and sets
    * {@link #isProjectionViewInverseCached()} to {@code false}.
-   * 
+   *
    * @param scn
    */
   public MatrixHelper(AbstractScene scn) {
@@ -73,7 +74,7 @@ public abstract class MatrixHelper {
   /**
    * Returns {@code true} if {@code P x M} and {@code inv (P x M)} are being cached, and
    * {@code false} otherwise.
-   * 
+   *
    * @see #cacheProjectionView()
    * @see #cacheProjectionViewInverse(boolean)
    */
@@ -85,7 +86,7 @@ public abstract class MatrixHelper {
    * Cache {@code inv (P x M)} (and also {@code (P x M)} ) so that
    * {@link remixlab.dandelion.core.AbstractScene#unprojectedCoordinatesOf(Vec)} is
    * optimized.
-   * 
+   *
    * @see #isProjectionViewInverseCached()
    * @see #cacheProjectionView()
    */
@@ -103,7 +104,7 @@ public abstract class MatrixHelper {
   /**
    * {@link #cacheProjectionViewInverse(boolean)} should be called first for this method
    * to take effect.
-   * 
+   *
    * @return inv({@link #projection()} * {@link #modelView()})
    */
   public Mat projectionViewInverse() {
@@ -114,7 +115,7 @@ public abstract class MatrixHelper {
 
   /**
    * Same as {@code setProjection(gScene.eye().getProjection(recompute))}.
-   * 
+   *
    * @see #setProjection(Mat)
    * @see remixlab.dandelion.core.Eye#getProjection(boolean)
    */
@@ -126,7 +127,7 @@ public abstract class MatrixHelper {
    * Computes the projection matrix from
    * {@link remixlab.dandelion.core.AbstractScene#eye()} parameters and loads it into the
    * matrix helper. Used in {@link #bind()}.
-   * 
+   *
    * @see remixlab.dandelion.core.Eye#getProjection(boolean)
    */
   public void loadProjection() {
@@ -147,7 +148,7 @@ public abstract class MatrixHelper {
    * Computes the view matrix from {@link remixlab.dandelion.core.AbstractScene#eye()}
    * parameters and loads it into the matrix helper. Used in {@link #bind()}. If
    * {@code includeView} is {@code false}
-   * 
+   *
    * @see remixlab.dandelion.core.Eye#getView(boolean)
    */
   public void loadModelView() {
@@ -227,7 +228,7 @@ public abstract class MatrixHelper {
    * Same as rotateZ (this is identical to a 3D rotation along the z-axis) but included
    * for clarity. It'd be weird for people drawing 2D graphics to be using rotateZ. And
    * they might kick our a-- for the confusion.
-   * 
+   * <p>
    * <A HREF="http://www.xkcd.com/c184.html">Additional background</A>.
    */
   public void rotate(float angle) {
@@ -350,7 +351,7 @@ public abstract class MatrixHelper {
    * <b>Attention:</b> If you want your screen drawing to appear on top of your 3d scene
    * then draw first all your 3d before doing any call to a {@link #beginScreenDrawing()}
    * and {@link #endScreenDrawing()} pair.
-   * 
+   *
    * @see #endScreenDrawing()
    */
   public void beginScreenDrawing() {
@@ -362,7 +363,7 @@ public abstract class MatrixHelper {
 
   /**
    * Ends screen drawing. See {@link #beginScreenDrawing()} for details.
-   * 
+   *
    * @see #beginScreenDrawing()
    */
   public void endScreenDrawing() {

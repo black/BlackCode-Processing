@@ -43,7 +43,6 @@ class ColorPreviewPanel extends JPanel implements ChangeListener {
 	JLabel lblPrev, lblCurr;
 	JLabel lblPrevColor, lblCurrColor;
 	
-	
 	public ColorPreviewPanel(Color c){
 		setLayout(new FlowLayout());
 		lblPrev = new JLabel("Initial Color");
@@ -59,7 +58,6 @@ class ColorPreviewPanel extends JPanel implements ChangeListener {
 		add(lblPrevColor);
 		add(lblPrev);
 	}
-
 
 	public void stateChanged(ChangeEvent e) {
 		ColorSelectionModel csm = (ColorSelectionModel)e.getSource();

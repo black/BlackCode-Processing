@@ -36,28 +36,27 @@ public class RiMarkov implements Constants
   public static String SS_REGEX = "\"?[A-Z][a-z\"',;`-]*";
 
   /** constant for max # of tries for a generation */
-  public static int MAX_GENERATION_ATTEMPTS = 1000;
-
-  /** constant for max # of duplicates to skip  */
-  public static int MAX_DUPLICATE_TO_SKIP = 10000;
+  public static int MAX_GENERATION_ATTEMPTS = 5000;
 
   protected static final Map EMPTY_MAP = new HashMap();
   protected static final String SS_DELIM = "D=l1m_";
   protected static final int MAX_PROB_MISSES = 100;
 
-  public int minSentenceLength = 6, maxSentenceLength = 35;
+  public int minSentenceLength = 6, maxSentenceLength = 35,  N;
+  public boolean printIgnoredText = false;
   
   protected TextNode root;
-  protected Set sentenceList;
+  //protected Set sentenceList;
   protected Stack pathTrace;
   protected List sentenceStarts;
 
-  protected int nFactor, wordsPerFile, tokenCount, skippedDups;
-  protected boolean useSmoothing, ignoreCase, allowDuplicates, printIgnoredText = false;
+  protected int wordsPerFile, tokenCount, skippedDups;
+  protected boolean useSmoothing, ignoreCase, allowDuplicates;
+
   protected boolean removeQuotations = true, sentenceAware = true, addSpaces = true, profile = true;
-
+  protected String rawText = "";
   private Object parent;
-
+  
   /**
    * Construct a sentence-generating Markov chain (or n-gram) model
    */
@@ -100,8 +99,8 @@ public class RiMarkov implements Constants
     if (nFactor < 1)
       throw new RiTaException("N-factor must be > 0");
     
+    this.N = nFactor;
     this.parent = parent;
-    this.nFactor = nFactor;
     this.sentenceAware = recognizeSentences;
     this.allowDuplicates = allowDuplicates;
     this.root = TextNode.createRoot(ignoreCase);
@@ -485,14 +484,14 @@ public class RiMarkov implements Constants
     return this;
   }   */
 
-  public RiMarkov loadText(String rawText)
+  public RiMarkov loadText(String text)
   {
-    return this.loadText(rawText, 1);
+    return this.loadText(text, 1);
   }
 
-  public RiMarkov loadText(String rawText, String regex)
+  public RiMarkov loadText(String text, String regex)
   {
-    return this.loadText(rawText, 1, regex);
+    return this.loadText(text, 1, regex);
   }
 
   /**
@@ -505,9 +504,9 @@ public class RiMarkov implements Constants
    *          A weight of 3 is equivalent to loading the text 3 times and gives
    *          each token 3x the probability of being chosen during generation.
    */
-  public RiMarkov loadText(String rawText, int multiplier)
+  public RiMarkov loadText(String text, int multiplier)
   {
-    return this.loadText(rawText, multiplier, null);
+    return this.loadText(text, multiplier, null);
   }
 
   /**
@@ -520,21 +519,16 @@ public class RiMarkov implements Constants
    *          A weight of 3 is equivalent to loading the text 3 times and gives
    *          each token 3x the probability of being chosen during generation.
    */
-  public RiMarkov loadText(String rawText, int multiplier, String regex)
+  public RiMarkov loadText(String text, int multiplier, String regex)
   {
+    if (text == null || text.length() < 1) 
+      return this;
     
-/*System.out.println("RiMarkov.loadText("+rawText.length()+")");
-if (rawText.length() < 10)
-  System.out.println("RiMarkov.loadText("+rawText+")");*/
-    
-    if (rawText == null || rawText.length() < 1) return this;
-    
+    this.rawText += text;
+
     if (sentenceAware)
     {
-      loadSentences(RiTa.splitSentences(rawText), multiplier, regex);
-      
-      // System.out.println(sentenceList);
-      // System.out.println(sentenceStarts);
+      loadSentences(text, multiplier, regex);
       
       if (sentenceStarts.size() > 0)
         return this;
@@ -543,7 +537,7 @@ if (rawText.length() < 10)
 	System.err.println("[WARN] No sentences found, parsing as tokens");
     }
     
-    return loadTokens(RiTa.tokenize(rawText, regex), multiplier);
+    return loadTokens(RiTa.tokenize(text, regex), multiplier);
   }
 
   /**
@@ -576,7 +570,7 @@ if (rawText.length() < 10)
       
       for (int k = 0; k < tokens.length; k++)
       {
-        toAdd = new String[nFactor];
+        toAdd = new String[N];
         for (int j = 0; j < toAdd.length; j++)
         {
           if ((k + j) < tokens.length)
@@ -651,7 +645,7 @@ if (rawText.length() < 10)
    */
   public int getN()
   {
-    return this.nFactor;
+    return this.N;
   }
 
   /**
@@ -684,7 +678,7 @@ if (rawText.length() < 10)
   protected TextNode nextNodeForList(List previousTokens)
   {
     // Follow the seed path down the tree
-    int firstLookupIdx = Math.max(0, previousTokens.size() - (nFactor - 1));
+    int firstLookupIdx = Math.max(0, previousTokens.size() - (N - 1));
     TextNode tn = (previousTokens.size() < 1) ? root.selectChild()
         : (TextNode) previousTokens.get(firstLookupIdx++);
 
@@ -703,7 +697,7 @@ if (rawText.length() < 10)
   protected TextNode nextNodeForArr(String[] seed)
   {
     // Follow the seed path down the tree
-    int firstLookupIdx = Math.max(0, seed.length - (nFactor - 1));
+    int firstLookupIdx = Math.max(0, seed.length - (N - 1));
     TextNode node = root.lookup(seed[firstLookupIdx++]);
     for (int i = firstLookupIdx; i < seed.length; i++)
     {
@@ -730,7 +724,7 @@ if (rawText.length() < 10)
       return EMPTY;
     }
 
-    int firstLookupIdx = Math.max(0, seed.length - (nFactor - 1));
+    int firstLookupIdx = Math.max(0, seed.length - (N - 1));
     TextNode node = root.lookup(seed[firstLookupIdx++]);
     for (int i = firstLookupIdx; i < seed.length; i++)
     {
@@ -815,11 +809,11 @@ if (rawText.length() < 10)
    */
   public String[] getCompletions(String[] pre, String[] post)
   {
-    if (pre == null || pre.length >= nFactor)
+    if (pre == null || pre.length >= N)
       throw new RiTaException("Invalid pre array: " + RiTa.asList(pre));
 
     int postLen = post == null ? 0 : post.length;
-    if (pre.length + postLen > nFactor)
+    if (pre.length + postLen > N)
     {
       throw new RiTaException("Sum of pre.length" + " && post.length must be < N, was "
           + (pre.length + postLen));
@@ -861,7 +855,7 @@ if (rawText.length() < 10)
   {
     Map probs = new HashMap();
 
-    if (path.length == 0 || path.length >= nFactor)
+    if (path.length == 0 || path.length >= N)
       return null;
 
     TextNode tn = findNode(path);
@@ -918,8 +912,8 @@ if (rawText.length() < 10)
    */
   protected TextNode[] nodesOnPath(String[] path)
   {
-    int numNodes = Math.min(path.length, nFactor - 1);
-    int firstLookupIdx = Math.max(0, path.length - (nFactor - 1));
+    int numNodes = Math.min(path.length, N - 1);
+    int firstLookupIdx = Math.max(0, path.length - (N - 1));
     TextNode node = (TextNode) root.lookup(path[firstLookupIdx++]);
     if (node == null)
       return null;
@@ -958,9 +952,9 @@ if (rawText.length() < 10)
    * Loads an array of sentences into the model; each element in the array must
    * be a single sentence for proper parsing.
    */
-  public RiMarkov loadSentences(String[] sentences, int multiplier)
+  protected RiMarkov loadSentences(String text, int multiplier)
   {
-    return this.loadSentences(sentences, multiplier, null);
+    return this.loadSentences(text, multiplier, null);
   }
 
   /**
@@ -968,8 +962,10 @@ if (rawText.length() < 10)
    * be a single sentence for proper parsing. After sentence splitting, the
    * input is tokenized into words using the specified regex.
    */
-  public RiMarkov loadSentences(String[] sentences, int multiplier, String regex)
+  protected RiMarkov loadSentences(String text, int multiplier, String regex)
   {
+    String[] sentences = RiTa.splitSentences(text);
+    
     //System.out.println("RiMarkov.loadSentences("+sentences.length+")");
     multiplier = Math.max(multiplier, 1); 
     
@@ -981,15 +977,14 @@ if (rawText.length() < 10)
     // do the cleaning/splitting first ---------------------
     for (int i = 0; i < sentences.length; i++)
     {
-      String sentence = clean(sentences[i]);
-      if (!allowDuplicates)
-      {
-        if (sentenceList == null)
-          sentenceList = new HashSet();
-        sentenceList.add(sentence);
-      }
+//      if (!allowDuplicates)
+//      {
+//        if (sentenceList == null)
+//          sentenceList = new HashSet();
+//        sentenceList.add(sentence);
+//      }
 
-      String[] tokens = RiTa.tokenize(sentence, regex);
+      String[] tokens = RiTa.tokenize(clean(sentences[i]), regex);
       tokenCount += tokens.length;
       if (!validSentenceStart(tokens[0]))
       {
@@ -1013,8 +1008,8 @@ if (rawText.length() < 10)
     words = (String[]) allWords.toArray(new String[allWords.size()]);
     for (int i = 0; i < words.length; i++)
     {
-      toAdd = new String[nFactor]; // use arraycopy?
-      for (int j = 0; j < nFactor; j++)
+      toAdd = new String[N]; // use arraycopy?
+      for (int j = 0; j < N; j++)
       {
         if ((i + j) < words.length)
           toAdd[j] = words[i + j];
@@ -1183,14 +1178,13 @@ if (rawText.length() < 10)
       return false;
     }
     
-    if (!allowDuplicates && sentenceList.contains(sent))
-    {
-      if (++skippedDups == MAX_DUPLICATE_TO_SKIP)
+    //System.out.println(sent+": "+allowDuplicates+" "+this.rawText.indexOf(sent));
+    
+    if (!allowDuplicates &&  rawText.indexOf(sent) > -1) {
+
+      if (++skippedDups >= MAX_GENERATION_ATTEMPTS)
       {
-        if (!RiTa.SILENT)
-          System.err.println("[WARN] Hit skip-maximum (RiMarkov.maxDuplicatesToSkip="
-            + MAX_DUPLICATE_TO_SKIP + ") after skipping " + MAX_DUPLICATE_TO_SKIP
-            + " duplicates, now allowing duplicates!");
+	// TODO: NEVER CALLED, add warning here?
         allowDuplicates = true;
       }
       
@@ -1369,11 +1363,6 @@ if (rawText.length() < 10)
   public boolean ready()
   {
     return this.size() > 0;
-  }
-
-  public RiMarkov loadSentences(String[] sentences)
-  {
-    return loadSentences(sentences, 1);
   }
 
   public RiMarkov loadTokens(String[] tokens)

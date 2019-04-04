@@ -1,6 +1,6 @@
 /**************************************************************************************
  * dandelion_tree
- * Copyright (c) 2014-2016 National University of Colombia, https://github.com/remixlab
+ * Copyright (c) 2014-2017 National University of Colombia, https://github.com/remixlab
  * @author Jean Pierre Charalambos, http://otrolado.info/
  *
  * All rights refserved. Library that eases the creation of interactive
@@ -10,14 +10,19 @@
 
 package remixlab.dandelion.geom;
 
-import remixlab.dandelion.constraint.*;
-import remixlab.util.*;
+import remixlab.dandelion.constraint.Constraint;
+import remixlab.util.Copyable;
+import remixlab.util.EqualsBuilder;
+import remixlab.util.HashCodeBuilder;
+import remixlab.util.Util;
 
 /**
  * A Frame is a 2D or 3D coordinate system, represented by a {@link #position()} , an
  * {@link #orientation()} and {@link #magnitude()}. The order of these transformations is
  * important: the Frame is first translated, then rotated around the new translated origin
- * and then scaled.
+ * and then scaled. This class API aims to conform that of the great
+ * <a href="http://libqglviewer.com/refManual/classqglviewer_1_1Frame.html">libQGLViewer
+ * Frame</a>, but it adds {@link #magnitude()} to it.
  * <p>
  * A Frame is useful to define the position, orientation and magnitude of an object, using
  * its {@link #matrix()} method, as shown below:
@@ -47,9 +52,9 @@ import remixlab.util.*;
  * {@link #inverseCoordinatesOf(Vec)} (resp. {@link #coordinatesOf(Vec)}) to apply the
  * transformation (resp. its inverse). Note the inversion.
  * <p>
- * 
+ * <p>
  * <h3>Hierarchy of Frames</h3>
- * 
+ * <p>
  * The position, orientation and magnitude of a Frame are actually defined with respect to
  * a {@link #referenceFrame()}. The default {@link #referenceFrame()} is the world
  * coordinate system (represented by a {@code null} {@link #referenceFrame()}). If you
@@ -83,9 +88,9 @@ import remixlab.util.*;
  * This frame hierarchy is used in methods like {@link #coordinatesOfIn(Vec, Frame)},
  * {@link #coordinatesOfFrom(Vec, Frame)} ... which allow coordinates (or vector)
  * conversions from a Frame to any other one (including the world coordinate system).
- * 
+ * <p>
  * <h3>Constraints</h3>
- * 
+ * <p>
  * An interesting feature of Frames is that their displacements can be constrained. When a
  * {@link remixlab.dandelion.constraint.Constraint} is attached to a Frame, it filters the
  * input of {@link #translate(Vec)} and {@link #rotate(Rotation)}, and only the resulting
@@ -98,9 +103,9 @@ import remixlab.util.*;
  * {@link remixlab.dandelion.constraint.WorldConstraint} and
  * {@link remixlab.dandelion.constraint.EyeConstraint}) and new constraints can very
  * easily be implemented.
- * 
+ * <p>
  * <h3>Derived classes</h3>
- * 
+ * <p>
  * The {@link remixlab.dandelion.core.GenericFrame} class inherits Frame and implements
  * all sorts of motion actions, so that a Frame (and hence an object) can be manipulated
  * in the scene by whatever user interaction means you can imagine.
@@ -108,8 +113,7 @@ import remixlab.util.*;
 public class Frame implements Copyable {
   @Override
   public int hashCode() {
-    return new HashCodeBuilder(17, 37).append(trans).append(rot).append(scl).append(refFrame).append(cnstrnt)
-        .toHashCode();
+    return new HashCodeBuilder(17, 37).append(translation()).append(rotation()).append(scaling()).toHashCode();
   }
 
   @Override
@@ -122,8 +126,8 @@ public class Frame implements Copyable {
       return false;
 
     Frame other = (Frame) obj;
-    return new EqualsBuilder().append(trans, other.trans).append(scl, other.scl).append(rot, other.rot)
-        .append(refFrame, other.refFrame).append(cnstrnt, other.cnstrnt).isEquals();
+    return new EqualsBuilder().append(translation(), other.translation()).append(rotation(), other.rotation())
+        .append(scaling(), other.scaling()).isEquals();
   }
 
   protected Vec trans;
@@ -138,7 +142,7 @@ public class Frame implements Copyable {
 
   /**
    * Same as {@code this(null, new Vec(), three_d ? new Quat() : new Rot(), 1)}.
-   * 
+   *
    * @see #Frame(Vec, Rotation, float)
    */
   public Frame(boolean three_d) {
@@ -147,7 +151,7 @@ public class Frame implements Copyable {
 
   /**
    * Same as {@code this(null, new Vec(), r, s)}.
-   * 
+   *
    * @see #Frame(Vec, Rotation, float)
    */
   public Frame(Rotation r, float s) {
@@ -156,7 +160,7 @@ public class Frame implements Copyable {
 
   /**
    * Same as {@code this(p, r, 1)}.
-   * 
+   *
    * @see #Frame(Vec, Rotation, float)
    */
   public Frame(Vec p, Rotation r) {
@@ -165,7 +169,7 @@ public class Frame implements Copyable {
 
   /**
    * Same as {@code this(null, p, r, s)}.
-   * 
+   *
    * @see #Frame(Frame, Vec, Rotation, float)
    */
   public Frame(Vec p, Rotation r, float s) {
@@ -174,7 +178,7 @@ public class Frame implements Copyable {
 
   /**
    * Same as {@code this(referenceFrame, p, r, 1)}.
-   * 
+   *
    * @see #Frame(Frame, Vec, Rotation, float)
    */
   public Frame(Frame referenceFrame, Vec p, Rotation r) {
@@ -183,7 +187,7 @@ public class Frame implements Copyable {
 
   /**
    * Same as {@code this(referenceFrame, new Vec(), r, 1)}.
-   * 
+   *
    * @see #Frame(Frame, Vec, Rotation, float)
    */
   public Frame(Frame referenceFrame, Rotation r, float s) {
@@ -203,10 +207,6 @@ public class Frame implements Copyable {
   }
 
   protected Frame(Frame other) {
-    // TODO experimental
-    // Iterator<Frame> iterator = other.childrenList.iterator();
-    // while (iterator.hasNext())
-    // childrenList.add(iterator.next());
     trans = other.translation().get();
     rot = other.rotation().get();
     scl = other.scaling();
@@ -341,7 +341,7 @@ public class Frame implements Copyable {
    * <p>
    * Use {@link #position()} to get the result in world coordinates. These two values are
    * identical when the {@link #referenceFrame()} is {@code null} (default).
-   * 
+   *
    * @see #setTranslation(Vec)
    * @see #setTranslationWithConstraint(Vec)
    */
@@ -365,7 +365,7 @@ public class Frame implements Copyable {
   /**
    * Same as {@link #setTranslation(Vec)}, but if there's a {@link #constraint()} it is
    * satisfied.
-   * 
+   *
    * @see #setRotationWithConstraint(Rotation)
    * @see #setPositionWithConstraint(Vec)
    * @see #setScaling(float)
@@ -414,7 +414,7 @@ public class Frame implements Copyable {
    * applied to the Frame may differ from {@code t} (since it can be filtered by the
    * {@link #constraint()}). Use {@link #setTranslation(Vec)} to directly translate the
    * Frame without taking the {@link #constraint()} into account.
-   * 
+   *
    * @see #rotate(Rotation)
    * @see #scale(float)
    */
@@ -430,7 +430,7 @@ public class Frame implements Copyable {
 
   /**
    * Returns the position of the Frame, defined in the world coordinate system.
-   * 
+   *
    * @see #orientation()
    * @see #magnitude()
    * @see #setPosition(Vec)
@@ -471,7 +471,7 @@ public class Frame implements Copyable {
   /**
    * Same as {@link #setPosition(Vec)}, but if there's a {@link #constraint()} it is
    * satisfied (without modifying {@code position}).
-   * 
+   *
    * @see #setOrientationWithConstraint(Rotation)
    * @see #setTranslationWithConstraint(Vec)
    */
@@ -490,7 +490,7 @@ public class Frame implements Copyable {
    * <p>
    * Use {@link #orientation()} to get the result in world coordinates. These two values
    * are identical when the {@link #referenceFrame()} is {@code null} (default).
-   * 
+   *
    * @see #setRotation(Rotation)
    * @see #setRotationWithConstraint(Rotation)
    */
@@ -508,7 +508,7 @@ public class Frame implements Copyable {
    * Use {@link #setOrientation(Rotation)} to define the world coordinates
    * {@link #orientation()}. The potential {@link #constraint()} of the Frame is not taken
    * into account, use {@link #setRotationWithConstraint(Rotation)} instead.
-   * 
+   *
    * @see #setRotationWithConstraint(Rotation)
    * @see #rotation()
    * @see #setTranslation(Vec)
@@ -531,9 +531,8 @@ public class Frame implements Copyable {
 
   /**
    * Defines a 2D {@link remixlab.dandelion.geom.Rotation}.
-   * 
-   * @param a
-   *          angle
+   *
+   * @param a angle
    */
   public final void setRotation(float a) {
     if (is3D()) {
@@ -546,7 +545,7 @@ public class Frame implements Copyable {
   /**
    * Same as {@link #setRotation(Rotation)}, but if there's a {@link #constraint()} it's
    * satisfied.
-   * 
+   *
    * @see #setTranslationWithConstraint(Vec)
    * @see #setOrientationWithConstraint(Rotation)
    * @see #setScaling(float)
@@ -575,7 +574,7 @@ public class Frame implements Copyable {
    * applied to the Frame may differ from {@code q} (since it can be filtered by the
    * {@link #constraint()}). Use {@link #setRotation(Rotation)} to directly rotate the
    * Frame without taking the {@link #constraint()} into account.
-   * 
+   *
    * @see #translate(Vec)
    */
   public final void rotate(Rotation r) {
@@ -649,9 +648,9 @@ public class Frame implements Copyable {
       Frame ref = frame.get();
       Frame copy = get();
       copy.setReferenceFrame(ref);
-      copy.fromFrame(this);
+      copy.setWorldMatrix(this);
       ref.rotate(new Quat(roll, pitch, yaw));
-      fromFrame(copy);
+      setWorldMatrix(copy);
       return;
     }
   }
@@ -660,7 +659,7 @@ public class Frame implements Copyable {
 
   /**
    * Returns the orientation of the Frame, defined in the world coordinate system.
-   * 
+   *
    * @see #position()
    * @see #magnitude()
    * @see #setOrientation(Rotation)
@@ -707,7 +706,7 @@ public class Frame implements Copyable {
   /**
    * Same as {@link #setOrientation(Rotation)}, but if there's a {@link #constraint()} it
    * is satisfied (without modifying {@code orientation}).
-   * 
+   *
    * @see #setPositionWithConstraint(Vec)
    * @see #setRotationWithConstraint(Rotation)
    */
@@ -729,7 +728,7 @@ public class Frame implements Copyable {
    * <p>
    * Use {@link #magnitude()} to get the result in world coordinates. These two values are
    * identical when the {@link #referenceFrame()} is {@code null} (default).
-   * 
+   *
    * @see #setScaling(float)
    */
   public final float scaling() {
@@ -754,7 +753,7 @@ public class Frame implements Copyable {
   /**
    * Scales the Frame according to {@code s}, locally defined with respect to the
    * {@link #referenceFrame()}.
-   * 
+   *
    * @see #rotate(Rotation)
    * @see #translate(Vec)
    */
@@ -766,7 +765,7 @@ public class Frame implements Copyable {
 
   /**
    * Returns the magnitude of the Frame, defined in the world coordinate system.
-   * 
+   *
    * @see #orientation()
    * @see #position()
    * @see #setPosition(Vec)
@@ -960,10 +959,11 @@ public class Frame implements Copyable {
    * normalized.
    */
   public final void projectOnLine(Vec origin, Vec direction) {
-    Vec shift = Vec.subtract(origin, position());
+    Vec position = position();
+    Vec shift = Vec.subtract(origin, position);
     Vec proj = shift;
     proj = Vec.projectVectorOnAxis(proj, direction);
-    translate(Vec.subtract(shift, proj));
+    setPosition(Vec.add(position, Vec.subtract(shift, proj)));
   }
 
   /**
@@ -972,7 +972,7 @@ public class Frame implements Copyable {
    * <p>
    * <b>Attention:</b> this rotation is not uniquely defined. See
    * {@link remixlab.dandelion.geom.Quat#fromTo(Vec, Vec)}.
-   * 
+   *
    * @see #xAxis()
    * @see #setYAxis(Vec)
    * @see #setZAxis(Vec)
@@ -990,7 +990,7 @@ public class Frame implements Copyable {
    * <p>
    * <b>Attention:</b> this rotation is not uniquely defined. See
    * {@link remixlab.dandelion.geom.Quat#fromTo(Vec, Vec)}.
-   * 
+   *
    * @see #yAxis()
    * @see #setYAxis(Vec)
    * @see #setZAxis(Vec)
@@ -1008,7 +1008,7 @@ public class Frame implements Copyable {
    * <p>
    * <b>Attention:</b> this rotation is not uniquely defined. See
    * {@link remixlab.dandelion.geom.Quat#fromTo(Vec, Vec)}.
-   * 
+   *
    * @see #zAxis()
    * @see #setYAxis(Vec)
    * @see #setZAxis(Vec)
@@ -1022,7 +1022,7 @@ public class Frame implements Copyable {
 
   /**
    * Same as {@code return xAxis(true)}
-   * 
+   *
    * @see #xAxis(boolean)
    */
   public Vec xAxis() {
@@ -1032,7 +1032,7 @@ public class Frame implements Copyable {
   /**
    * Returns the x-axis of the frame, represented as a normalized vector defined in the
    * world coordinate system.
-   * 
+   *
    * @see #setXAxis(Vec)
    * @see #yAxis()
    * @see #zAxis()
@@ -1053,7 +1053,7 @@ public class Frame implements Copyable {
 
   /**
    * Same as {@code return yAxis(true)}
-   * 
+   *
    * @see #yAxis(boolean)
    */
   public Vec yAxis() {
@@ -1063,7 +1063,7 @@ public class Frame implements Copyable {
   /**
    * Returns the y-axis of the frame, represented as a normalized vector defined in the
    * world coordinate system.
-   * 
+   *
    * @see #setYAxis(Vec)
    * @see #xAxis()
    * @see #zAxis()
@@ -1084,7 +1084,7 @@ public class Frame implements Copyable {
 
   /**
    * Same as {@code return zAxis(true)}
-   * 
+   *
    * @see #zAxis(boolean)
    */
   public Vec zAxis() {
@@ -1094,7 +1094,7 @@ public class Frame implements Copyable {
   /**
    * Returns the z-axis of the frame, represented as a normalized vector defined in the
    * world coordinate system.
-   * 
+   *
    * @see #setZAxis(Vec)
    * @see #xAxis()
    * @see #yAxis()
@@ -1112,7 +1112,7 @@ public class Frame implements Copyable {
   // CONVERSION
 
   /**
-   * Returns the {@link remixlab.dandelion.geom.Mat} associated with this Frame.
+   * Returns the local transformation matrix represented by the Frame.
    * <p>
    * This method could be used in conjunction with {@code applyMatrix()} to modify the
    * {@link remixlab.dandelion.core.AbstractScene#modelView()} matrix from a Frame
@@ -1181,7 +1181,7 @@ public class Frame implements Copyable {
   }
 
   /**
-   * Returns the transformation matrix represented by the Frame.
+   * Returns the global transformation matrix represented by the Frame.
    * <p>
    * This method should be used in conjunction with {@code applyMatrix()} to modify the
    * {@link remixlab.dandelion.core.AbstractScene#modelView()} matrix from a Frame:
@@ -1212,7 +1212,7 @@ public class Frame implements Copyable {
 
   /**
    * Convenience function that simply calls {@code fromMatrix(pM, 1))}.
-   * 
+   *
    * @see #fromMatrix(Mat, float)
    */
   public final void fromMatrix(Mat pM) {
@@ -1287,15 +1287,43 @@ public class Frame implements Copyable {
   }
 
   /**
+   * Same as {@code #setWorldMatrix(Frame)}.
+   *
+   * @see #setWorldMatrix(Frame)
+   */
+  public void set(Frame otherFrame) {
+    setWorldMatrix(otherFrame);
+  }
+
+  /**
    * Sets {@link #position()}, {@link #orientation()} and {@link #magnitude()} values from
    * those of {@code otherFrame}.
+   * <p>
+   * After calling {@code set} a call to {@code this.equals(otherFrame)} should return
+   * {@code true}.
+   *
+   * @see #setMatrix(Frame)
    */
-  public void fromFrame(Frame otherFrame) {
+  public void setWorldMatrix(Frame otherFrame) {
     if (otherFrame == null)
       return;
     setPosition(otherFrame.position());
     setOrientation(otherFrame.orientation());
     setMagnitude(otherFrame.magnitude());
+  }
+
+  /**
+   * Sets {@link #translation()}, {@link #rotation()} and {@link #scaling()} values from
+   * those of {@code otherFrame}.
+   *
+   * @see #setWorldMatrix(Frame)
+   */
+  public void setMatrix(Frame otherFrame) {
+    if (otherFrame == null)
+      return;
+    setTranslation(otherFrame.translation());
+    setRotation(otherFrame.rotation());
+    setScaling(otherFrame.scaling());
   }
 
   /**
@@ -1318,14 +1346,12 @@ public class Frame implements Copyable {
    * {@code null} {@link #constraint()}.
    */
   public final Frame inverse() {
-    Frame fr = new Frame(Vec.multiply(rotation().inverseRotate(translation()), -1), rotation().inverse(),
-        1 / scaling());
+    Frame fr = new Frame(Vec.multiply(rotation().inverseRotate(translation()), -1), rotation().inverse(), 1 / scaling());
     fr.setReferenceFrame(referenceFrame());
     return fr;
   }
 
   /**
-   * 
    * Returns the {@link #inverse()} of the Frame world transformation.
    * <p>
    * The {@link #orientation()} of the new Frame is the
@@ -1391,7 +1417,7 @@ public class Frame implements Copyable {
    * to Frame).
    * <p>
    * {@link #localInverseCoordinatesOf(Vec)} performs the inverse conversion.
-   * 
+   *
    * @see #localTransformOf(Vec)
    */
   public final Vec localCoordinatesOf(Vec src) {
@@ -1456,7 +1482,7 @@ public class Frame implements Copyable {
    * the Frame coordinate system (converts from Frame to {@link #referenceFrame()}).
    * <p>
    * {@link #localCoordinatesOf(Vec)} performs the inverse conversion.
-   * 
+   *
    * @see #localInverseTransformOf(Vec)
    */
   public final Vec localInverseCoordinatesOf(Vec src) {
@@ -1518,7 +1544,7 @@ public class Frame implements Copyable {
    * {@link #referenceFrame()} to Frame).
    * <p>
    * {@link #localInverseTransformOf(Vec)} performs the inverse transformation.
-   * 
+   *
    * @see #localCoordinatesOf(Vec)
    */
   public final Vec localTransformOf(Vec src) {
@@ -1531,7 +1557,7 @@ public class Frame implements Copyable {
    * ).
    * <p>
    * {@link #localTransformOf(Vec)} performs the inverse transformation.
-   * 
+   *
    * @see #localInverseCoordinatesOf(Vec)
    */
   public final Vec localInverseTransformOf(Vec src) {

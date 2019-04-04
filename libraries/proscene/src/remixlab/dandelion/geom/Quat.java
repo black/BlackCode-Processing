@@ -1,6 +1,6 @@
 /**************************************************************************************
  * dandelion_tree
- * Copyright (c) 2014-2016 National University of Colombia, https://github.com/remixlab
+ * Copyright (c) 2014-2017 National University of Colombia, https://github.com/remixlab
  * @author Jean Pierre Charalambos, http://otrolado.info/
  *
  * All rights reserved. Library that eases the creation of interactive
@@ -16,13 +16,16 @@ import remixlab.util.Util;
 
 /**
  * A 3D {@link remixlab.dandelion.geom.Rotation} is a 4 element unit quaternion
- * represented by single precision floating point x,y,z,w coordinates.
+ * represented by single precision floating point x,y,z,w coordinates. This class API aims
+ * to conform that of the great <a href=
+ * "http://libqglviewer.com/refManual/classqglviewer_1_1Quaternion.html">libQGLViewer
+ * Quaternion</a>.
  */
 public class Quat implements Linkable, Rotation {
   @Override
   public int hashCode() {
-    return new HashCodeBuilder(17, 37).append(this.quat[0]).append(this.quat[1]).append(this.quat[2])
-        .append(this.quat[3]).toHashCode();
+    return new HashCodeBuilder(17, 37).append(this.quat[0]).append(this.quat[1]).append(this.quat[2]).append(this.quat[3])
+        .toHashCode();
   }
 
   @Override
@@ -54,7 +57,6 @@ public class Quat implements Linkable, Rotation {
   /**
    * Default constructor for Quat(float x, float y, float z, float w, boolean normalize),
    * with {@code normalize=true}.
-   * 
    */
   public Quat(float x, float y, float z, float w) {
     this(x, y, z, w, true);
@@ -62,17 +64,12 @@ public class Quat implements Linkable, Rotation {
 
   /**
    * Constructs and initializes a Quat from the specified xyzw coordinates.
-   * 
-   * @param x
-   *          the x coordinate
-   * @param y
-   *          the y coordinate
-   * @param z
-   *          the z coordinate
-   * @param w
-   *          the w scalar component
-   * @param normalize
-   *          tells whether or not the constructed Quat should be normalized.
+   *
+   * @param x         the x coordinate
+   * @param y         the y coordinate
+   * @param z         the z coordinate
+   * @param w         the w scalar component
+   * @param normalize tells whether or not the constructed Quat should be normalized.
    */
   public Quat(float x, float y, float z, float w, boolean normalize) {
     if (normalize) {
@@ -105,9 +102,8 @@ public class Quat implements Linkable, Rotation {
 
   /**
    * Constructs and initializes a Quat from the array of length 4.
-   * 
-   * @param q
-   *          the array of length 4 containing xyzw in order
+   *
+   * @param q the array of length 4 containing xyzw in order
    */
   public Quat(float[] q, boolean normalize) {
     if (normalize) {
@@ -134,9 +130,8 @@ public class Quat implements Linkable, Rotation {
   /**
    * Copy constructor. If {@code normalize} is {@code true} this Quat is
    * {@link #normalize()}.
-   * 
-   * @param q1
-   *          the Quat containing the initialization x y z w data
+   *
+   * @param q1 the Quat containing the initialization x y z w data
    */
   public Quat(Quat q1, boolean normalize) {
     set(q1, normalize);
@@ -145,12 +140,9 @@ public class Quat implements Linkable, Rotation {
   /**
    * Constructs and initializes a Quat from the specified rotation {@link #axis() axis}
    * (non null) and {@link #angle() angle} (in radians).
-   * 
-   * @param axis
-   *          the Vec representing the axis
-   * @param angle
-   *          the angle in radians
-   * 
+   *
+   * @param axis  the Vec representing the axis
+   * @param angle the angle in radians
    * @see #fromAxisAngle(Vec, float)
    */
   public Quat(Vec axis, float angle) {
@@ -160,12 +152,9 @@ public class Quat implements Linkable, Rotation {
   /**
    * Constructs a Quat that will rotate from the {@code from} direction to the {@code to}
    * direction.
-   * 
-   * @param from
-   *          the first Vec
-   * @param to
-   *          the second Vec
-   * 
+   *
+   * @param from the first Vec
+   * @param to   the second Vec
    * @see #fromTo(Vec, Vec)
    */
   public Quat(Vec from, Vec to) {
@@ -174,14 +163,10 @@ public class Quat implements Linkable, Rotation {
 
   /**
    * Constructs a Quat from the given Euler angles.
-   * 
-   * @param roll
-   *          Rotation angle in radians around the x-Axis
-   * @param pitch
-   *          Rotation angle in radians around the y-Axis
-   * @param yaw
-   *          Rotation angle in radians around the z-Axis
-   * 
+   *
+   * @param roll  Rotation angle in radians around the x-Axis
+   * @param pitch Rotation angle in radians around the y-Axis
+   * @param yaw   Rotation angle in radians around the z-Axis
    * @see #fromEulerAngles(float, float, float)
    */
   public Quat(float roll, float pitch, float yaw) {
@@ -191,9 +176,8 @@ public class Quat implements Linkable, Rotation {
   /**
    * Constructs a Quat from a (supposedly correct) 3x3 rotation matrix given in the upper
    * left 3x3 sub-matrix of the Mat.
-   * 
+   *
    * @param glMat
-   * 
    * @see #fromMatrix(Mat)
    */
   public Quat(Mat glMat) {
@@ -202,14 +186,10 @@ public class Quat implements Linkable, Rotation {
 
   /**
    * Constructs a Quat from the three rotated vectors of an orthogonal basis.
-   * 
-   * @param X
-   *          1st Orthogonal Vec
-   * @param Y
-   *          2nd Orthogonal Vec
-   * @param Z
-   *          3rd Orthogonal Vec
-   * 
+   *
+   * @param X 1st Orthogonal Vec
+   * @param Y 2nd Orthogonal Vec
+   * @param Z 3rd Orthogonal Vec
    * @see #fromRotatedBasis(Vec, Vec, Vec)
    */
   public Quat(Vec X, Vec Y, Vec Z) {
@@ -333,7 +313,7 @@ public class Quat implements Linkable, Rotation {
 
   /**
    * Convenience function that simply calls {@code set(q1, true);}
-   * 
+   *
    * @see #set(Quat, boolean)
    */
   public void set(Quat q1) {
@@ -364,9 +344,8 @@ public class Quat implements Linkable, Rotation {
 
   /**
    * Sets the value of this Quat to the conjugate of Quat q1.
-   * 
-   * @param q1
-   *          the source vector
+   *
+   * @param q1 the source vector
    */
   public final void conjugate(Quat q1) {
     this.quat[0] = -q1.quat[0];
@@ -390,9 +369,8 @@ public class Quat implements Linkable, Rotation {
    * Returns the "dot" product of this Quat and {@code b}:
    * <p>
    * {@code this.quat[0] * b.x + this.quat[1] * b.y + this.quat[2] * b.z + this.quat[3] * b.quat[3]}
-   * 
-   * @param b
-   *          the Quat
+   *
+   * @param b the Quat
    */
   public final float dotProduct(Quat b) {
     return this.quat[0] * b.quat[0] + this.quat[1] * b.quat[1] + this.quat[2] * b.quat[2] + this.quat[3] * b.quat[3];
@@ -402,11 +380,9 @@ public class Quat implements Linkable, Rotation {
    * Returns the "dot" product of {@code a} and {@code b}:
    * <p>
    * {@code a.x * b.x + a.y * b.y + a.z * b.z + a.quat[3] * b.quat[3]}
-   * 
-   * @param a
-   *          the first Quat
-   * @param b
-   *          the second Quat
+   *
+   * @param a the first Quat
+   * @param b the second Quat
    */
   public final static float dot(Quat a, Quat b) {
     return a.quat[0] * b.quat[0] + a.quat[1] * b.quat[1] + a.quat[2] * b.quat[2] + a.quat[3] * b.quat[3];
@@ -425,9 +401,8 @@ public class Quat implements Linkable, Rotation {
   /**
    * Sets the value of this Quat to the Quat product of itself and {@code q1}, (i.e.,
    * {@code this = this * q1}).
-   * 
-   * @param q1
-   *          the other Quat
+   *
+   * @param q1 the other Quat
    */
   public final void multiply(Quat q1) {
     float x, y, w;
@@ -435,8 +410,8 @@ public class Quat implements Linkable, Rotation {
     w = this.quat[3] * q1.quat[3] - this.quat[0] * q1.quat[0] - this.quat[1] * q1.quat[1] - this.quat[2] * q1.quat[2];
     x = this.quat[3] * q1.quat[0] + q1.quat[3] * this.quat[0] + this.quat[1] * q1.quat[2] - this.quat[2] * q1.quat[1];
     y = this.quat[3] * q1.quat[1] + q1.quat[3] * this.quat[1] - this.quat[0] * q1.quat[2] + this.quat[2] * q1.quat[0];
-    this.quat[2] = this.quat[3] * q1.quat[2] + q1.quat[3] * this.quat[2] + this.quat[0] * q1.quat[1]
-        - this.quat[1] * q1.quat[0];
+    this.quat[2] =
+        this.quat[3] * q1.quat[2] + q1.quat[3] * this.quat[2] + this.quat[0] * q1.quat[1] - this.quat[1] * q1.quat[0];
     this.quat[3] = w;
     this.quat[0] = x;
     this.quat[1] = y;
@@ -451,11 +426,9 @@ public class Quat implements Linkable, Rotation {
 
   /**
    * Returns the Quat which is product of quaternions {@code q1} and {@code q2}.
-   * 
-   * @param q1
-   *          the first Quat
-   * @param q2
-   *          the second Quat
+   *
+   * @param q1 the first Quat
+   * @param q2 the second Quat
    */
   public final static Quat multiply(Quat q1, Quat q2) {
     float x, y, z, w;
@@ -469,10 +442,8 @@ public class Quat implements Linkable, Rotation {
   /**
    * Returns the image of {@code v} by the rotation of this vector. Same as
    * {@code this.rotate(v).}
-   * 
-   * @param v
-   *          the Vec
-   * 
+   *
+   * @param v the Vec
    * @see #rotate(Vec)
    * @see #inverseRotate(Vec)
    */
@@ -483,13 +454,9 @@ public class Quat implements Linkable, Rotation {
   /**
    * Returns the image of {@code v} by the rotation {@code q1}. Same as
    * {@code q1.rotate(v).}
-   * 
-   * @param q1
-   *          the Quat
-   * 
-   * @param v
-   *          the Vec
-   * 
+   *
+   * @param q1 the Quat
+   * @param v  the Vec
    * @see #rotate(Vec)
    * @see #inverseRotate(Vec)
    */
@@ -500,9 +467,8 @@ public class Quat implements Linkable, Rotation {
   /**
    * Multiplies this Quat by the inverse of Quat {@code q1} and places the value into this
    * Quat (i.e., {@code this = this * q^-1}). The value of the argument Quat is preserved.
-   * 
-   * @param q1
-   *          the other Quat
+   *
+   * @param q1 the other Quat
    */
   public final void multiplyInverse(Quat q1) {
     Quat tempQuat = new Quat(q1);
@@ -513,11 +479,9 @@ public class Quat implements Linkable, Rotation {
   /**
    * Returns the product of Quat {@code q1} by the inverse of Quat {@code q2} (i.e.,
    * {@code q1 * q2^-1}). The value of both argument quaternions is preserved.
-   * 
-   * @param q1
-   *          the first Quat
-   * @param q2
-   *          the second Quat
+   *
+   * @param q1 the first Quat
+   * @param q2 the second Quat
    */
   public static final Quat multiplyInverse(Quat q1, Quat q2) {
     Quat tempQuat = new Quat(q2);
@@ -532,7 +496,7 @@ public class Quat implements Linkable, Rotation {
    * <p>
    * A composition of a Quat and its {@link #inverse()} results in an identity function.
    * Use {@link #invert()} to actually modify the Quat.
-   * 
+   *
    * @see #invert()
    */
   @Override
@@ -544,7 +508,7 @@ public class Quat implements Linkable, Rotation {
 
   /**
    * Sets the value of this Quat to the inverse of itself.
-   * 
+   *
    * @see #inverse()
    */
   public final void invert() {
@@ -557,9 +521,8 @@ public class Quat implements Linkable, Rotation {
 
   /**
    * Sets the value of this Quat to the Quat inverse of {@code q1}.
-   * 
-   * @param q1
-   *          the Quat to be inverted
+   *
+   * @param q1 the Quat to be inverted
    */
   public final void invert(Quat q1) {
     float sqNorm = squaredNorm(q1);
@@ -574,8 +537,8 @@ public class Quat implements Linkable, Rotation {
    */
   @Override
   public final float normalize() {
-    float norm = (float) Math.sqrt(this.quat[0] * this.quat[0] + this.quat[1] * this.quat[1]
-        + this.quat[2] * this.quat[2] + this.quat[3] * this.quat[3]);
+    float norm = (float) Math.sqrt(this.quat[0] * this.quat[0] + this.quat[1] * this.quat[1] + this.quat[2] * this.quat[2]
+        + this.quat[3] * this.quat[3]);
     if (norm > 0.0f) {
       this.quat[0] /= norm;
       this.quat[1] /= norm;
@@ -592,9 +555,8 @@ public class Quat implements Linkable, Rotation {
 
   /**
    * Returns the image of {@code v} by the Quat rotation.
-   * 
-   * @param v
-   *          the Vec
+   *
+   * @param v the Vec
    */
   @Override
   public final Vec rotate(Vec v) {
@@ -620,9 +582,8 @@ public class Quat implements Linkable, Rotation {
    * Returns the image of {@code v} by the Quat {@link #inverse()} rotation.
    * <p>
    * {@link #rotate(Vec)} performs an inverse transformation.
-   * 
-   * @param v
-   *          the Vec
+   *
+   * @param v the Vec
    */
   @Override
   public final Vec inverseRotate(Vec v) {
@@ -637,11 +598,9 @@ public class Quat implements Linkable, Rotation {
    * <p>
    * The {@code axis} does not need to be normalized. A null {@code axis} will result in
    * an identity Quat.
-   * 
-   * @param axis
-   *          the Vec representing the axis
-   * @param angle
-   *          the angle in radians
+   *
+   * @param axis  the Vec representing the axis
+   * @param angle the angle in radians
    */
   public void fromAxisAngle(Vec axis, float angle) {
     float norm = axis.magnitude();
@@ -662,7 +621,7 @@ public class Quat implements Linkable, Rotation {
 
   /**
    * Same as {@code fromAxisAngle(new Vec(x,y,z), angle)}.
-   * 
+   *
    * @see #fromAxisAngle(Vec, float)
    */
   public void fromAxisAngle(float x, float y, float z, float angle) {
@@ -686,7 +645,7 @@ public class Quat implements Linkable, Rotation {
   /**
    * Convenience function that simply calls
    * {@code fromEulerAngles(angles.vec[0], angles.vec[1], angles.vec[2])}.
-   * 
+   *
    * @see #fromEulerAngles(float, float, float)
    * @see #eulerAngles()
    */
@@ -708,7 +667,7 @@ public class Quat implements Linkable, Rotation {
    * multiplied together. The order of the rotations is: y,z,x which follows the
    * convention found here:
    * http://www.euclideanspace.com/maths/geometry/rotations/euler/index.htm.
-   * 
+   *
    * @see #eulerAngles()
    */
   public void fromEulerAngles(float roll, float pitch, float yaw) {
@@ -735,12 +694,11 @@ public class Quat implements Linkable, Rotation {
    * quaternionToEuler/index.htm.
    * <p>
    * <b>Attention:</b> This method assumes that this Quat is normalized.
-   * 
+   *
    * @return the Vec holding the roll (x coordinate of the vector), pitch (y coordinate of
-   *         the vector) and yaw angles (z coordinate of the vector). <b>Note:</b> The
-   *         order of the rotations that would produce this Quat (i.e., as with
-   *         {@code fromEulerAngles(roll, pitch, yaw)}) is: y,z,x.
-   * 
+   * the vector) and yaw angles (z coordinate of the vector). <b>Note:</b> The
+   * order of the rotations that would produce this Quat (i.e., as with
+   * {@code fromEulerAngles(roll, pitch, yaw)}) is: y,z,x.
    * @see #fromEulerAngles(float, float, float)
    */
   public Vec eulerAngles() {
@@ -761,8 +719,7 @@ public class Quat implements Linkable, Rotation {
     float sqx = this.quat[0] * this.quat[0];
     float sqy = this.quat[1] * this.quat[1];
     float sqz = this.quat[2] * this.quat[2];
-    pitch = (float) Math.atan2(2 * this.quat[1] * this.quat[3] - 2 * this.quat[0] * this.quat[2],
-        1 - 2 * sqy - 2 * sqz);
+    pitch = (float) Math.atan2(2 * this.quat[1] * this.quat[3] - 2 * this.quat[0] * this.quat[2], 1 - 2 * sqy - 2 * sqz);
     yaw = (float) Math.asin(2 * test);
     roll = (float) Math.atan2(2 * this.quat[0] * this.quat[3] - 2 * this.quat[1] * this.quat[2], 1 - 2 * sqx - 2 * sqz);
     return new Vec(roll, pitch, yaw);
@@ -775,7 +732,7 @@ public class Quat implements Linkable, Rotation {
    * <b>Attention:</b> this rotation is not uniquely defined. The selected axis is usually
    * orthogonal to {@code from} and {@code to}, minimizing the rotation angle. This method
    * is robust and can handle small or almost identical vectors.
-   * 
+   *
    * @see #fromAxisAngle(Vec, float)
    */
   @Override
@@ -807,7 +764,7 @@ public class Quat implements Linkable, Rotation {
 
   /**
    * Same as {@code fromTo(new Vec(x1,y1,z1), new Vec(x2,y2,z2))}.
-   * 
+   *
    * @see #fromTo(Vec, Vec)
    */
   public void fromTo(float x1, float y1, float z1, float x2, float y2, float z2) {
@@ -817,7 +774,7 @@ public class Quat implements Linkable, Rotation {
   /**
    * Set the Quat from a (supposedly correct) 3x3 rotation matrix given in the upper left
    * 3x3 sub-matrix of the Mat.
-   * 
+   *
    * @see #fromRotatedBasis(Vec, Vec, Vec)
    */
   @Override
@@ -833,17 +790,12 @@ public class Quat implements Linkable, Rotation {
    * <p>
    * The three vectors do not have to be normalized but must be orthogonal and direct
    * (i,e., {@code X^Y=k*Z, with k>0}).
-   * 
-   * @param X
-   *          the first Vec
-   * @param Y
-   *          the second Vec
-   * @param Z
-   *          the third Vec
-   * 
+   *
+   * @param X the first Vec
+   * @param Y the second Vec
+   * @param Z the third Vec
    * @see #fromRotatedBasis(Vec, Vec, Vec)
    * @see #Quat(Vec, Vec)
-   * 
    */
   public final void fromRotatedBasis(Vec X, Vec Y, Vec Z) {
     float threeXthree[][] = new float[3][3];
@@ -897,7 +849,7 @@ public class Quat implements Linkable, Rotation {
    * Returns the normalized axis direction of the rotation represented by the Quat.
    * <p>
    * The result is null for an identity Quat.
-   * 
+   *
    * @see #angle()
    */
   public final Vec axis() {
@@ -913,7 +865,7 @@ public class Quat implements Linkable, Rotation {
    * <p>
    * This value is always in the range {@code [0-pi]}. Larger rotational angles are
    * obtained by inverting the {@link #axis()} direction.
-   * 
+   *
    * @see #axis()
    */
   @Override
@@ -979,7 +931,7 @@ public class Quat implements Linkable, Rotation {
 
   /**
    * Returns the logarithm of the Quat.
-   * 
+   *
    * @see #exp()
    */
   public final Quat log() {
@@ -997,7 +949,7 @@ public class Quat implements Linkable, Rotation {
 
   /**
    * Returns the exponential of the Quat.
-   * 
+   *
    * @see #log()
    */
   public final Quat exp() {
@@ -1051,15 +1003,11 @@ public class Quat implements Linkable, Rotation {
    * When {@code allowFlip} is true (default) the slerp interpolation will always use the
    * "shortest path" between the quaternions' orientations, by "flipping" the source Quat
    * if needed (see {@link #negate()}).
-   * 
-   * @param a
-   *          the first Quat
-   * @param b
-   *          the second Quat
-   * @param t
-   *          the t interpolation parameter
-   * @param allowFlip
-   *          tells whether or not the interpolation allows axis flip
+   *
+   * @param a         the first Quat
+   * @param b         the second Quat
+   * @param t         the t interpolation parameter
+   * @param allowFlip tells whether or not the interpolation allows axis flip
    */
   public static final Quat slerp(Quat a, Quat b, float t, boolean allowFlip) {
     // Warning: this method should not normalize the Quat
@@ -1095,17 +1043,12 @@ public class Quat implements Linkable, Rotation {
    * <p>
    * Use {@link #squadTangent(Quat, Quat, Quat)} to define the Quat tangents {@code tgA}
    * and {@code tgB}.
-   * 
-   * @param a
-   *          the first Quat
-   * @param tgA
-   *          the first tangent Quat
-   * @param tgB
-   *          the second tangent Quat
-   * @param b
-   *          the second Quat
-   * @param t
-   *          the t interpolation parameter
+   *
+   * @param a   the first Quat
+   * @param tgA the first tangent Quat
+   * @param tgB the second tangent Quat
+   * @param b   the second Quat
+   * @param t   the t interpolation parameter
    */
   public static final Quat squad(Quat a, Quat tgA, Quat tgB, Quat b, float t) {
     Quat ab = Quat.slerp(a, b, t);
@@ -1117,11 +1060,9 @@ public class Quat implements Linkable, Rotation {
    * Simply returns {@code log(a. inverse() * b)}.
    * <p>
    * Useful for {@link #squadTangent(Quat, Quat, Quat)}.
-   * 
-   * @param a
-   *          the first Quat
-   * @param b
-   *          the second Quat
+   *
+   * @param a the first Quat
+   * @param b the second Quat
    */
   public static final Quat lnDif(Quat a, Quat b) {
     Quat dif = a.inverse();
@@ -1134,13 +1075,10 @@ public class Quat implements Linkable, Rotation {
   /**
    * Returns a tangent Quat for {@code center}, defined by {@code before} and
    * {@code after} quaternions.
-   * 
-   * @param before
-   *          the first Quat
-   * @param center
-   *          the second Quat
-   * @param after
-   *          the third Quat
+   *
+   * @param before the first Quat
+   * @param center the second Quat
+   * @param after  the third Quat
    */
   public static final Quat squadTangent(Quat before, Quat center, Quat after) {
     Quat l1 = Quat.lnDif(center, before);

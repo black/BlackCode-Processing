@@ -1,6 +1,6 @@
 /**************************************************************************************
  * dandelion_tree
- * Copyright (c) 2014-2016 National University of Colombia, https://github.com/remixlab
+ * Copyright (c) 2014-2017 National University of Colombia, https://github.com/remixlab
  * @author Jean Pierre Charalambos, http://otrolado.info/
  *
  * All rights reserved. Library that eases the creation of interactive
@@ -10,44 +10,47 @@
 
 package remixlab.dandelion.core;
 
+import remixlab.bias.Agent;
+import remixlab.bias.BogusEvent;
+import remixlab.bias.Grabber;
+import remixlab.bias.InputHandler;
+import remixlab.bias.event.*;
+import remixlab.dandelion.core.AbstractScene.Platform;
+import remixlab.dandelion.geom.*;
+import remixlab.fpstiming.TimingTask;
+import remixlab.util.Util;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import remixlab.bias.core.*;
-import remixlab.bias.event.*;
-import remixlab.dandelion.geom.*;
-import remixlab.fpstiming.TimingTask;
-import remixlab.util.*;
-
 /**
  * A {@link remixlab.dandelion.geom.Frame} implementing the
- * {@link remixlab.bias.core.Grabber} interface, which converts user gestures into
+ * {@link Grabber} interface, which converts user gestures into
  * translation, rotation and scaling {@link remixlab.dandelion.geom.Frame} updates (see
  * {@link #translationSensitivity()}, {@link #rotationSensitivity()} and
  * {@link #scalingSensitivity()}). A generic-frame may thus be attached to some of your
- * scene objects to control their motion using an {@link remixlab.bias.core.Agent}, such
+ * scene objects to control their motion using an {@link Agent}, such
  * as the {@link remixlab.dandelion.core.AbstractScene#motionAgent()} and the
  * {@link remixlab.dandelion.core.AbstractScene#keyboardAgent()} (see
  * {@link #GenericFrame(AbstractScene)} and all the constructors that take an scene
  * parameter). To attach a generic-frame to {@code MyObject} use code like this:
- * 
+ * <p>
  * <pre>
- * {
- *   &#64;code
- *   public class MyObject {
- *     public GenericFrame gFrame;
- * 
- *     public void draw() {
- *       gFrame.scene().pushModelView();
- *       gFrame.applyWorldTransformation();
- *       drawMyObject();
- *       gFrame.scene().popModelView();
- *     }
+ * {@code
+ * public class MyObject {
+ *   public GenericFrame gFrame;
+ *
+ *   public void draw() {
+ *     gFrame.scene().pushModelView();
+ *     gFrame.applyWorldTransformation();
+ *     drawMyObject();
+ *     gFrame.scene().popModelView();
  *   }
  * }
+ * }
  * </pre>
- * 
+ * <p>
  * See {@link #applyTransformation()}, {@link #applyWorldTransformation()},
  * {@link #scene()}, {@link remixlab.dandelion.core.AbstractScene#pushModelView()} and
  * {@link remixlab.dandelion.core.AbstractScene#popModelView()}
@@ -71,7 +74,7 @@ import remixlab.util.*;
  * customize (see {@link #performInteraction(MotionEvent)},
  * {@link #performInteraction(KeyboardEvent)}, etc.). For example, with the following
  * code:
- * 
+ * <p>
  * <pre>
  * {@code
  * protected void performInteraction(DOF2Event event) {
@@ -82,10 +85,10 @@ import remixlab.util.*;
  * }
  * }
  * </pre>
- * 
+ * <p>
  * your custom generic-frame will then accordingly react to the LEFT and RIGHT mouse
  * buttons, provided it's added to the mouse-agent first (see
- * {@link remixlab.bias.core.Agent#addGrabber(Grabber)}.
+ * {@link Agent#addGrabber(Grabber)}.
  * <p>
  * Picking a generic-frame is done accordingly to a {@link #pickingPrecision()}. Refer to
  * {@link #setPickingPrecision(PickingPrecision)} for details.
@@ -146,21 +149,20 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
 
   protected long lastUpdate;
   protected AbstractScene gScene;
-  protected Eye theeye; // TODO add me in hashCode and equals?
+  protected Eye theeye;
 
   private float grabsInputThreshold;
 
-  private boolean visit = true;
+  private boolean visit;
+
+  private boolean hint;
 
   /**
-   * Enumerates the two possible types of Camera.
-   * <p>
-   * This type mainly defines different camera projection matrix. Many other methods take
-   * this Type into account.
+   * Enumerates the Picking precision modes.
    */
   public enum PickingPrecision {
     FIXED, ADAPTIVE, EXACT
-  };
+  }
 
   protected PickingPrecision pkgnPrecision;
 
@@ -169,38 +171,9 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
 
   protected List<GenericFrame> childrenList;
 
-  @Override
-  public int hashCode() {
-    return new HashCodeBuilder(17, 37).appendSuper(super.hashCode()).append(grabsInputThreshold).append(pkgnPrecision)
-        .append(rotSensitivity).append(transSensitivity).append(sclSensitivity).append(spngRotation)
-        .append(spngSensitivity).append(dampFriction).append(sFriction).append(wheelSensitivity).append(keySensitivity)
-        .append(flyDisp).append(flySpd).append(scnUpVec).append(lastUpdate).append(childrenList).append(visit)
-        .toHashCode();
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    if (obj == null)
-      return false;
-    if (obj == this)
-      return true;
-    if (obj.getClass() != getClass())
-      return false;
-
-    GenericFrame other = (GenericFrame) obj;
-    return new EqualsBuilder().appendSuper(super.equals(obj)).append(grabsInputThreshold, other.grabsInputThreshold)
-        .append(pkgnPrecision, other.pkgnPrecision).append(dampFriction, other.dampFriction)
-        .append(sFriction, other.sFriction).append(rotSensitivity, other.rotSensitivity)
-        .append(sclSensitivity, other.sclSensitivity).append(spngRotation, other.spngRotation)
-        .append(spngSensitivity, other.spngSensitivity).append(wheelSensitivity, other.wheelSensitivity)
-        .append(keySensitivity, other.keySensitivity).append(flyDisp, other.flyDisp).append(flySpd, other.flySpd)
-        .append(scnUpVec, other.scnUpVec).append(lastUpdate, other.lastUpdate).append(childrenList, other.childrenList)
-        .append(visit, other.visit).isEquals();
-  }
-
   /**
    * Same as {@code this(scn, null, new Vec(), scn.is3D() ? new Quat() : new Rot(), 1)}.
-   * 
+   *
    * @see #GenericFrame(AbstractScene, GenericFrame, Vec, Rotation, float)
    */
   public GenericFrame(AbstractScene scn) {
@@ -210,7 +183,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
   /**
    * Same as
    * {@code this(eye, null, new Vec(), eye.scene().is3D() ? new Quat() : new Rot(), 1)} .
-   * 
+   *
    * @see #GenericFrame(Eye, GenericFrame, Vec, Rotation, float)
    */
   public GenericFrame(Eye eye) {
@@ -219,7 +192,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
 
   /**
    * Same as {@code this(scn, null, p, scn.is3D() ? new Quat() : new Rot(), 1)}.
-   * 
+   *
    * @see #GenericFrame(AbstractScene, GenericFrame, Vec, Rotation, float)
    */
   public GenericFrame(AbstractScene scn, Vec p) {
@@ -228,7 +201,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
 
   /**
    * Same as {@code this(eye, null, p, eye.scene().is3D() ? new Quat() : new Rot(), 1)}.
-   * 
+   *
    * @see #GenericFrame(Eye, GenericFrame, Vec, Rotation, float)
    */
   public GenericFrame(Eye eye, Vec p) {
@@ -237,7 +210,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
 
   /**
    * Same as {@code this(scn, null, new Vec(), r, 1)}.
-   * 
+   *
    * @see #GenericFrame(AbstractScene, GenericFrame, Vec, Rotation, float)
    */
   public GenericFrame(AbstractScene scn, Rotation r) {
@@ -246,7 +219,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
 
   /**
    * Same as {@code this(eye, null, new Vec(), r, 1)}.
-   * 
+   *
    * @see #GenericFrame(Eye, GenericFrame, Vec, Rotation, float)
    */
   public GenericFrame(Eye eye, Rotation r) {
@@ -255,7 +228,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
 
   /**
    * Same as {@code this(scn, null, new Vec(), scn.is3D() ? new Quat() : new Rot(), s)}.
-   * 
+   *
    * @see #GenericFrame(AbstractScene, GenericFrame, Vec, Rotation, float)
    */
   public GenericFrame(AbstractScene scn, float s) {
@@ -265,7 +238,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
   /**
    * Same as
    * {@code this(eye, null, new Vec(), eye.scene().is3D() ? new Quat() : new Rot(), s)} .
-   * 
+   *
    * @see #GenericFrame(Eye, GenericFrame, Vec, Rotation, float)
    */
   public GenericFrame(Eye eye, float s) {
@@ -274,7 +247,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
 
   /**
    * Same as {@code this(scn, null, p, scn.is3D() ? new Quat() : new Rot(), s)}.
-   * 
+   *
    * @see #GenericFrame(AbstractScene, GenericFrame, Vec, Rotation, float)
    */
   public GenericFrame(AbstractScene scn, Vec p, float s) {
@@ -283,7 +256,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
 
   /**
    * Same as {@code this(eye, null, p, eye.scene().is3D() ? new Quat() : new Rot(), s)}.
-   * 
+   *
    * @see #GenericFrame(Eye, GenericFrame, Vec, Rotation, float)
    */
   public GenericFrame(Eye eye, Vec p, float s) {
@@ -292,7 +265,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
 
   /**
    * Same as {@code this(scn, null, p, r, 1)}.
-   * 
+   *
    * @see #GenericFrame(AbstractScene, GenericFrame, Vec, Rotation, float)
    */
   public GenericFrame(AbstractScene scn, Vec p, Rotation r) {
@@ -301,7 +274,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
 
   /**
    * Same as {@code this(eye, null, p, r, 1)}.
-   * 
+   *
    * @see #GenericFrame(Eye, GenericFrame, Vec, Rotation, float)
    */
   public GenericFrame(Eye eye, Vec p, Rotation r) {
@@ -310,7 +283,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
 
   /**
    * Same as {@code this(scn, null, new Vec(), r, s)}.
-   * 
+   *
    * @see #GenericFrame(AbstractScene, GenericFrame, Vec, Rotation, float)
    */
   public GenericFrame(AbstractScene scn, Rotation r, float s) {
@@ -319,7 +292,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
 
   /**
    * Same as {@code this(eye, null, new Vec(), r, s)}.
-   * 
+   *
    * @see #GenericFrame(Eye, GenericFrame, Vec, Rotation, float)
    */
   public GenericFrame(Eye eye, Rotation r, float s) {
@@ -328,7 +301,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
 
   /**
    * Same as {@code this(scn, null, p, r, s)}.
-   * 
+   *
    * @see #GenericFrame(AbstractScene, GenericFrame, Vec, Rotation, float)
    */
   public GenericFrame(AbstractScene scn, Vec p, Rotation r, float s) {
@@ -339,7 +312,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
    * Same as
    * {@code this(scn, referenceFrame, new Vec(), scn.is3D() ? new Quat() : new Rot(), 1)}
    * .
-   * 
+   *
    * @see #GenericFrame(AbstractScene, GenericFrame, Vec, Rotation, float)
    */
   public GenericFrame(AbstractScene scn, GenericFrame referenceFrame) {
@@ -353,7 +326,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
   /**
    * Same as {@code this(scn, referenceFrame, p, scn.is3D() ? new Quat() : new Rot(), 1)}
    * .
-   * 
+   *
    * @see #GenericFrame(AbstractScene, GenericFrame, Vec, Rotation, float)
    */
   public GenericFrame(AbstractScene scn, GenericFrame referenceFrame, Vec p) {
@@ -364,7 +337,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
    * Same as
    * {@code this(eye, referenceFrame, p, eye.scene().is3D() ? new Quat() : new Rot(), 1)}
    * .
-   * 
+   *
    * @see #GenericFrame(Eye, GenericFrame, Vec, Rotation, float)
    */
   public GenericFrame(Eye eye, GenericFrame referenceFrame, Vec p) {
@@ -373,7 +346,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
 
   /**
    * Same as {@code this(scn, referenceFrame, new Vec(), r, 1)}.
-   * 
+   *
    * @see #GenericFrame(AbstractScene, GenericFrame, Vec, Rotation, float)
    */
   public GenericFrame(AbstractScene scn, GenericFrame referenceFrame, Rotation r) {
@@ -382,7 +355,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
 
   /**
    * Same as {@code this(eye, referenceFrame, new Vec(), r, 1)}.
-   * 
+   *
    * @see #GenericFrame(Eye, GenericFrame, Vec, Rotation, float)
    */
   public GenericFrame(Eye eye, GenericFrame referenceFrame, Rotation r) {
@@ -393,7 +366,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
    * Same as
    * {@code this(scn, referenceFrame, new Vec(), scn.is3D() ? new Quat() : new Rot(), s)}
    * .
-   * 
+   *
    * @see #GenericFrame(AbstractScene, GenericFrame, Vec, Rotation, float)
    */
   public GenericFrame(AbstractScene scn, GenericFrame referenceFrame, float s) {
@@ -404,7 +377,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
    * Same as
    * {@code this(eye, referenceFrame, new Vec(), eye.scene().is3D() ? new Quat() : new Rot(), s)}
    * .
-   * 
+   *
    * @see #GenericFrame(Eye, GenericFrame, Vec, Rotation, float)
    */
   public GenericFrame(Eye eye, GenericFrame referenceFrame, float s) {
@@ -414,7 +387,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
   /**
    * Same as {@code this(scn, referenceFrame, p, scn.is3D() ? new Quat() : new Rot(), s)}
    * .
-   * 
+   *
    * @see #GenericFrame(AbstractScene, GenericFrame, Vec, Rotation, float)
    */
   public GenericFrame(AbstractScene scn, GenericFrame referenceFrame, Vec p, float s) {
@@ -425,7 +398,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
    * Same as
    * {@code this(eye, referenceFrame, p, eye.scene().is3D() ? new Quat() : new Rot(), s)}
    * .
-   * 
+   *
    * @see #GenericFrame(Eye, GenericFrame, Vec, Rotation, float)
    */
   public GenericFrame(Eye eye, GenericFrame referenceFrame, Vec p, float s) {
@@ -434,7 +407,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
 
   /**
    * Same as {@code this(scn, referenceFrame, p, r, 1)}.
-   * 
+   *
    * @see #GenericFrame(AbstractScene, GenericFrame, Vec, Rotation, float)
    */
   public GenericFrame(AbstractScene scn, GenericFrame referenceFrame, Vec p, Rotation r) {
@@ -443,7 +416,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
 
   /**
    * Same as {@code this(eye, referenceFrame, p, r, 1)}.
-   * 
+   *
    * @see #GenericFrame(Eye, GenericFrame, Vec, Rotation, float)
    */
   public GenericFrame(Eye eye, GenericFrame referenceFrame, Vec p, Rotation r) {
@@ -452,7 +425,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
 
   /**
    * Same as {@code this(scn, referenceFrame, new Vec(), r, s)}.
-   * 
+   *
    * @see #GenericFrame(AbstractScene, GenericFrame, Vec, Rotation, float)
    */
   public GenericFrame(AbstractScene scn, GenericFrame referenceFrame, Rotation r, float s) {
@@ -461,7 +434,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
 
   /**
    * Same as {@code this(eye, referenceFrame, new Vec(), r, s)}.
-   * 
+   *
    * @see #GenericFrame(Eye, GenericFrame, Vec, Rotation, float)
    */
   public GenericFrame(Eye eye, GenericFrame referenceFrame, Rotation r, float s) {
@@ -474,7 +447,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
    * {@link #translation()}, {@link #rotation()} and {@link #scaling()}, respectively.
    * <p>
    * The {@link remixlab.dandelion.core.AbstractScene#inputHandler()} will attempt to add
-   * the generic-frame to all its {@link remixlab.bias.core.InputHandler#agents()}, such
+   * the generic-frame to all its {@link InputHandler#agents()}, such
    * as the {@link remixlab.dandelion.core.AbstractScene#motionAgent()} and the
    * {@link remixlab.dandelion.core.AbstractScene#keyboardAgent()}.
    * <p>
@@ -490,11 +463,12 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
   public GenericFrame(AbstractScene scn, GenericFrame referenceFrame, Vec p, Rotation r, float s) {
     super(referenceFrame, p, r, s);
     init(scn);
+    hint = true;
     // pkgnPrecision = PickingPrecision.ADAPTIVE;
     // setGrabsInputThreshold(Math.round(scn.radius()/4));
     scene().inputHandler().addGrabber(this);
     pkgnPrecision = PickingPrecision.FIXED;
-    setGrabsInputThreshold(20);
+    setGrabsInputThreshold(AbstractScene.platform() == Platform.PROCESSING_ANDROID ? 50 : 20);
     setFlySpeed(0.01f * scene().eye().sceneRadius());
   }
 
@@ -505,7 +479,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
    * <p>
    * The generic-frame isn't added to any of the
    * {@link remixlab.dandelion.core.AbstractScene#inputHandler()}
-   * {@link remixlab.bias.core.InputHandler#agents()}. A call to
+   * {@link InputHandler#agents()}. A call to
    * {@link remixlab.dandelion.core.AbstractScene#setEye(Eye)} will do it.
    * <p>
    * The generic-frame sensitivities are set to their default values, see
@@ -519,6 +493,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
     super(referenceFrame, p, r, s);
     theeye = eye;
     init(theeye.scene());
+    hint = false;
     // dummy value:
     pkgnPrecision = PickingPrecision.FIXED;
     setFlySpeed(0.01f * eye().sceneRadius());
@@ -529,14 +504,13 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
 
   protected void init(AbstractScene scn) {
     gScene = scn;
+    visit = true;
     childrenList = new ArrayList<GenericFrame>();
     // scene().addLeadingFrame(this);
-    // TODO testing
     setReferenceFrame(referenceFrame());// restorePath seems more robust
     setRotationSensitivity(1.0f);
     setScalingSensitivity(1.0f);
     setTranslationSensitivity(1.0f);
-    // TODO normalize
     setWheelSensitivity(15f);
     setKeyboardSensitivity(10f);
     setSpinningSensitivity(0.3f);
@@ -559,7 +533,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
     scene().registerTimingTask(flyTimerTask);
     // end
 
-    // TODO experimental
+    // init 3rd person stuff
     q = scene().is3D() ? new Quat((float) Math.PI / 4, 0, 0) : new Rot((float) Math.PI / 4);
     // updateTrackingEyeFrame();
   }
@@ -568,6 +542,9 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
     super(otherFrame);
     this.gScene = otherFrame.gScene;
     this.theeye = otherFrame.theeye;
+
+    this.visit = otherFrame.visit;
+    this.hint = otherFrame.hint;
 
     this.childrenList = new ArrayList<GenericFrame>();
     this.setReferenceFrame(referenceFrame());// restorePath
@@ -616,9 +593,31 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
           agent.addGrabber(this);
   }
 
+  /**
+   * Perform a deep, non-recursive copy of this generic-frame.
+   * <p>
+   * The copied frame will keep this frame {@link #referenceFrame()}, but its children
+   * aren't copied.
+   *
+   * @return generic-frame copy
+   */
   @Override
   public GenericFrame get() {
     return new GenericFrame(this);
+  }
+
+  /**
+   * Returns a frame with this frame current parameters. The newly returned frame is
+   * detached from the scene {@link remixlab.dandelion.core.AbstractScene#frames(boolean)}
+   * list.
+   * <p>
+   * This method is useful to perform animations for all eye interpolation routines.
+   */
+  protected GenericFrame detach() {
+    GenericFrame frame = new GenericFrame(scene());
+    scene().pruneBranch(frame);
+    frame.setWorldMatrix(this);
+    return frame;
   }
 
   // GRAPH
@@ -713,8 +712,8 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
   /**
    * Procedure called by the scene frame traversal algorithm. Default implementation is
    * empty, i.e., it is meant to be implemented by derived classes.
-   * 
-   * @see remixlab.dandelion.core.AbstractScene#traverseGraph()
+   *
+   * @see remixlab.dandelion.core.AbstractScene#traverseTree()
    */
   protected void visit() {
   }
@@ -726,8 +725,8 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
 
   /**
    * Enables {@link #visit()} of this frame when performing the
-   * {@link remixlab.dandelion.core.AbstractScene#traverseGraph()}.
-   * 
+   * {@link remixlab.dandelion.core.AbstractScene#traverseTree()}.
+   *
    * @see #disableVisit()
    * @see #toggleVisit()
    * @see #isVisitEnabled()
@@ -738,8 +737,8 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
 
   /**
    * Disables {@link #visit()} of this frame when performing the
-   * {@link remixlab.dandelion.core.AbstractScene#traverseGraph()}.
-   * 
+   * {@link remixlab.dandelion.core.AbstractScene#traverseTree()}.
+   *
    * @see #enableVisit()
    * @see #toggleVisit()
    * @see #isVisitEnabled()
@@ -750,8 +749,8 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
 
   /**
    * Toggles {@link #visit()} of this frame when performing the
-   * {@link remixlab.dandelion.core.AbstractScene#traverseGraph()}.
-   * 
+   * {@link remixlab.dandelion.core.AbstractScene#traverseTree()}.
+   *
    * @see #enableVisit()
    * @see #disableVisit()
    * @see #isVisitEnabled()
@@ -762,21 +761,87 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
 
   /**
    * Returns true if {@link #visit()} of this frame when performing the
-   * {@link remixlab.dandelion.core.AbstractScene#traverseGraph() is enabled}.
-   * 
+   * {@link remixlab.dandelion.core.AbstractScene#traverseTree() is enabled}.
+   *
    * @see #enableVisit()
    * @see #disableVisit()
-   * @see #isVisitEnabled()
+   * @see #toggleVisit()
    */
   public boolean isVisitEnabled() {
     return visit;
   }
 
   /**
+   * Enables drawing of the frame picking hint. Only meaningful if frame is not
+   * an eye frame.
+   *
+   * @see AbstractScene#pickingVisualHint()
+   * @see #disableVisualHint()
+   * @see #toggleVisualHint()
+   * @see #isVisualHintEnabled()
+   */
+  public void enableVisualHint() {
+    if (isEyeFrame()) {
+      AbstractScene.showOnlyEyeWarning("enableVisualHint", false);
+      return;
+    }
+    hint = true;
+  }
+
+  /**
+   * Disables drawing of the frame picking hint. Only meaningful if frame is not
+   * an eye frame.
+   *
+   * @see AbstractScene#pickingVisualHint()
+   * @see #enableVisualHint()
+   * @see #toggleVisualHint()
+   * @see #isVisualHintEnabled()
+   */
+  public void disableVisualHint() {
+    if (isEyeFrame()) {
+      AbstractScene.showOnlyEyeWarning("disableVisualHint", false);
+      return;
+    }
+    hint = false;
+  }
+
+  /**
+   * Toggles drawing of the frame picking hint. Only meaningful if frame is not
+   * an eye frame.
+   *
+   * @see AbstractScene#pickingVisualHint()
+   * @see #enableVisualHint()
+   * @see #disableVisualHint()
+   * @see #isVisualHintEnabled()
+   */
+  public void toggleVisualHint() {
+    if (isEyeFrame()) {
+      AbstractScene.showOnlyEyeWarning("toggleVisualHint", false);
+      return;
+    }
+    hint = !hint;
+  }
+
+  /**
+   * Returns {@code true} if drawing of the frame picking hint is enabled and
+   * {@code false} otherwise. Always returns {@code false} if frame is an eye frame.
+   *
+   * @see AbstractScene#pickingVisualHint()
+   * @see #enableVisualHint()
+   * @see #disableVisualHint()
+   * @see #toggleVisualHint()
+   */
+  public boolean isVisualHintEnabled() {
+    if (isEyeFrame())
+      AbstractScene.showOnlyEyeWarning("isVisualHintEnabled", false);
+    return hint;
+  }
+
+  /**
    * Returns the scene this object belongs to.
    * <p>
    * Note that if this {@link #isEyeFrame()} then returns {@code eye().scene()}.
-   * 
+   *
    * @see #eye()
    * @see remixlab.dandelion.core.Eye#scene()
    */
@@ -787,7 +852,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
   /**
    * Returns the eye object this generic-frame is attached to. May be null if the
    * generic-frame is not attach to an eye.
-   * 
+   *
    * @see #isEyeFrame()
    */
   public Eye eye() {
@@ -798,7 +863,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
    * Returns true if the generic-frame is attached to an eye, and false otherwise.
    * generic-frames can only be attached to an eye at construction times. Refer to the
    * generic-frame constructors that take an eye parameter.
-   * 
+   *
    * @see #eye()
    */
   public boolean isEyeFrame() {
@@ -816,6 +881,9 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
     return false;
   }
 
+  /**
+   * Internal use. You don't need to call this. Automatically called by agents handling this frame.
+   */
   public boolean checkIfGrabsInput(MotionEvent event) {
     if (isEyeFrame())
       return false;
@@ -830,25 +898,41 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
     return false;
   }
 
-  protected boolean checkIfGrabsInput(ClickEvent event) {
+  /**
+   * Internal use. You don't need to call this. Automatically called by agents handling this frame.
+   */
+  public boolean checkIfGrabsInput(ClickEvent event) {
     if (isEyeFrame())
       return false;
     return checkIfGrabsInput(event.x(), event.y());
   }
 
-  protected boolean checkIfGrabsInput(KeyboardEvent event) {
+  /**
+   * Internal use. You don't need to call this. Automatically called by agents handling this frame.
+   * <p>
+   * Override this method when you want the object to be picked from a {@link remixlab.bias.event.KeyboardEvent}.
+   */
+  public boolean checkIfGrabsInput(KeyboardEvent event) {
     AbstractScene.showMissingImplementationWarning("checkIfGrabsInput(KeyboardEvent event)", this.getClass().getName());
     return false;
   }
 
-  protected boolean checkIfGrabsInput(DOF1Event event) {
+  /**
+   * Internal use. You don't need to call this. Automatically called by agents handling this frame.
+   * <p>
+   * Override this method when you want the object to be picked from a {@link remixlab.bias.event.DOF1Event}.
+   */
+  public boolean checkIfGrabsInput(DOF1Event event) {
     if (isEyeFrame())
       return false;
     AbstractScene.showMissingImplementationWarning("checkIfGrabsInput(DOF1Event event)", this.getClass().getName());
     return false;
   }
 
-  protected boolean checkIfGrabsInput(DOF2Event event) {
+  /**
+   * Internal use. You don't need to call this. Automatically called by agents handling this frame.
+   */
+  public boolean checkIfGrabsInput(DOF2Event event) {
     if (isEyeFrame())
       return false;
     if (event.isAbsolute()) {
@@ -860,7 +944,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
 
   /**
    * Picks the generic-frame according to the {@link #pickingPrecision()}.
-   * 
+   *
    * @see #pickingPrecision()
    * @see #setPickingPrecision(PickingPrecision)
    */
@@ -870,11 +954,17 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
     return ((Math.abs(x - proj.vec[0]) < halfThreshold) && (Math.abs(y - proj.vec[1]) < halfThreshold));
   }
 
-  protected boolean checkIfGrabsInput(DOF3Event event) {
+  /**
+   * Internal use. You don't need to call this. Automatically called by agents handling this frame.
+   */
+  public boolean checkIfGrabsInput(DOF3Event event) {
     return checkIfGrabsInput(event.dof2Event());
   }
 
-  protected boolean checkIfGrabsInput(DOF6Event event) {
+  /**
+   * Internal use. You don't need to call this. Automatically called by agents handling this frame.
+   */
+  public boolean checkIfGrabsInput(DOF6Event event) {
     return checkIfGrabsInput(event.dof3Event().dof2Event());
   }
 
@@ -949,38 +1039,12 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
   protected void performInteraction(KeyboardEvent event) {
   }
 
-  boolean vkeyAction;
-
-  /**
-   * Internal use. Inspired in Processing key event flow. Bypasses the key event so that
-   * {@link remixlab.bias.event.KeyboardShortcut}s work smoothly. Call it at the beginning
-   * of your {@link #performInteraction(KeyboardEvent)} method to discard useless keyboard
-   * events.
-   */
-  protected boolean bypassKey(BogusEvent event) {
-    if (event instanceof KeyboardEvent) {
-      if (event.fired())
-        if (event.id() == 0)// TYPE event
-          return vkeyAction;
-        else {
-          vkeyAction = true;
-          return false;
-        }
-      if (event.flushed()) {
-        if (event.flushed() && vkeyAction)
-          vkeyAction = false;
-        return true;
-      }
-    }
-    return false;
-  }
-
   // APPLY TRANSFORMATION
 
   /**
    * Convenience function that simply calls {@code applyTransformation(scene)}. It applies
    * the transformation defined by the frame to the scene used to instantiated.
-   * 
+   *
    * @see #applyTransformation(AbstractScene)
    * @see #matrix()
    */
@@ -992,7 +1056,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
    * Convenience function that simply calls {@code applyWorldTransformation(scene)}. It
    * applies the world transformation defined by the frame to the scene used to
    * instantiated.
-   * 
+   *
    * @see #applyWorldTransformation(AbstractScene)
    * @see #worldMatrix()
    */
@@ -1006,7 +1070,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
    * method.
    * <p>
    * Very efficient prefer always this than
-   * 
+   *
    * @see #applyTransformation()
    * @see #matrix()
    * @see remixlab.dandelion.core.AbstractScene#applyTransformation(Frame)
@@ -1019,7 +1083,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
    * Convenience function that simply calls {@code scn.applyWorldTransformation(this)}.
    * You may apply the world transformation represented by this frame to any scene you
    * want using this method.
-   * 
+   *
    * @see #applyWorldTransformation()
    * @see #worldMatrix()
    * @see remixlab.dandelion.core.AbstractScene#applyWorldTransformation(Frame)
@@ -1035,20 +1099,10 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
    */
   @Override
   protected void modified() {
-    if (gScene != null)
-      lastUpdate = gScene.frameCount();
+    lastUpdate = AbstractScene.frameCount;
     if (children() != null)
       for (GenericFrame child : children())
         child.modified();
-  }
-
-  /**
-   * Internal use. Needed by {@link #sync(Frame, Frame, boolean)}.
-   */
-  // TODO decide whether to include this one since it now seems overkill to me
-  // -jp
-  protected long lastGlobalUpdate() {
-    return lastUpdate() + gScene.deltaCount;
   }
 
   /**
@@ -1062,7 +1116,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
 
   /**
    * Same as {@code sync(this, otherFrame)}.
-   * 
+   *
    * @see #sync(GenericFrame, GenericFrame)
    */
   public void sync(GenericFrame otherFrame) {
@@ -1071,29 +1125,24 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
 
   /**
    * If {@code f1} has been more recently updated than {@code f2}, calls
-   * {@code f2.fromFrame(f1)}, otherwise calls {@code f1.fromFrame(f2)}.
+   * {@code f2.setWorldMatrix(f1)}, otherwise calls {@code f1.setWorldMatrix(f2)}. Does
+   * nothing if both objects were updated at the same frame.
    * <p>
-   * This method syncs only the global parameters ({@link #position()},
+   * This method syncs only the global geometry attributes ({@link #position()},
    * {@link #orientation()} and {@link #magnitude()}) among the two frames. The
    * {@link #referenceFrame()} and {@link #constraint()} (if any) of each frame are kept
    * separately.
-   * 
-   * @see #fromFrame(Frame)
+   *
+   * @see #set(Frame)
    */
   public static void sync(GenericFrame f1, GenericFrame f2) {
     if (f1 == null || f2 == null)
       return;
-    if (f1.lastGlobalUpdate() == f2.lastGlobalUpdate())
+    if (f1.lastUpdate() == f2.lastUpdate())
       return;
-    GenericFrame source = (f1.lastGlobalUpdate() > f2.lastGlobalUpdate()) ? f1 : f2;
-    GenericFrame target = (f1.lastGlobalUpdate() > f2.lastGlobalUpdate()) ? f2 : f1;
-
-    // target.fromFrame(source);
-    // TODO testing and docs
-
-    target.setPosition(source.position());
-    target.setOrientation(source.orientation());
-    target.setMagnitude(source.magnitude());
+    GenericFrame source = (f1.lastUpdate() > f2.lastUpdate()) ? f1 : f2;
+    GenericFrame target = (f1.lastUpdate() > f2.lastUpdate()) ? f2 : f1;
+    target.setWorldMatrix(source);
   }
 
   // Fx
@@ -1186,7 +1235,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
    * Default value is 1.0 (which matches an identical mouse displacement), a higher value
    * will generate a larger rotation (and inversely for lower values). A 0.0 value will
    * forbid rotation (see also {@link #constraint()}).
-   * 
+   *
    * @see #setRotationSensitivity(float)
    * @see #translationSensitivity()
    * @see #scalingSensitivity()
@@ -1203,7 +1252,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
    * <p>
    * Default value is 1.0, a higher value will generate a larger scaling (and inversely
    * for lower values). A 0.0 value will forbid scaling (see also {@link #constraint()}).
-   * 
+   *
    * @see #setScalingSensitivity(float)
    * @see #setRotationSensitivity(float)
    * @see #translationSensitivity()
@@ -1224,7 +1273,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
    * With an identical gesture displacement, a higher value will generate a larger
    * translation (and inversely for lower values). A 0.0 value will forbid translation
    * (see also {@link #constraint()}).
-   * 
+   *
    * @see #setTranslationSensitivity(float)
    * @see #rotationSensitivity()
    * @see #scalingSensitivity()
@@ -1247,7 +1296,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
    * pixels per second). Use {@link #setSpinningSensitivity(float)} to tune this value. A
    * higher value will make spinning more difficult (a value of 100.0 forbids spinning in
    * practice).
-   * 
+   *
    * @see #setSpinningSensitivity(float)
    * @see #translationSensitivity()
    * @see #rotationSensitivity()
@@ -1266,7 +1315,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
    * Default value is 15.0. A higher value will make the wheel action more efficient
    * (usually meaning faster motion). Use a negative value to invert the operation
    * direction.
-   * 
+   *
    * @see #setWheelSensitivity(float)
    * @see #translationSensitivity()
    * @see #rotationSensitivity()
@@ -1283,7 +1332,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
    * <p>
    * Default value is 10. A higher value will make the keyboard more efficient (usually
    * meaning faster motion).
-   * 
+   *
    * @see #setKeyboardSensitivity(float)
    * @see #translationSensitivity()
    * @see #rotationSensitivity()
@@ -1304,7 +1353,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
    * <p>
    * Use {@link #startSpinning(MotionEvent, Rotation)} and {@link #stopSpinning()} to
    * change this state. Default value is {@code false}.
-   * 
+   *
    * @see #isFlying()
    */
   public final boolean isSpinning() {
@@ -1324,7 +1373,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
    * <p>
    * <b>Attention: </b>Spinning may be decelerated according to {@link #damping()} till it
    * stops completely.
-   * 
+   *
    * @see #flyDirection()
    */
   public final Rotation spinningRotation() {
@@ -1334,7 +1383,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
   /**
    * Defines the {@link #spinningRotation()}. Its axis is defined in the generic-frame
    * coordinate system.
-   * 
+   *
    * @see #setFlyDirection(Vec)
    */
   public final void setSpinningRotation(Rotation spinningRotation) {
@@ -1347,7 +1396,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
    * <p>
    * <b>Attention: </b>This method may be called by {@link #spin()}, since spinning may be
    * decelerated according to {@link #damping()} till it stops completely.
-   * 
+   *
    * @see #damping()
    */
   public final void stopSpinning() {
@@ -1356,7 +1405,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
 
   /**
    * Internal use. Same as {@code startSpinning(rt, event.speed(), event.delay())}.
-   * 
+   *
    * @see #startFlying(MotionEvent, Vec)
    * @see #startSpinning(Rotation, float, long)
    */
@@ -1373,7 +1422,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
    * <p>
    * <b>Attention: </b>Spinning may be decelerated according to {@link #damping()} till it
    * stops completely.
-   * 
+   *
    * @see #damping()
    * @see #startFlying(Vec, float)
    */
@@ -1430,7 +1479,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
    * <p>
    * <b>Attention: </b>Spinning may be decelerated according to {@link #damping()} till it
    * stops completely.
-   * 
+   *
    * @see #damping()
    */
   protected void spin() {
@@ -1443,8 +1492,6 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
   /**
    * Internal method. Recomputes the {@link #spinningRotation()} according to
    * {@link #damping()}.
-   * 
-   * @see #recomputeFlyDirection()
    */
   protected void recomputeSpinningRotation() {
     float prevSpeed = eventSpeed;
@@ -1454,8 +1501,8 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
       eventSpeed = 0;
     // float currSpeed = eventSpeed;
     if (gScene.is3D())
-      ((Quat) spinningRotation()).fromAxisAngle(((Quat) spinningRotation()).axis(),
-          spinningRotation().angle() * (eventSpeed / prevSpeed));
+      ((Quat) spinningRotation())
+          .fromAxisAngle(((Quat) spinningRotation()).axis(), spinningRotation().angle() * (eventSpeed / prevSpeed));
     else
       this.setSpinningRotation(new Rot(spinningRotation().angle() * (eventSpeed / prevSpeed)));
   }
@@ -1521,8 +1568,9 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
       float prevY = event.prevY();
       // Points on the deformed ball
       float px = rotationSensitivity() * ((int) prevX - cx) / gScene.camera().screenWidth();
-      float py = rotationSensitivity() * (gScene.isLeftHanded() ? ((int) prevY - cy) : (cy - (int) prevY))
-          / gScene.camera().screenHeight();
+      float py =
+          rotationSensitivity() * (gScene.isLeftHanded() ? ((int) prevY - cy) : (cy - (int) prevY)) / gScene.camera()
+              .screenHeight();
       float dx = rotationSensitivity() * (x - cx) / gScene.camera().screenWidth();
       float dy = rotationSensitivity() * (gScene.isLeftHanded() ? (y - cy) : (cy - y)) / gScene.camera().screenHeight();
 
@@ -1531,8 +1579,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
       // Approximation of rotation angle Should be divided by the projectOnBall
       // size, but it is 1.0
       Vec axis = p2.cross(p1);
-      float angle = 2.0f
-          * (float) Math.asin((float) Math.sqrt(axis.squaredNorm() / p1.squaredNorm() / p2.squaredNorm()));
+      float angle = 2.0f * (float) Math.asin((float) Math.sqrt(axis.squaredNorm() / p1.squaredNorm() / p2.squaredNorm()));
       return new Quat(axis, angle);
     }
   }
@@ -1572,8 +1619,6 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
     return event instanceof DOF1Event;
   }
 
-  //
-
   /**
    * Wrapper method for {@link #alignWithFrame(Frame, boolean, float)} that discriminates
    * between eye and non-eye frames.
@@ -1594,8 +1639,6 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
     else
       projectOnLine(gScene.eye().position(), gScene.eye().viewDirection());
   }
-
-  //
 
   /**
    * User gesture into x-translation conversion routine.
@@ -1698,8 +1741,8 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
    * User gesture into y-translation conversion routine.
    */
   protected void translateY(boolean up) {
-    translate(screenToVec(Vec.multiply(new Vec(0, (up ^ this.isEyeFrame() ^ gScene.isLeftHanded()) ? 1 : -1),
-        this.keyboardSensitivity())));
+    translate(screenToVec(
+        Vec.multiply(new Vec(0, (up ^ this.isEyeFrame() ^ gScene.isLeftHanded()) ? 1 : -1), this.keyboardSensitivity())));
   }
 
   /**
@@ -1758,8 +1801,8 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
       AbstractScene.showDepthWarning("translateZ");
       return;
     }
-    translate(screenToVec(Vec.multiply(new Vec(0.0f, 0.0f, 1),
-        (up ^ this.isEyeFrame()) ? -keyboardSensitivity() : keyboardSensitivity())));
+    translate(screenToVec(
+        Vec.multiply(new Vec(0.0f, 0.0f, 1), (up ^ this.isEyeFrame()) ? -keyboardSensitivity() : keyboardSensitivity())));
   }
 
   /**
@@ -1784,11 +1827,8 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
    * User gesture into xy-translation conversion routine.
    */
   public void translate(DOF2Event event) {
-    translate(
-        screenToVec(Vec.multiply(
-            new Vec(isEyeFrame() ? -event.dx() : event.dx(),
-                (gScene.isRightHanded() ^ isEyeFrame()) ? -event.dy() : event.dy(), 0.0f),
-            this.translationSensitivity())));
+    translate(screenToVec(Vec.multiply(new Vec(isEyeFrame() ? -event.dx() : event.dx(),
+        (gScene.isRightHanded() ^ isEyeFrame()) ? -event.dy() : event.dy(), 0.0f), this.translationSensitivity())));
   }
 
   /**
@@ -1819,14 +1859,14 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
       AbstractScene.showDepthWarning("translateXYZ");
       return;
     }
-    translate(
-        screenToVec(Vec.multiply(new Vec(event.dx(), gScene.isRightHanded() ? -event.dy() : event.dy(), -event.dz()),
+    translate(screenToVec(
+        Vec.multiply(new Vec(event.dx(), gScene.isRightHanded() ? -event.dy() : event.dy(), -event.dz()),
             this.translationSensitivity())));
   }
 
   /**
    * User gesture into zoom-on-anchor conversion routine.
-   * 
+   *
    * @see remixlab.dandelion.core.Eye#anchor()
    */
   public void zoomOnAnchor(MotionEvent event) {
@@ -1835,7 +1875,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
 
   /**
    * User gesture into zoom-on-anchor conversion routine.
-   * 
+   *
    * @see remixlab.dandelion.core.Eye#anchor()
    */
   protected void zoomOnAnchor(MotionEvent event, boolean fromX) {
@@ -1846,7 +1886,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
 
   /**
    * User gesture into zoom-on-anchor conversion routine.
-   * 
+   *
    * @see remixlab.dandelion.core.Eye#anchor()
    */
   protected void zoomOnAnchor(DOF1Event event, float sens) {
@@ -1860,7 +1900,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
 
   /**
    * User gesture into zoom-on-anchor conversion routine.
-   * 
+   *
    * @see remixlab.dandelion.core.Eye#anchor()
    */
   public void zoomOnAnchorPos() {
@@ -1869,7 +1909,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
 
   /**
    * User gesture into zoom-on-anchor conversion routine.
-   * 
+   *
    * @see remixlab.dandelion.core.Eye#anchor()
    */
   public void zoomOnAnchorNeg() {
@@ -1878,7 +1918,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
 
   /**
    * User gesture into zoom-on-anchor conversion routine.
-   * 
+   *
    * @see remixlab.dandelion.core.Eye#anchor()
    */
   protected void zoomOnAnchor(boolean in) {
@@ -1918,12 +1958,12 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
       initEvent = event.get();
       gScene.setZoomVisualHint(true);
     } else if (event.flushed()) {
-      event.setPreviousEvent(initEvent.get());
+      DOF2Event e = new DOF2Event(initEvent.get(), event.x(), event.y(), event.modifiers(), event.id());
       gScene.setZoomVisualHint(false);
-      int w = (int) Math.abs(event.dx());
-      int tlX = (int) event.prevX() < (int) event.x() ? (int) event.prevX() : (int) event.x();
-      int h = (int) Math.abs(event.dy());
-      int tlY = (int) event.prevY() < (int) event.y() ? (int) event.prevY() : (int) event.y();
+      int w = (int) Math.abs(e.dx());
+      int tlX = (int) e.prevX() < (int) e.x() ? (int) e.prevX() : (int) e.x();
+      int h = (int) Math.abs(e.dy());
+      int tlY = (int) e.prevY() < (int) e.y() ? (int) e.prevY() : (int) e.y();
       eye().interpolateToZoomOnRegion(new Rect(tlX, tlY, w, h));
     }
   }
@@ -2127,15 +2167,14 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
   /**
    * User gesture into xyz-rotation conversion routine.
    */
-  // TODO needs testing no-staging
   public void rotateXYZ(DOF3Event event) {
     if (gScene.is2D()) {
       AbstractScene.showDepthWarning("rotateXYZ");
       return;
     }
     if (event.fired() && gScene.is3D())
-      gScene.camera().cadRotationIsReversed = gScene.camera().frame()
-          .transformOf(gScene.camera().frame().sceneUpVector()).y() < 0.0f;
+      gScene.camera().cadRotationIsReversed =
+          gScene.camera().frame().transformOf(gScene.camera().frame().sceneUpVector()).y() < 0.0f;
     rotate(screenToQuat(
         Vec.multiply(new Vec(computeAngle(event.dx()), computeAngle(-event.dy()), computeAngle(-event.dz())),
             rotationSensitivity())));
@@ -2163,8 +2202,8 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
     if (event.fired())
       stopSpinning();
     if (event.fired() && gScene.is3D())
-      gScene.camera().cadRotationIsReversed = gScene.camera().frame()
-          .transformOf(gScene.camera().frame().sceneUpVector()).y() < 0.0f;
+      gScene.camera().cadRotationIsReversed =
+          gScene.camera().frame().transformOf(gScene.camera().frame().sceneUpVector()).y() < 0.0f;
     if (event.flushed() && damping() == 0) {
       startSpinning();
       return;
@@ -2359,8 +2398,8 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
     if (event.fired())
       stopSpinning();
     if (event.fired() && gScene.is3D())
-      gScene.camera().cadRotationIsReversed = gScene.camera().frame()
-          .transformOf(gScene.camera().frame().sceneUpVector()).y() < 0.0f;
+      gScene.camera().cadRotationIsReversed =
+          gScene.camera().frame().transformOf(gScene.camera().frame().sceneUpVector()).y() < 0.0f;
     if (event.flushed() && damping() == 0) {
       startSpinning();
       return;
@@ -2492,8 +2531,8 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
       stopSpinning();
       gScene.setRotateVisualHint(true); // display visual hint
       if (gScene.is3D())
-        gScene.camera().cadRotationIsReversed = gScene.camera().frame()
-            .transformOf(gScene.camera().frame().sceneUpVector()).y() < 0.0f;
+        gScene.camera().cadRotationIsReversed =
+            gScene.camera().frame().transformOf(gScene.camera().frame().sceneUpVector()).y() < 0.0f;
     }
     if (event.flushed()) {
       gScene.setRotateVisualHint(false);
@@ -2512,8 +2551,8 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
       float angle;
       if (isEyeFrame()) {
         trns = eye().projectedCoordinatesOf(eye().anchor());
-        angle = (float) Math.atan2(event.y() - trns.vec[1], event.x() - trns.vec[0])
-            - (float) Math.atan2(event.prevY() - trns.vec[1], event.prevX() - trns.vec[0]);
+        angle = (float) Math.atan2(event.y() - trns.vec[1], event.x() - trns.vec[0]) - (float) Math
+            .atan2(event.prevY() - trns.vec[1], event.prevX() - trns.vec[0]);
         if (gScene.isLeftHanded())
           angle = -angle;
         rt = new Quat(new Vec(0.0f, 0.0f, 1.0f), angle);
@@ -2555,7 +2594,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
 
   /**
    * Same as {@code return screenToVec(new Vec(x, y, z))}.
-   * 
+   *
    * @see #screenToVec(Vec)
    */
   public Vec screenToVec(float x, float y, float z) {
@@ -2565,7 +2604,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
   /**
    * Same as {@code return eyeToReferenceFrame(screenToEye(trns))}. Transforms the vector
    * from screen (device) coordinates to {@link #referenceFrame()} coordinates.
-   * 
+   *
    * @see #screenToEye(Vec)
    * @see #eyeToReferenceFrame(Vec)
    */
@@ -2575,7 +2614,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
 
   /**
    * Same as {@code return eyeToReferenceFrame(new Vec(x, y, z))}.
-   * 
+   *
    * @see #eyeToReferenceFrame(Vec)
    */
   public Vec eyeToReferenceFrame(float x, float y, float z) {
@@ -2588,13 +2627,12 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
    * It's worth noting that all gesture to generic-frame motion converting methods, are
    * implemented from just {@link #screenToEye(Vec)}, {@link #eyeToReferenceFrame(Vec)}
    * and {@link #screenToQuat(float, float, float)}.
-   * 
+   *
    * @see #screenToEye(Vec)
    * @see #screenToQuat(float, float, float)
    */
   public Vec eyeToReferenceFrame(Vec trns) {
-    GenericFrame gFrame = isEyeFrame() ? this
-        : /* respectToEye() ? */gScene.eye().frame() /* : this */;
+    GenericFrame gFrame = isEyeFrame() ? this : /* respectToEye() ? */gScene.eye().frame() /* : this */;
     Vec t = gFrame.inverseTransformOf(trns);
     if (referenceFrame() != null)
       t = referenceFrame().transformOf(t);
@@ -2603,7 +2641,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
 
   /**
    * Same as {@code return screenToEye(new Vec(x, y, z))}.
-   * 
+   *
    * @see #screenToEye(Vec)
    */
   public Vec screenToEye(float x, float y, float z) {
@@ -2616,7 +2654,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
    * It's worth noting that all gesture to generic-frame motion converting methods, are
    * implemented from just {@link #screenToEye(Vec)}, {@link #eyeToReferenceFrame(Vec)}
    * and {@link #screenToQuat(float, float, float)}.
-   * 
+   *
    * @see #eyeToReferenceFrame(Vec)
    * @see #screenToQuat(float, float, float)
    */
@@ -2628,28 +2666,28 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
       return eyeVec;
     // ... and amazed as to how dirty it's in 3d:
     switch (gScene.camera().type()) {
-    case PERSPECTIVE:
-      float k = (float) Math.tan(gScene.camera().fieldOfView() / 2.0f)
-          * Math.abs(gScene.camera().frame().coordinatesOf(isEyeFrame() ? eye().anchor() : position()).vec[2]
-              * gScene.eye().frame().magnitude());
-      // * Math.abs(scene.camera().frame().coordinatesOf(isEyeFrame() ?
-      // scene.eye().anchor() : position()).vec[2]);
-      eyeVec.vec[0] *= 2.0 * k / gScene.eye().screenHeight();
-      eyeVec.vec[1] *= 2.0 * k / gScene.eye().screenHeight();
-      break;
-    case ORTHOGRAPHIC:
-      float[] wh = gScene.eye().getBoundaryWidthHeight();
-      // float[] wh = scene.camera().getOrthoWidthHeight();
-      eyeVec.vec[0] *= 2.0 * wh[0] / gScene.eye().screenWidth();
-      eyeVec.vec[1] *= 2.0 * wh[1] / gScene.eye().screenHeight();
-      break;
+      case PERSPECTIVE:
+        float k = (float) Math.tan(gScene.camera().fieldOfView() / 2.0f) * Math.abs(
+            gScene.camera().frame().coordinatesOf(isEyeFrame() ? eye().anchor() : position()).vec[2] * gScene.eye().frame()
+                .magnitude());
+        // * Math.abs(scene.camera().frame().coordinatesOf(isEyeFrame() ?
+        // scene.eye().anchor() : position()).vec[2]);
+        eyeVec.vec[0] *= 2.0 * k / gScene.eye().screenHeight();
+        eyeVec.vec[1] *= 2.0 * k / gScene.eye().screenHeight();
+        break;
+      case ORTHOGRAPHIC:
+        float[] wh = gScene.eye().getBoundaryWidthHeight();
+        // float[] wh = scene.camera().getOrthoWidthHeight();
+        eyeVec.vec[0] *= 2.0 * wh[0] / gScene.eye().screenWidth();
+        eyeVec.vec[1] *= 2.0 * wh[1] / gScene.eye().screenHeight();
+        break;
     }
     float coef;
     if (isEyeFrame()) {
       // float coef = 8E-4f;
       coef = Math.max(Math.abs((coordinatesOf(eye().anchor())).vec[2] * magnitude()), 0.2f * eye().sceneRadius());
       eyeVec.vec[2] *= coef / eye().screenHeight();
-      // TODO eye wheel seems different
+      // eye wheel seems different
       // trns.vec[2] *= coef * 8E-4f;
       eyeVec.divide(eye().frame().magnitude());
     } else {
@@ -2663,7 +2701,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
 
   /**
    * Same as {@code return screenToQuat(angles.vec[0], angles.vec[1], angles.vec[2])}.
-   * 
+   *
    * @see #screenToQuat(float, float, float)
    */
   public Quat screenToQuat(Vec angles) {
@@ -2678,14 +2716,10 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
    * It's worth noting that all gesture to generic-frame motion converting methods, are
    * implemented from just {@link #screenToEye(Vec)}, {@link #eyeToReferenceFrame(Vec)}
    * and {@link #screenToQuat(float, float, float)}.
-   * 
-   * @param roll
-   *          Rotation angle in radians around the screen x-Axis
-   * @param pitch
-   *          Rotation angle in radians around the screen y-Axis
-   * @param yaw
-   *          Rotation angle in radians around the screen z-Axis
-   * 
+   *
+   * @param roll  Rotation angle in radians around the screen x-Axis
+   * @param pitch Rotation angle in radians around the screen y-Axis
+   * @param yaw   Rotation angle in radians around the screen z-Axis
    * @see remixlab.dandelion.geom.Quat#fromEulerAngles(float, float, float)
    */
   public Quat screenToQuat(float roll, float pitch, float yaw) {
@@ -2718,15 +2752,14 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
       if (ref instanceof GenericFrame)
         gScene.pruneBranch((GenericFrame) ref);
       else if (ref instanceof Grabber) {
-        gScene.motionAgent().removeGrabber((Grabber) ref);
-        gScene.keyboardAgent().removeGrabber((Grabber) ref);
+        gScene.inputHandler().removeGrabber((Grabber) ref);
       }
       GenericFrame copy = get();
       gScene.pruneBranch(copy);
       copy.setReferenceFrame(ref);
-      copy.fromFrame(this);
+      copy.setWorldMatrix(this);
       ref.rotate(new Quat(gScene.isLeftHanded() ? -roll : roll, pitch, gScene.isLeftHanded() ? -yaw : yaw));
-      fromFrame(copy);
+      setWorldMatrix(copy);
       return;
     }
   }
@@ -2779,7 +2812,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
    * <p>
    * Use {@link #startFlying(MotionEvent, Vec)} and {@link #stopFlying()} to change this
    * state. Default value is {@code false}.
-   * 
+   * <p>
    * {@link #isSpinning()}
    */
   public final boolean isFlying() {
@@ -2792,7 +2825,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
    * <p>
    * <b>Attention: </b>This method may be called by {@link #damping()}, since tossing may
    * be decelerated according to {@link #damping()} till it stops completely.
-   * 
+   *
    * @see #damping()
    * @see #spin()
    */
@@ -2809,7 +2842,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
    * <p>
    * <b>Attention: </b>Tossing may be decelerated according to {@link #damping()} till it
    * stops completely.
-   * 
+   *
    * @see #spinningRotation()
    */
   public final Vec flyDirection() {
@@ -2818,7 +2851,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
 
   /**
    * Defines the {@link #flyDirection()} in the reference frame coordinate system.
-   * 
+   *
    * @see #setSpinningRotation(Rotation)
    */
   public final void setFlyDirection(Vec dir) {
@@ -2827,7 +2860,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
 
   /**
    * Internal use. Same as {@code startFlying(direction, event.speed())}.
-   * 
+   *
    * @see #startFlying(Vec, float)
    * @see #startSpinning(MotionEvent, Rotation)
    */
@@ -2844,7 +2877,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
    * <p>
    * <b>Attention: </b>Tossing may be decelerated according to {@link #damping()} till it
    * stops completely.
-   * 
+   *
    * @see #damping()
    * @see #spin()
    * @see #startFlying(MotionEvent, Vec)
@@ -2862,7 +2895,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
    * <p>
    * <b>Attention: </b>Tossing may be decelerated according to {@link #damping()} till it
    * stops completely.
-   * 
+   *
    * @see #spin()
    */
   protected void fly() {
@@ -2896,64 +2929,6 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
   public void setFlySpeed(float speed) {
     flySpd = speed;
   }
-
-  // --
-
-  // TODO tossing pending, but really seems overkill
-
-  // public final boolean isTossing() {
-  // return tossTimerTask.isActive();
-  // }
-  //
-  // public final void stopTossing() {
-  // tossTimerTask.stop();
-  // }
-  //
-  // public final Vec tossDirection() {
-  // return tDir;
-  // }
-  //
-  // public final void setTossDirection(Vec dir) {
-  // tDir = dir;
-  // }
-  //
-  // public void startTossing(MotionEvent event, Vec direction) {
-  // startTossing(direction, event.speed());
-  // }
-  //
-  // public void startTossing(Vec direction, float speed) {
-  // eventSpeed = speed;
-  // setTossDirection(direction);
-  // tossTimerTask.run(FLY_UPDATE_PERDIOD);
-  // }
-  //
-  // protected void recomputeTossDirection() {
-  // float prevSpeed = eventSpeed;
-  // float damping = 1.0f - tossDampingFx();
-  // eventSpeed *= damping;
-  // if (Math.abs(eventSpeed) < .001f)
-  // eventSpeed = 0;
-  // setTossDirection(Vec.multiply(tossDirection(), (eventSpeed / prevSpeed)));
-  // }
-  //
-  // protected void tossExecution() {
-  // if(Util.zero(tossDamping()))
-  // toss();
-  // else {
-  // if (eventSpeed == 0) {
-  // stopTossing();
-  // return;
-  // }
-  // toss();
-  // recomputeTossDirection();
-  // }
-  // }
-  //
-  // protected void toss() {
-  // translate(tossDirection());
-  // }
-
-  // --
 
   protected Quat rollPitchQuaternion(MotionEvent event, Camera camera) {
     DOF2Event dof2Event = MotionEvent.dof2Event(event);
@@ -3001,7 +2976,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
   /**
    * Returns the grabs input threshold which is used by the interactive frame to
    * {@link #checkIfGrabsInput(BogusEvent)}.
-   * 
+   *
    * @see #setGrabsInputThreshold(float)
    */
   public float grabsInputThreshold() {
@@ -3017,7 +2992,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
   /**
    * Returns the frame picking precision. See
    * {@link #setPickingPrecision(PickingPrecision)} for details.
-   * 
+   *
    * @see #setPickingPrecision(PickingPrecision)
    * @see #setGrabsInputThreshold(float)
    */
@@ -3045,7 +3020,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
    * "http://remixlab.github.io/proscene-javadocs/remixlab/proscene/InteractiveFrame.html">
    * InteractiveFrame</a> class for a possible implementation). Default implementation of
    * this policy will behave like {@link PickingPrecision#FIXED}.
-   * 
+   *
    * @see #pickingPrecision()
    * @see #setGrabsInputThreshold(float)
    */
@@ -3057,43 +3032,6 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
     if (isEyeFrame()) {
       AbstractScene.showOnlyEyeWarning("setPickingPrecision", false);
       return;
-    }
-  }
-
-  /**
-   * Sets the length of the hint that defined the {@link #checkIfGrabsInput(BogusEvent)}
-   * condition used for frame picking.
-   * <p>
-   * If {@code adaptive} is {@code false}, the {@code threshold} is expressed in pixels
-   * and directly defines the fixed length of the
-   * {@link remixlab.dandelion.core.AbstractScene#drawShooterTarget(Vec, float)} ,
-   * centered at the projection of the frame origin onto the screen.
-   * <p>
-   * If {@code adaptive} is {@code true}, the {@code threshold} is expressed in object
-   * space (world units) and defines the edge length of a squared bounding box that leads
-   * to an adaptive length of the
-   * {@link remixlab.dandelion.core.AbstractScene#drawShooterTarget(Vec, float)} ,
-   * centered at the projection of the frame origin onto the screen. Use this version only
-   * if you have a good idea of the bounding box size of the object you are attaching to
-   * the frame.
-   * <p>
-   * Default behavior is to set the {@link #grabsInputThreshold()} to 20 pixels length (in
-   * a non-adaptive manner).
-   * <p>
-   * Negative {@code threshold} values are silently ignored.
-   * 
-   * @deprecated use {@link #setPickingPrecision(PickingPrecision)} and
-   *             {@link #setGrabsInputThreshold(float)}.
-   */
-  @Deprecated
-  public void setGrabsInputThreshold(float threshold, boolean adaptive) {
-    if (isEyeFrame()) {
-      AbstractScene.showOnlyEyeWarning("setGrabsInputThreshold", false);
-      return;
-    }
-    if (threshold >= 0) {
-      setPickingPrecision(adaptive ? PickingPrecision.ADAPTIVE : PickingPrecision.EXACT);
-      setGrabsInputThreshold(threshold);
     }
   }
 
@@ -3119,11 +3057,12 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
    * {@link PickingPrecision#EXACT}. See {@link #setPickingPrecision(PickingPrecision)}
    * for details.
    * <p>
-   * Default behavior is to set the {@link #grabsInputThreshold()} to 20 pixels length (in
-   * a non-adaptive manner).
+   * Default behavior is to set the {@link #grabsInputThreshold()} (in a non-adaptive
+   * manner) to 20 length if {@link remixlab.dandelion.core.AbstractScene#platform()} is
+   * DESKTOP or to 50 pixels if it is ANDROID.
    * <p>
    * Negative {@code threshold} values are silently ignored.
-   * 
+   *
    * @see #pickingPrecision()
    * @see #grabsInputThreshold()
    * @see #checkIfGrabsInput(BogusEvent)
@@ -3138,7 +3077,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
   }
 
   /**
-   * Check if this object is the {@link remixlab.bias.core.Agent#inputGrabber()} . Returns
+   * Check if this object is the {@link Agent#inputGrabber()} . Returns
    * {@code true} if this object grabs the agent and {@code false} otherwise.
    */
   public boolean grabsInput(Agent agent) {
@@ -3177,7 +3116,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
   /**
    * Returns the distance between the frame and the tracking camera. Only meaningful when
    * this frame has been set as the scene avatar.
-   * 
+   *
    * @see remixlab.dandelion.core.AbstractScene#setAvatar(Trackable)
    */
   public float trackingEyeDistance() {
@@ -3187,7 +3126,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
   /**
    * Sets the distance between the frame and the tracking camera. Only meaningful when
    * this frame has been set as the scene avatar.
-   * 
+   *
    * @see remixlab.dandelion.core.AbstractScene#setAvatar(Trackable)
    */
   public void setTrackingEyeDistance(float d) {
@@ -3198,7 +3137,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
   /**
    * Returns the azimuth of the tracking camera measured respect to the frame's
    * {@link #zAxis()}. Only meaningful when this frame has been set as the scene avatar.
-   * 
+   *
    * @see remixlab.dandelion.core.AbstractScene#setAvatar(Trackable)
    */
   public float trackingEyeAzimuth() {
@@ -3214,7 +3153,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
   /**
    * Sets the {@link #trackingEyeAzimuth()} of the tracking camera. Only meaningful when
    * this frame has been set as the scene avatar.
-   * 
+   *
    * @see remixlab.dandelion.core.AbstractScene#setAvatar(Trackable)
    */
   public void setTrackingEyeAzimuth(float a) {
@@ -3229,7 +3168,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
   /**
    * Returns the inclination of the tracking camera measured respect to the frame's
    * {@link #yAxis()}. Only meaningful when this frame has been set as the scene avatar.
-   * 
+   *
    * @see remixlab.dandelion.core.AbstractScene#setAvatar(Trackable)
    */
   public float trackingEyeInclination() {
@@ -3243,7 +3182,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
   /**
    * Sets the {@link #trackingEyeInclination()} of the tracking camera. Only meaningful
    * when this frame has been set as the scene avatar.
-   * 
+   *
    * @see remixlab.dandelion.core.AbstractScene#setAvatar(Trackable)
    */
   public void setTrackingEyeInclination(float i) {
@@ -3261,7 +3200,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
    * means of the {@link #trackingEyeAzimuth()}, the {@link #trackingEyeInclination()} and
    * {@link #trackingEyeDistance()}) respect to the Frame {@link #position()}. Only
    * meaningful when this frame has been set as the scene avatar.
-   * 
+   *
    * @see remixlab.dandelion.core.AbstractScene#setAvatar(Trackable)
    */
   protected void updateTrackingEyeFrame() {
@@ -3295,7 +3234,7 @@ public class GenericFrame extends Frame implements Grabber, Trackable {
    * the world coordinates of the camera position computed in
    * {@link #updateTrackingEyeFrame()}. Only meaningful when this frame has been set as
    * the scene avatar.
-   * 
+   *
    * @see remixlab.dandelion.core.AbstractScene#setAvatar(Trackable)
    */
   @Override

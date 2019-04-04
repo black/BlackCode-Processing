@@ -2,9 +2,8 @@
  * PostEffects.
  * by Ivan Castellanos and Jean Pierre Charalambos.
  *
- * This example illustrates how to attach a PShape to an interactive frame.
- * PShapes attached to interactive frames can then be automatically picked
- * and easily drawn.
+ * This example illustrates shader chaining which requires drawing the scene
+ * frames into an arbitrary PGraphics (see line 116).
  *
  * Press '1' to '9' to (de)activate effect.
  * Press 'h' to display the key shortcuts and mouse bindings in the console.
@@ -12,39 +11,34 @@
 
 import remixlab.proscene.*;
 
-PShader noiseShader, kaleidoShader, raysShader, dofShader, pixelShader, edgeShader, colorShader, fxaaShader, horizontalShader;
-PGraphics drawGraphics, dofGraphics, noiseGraphics, kaleidoGraphics, raysGraphics, pixelGraphics, edgeGraphics, graphics, colorGraphics, fxaaGraphics, horizontalGraphics;
+PShader noiseShader, kaleidoShader, raysShader, dofShader, pixelShader, edgeShader, colorShader, horizontalShader;
+PGraphics drawGraphics, dofGraphics, noiseGraphics, kaleidoGraphics, raysGraphics, pixelGraphics, edgeGraphics, graphics, colorGraphics, horizontalGraphics;
 Scene scene;
-boolean bdepth, brays, bpixel, bedge, bdof, bkaleido, bnoise, bfxaa, bhorizontal;
-color cols[];
+boolean bdepth, brays, bpixel, bedge, bdof, bkaleido, bnoise, bhorizontal;
 float posns[];
 int startTime;
 InteractiveFrame[] models;
 PFont font;
 
 public void setup() {
-  size(700, 700, P3D);
+  size(900, 900, P3D);
   font = loadFont("FreeSans-13.vlw");
   textFont(font);
   colorMode(HSB, 255);
-  cols = new color[100];
   posns = new float[300];  
   for (int i = 0; i<100; i++){
     posns[3*i]=random(-1000, 1000);
     posns[3*i+1]=random(-1000, 1000);
     posns[3*i+2]=random(-1000, 1000);
-    cols[i]= color(255 * i / 100.0, 255, 255, 255);
   }  
   graphics = createGraphics(width, height, P3D);  
   scene = new Scene(this, graphics);
+  scene.setAxesVisualHint(false);
+  scene.setGridVisualHint(false);
   models = new InteractiveFrame[100];
   for (int i = 0; i < models.length; i++) {
-    models[i] = new InteractiveFrame(scene, boxShape());
+    models[i] = new InteractiveFrame(scene, shape());
     models[i].translate(posns[3*i], posns[3*i+1], posns[3*i+2]);
-    pushStyle();
-    colorMode(HSB, 255);
-    models[i].shape().setFill(cols[i]);
-    popStyle();
   }
   scene.setRadius(1000);
   scene.showAll();
@@ -65,11 +59,11 @@ public void setup() {
   pixelShader.set("xPixels", 100.0);
   pixelShader.set("yPixels", 100.0);
   
-  raysShader = loadShader("RaysFrag.glsl");
+  raysShader = loadShader("raysfrag.glsl");
   raysGraphics = createGraphics(width, height, P3D);
   raysGraphics.shader(raysShader);
   raysShader.set("lightPositionOnScreen", 0.5, 0.5);
-  raysShader.set("lightDirDOTviewDir", 0.3);
+  raysShader.set("lightDirDOTviewDir", 0.7);
   
   dofShader = loadShader("dof.glsl");  
   dofGraphics = createGraphics(width, height, P3D);
@@ -90,11 +84,6 @@ public void setup() {
   noiseShader.set("amplitude", 0.1);
   noiseShader.set("speed", 0.1);
   
-  fxaaShader = loadShader("fxaa.glsl");
-  fxaaGraphics = createGraphics(width, height, P3D);
-  fxaaGraphics.shader(fxaaShader);
-  fxaaShader.set("resolution", 1.0 / width, 1.0 / height);
-  
   horizontalShader = loadShader("horizontal.glsl");
   horizontalGraphics = createGraphics(width, height, P3D);
   horizontalGraphics.shader(horizontalShader);
@@ -107,27 +96,18 @@ public void draw() {
   PGraphics pg = graphics;
 
   // 1. Draw into main buffer
-  for (int i = 0; i < models.length; i++) 
-    if (models[i].grabsInput())
-      models[i].shape().setFill(color(255, 255, 255, 255));
-    else {
-      pushStyle();
-      colorMode(HSB, 255);
-      models[i].shape().setFill(cols[i]);
-      popStyle();
-    }
-  pg.beginDraw();
   scene.beginDraw();
   pg.background(0);
   scene.drawFrames();
   scene.endDraw();
-  pg.endDraw();
  
   drawGraphics = graphics;
   
   if (bdepth){
     colorGraphics.beginDraw();
     colorGraphics.background(0);
+    //Note that when drawing the frames into an arbitrary PGraphics
+    //the eye position of the main PGraphics is used
     scene.drawFrames(colorGraphics);
     colorGraphics.endDraw();
     drawGraphics = colorGraphics;
@@ -185,14 +165,7 @@ public void draw() {
     raysGraphics.endDraw();    
     drawGraphics = raysGraphics;
   }
-  if (bfxaa) {
-    fxaaGraphics.beginDraw();
-    fxaaShader.set("tDiffuse", drawGraphics);
-    fxaaGraphics.image(graphics, 0, 0);
-    fxaaGraphics.endDraw();    
-    drawGraphics = fxaaGraphics;
-  }
-  image(drawGraphics, 0, 0);
+  scene.display(drawGraphics);
   drawText();
 }
 
@@ -206,12 +179,18 @@ void drawText() {
   text(bedge ? "6. Edge (*)" : "6. Edge", 5, 95);
   text(bhorizontal ? "7. Horizontal (*)" : "7. Horizontal", 5, 110);
   text(brays ? "8. Rays (*)" : "8. Rays", 5, 125);
-  text(bfxaa ? "9. Fxaa (*)" : "9. Fxaa", 5, 140);
   scene.endScreenDrawing();
 }
 
-PShape boxShape() {
-  return createShape(BOX, 60);
+PShape shape() {
+  PShape fig;
+  if (int(random(2))%2 == 0)
+    fig = createShape(BOX, 60);
+  else
+    fig = createShape(SPHERE, 30);
+  fig.setStroke(255);
+  fig.setFill(color(random(0,255), random(0,255), random(0,255)));
+  return fig;
 }
 
 void keyPressed() {
@@ -231,8 +210,6 @@ void keyPressed() {
     bhorizontal = !bhorizontal;
   if(key=='8')
     brays = !brays;
-  if(key=='9')
-    bfxaa = !bfxaa;
   if(key == ' ')
     scene.togglePickingBuffer();
 }

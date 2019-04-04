@@ -3,7 +3,7 @@
  * Pick an object in a 3D scene easily.
  * http://n.clavaud.free.fr/processing/library/picking/
  *
- * Copyright (c) 2013 Nicolas Clavaud http://n.clavaud.free.fr/
+ * Copyright (c) 2013-2016 Nicolas Clavaud http://n.clavaud.free.fr/
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,13 +21,14 @@
  * Boston, MA  02111-1307  USA
  * 
  * @author      Nicolas Clavaud http://n.clavaud.free.fr/
- * @modified    08/27/2013
- * @version     0.2.1 (6)
+ * @modified    11/03/2016
+ * @version     0.3.1 (8)
  */
 
 package picking;
 
 import processing.core.*;
+import processing.opengl.PShader;
 
 public class Buffer extends processing.opengl.PGraphics3D {
   protected int current_color = 0;
@@ -35,8 +36,6 @@ public class Buffer extends processing.opengl.PGraphics3D {
   public Buffer() {}
 
   public boolean displayable() { return true; }
-
-  public void callCheckSettings() { super.checkSettings(); }
 
   public void background(int arg) { super.background(0); }
   public void background(float arg) { super.background(0); }
@@ -69,6 +68,13 @@ public class Buffer extends processing.opengl.PGraphics3D {
   public void image(PImage arg, float arg_1, float arg_2) {}
   public void image(PImage arg, float arg_1, float arg_2, float arg_3, float arg_4) {}
   public void image(PImage arg, float arg_1, float arg_2, float arg_3, float arg_4, int arg_5, int arg_6, int arg_7, int arg_8) {}
+
+  public void pushStyle() {}
+  public void popStyle() {}
+  public void style(PStyle s) {}
+
+  public void shader(PShader shader) {}
+  public void shader(PShader shader, int kind) {}
 
   protected void imageImpl(PImage image, float x1, float y1, float x2, float y2, int u1, int v1, int u2, int v2) {}
 

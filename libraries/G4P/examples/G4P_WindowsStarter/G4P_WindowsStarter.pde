@@ -1,16 +1,16 @@
-/*
+/**
  Demonstration of how to create and use multiple windows with
  the G4P library.
- 
  
  Since each window has its own unique data set they can all 
  share the code needed for mouse handling and drawing.
  It is a complex example and it is recommended that you read
- a detailed explanation of the code used which can be found at:
+ programmer guides on using multiple windows here - 
  
- http://www.lagers.org.uk/g4p/applets/g4p_windowsstarter
+ http://lagers.org.uk/g4p/guides/
  
  for Processing V3
+ 
  (c) 2015 Peter Lager
  
  */

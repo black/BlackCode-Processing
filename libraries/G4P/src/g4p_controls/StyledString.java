@@ -67,7 +67,8 @@ import processing.core.PApplet;
  */
 public final class StyledString implements GConstantsInternal, Serializable {
 
-	private static final long serialVersionUID = -8272976313009558508L;
+	private static final long serialVersionUID = -8050839288193585698L;
+
 
 	transient private AttributedString styledText = null;
 	transient private ImageGraphicAttribute spacer = null;
@@ -110,7 +111,7 @@ public final class StyledString implements GConstantsInternal, Serializable {
 	 * This is assumed to be a single line of text (i.e. no wrap). 
 	 * EOL characters will be stripped from the text before use.
 	 * 
-	 * @param startText
+	 * @param startText the initial text for this instance
 	 */
 	public StyledString(String startText){
 		plainText = removeSingleSpacingFromPlainText(startText);
@@ -152,20 +153,20 @@ public final class StyledString implements GConstantsInternal, Serializable {
 
 	/**
 	 * Change the text for single line styled string
+	 * 
 	 * @param text the text to use
 	 * @param wrapWidth the wrap width
 	 */
 	public void setText(String text, int wrapWidth){
 		setWrapWidth(wrapWidth);
 		if(text != null && !text.equals(plainText)){
-			plainText = text;
 			if(this.wrapWidth == Integer.MAX_VALUE){
-				removeSingleSpacingFromPlainText(plainText);
+				plainText = removeSingleSpacingFromPlainText(text);
 				spacer = getParagraghSpacer(1);
 				styledText = new AttributedString(plainText);
 			}
 			else {
-				removeDoubleSpacingFromPlainText(plainText);
+				plainText = removeDoubleSpacingFromPlainText(text);
 				spacer = getParagraghSpacer(this.wrapWidth);
 				styledText = new AttributedString(plainText);
 				styledText = insertParagraphMarkers(plainText, styledText);				
@@ -283,7 +284,7 @@ public final class StyledString implements GConstantsInternal, Serializable {
 	}
 
 	/**
-	 * Get the number of characters in this styled string
+	 * @return the number of characters in this styled string
 	 */
 	public int length(){
 		return plainText.length();
@@ -471,8 +472,8 @@ public final class StyledString implements GConstantsInternal, Serializable {
 	}
 
 	/**
-	 * 
-	 * @param lineNo
+	 * Clear the attributes from a given line
+	 * @param lineNo the line to use
 	 */
 	public void clearAttributes(int lineNo){
 		if(lineNo >= 0 && lineNo < linesInfo.size()){
@@ -556,7 +557,7 @@ public final class StyledString implements GConstantsInternal, Serializable {
 	 * Insert some text into the position indicated. <br>
 	 * 
 	 * @param lineNo a valid line number
-	 * @param charStart the position in the line >= 0
+	 * @param charStart the position in the line &ge; 0
 	 * @param chars the characters to insert
 	 * @param startNewLine prefix the chars with a EOL
 	 * @param endNewLine postfix the chars with a EOL
@@ -593,7 +594,8 @@ public final class StyledString implements GConstantsInternal, Serializable {
 	 * 
 	 * @param insertPos position in string to insert characters
 	 * @param chars the characters to insert
-	 * @param startNewLine if true insert onto a new line
+	 * @param startNewLine if true insert a new line before the chars to insert
+	 * @param endNewLine if true append a new line after the chars to insert
 	 * @return the number of characters inserted
 	 */
 	public int insertCharacters(String chars, int insertPos, boolean startNewLine, boolean endNewLine){
@@ -850,28 +852,28 @@ public final class StyledString implements GConstantsInternal, Serializable {
 	}
 
 	/**
-	 * Get the number of lines in the layout
+	 * @return the number of lines in the layout
 	 */
 	public int getNbrLines(){
 		return nbrLines;
 	}
 
 	/**
-	 * Return the height of the text line(s)
+	 * @return the height of the text line(s)
 	 */
 	public float getTextAreaHeight(){
 		return textHeight;
 	}
 
 	/**
-	 * Return the length of the longest line.
+	 * @return the length of the longest line.
 	 */
 	public float getMaxLineLength(){
 		return maxLineLength;
 	}
 
 	/** 
-	 * Get the height of the tallest line
+	 * @return the height of the tallest line
 	 */
 	public float getMaxLineHeight(){
 		return maxLineHeight;
@@ -887,7 +889,7 @@ public final class StyledString implements GConstantsInternal, Serializable {
 	}
 
 	/**
-	 * Get the break width used to create the lines.
+	 * @return the break width used to create the lines.
 	 */
 	public int getWrapWidth(){
 		return wrapWidth;
@@ -895,7 +897,7 @@ public final class StyledString implements GConstantsInternal, Serializable {
 
 	/**
 	 * Set the maximum width of a line. 
-	 * @param wrapWidth
+	 * @param wrapWidth the maximum line length in pixels
 	 */
 	public void setWrapWidth(int wrapWidth){
 		if(this.wrapWidth != wrapWidth){
@@ -1035,11 +1037,33 @@ public final class StyledString implements GConstantsInternal, Serializable {
 	}
 
 	/** 
+	 * Ensure we do not have more than 2consecutive blank lines. This can happen when 
+	 * manually deleting a line adjacent to a blank line.
+	 */
+	protected void removeConsecutiveBlankLines(){
+		plainText = removeTripleSpacingFromPlainText(plainText);
+	}
+	
+	/** 
+	 * Ensure we do not have more than 2 consecutive blank lines. This can happen when 
+	 * manually deleting a line adjacent to a blank line. This is done by replacing 
+	 * triple EOL characters by double EOL until there are only double EOLs. <br>
+	 * @return with double blank lines removed.
+	 */
+	private String removeTripleSpacingFromPlainText(String chars){
+		while(chars.indexOf("\n\n\n") >= 0){
+			invalidText = true;
+			chars = chars.replaceAll("\n\n\n", "\n\n");
+		}
+		return chars;
+	}
+	
+	/** 
 	 * Ensure we do not have blank lines by replacing double EOL characters by 
 	 * single EOL until there are only single EOLs. <br>
 	 * Using replaceAll on its own will not work because EOL/EOL/EOL would 
 	 * become EOL/EOL not the single EOL required.
-	 * 
+	 * @return with blank lines removed.
 	 */
 	private String removeDoubleSpacingFromPlainText(String chars){
 		while(chars.indexOf("\n\n") >= 0){
@@ -1066,7 +1090,7 @@ public final class StyledString implements GConstantsInternal, Serializable {
 	/**
 	 * Create a graphic image character to simulate paragraph breaks
 	 * 
-	 * @param ww
+	 * @param ww word wrap value
 	 * @return a blank image to manage paragraph ends.
 	 */
 	private ImageGraphicAttribute getParagraghSpacer(int ww){
@@ -1087,9 +1111,9 @@ public final class StyledString implements GConstantsInternal, Serializable {
 	/**
 	 * Save the named StyleString in the named file.
 	 * 
-	 * @param papp 
+	 * @param papp the main sketch PApplet instance
 	 * @param ss the styled string
-	 * @param fname 
+	 * @param fname the filename to use
 	 */
 	public static void save(PApplet papp, StyledString ss, String fname){
 		OutputStream os;
@@ -1107,9 +1131,9 @@ public final class StyledString implements GConstantsInternal, Serializable {
 
 	/**
 	 * Load and return a StyledString object from the given file.
-	 * 
-	 * @param papp
+	 * @param papp the main sketch PApplet instance
 	 * @param fname the filename of the StyledString
+	 * @return the styled string instance loaded from the file
 	 */
 	public static StyledString load(PApplet papp, String fname){
 		StyledString ss = null;
@@ -1152,14 +1176,17 @@ public final class StyledString implements GConstantsInternal, Serializable {
 		public TextLayoutInfo tli;
 		public TextHitInfo thi;
 
-
+		/**
+		 * Create an empty TextLayoutHitInfo object
+		 */
 		public TextLayoutHitInfo() {
 			this.tli = null;
 			this.thi = null;
 		}
 
 		/**
-		 * @param tli
+		 * Create a TextLayoutHitInfo object
+		 * @param tli the text layout inof
 		 */
 		public TextLayoutHitInfo(TextLayoutInfo tli) {
 			this.tli = tli;
@@ -1167,8 +1194,9 @@ public final class StyledString implements GConstantsInternal, Serializable {
 		}
 
 		/**
-		 * @param tli
-		 * @param thi
+		 * Create a TextLayoutHitInfo object
+		 * @param tli the text layout inof
+		 * @param thi the text hit information
 		 */
 		public TextLayoutHitInfo(TextLayoutInfo tli, TextHitInfo thi) {
 			this.tli = tli;
@@ -1177,23 +1205,44 @@ public final class StyledString implements GConstantsInternal, Serializable {
 
 		/**
 		 * Copy constructor
-		 * @param tlhi
+		 * @param tlhi the text layout hit info to copy.
 		 */
 		public TextLayoutHitInfo(TextLayoutHitInfo tlhi){
 			tli = tlhi.tli;
 			thi = tlhi.thi;
 		}
 
+		/**
+		 * Make this the same as another TextLayoutHitInfo object
+		 * @param other the TextLayoutHitInfo object to copy
+		 */
 		public void copyFrom(TextLayoutHitInfo other){
 			this.tli = other.tli;
 			this.thi = other.thi;
 		}
 
+		/**
+		 * Set this TextLayoutHitInfo object to a known state
+		 * @param tli the text layout inof
+		 * @param thi the text hit information
+		 */
 		public void setInfo(TextLayoutInfo tli, TextHitInfo thi) {
 			this.tli = tli;
 			this.thi = thi;
 		}
 
+		/**
+		 * Empty this TextLayoutInfo instance
+		 */
+		public void cancelInfo(){
+			this.tli = null;
+			this.thi = null;
+		}
+		
+		/**
+		 * Compare with another TextLayoutHitInfo instance
+		 * @return 0 if the same
+		 */
 		public int compareTo(TextLayoutHitInfo other) {
 			if(tli == null || other.tli == null)
 				return 0;
@@ -1230,16 +1279,19 @@ public final class StyledString implements GConstantsInternal, Serializable {
 	 *
 	 */
 	static public class TextLayoutInfo implements Comparable<TextLayoutInfo> {
-		public TextLayout layout;		// The matching layout
-		public int lineNo;				// The line number
-		public int startCharIndex;		// Position of the first char in text
-		public int nbrChars;			// Number of chars in this layout
-		public float yPosInPara; 		// Top-left corner of bounds
+		public final TextLayout layout;		// The matching layout
+		public final int lineNo;				// The line number
+		public final int startCharIndex;		// Position of the first char in text
+		public final int nbrChars;			// Number of chars in this layout
+		public final float yPosInPara; 		// Top-left corner of bounds
 
 		/**
-		 * @param startCharIndex
-		 * @param nbrChars
-		 * @param yPosInPara
+		 * 
+		 * @param lineNo the line number
+		 * @param layout the matching text layout
+		 * @param startCharIndex Position of the first char in text
+		 * @param nbrChars Number of chars in this layout
+		 * @param yPosInPara Top-left corner of bounds
 		 */
 		public TextLayoutInfo(int lineNo, TextLayout layout, int startCharIndex, int nbrChars, float yPosInPara) {
 			this.lineNo = lineNo;

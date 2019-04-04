@@ -1,4 +1,4 @@
-/*
+/**
  This sketch demonstrates how to use the GGroup control 
  to make a collection of controls that can be manipulated 
  as a single entity.

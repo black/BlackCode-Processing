@@ -26,14 +26,13 @@ GTextArea grp2_textArea;
 GLabel grp2_d; 
 GImageButton grp2_e;
 
-synchronized public void drawWin(PApplet appc, GWinData data) { //_CODE_:window:378292:
+synchronized public void drawWin(PApplet appc, GWinData data) {
   appc.background(213, 213, 245);
   appc.stroke(0);
   appc.strokeWeight(2);
   appc.fill(200, 200, 210);
   appc.rect(10, 10, appc.width-20, appc.height-20);
-} //_CODE_:window:378292:
-
+}
 
 // Create all the GUI controls. 
 public void createGUI() {
@@ -178,7 +177,7 @@ public void createGroupActionControls() {
   btnColor.setText("Color Scheme");
   btnColor.setLocalColorScheme(GCScheme.GREEN_SCHEME);
   btnColor.addEventHandler(this, "btnColorClick");
-  drpColor = new GDropList(this, 130, 160, 110, 80, 3);
+  drpColor = new GDropList(this, 130, 160, 110, 80, 3, 20);
   drpColor.setItems(loadStrings("list_493061"), 0);
   drpColor.setLocalColorScheme(GCScheme.GREEN_SCHEME);
   drpColor.addEventHandler(this, "drpColorSelect");

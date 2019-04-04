@@ -35,7 +35,6 @@ public void draw() {
   lights();
   
   //draw the lamp
-  fill(0,150,150);
   scene.drawFrames();
 
   //draw the ground

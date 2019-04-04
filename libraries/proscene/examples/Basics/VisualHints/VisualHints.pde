@@ -15,12 +15,14 @@ InteractiveFrame iFrame;
 boolean displayPaths = true;
 Point fCorner = new Point();
 
-//Choose one of P3D for a 3D scene, or P2D or JAVA2D for a 2D scene
+//Choose FX2D, JAVA2D, P2D or P3D
 String renderer = P3D;
 
 public void setup() {
   size(640, 360, renderer);
   scene = new CustomizedScene(this);
+  //do not overwrite the config file on dispose
+  unregisterMethod("dispose", scene);
   iFrame = new InteractiveFrame(scene);
   iFrame.setPickingPrecision(InteractiveFrame.PickingPrecision.ADAPTIVE);
   iFrame.setGrabsInputThreshold(scene.radius()/4);
@@ -29,28 +31,7 @@ public void setup() {
   scene.setKeyBinding('u', "togglePathsVisualHint");
   scene.setNonSeqTimers();
   scene.setVisualHints(Scene.AXES | Scene.GRID | Scene.PICKING | Scene.PATHS);
-  //create a eye path and add some key frames:
-  //key frames can be added at runtime with keys [j..n]
-  scene.eye().setPosition(new Vec(80,0,0));
-  if(scene.is3D()) scene.eye().lookAt( scene.eye().sceneCenter() );
-  scene.eye().addKeyFrameToPath(1);
-
-  scene.eye().setPosition(new Vec(30,30,-80));
-  if(scene.is3D()) scene.eye().lookAt( scene.eye().sceneCenter() );
-  scene.eye().addKeyFrameToPath(1);
-
-  scene.eye().setPosition(new Vec(-30,-30,-80));
-  if(scene.is3D()) scene.eye().lookAt( scene.eye().sceneCenter() );
-  scene.eye().addKeyFrameToPath(1);
-
-  scene.eye().setPosition(new Vec(-80,0,0));
-  if(scene.is3D()) scene.eye().lookAt( scene.eye().sceneCenter() );
-  scene.eye().addKeyFrameToPath(1);
-
-  //re-position the eye:
-  scene.eye().setPosition(new Vec(0,0,1));
-  if(scene.is3D()) scene.eye().lookAt( scene.eye().sceneCenter() );
-  scene.showAll();
+  scene.loadConfig();
 }
 
 public void draw() {

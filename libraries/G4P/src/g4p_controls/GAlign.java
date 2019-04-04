@@ -25,75 +25,68 @@ package g4p_controls;
 
 /**
  * This class provides an enumeration that is used to control the alignment
- * of text and images.
+ * of text and images. <br>
+ * 
+ * It also defines the constants for the position of the icon relative to 
+ * the text.
  * 
  * @author Peter Lager
  *
  */
 public enum GAlign {
 
-	INVALID			( -1, "INVALID", "Invalid alignment" ),
+	INVALID			( 0x0000, "INVALID", "Invalid alignment" ),
 	
 	// Horizontal alignment constants
-	LEFT 			( 0, "LEFT", "Align left" ),
-	CENTER 			( 1, "CENTER", "Align centre horizontally" ),
-	RIGHT			( 2, "RIGHT", "Align right" ),
-	JUSTIFY  		( 3, "JUSTIFY", "Justify text" ),
+	// valid IDs 0 <= id < 15
+	LEFT 			( 0x0001, "LEFT", "Left align text" ),
+	CENTER 			( 0x0002, "CENTER", "Centre text horizontally" ),
+	RIGHT			( 0x0004, "RIGHT", "Right align text" ),
+	JUSTIFY  		( 0x0008, "JUSTIFY", "Justify text" ),
 	
 	// Vertical alignment constants
-	TOP 			( 16, "TOP", "Align top" ),
-	MIDDLE	 		( 17, "MIDDLE", "Align middle vertically" ),
-	BOTTOM 			( 18, "BOTTOM", "Align bottom" );
+	// valid IDs 16 <= id < 31
+	TOP 			( 0x0010, "TOP", "Align text to to top" ),
+	MIDDLE	 		( 0x0020, "MIDDLE", "Centre text vertically" ),
+	BOTTOM 			( 0x0040, "BOTTOM", "Align text to bottom" ),
 
+	// Position of icon relative to text
+	// valid IDs 16 <= id < 31
+	SOUTH 			( 0x0100, "SOUTH", "Place icon below text" ),
+	NORTH 			( 0x0200, "NORTH", "Place icon above text" ),
+	WEST 			( 0x0400, "WEST", "Place icon left of text" ),
+	EAST 			( 0x0800, "WEST", "Place icon right of text" );
 	
 	/**
-	 * Get an alignment based on its ID number.
+	 * Get an alignment based from its textual ID.
 	 * 
-	 * @param id the id number for this alignment.
+	 * @param textID the text ID to search for
 	 * @return the alignment or INVALID if not found
 	 */
-	public static GAlign getFromID(int id){
-		switch(id){
-		case 0:
+	public static GAlign getFromText(String textID){
+		textID = textID.toUpperCase();
+		if(textID.equals("LEFT"))
 			return LEFT;
-		case 1:
+		if(textID.equals("CENTER"))
 			return CENTER;
-		case 2:
+		if(textID.equals("RIGHT"))
 			return RIGHT;
-		case 3:
+		if(textID.equals("JUSTIFY"))
 			return JUSTIFY;
-		case 16:
+		if(textID.equals("TOP"))
 			return TOP;
-		case 17:
+		if(textID.equals("MIDDLE"))
 			return MIDDLE;
-		case 18:
+		if(textID.equals("BOTTOM"))
 			return BOTTOM;
-		}
-		return INVALID;
-	}
-	
-	/**
-	 * Get an alignment based on its alignment text.
-	 * 
-	 * @param text the alignment text.
-	 * @return the alignment or INVALID if not found
-	 */
-	public static GAlign getFromText(String text){
-		text = text.toUpperCase();
-		if(text.equals("LEFT"))
-			return LEFT;
-		if(text.equals("CENTER"))
-			return CENTER;
-		if(text.equals("RIGHT"))
-			return RIGHT;
-		if(text.equals("JUSTIFY"))
-			return JUSTIFY;
-		if(text.equals("TOP"))
-			return TOP;
-		if(text.equals("MIDDLE"))
-			return MIDDLE;
-		if(text.equals("BOTTOM"))
-			return BOTTOM;
+		if(textID.equals("SOUTH"))
+			return SOUTH;
+		if(textID.equals("NORTH"))
+			return NORTH;
+		if(textID.equals("WEST"))
+			return WEST;
+		if(textID.equals("EAST"))
+			return EAST;
 		return INVALID;
 	}
 	
@@ -104,9 +97,9 @@ public enum GAlign {
 	/**
 	 * A private constructor to prevent alignments being create outside this class.
 	 * 
-	 * @param id
-	 * @param text
-	 * @param desc
+	 * @param id numeric ID
+	 * @param text textual ID
+	 * @param desc verbose description of alignment
 	 */
 	private GAlign(int id, String text, String desc ){
 		alignID = id;
@@ -114,27 +107,16 @@ public enum GAlign {
 		description = desc;
 	}
 	
-	/**
-	 * Get the id number associated with this alignment
-	 * @return the ID associated with this alignment
-	 */
-	public int getID(){
-		return alignID;
-	}
 	
 	/**
-	 * Get the text ID associated with this alignment.
-	 * 
-	 * @return alignment text e.g. "RIGHT"
+	 * @return the textual ID of this alignment.
 	 */
 	public String getTextID(){
 		return alignText;
 	}
 	
 	/**
-	 * Get the description of this alignment
-	 * 
-	 * @return e.g. "Align top"
+	 * @return the textual verbose description of this alignment e.g. "Right align text"
 	 */
 	public String getDesc(){
 		return description;
@@ -142,22 +124,32 @@ public enum GAlign {
 	
 	/**
 	 * Is this a horizontal alignment constant?
+	 * @return true if horizontally aligned else false.
 	 */
 	public boolean isHorzAlign(){
-		return alignID >= 0 && alignID <= 8;
+		return (alignID & 0x000F) != 0;
 	}
 	
 	/**
 	 * Is this a vertical alignment constant?
+	 * @return true if vertically aligned else false.
 	 */
 	public boolean isVertAlign(){
-		return alignID >= 16;
+		return (alignID & 0x00F0) != 0;
 	}
 	
 	/**
-	 * Get the alignment text.
+	 * @return true is this is an icon alignment constant
+	 */
+	public boolean isPosAlign(){
+		return (alignID & 0x0F00) != 0;
+	}
+	
+	/**
+	 * @return a full description of this alignment constant
 	 */
 	public String toString(){
-		return alignText;
+		return "ID = " + alignText + " {" + alignID + "}  " + description;
 	}
+	
 }

@@ -44,8 +44,8 @@ public class ImageManager {
 	/**
 	 * Load a single bitmap file return a reference to the PImage created.
 	 * 
-	 * @param app
-	 * @param filename
+	 * @param app the main sketch applet
+	 * @param filename the file holdong the image
 	 * @return null if the file does not exist else the PImage object
 	 */
 	public static PImage loadImage(PApplet app, String filename){
@@ -63,7 +63,7 @@ public class ImageManager {
 	
 	/**
 	 * Load images from multiple files
-	 * @param app
+	 * @param app the main sketch applet
 	 * @param filename an array of filenames
 	 * @return an array of images
 	 */
@@ -80,7 +80,7 @@ public class ImageManager {
 	 * Make multiple images from a given image. This method creates
 	 * a 2D array (size [nCols, nRows] ) of PImage objects.
 	 * 
-	 * @param app
+	 * @param app the main sketch applet
 	 * @param img the tiled image
 	 * @param nCols number of tiles across
 	 * @param nRows number of tiles down
@@ -103,7 +103,7 @@ public class ImageManager {
 	 * Make multiple images from a given image. This method creates
 	 * a 1D array of PImage objects. The order is left-right and top-down.
 	 * 
-	 * @param app
+	 * @param app the main sketch applet
 	 * @param img the tiled image
 	 * @param nCols number of tiles across
 	 * @param nRows number of tiles down
@@ -123,7 +123,5 @@ public class ImageManager {
 		}
 		return imageTiles;
 	}
-	
-	
 	
 }

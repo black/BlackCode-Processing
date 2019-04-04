@@ -88,22 +88,24 @@ public class GKnob extends GValueControl {
 	 * the values passed as parameters. <br>
 	 * The knob has two zones the outer bezel and the inner gripper. The radius of 
 	 * the outer bezel is calculated from <br>
-	 * <pre>bezel radius = min(width, height)/2 - 2<pre><br>
+	 * <pre>bezel radius = min(width, height)/2 - 2</pre><br>
 	 * The radius of the inner griper radius is calculated from the bezel radius 
 	 * and the last parameter. <br>
 	 * <pre>grip radius = bezel radiius * gripAmount </pre><br>
 	 * The gripAmount should be in te range 0.0 to 1.0 inclusive. The actual value 
 	 * will be constrained to that range. <br>
 	 *  
-	 * @param theApplet
-	 * @param p0
-	 * @param p1
-	 * @param p2
-	 * @param p3
-	 * @param gripAmount must be >=0.0 and <=1.0
+	 * @param theApplet  the main sketch or GWindow control for this control
+	 * @param p0 x position based on control mode
+	 * @param p1 y position based on control mode
+	 * @param p2 x position or width based on control mode
+	 * @param p3 y position or height based on control mode
+	 * @param gripAmount must be &ge;0.0 and &le;1.0
 	 */
 	public GKnob(PApplet theApplet, float p0, float p1, float p2, float p3, float gripAmount) {
 		super(theApplet, p0, p1, p2, p3);
+		makeBuffer();
+
 		bezelRadius = Math.min(width, height) / 2 - 2;
 		setGripAmount(gripAmount);
 		setTurnRange(startAng, endAng);
@@ -134,7 +136,7 @@ public class GKnob extends GValueControl {
 	 * The gripAmount should be in te range 0.0 to 1.0 inclusive. The actual value 
 	 * will be constrained to that range. <br>
 	 * 
-	 * @param gripAmount must be >=0.0 and <=1.0
+	 * @param gripAmount must be &ge;0.0 and &le;1.0
 	 */
 	public void setGripAmount(float gripAmount){
 		gripAmount = PApplet.constrain(gripAmount, 0.0f, 1.0f);
@@ -178,7 +180,7 @@ public class GKnob extends GValueControl {
 	/**
 	 * Set the value for the slider. <br>
 	 * The user must ensure that the value is valid for the slider range.
-	 * @param v
+	 * @param v the new value to be used.
 	 */
 	public void setValue(float v){
 		super.setValue(v);
@@ -197,7 +199,7 @@ public class GKnob extends GValueControl {
 	}
 
 	/**
-	 * Are we showing the the value track bar.
+	 * @return true if the value track bar is visible else false.
 	 */
 	public boolean isShowTrack(){
 		return showTrack;
@@ -222,9 +224,9 @@ public class GKnob extends GValueControl {
 	
 	/**
 	 * Decides when the knob will respond to the mouse buttons. If set to true
-	 * it will only respond when ver the arc made by the start and end angles. If
+	 * it will only respond when over the arc made by the start and end angles. If
 	 * false it will be the full circle.
-	 * @param arcOnly
+	 * @param arcOnly determines which part of the control responds to the mouse
 	 */
 	public void setOverArcOnly(boolean arcOnly){
 		mouseOverArcOnly = arcOnly;
@@ -296,6 +298,13 @@ public class GKnob extends GValueControl {
 				lastMouseAngle = mouseAngle = getAngleFromUser(ox, oy);
 				offset = scaleValueToAngle(parametricTarget) - mouseAngle;
 				takeFocus();
+			}
+			break;
+		case MouseEvent.WHEEL:
+			if(currSpot > -1 && z >= focusObjectZ()){
+				System.out.print(tag + "  " + parametricTarget + "  " + event.getCount() + "   " + wheelDelta + "     >>>  ");
+				parametricTarget = calcParametricTarget(parametricTarget + event.getCount() * wheelDelta * G4P.wheelForSlider);
+				System.out.println(parametricTarget);
 			}
 			break;
 		case MouseEvent.RELEASE:

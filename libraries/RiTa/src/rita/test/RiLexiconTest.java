@@ -3,6 +3,7 @@ package rita.test;
 import static rita.support.QUnitStubs.*;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 import org.junit.Test;
@@ -66,18 +67,11 @@ public class RiLexiconTest {
     // TODO: check that these tests are the same in RiTaJS
     RiLexicon lex = new RiLexicon();
     ok(lex.containsWord("banana"));
-    lex.removeWord("banana");
-    ok(!lex.containsWord("banana"));
+    ok(!lex.containsWord("wonderfullyy"));
 
-    lex.clear();
-    ok(lex.size() == 0);
-    lex.reload();
-
-    ok(lex.containsWord("banana"));
-    ok(lex.containsWord("funny"));
 
     HashMap obj = new HashMap();
-    obj.put("wonderfullyy", new String[] { "w-ah1-n-d er-f ah-l iy", "rb" });
+    obj.put("wonderfullyy", "w-ah1-n-d er-f ah-l iy | rb");
     lex.lexicalData(obj);
  
     ok(lex.size() == 1);
@@ -103,7 +97,11 @@ public class RiLexiconTest {
 
   @Test
   public void testContainsWordString() {
+    
     RiLexicon lex = new RiLexicon();
+    
+    ok(lex.containsWord("veils"));
+    ok(!lex.containsWord("shalls"));
 
     ok(lex.containsWord("cat"));
     ok(!lex.containsWord("cated"));
@@ -114,51 +112,62 @@ public class RiLexiconTest {
     ok(lex.containsWord("hello"));
     ok(lex.containsWord("HeLLo"));
     ok(lex.containsWord("HELLO"));
-    ok(lex.containsWord("a"));
-    ok(lex.containsWord("A"));
-    ok(lex.containsWord("zooms"));
-//
-//    lex.lexicalData().put("hello", null);
-//    ok(!lex.containsWord("hello"));
-//    ok(!lex.containsWord(""));
+
+    // plurals
+    ok(lex.containsWord("cats"));
+    ok(lex.containsWord("boxes"));
+    ok(lex.containsWord("teeth"));
+    ok(lex.containsWord("apples"));
+    ok(lex.containsWord("buses"));
+    ok(lex.containsWord("oxen"));
+    ok(lex.containsWord("theses"));
+    ok(lex.containsWord("stimuli"));
+    ok(lex.containsWord("crises"));
+    ok(lex.containsWord("media"));
+
+    //vb* ?
+    ok(lex.containsWord("runs"));
+    ok(lex.containsWord("running"));
+    ok(lex.containsWord("ran"));
+    ok(lex.containsWord("moved"));
+    ok(lex.containsWord("went"));
+    ok(lex.containsWord("spent"));
+
+    // nonsense
+    ok(!lex.containsWord("pleae"));
+    
+    //ok(lex.containsWord("prognoses")); // TODO: failing in java
   }
 
   @Test
   public void testAlliterationsString() {
     RiLexicon lex = new RiLexicon();
-    String[] result = lex.alliterations("accidentally");
+    String[] result = new String[] {};
+    result = lex.alliterations("dog");
     ok(result.length > 1000);
-
-    result = new String[] {};
-    result = lex.alliterations("dog",10);
-
-//    ok(result.length > 1000);
     
-    result = new String[] {};
-    result = lex.alliterations("apples");
+    result = lex.alliterations("cat");
     ok(result.length > 1000);
 
-    result = new String[] {};
-    result = lex.alliterations("URL");
+    result = lex.alliterations("apples");
     ok(result.length == 0);
 
-    result = lex.alliterations("goxgle");
-    ok(result.length > 100);
-
-    result = new String[] {};
     result = lex.alliterations("no stress");
     // RiTa.out(result);
     ok(result.length == 0);
-
+    
+//    result = lex.alliterations("URL");
+//    System.out.println(result);
+//    ok(result.length == 0);
+    
     result = new String[] {};
     result = lex.alliterations("#$%^&*");
-    ok(result.length == 0);
+    ok(result.length == 0); 
 
     result = new String[] {};
     result = lex.alliterations("");
     ok(result.length == 0);
 
-    // TODO: better tests
   }
 
   @Test
@@ -196,12 +205,9 @@ public class RiLexiconTest {
     expected = "dh-ah|dt";
     deepEqual(returned, expected);
 
-    String answer = (String) result.get("aback");
-    deepEqual("ah b-ae1-k|rb", answer);
-
     // System.out.println("lexicalData containsKey('a'): "+result.containsKey("a"));
     // System.out.println("lexicalData : "+result.get("a"));
-    answer = (String) result.get("a");
+    String answer = (String) result.get("a");
     deepEqual(answer, "ey1|dt");
 
 //    lex.lexicalData().put("hello", null);
@@ -211,7 +217,6 @@ public class RiLexiconTest {
   @Test
   public void testRandomWord() {
   
-    
     RiLexicon lex = new RiLexicon();
 
     String result = lex.randomWord();
@@ -242,8 +247,8 @@ public class RiLexiconTest {
       String syllables = RiTa.getSyllables(result);
       int num = syllables.split(RiTa.SYLLABLE_BOUNDARY).length;
       if (num != 5)
-	System.err.println("[WARN] '" + result
-	    + "' has wrong syllable count 5 != " + num);
+	      System.err.println("[WARN] '" + result
+	        + "' has wrong syllable count 5 != " + num);
       ok(num == 5); // "5 syllableCount: "
     }
   }
@@ -253,15 +258,58 @@ public class RiLexiconTest {
     
     RiLexicon lex = new RiLexicon();
 
-    String[] pos = { "nn", "nns", "jj", "jjr", "wp" };
+    String[] pos = { "nn", "jj", "jjr", "wp" };
     for (int j = 0; j < pos.length; j++) {
       for (int i = 0; i < 3; i++) {
-	String result = lex.randomWord(pos[j]);
-	String best = lex.lexImpl.getBestPos(result);
-	// System.out.println(result+": "+pos[j]+" ?= "+best);
-	equal(pos[j], best);
+      	String result = lex.randomWord(pos[j]);
+      	String best = lex.lexImpl.getBestPos(result);
+//      	 System.out.println(result+": "+pos[j]+" ?= "+best);
+      	equal(pos[j], best);
       }
     }
+
+    HashSet<String> s = new HashSet<String>();
+    for (int i = 0; i < 20; i++) { 
+      String result = lex.randomWord("nns");
+      System.out.println(result);
+      ok(result.length() > 0 && !s.contains(result));
+      s.add(result); // no dups
+    }
+  }
+
+  @Test
+  public void testRandomWord2() {
+    // double check that we don't always get the same word
+
+    RiLexicon lex = new RiLexicon();
+    
+    String[] pos = { "nns", "n", "v","nn", "jj", "jjr"};
+    for (int j = 0; j < pos.length; j++) {
+        String result = lex.randomWord(pos[j]);
+        ok(result != lex.randomWord(pos[j]));
+    }
+
+  }
+
+  @Test
+  public void testRandomNNS() {
+    
+    RiLexicon lex = new RiLexicon();
+
+    for (int i = 0; i < 20; i++) {
+      String result = lex.randomWord("nns");
+      String[] tags = RiTa.getPosTags(result);
+//      System.out.println(result);
+      //No nn & vbg
+      for (int j = 0; j < tags.length; j++) {
+        ok(tags[j] != "vbg", "randomWord nns: " + result);
+      }
+    
+      //No -ness, -ism
+      ok(!result.endsWith("ness"), "randomWord nns: " + result);
+      ok(!result.endsWith("isms"), "randomWord nns: " + result);
+    }
+
   }
 
   @Test
@@ -269,7 +317,7 @@ public class RiLexiconTest {
     
     RiLexicon lex = new RiLexicon();
 
-    String[] pos = { "nn", "nns", "jj", "jjr" };
+    String[] pos = { "nn", "jj" };
 
     for (int j = 0; j < pos.length; j++) {
       for (int k = 2; k < 5; k++) {
@@ -313,19 +361,20 @@ public class RiLexiconTest {
     result = lex.rhymes("google");
     answer = new String[] { "bugle", "frugal" };
     deepEqual(answer, result);
-    
+        
     result = lex.rhymes("happens in here"); // "hear" should NOT be a rhyme
     answer = new String[] { "insincere", "persevere", "career",
-	"year", "reappear", "brigadier", "pioneer", "rear", "near",
-	"beer", "fear", "sneer", "adhere", "veer", "volunteer",
-	"sear", "sincere", "smear", "gear", "deer", "here", "queer",
+	"year", "reappear", "brigadier", "pioneer", "rear","profiteer", "commandeer", "near", "revere",
+	"beer", "fear", "sneer", "conventioneer", "summiteer", "adhere", "veer", "volunteer",
+	"sear", "sincere", "smear", "gear", "deer", "here", "marketeer", "queer",
 	"financier", "cavalier", "rainier", "mutineer", "unclear", "pamphleteer",
-	"disappear", "austere", "veneer", "overhear", "auctioneer", "spear",
+	"disappear", "austere", "veneer", "domineer", "overhear", "auctioneer", "spear",
 	"pier", "sphere", "peer", "cashier", "ear", "sheer", "steer", "dear", 
 	"hear", "souvenir", "frontier", "chandelier", "shear", "clear", 
 	"premier", "rehear", "engineer", "premiere", "cheer", "appear", 
-	"oneyear", "severe", "mere", "interfere", "racketeer"
+	"oneyear", "severe", "mere", "interfere", "racketeer", "budgeteer"
     };
+    
     deepEqual(answer, result);
     
     // test that we ignore trailing punctuation
@@ -341,7 +390,7 @@ public class RiLexiconTest {
     
     RiLexicon lex = new RiLexicon();
     String[] result = lex.words();
-    ok(result.length > 29000);
+    ok(result.length > 23000);
   }
   
   @Test
@@ -526,9 +575,9 @@ public class RiLexiconTest {
     ok(lex.isVerb("walk")); // +n
     ok(lex.isVerb("wash")); // +n
     ok(lex.isVerb("drink")); // +n
-    ok(lex.isVerb("ducks")); // +n
+//    ok(lex.isVerb("ducks")); // +n -> KnownIssue
     ok(lex.isVerb("fish")); // +n
-    ok(lex.isVerb("dogs")); // +n
+//    ok(lex.isVerb("dogs")); // +n -> KnownIssue
     ok(lex.isVerb("wind")); // +n
     ok(lex.isVerb("wet")); // +adj
     ok(lex.isVerb("dry")); // +adj
@@ -542,18 +591,10 @@ public class RiLexiconTest {
     ok(lex.isVerb("dry")); // +adj
 
     // n
-    ok(!lex.isVerb("dolls"));
-    ok(!lex.isVerb("frogs"));
-    ok(!lex.isVerb("flowers"));
-    ok(lex.isVerb("throw")); // +n
-    ok(lex.isVerb("walk")); // +n
-    ok(lex.isVerb("wash")); // +n
-    ok(lex.isVerb("drink")); // +n
-    ok(lex.isVerb("ducks")); // +n
-    ok(lex.isVerb("fish")); // +n
-    ok(lex.isVerb("dogs")); // +n
-    ok(lex.isVerb("wind")); // +n
-
+//    ok(!lex.isVerb("dolls"));
+//    ok(!lex.isVerb("frogs"));
+//    ok(!lex.isVerb("flowers")); -> KnownIssue
+    
     // adv
     ok(!lex.isVerb("truthfully"));
     ok(!lex.isVerb("kindly"));
@@ -633,23 +674,41 @@ public class RiLexiconTest {
     ok(lex.isAlliteration("sea", "seven"));
     ok(lex.isAlliteration("silly", "seven"));
     ok(lex.isAlliteration("sea", "sally"));
-    
+   
     ok(lex.isAlliteration("big", "bad"));
     ok(lex.isAlliteration("bad", "big")); // swap position
     
     ok(lex.isAlliteration("BIG", "bad")); // CAPITAL LETTERS
     ok(lex.isAlliteration("big", "BAD")); // CAPITAL LETTERS
     ok(lex.isAlliteration("BIG", "BAD")); // CAPITAL LETTERS
+    ok(lex.isAlliteration("this", "these")); 
+    ok(lex.isAlliteration("unsung", "sine")); 
+    ok(lex.isAlliteration("job", "gene")); 
+    ok(lex.isAlliteration("knife", "gnat")); 
+    ok(lex.isAlliteration("knife", "naughty")); 
+    ok(lex.isAlliteration("abet", "better")); 
+    ok(lex.isAlliteration("psychology", "cholera")); 
+    ok(lex.isAlliteration("consult", "sultan")); 
+    ok(lex.isAlliteration("never", "knight")); 
+    ok(lex.isAlliteration("cat", "kitchen")); 
+    ok(lex.isAlliteration("monsoon", "super")); 
     
     ok(!lex.isAlliteration("big ", "bad")); // Word with space False
     ok(!lex.isAlliteration("big    ", "bad")); // Word with tab space
-
+   
+    ok(!lex.isAlliteration("octopus", "oblong"));//Vowels
+    ok(!lex.isAlliteration("omen", "open"));
+    ok(!lex.isAlliteration("amicable", "atmosphere"));
+   
     // False
     ok(lex.isAlliteration("this", "these"));
     ok(!lex.isAlliteration("solo", "tomorrow"));
     ok(!lex.isAlliteration("solo", "yoyo"));
     ok(!lex.isAlliteration("yoyo", "jojo"));
-
+    ok(!lex.isAlliteration("withdraw", "wind"));
+    ok(!lex.isAlliteration("cat", "access"));
+    
+    
     try {
       lex.isAlliteration("", "");
     } catch (Exception e) {
@@ -660,11 +719,12 @@ public class RiLexiconTest {
 
   @Test
   public void testGetRawPhonesStringBoolean() {
+    
     RiLexicon lex = new RiLexicon();
 
     String s = lex.getRawPhones("dragging", false);
     equal(s, "d-r-ae1 g-ih-ng");
-
+    
     s = lex.getRawPhones("wellow", false);
     ok(s.length() == 0);
 
@@ -676,6 +736,10 @@ public class RiLexiconTest {
 
     s = lex.getRawPhones("laggin", false);
     ok(s.length() == 0);
+    
+    s = lex.getRawPhones("streamer", false);
+    equal(s, "s-t-r-iy1 m-er");// in dict
+
 
     // start using LTS rules
     // comparing results to 
@@ -699,19 +763,16 @@ public class RiLexiconTest {
     equal(s, "hh-ah l-ow1");
 
     s = lex.getRawPhones("coder", true);
-    equal(s, "k-ow1 d-er0");
-
-    s = lex.getRawPhones("streamer", true);
-    equal(s, "s-t-r-iy1 m-er0");
+    equal(s, "k-ow1 d-er");
 
     s = lex.getRawPhones("washington", true);
-    equal(s, "w-aa1 sh-ih0-ng t-ah0-n");
+    equal(s, "w-aa1 sh-ih-ng t-ah-n");
     
     // s = lex.getRawPhones("hawaii", true);
     // equal(s, "hh-ah0 w-ay1 iy2"); // Moved to KnownIssues
     
     s = lex.getRawPhones("alaska", true);
-    equal(s, "ah0 l-ae1-s k-ah0");
+    equal(s, "ah l-ae1-s k-ah");
     
     // s = lex.getRawPhones("wikipedia", true);
     // equal(s, "w-ih1 k-iy0 p-iy2 d-iy2-ah0"); // Moved to KnownIssues
@@ -734,7 +795,8 @@ public class RiLexiconTest {
 
     RiLexicon lex = new RiLexicon();
 
-//    
+    ok(lex.isRhyme("eight", "weight"));
+
     ok(!lex.isRhyme("apple", "polo"));
     ok(!lex.isRhyme("this", "these"));
 
@@ -863,20 +925,24 @@ public class RiLexiconTest {
       ok(!lex.isRhyme(notRhymes[i+1], notRhymes[i]));  // either way should be the same
     }
   }
+  
+  public void removeWord(RiLexicon lex, String s) {
+    lex.lexicalData().remove(s.toLowerCase());
+  }
 
   @Test
   public void testRemoveWordString() {
     RiLexicon lex = new RiLexicon();
     int size1 = lex.size();
     ok(lex.containsWord("banana"));
-    lex.removeWord("banana");
+    removeWord(lex, "banana");
     ok(!lex.containsWord("banana"));
 
     ok(lex.containsWord("are")); // check that others r still there
-    lex.removeWord("aaa");
+    removeWord(lex, "aaa");
     ok(!lex.containsWord("aaa"));
 
-    lex.removeWord("");
+    removeWord(lex, "");
 
     int size2 = lex.size();
 
@@ -901,8 +967,7 @@ public class RiLexiconTest {
 
     RiLexicon lex = new RiLexicon();
     String[] result = lex.similarByLetter("banana");
-    String[] answer = { "lantana", "wanna", "manna", "cabana", "banal",
-	"bonanza" };
+    String[] answer = { "manna", "cabana", "banal","bonanza" };
     deepEqual(result, answer);
 
     result = lex.similarByLetter("tornado");
@@ -911,7 +976,7 @@ public class RiLexiconTest {
 
     result = lex.similarByLetter("ice");
     answer = new String[] {"ire", "dice", "rice", "icy", "vice",
-	"lice", "nice", "iced", "ace" };
+	"nice", "iced", "ace" };
     deepEqual(result, answer);
 
     result = lex.similarByLetter("worngword");
@@ -954,7 +1019,7 @@ public class RiLexiconTest {
     result = new String[] {};
     result = lex.similarByLetter("ice", 1);
     answer = new String[] {"ire", "dice", "rice", "icy", "vice",
-	"lice", "nice", "iced", "ace" };
+	 "nice", "iced", "ace" };
 
     deepEqual(result, answer);
 
@@ -998,10 +1063,11 @@ public class RiLexiconTest {
     answer = new String[] { "torpedo" };
     deepEqual(result, answer);
     
-    result = lex.similarBySound("try");
-    answer = new String[] { "tie", "tried", "trite", "tree", "tries", "pry",
+    result = lex.similarBySound("try"); 
+    answer = new String[] { "tie", "tried", "trite", "tree", "pry",
 	"dry", "tribe", "true", "tripe", "cry", "wry", "tray", "fry", "rye" };
     deepEqual(result, answer);
+
 
     result = lex.similarBySound("happy");
     answer = new String[] { "hippie", "happier" };
@@ -1033,14 +1099,14 @@ public class RiLexiconTest {
     answer = new String[] { "hippie", "happier" };
 
     ok(result.length > 10);
-
+    
     result = lex.similarBySound("try", 0);
-    answer = new String[] { "tie", "tried", "trite", "tree", "tries", "pry",
+    answer = new String[] { "tie", "tried", "trite", "tree", "pry",
 	"dry", "tribe", "true", "tripe", "cry", "wry", "tray", "fry", "rye" };
     deepEqual(result, answer);
 
     result = lex.similarBySound("try", 1);
-    answer = new String[] { "tie", "tried", "trite", "tree", "tries", "pry",
+    answer = new String[] { "tie", "tried", "trite", "tree", "pry",
 	"dry", "tribe", "true", "tripe", "cry", "wry", "tray", "fry", "rye" };
 
     for (int i = 0; i < result.length; i++) {
@@ -1049,7 +1115,7 @@ public class RiLexiconTest {
     deepEqual(result, answer);
 
     result = lex.similarBySound("try", 2);
-    answer = new String[] { "tie", "tried", "trite", "tree", "tries", "pry",
+    answer = new String[] { "tie", "tried", "trite", "tree", "pry",
 	"dry", "tribe", "true", "tripe", "cry", "wry", "tray", "fry", "rye" };
 
     ok(result.length > 30);
@@ -1068,7 +1134,7 @@ public class RiLexiconTest {
     deepEqual(result, answer);
     
     result = lex.similarBySoundAndLetter("daddy");
-    answer = new String[] { "dandy" };
+    answer = new String[] {"dandy", "paddy" };
     deepEqual(result, answer);
 
     result = lex.similarBySoundAndLetter("banana");
@@ -1086,7 +1152,7 @@ public class RiLexiconTest {
   @Test
   public void testSize() {
     RiLexicon lex = new RiLexicon();
-    ok(lex.size() > 29000);
+    ok(lex.size() > 23000);
   }
 
   @Test
@@ -1095,9 +1161,9 @@ public class RiLexiconTest {
     int originalSize = lex.size();
     
     ok(lex.containsWord("cat"));
-    lex.removeWord("cat");
+    removeWord(lex, "cat");
     ok(lex.containsWord("are"));
-    lex.removeWord("are");
+    removeWord(lex, "are");
 	
     int removeTwoWordSize = lex.size();
     ok(removeTwoWordSize < originalSize);
@@ -1118,7 +1184,7 @@ public class RiLexiconTest {
     ok(result.length == 0);
 
     result = lex.substrings("thousand");
-    String[] answer = { "sand", "thou" };
+    String[] answer = { "sand" };
     deepEqual(result, answer);
 
     String[] result3 = lex.substrings("exhibition");
@@ -1142,7 +1208,7 @@ public class RiLexiconTest {
     RiLexicon lex = new RiLexicon(); // only 1 per test needed
 
     String[] result = lex.substrings("thousand", 4); // min-length=4
-    String[] answer = new String[] { "sand", "thou" };
+    String[] answer = new String[] { "sand"};
     deepEqual(result, answer);
 
     result = lex.substrings("thousand", 5); // min-length=5

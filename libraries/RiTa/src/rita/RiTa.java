@@ -1,58 +1,26 @@
 package rita;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.io.Writer;
+import java.io.*;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import rita.support.Concorder;
-import rita.support.Conjugator;
-import rita.support.Constants;
-import rita.support.EntityLookup;
-import rita.support.JSONLexicon;
-import rita.support.LetterToSound;
-import rita.support.MinEditDist;
-import rita.support.PAppletIF;
-import rita.support.Pluralizer;
-import rita.support.PosTagger;
-import rita.support.RiDynamic;
-import rita.support.RiTimer;
-import rita.support.RiTokenizer;
-import rita.support.Splitter;
-import rita.support.Stemmer;
+import rita.support.*;
 
 /**
  * A set of static properties and utility functions for the package
  */
 public class RiTa implements Constants {
-  public final static String VERSION = "1.1.38";
+
+  public final static String VERSION = "1.3.89";
 
   /** For tokenization, Can't -> Can not, etc. */
   public static boolean SPLIT_CONTRACTIONS = false;
-  
-  /** For Phonemization: ARPA or IPA   */
+
+  /** For Phonemization: ARPA or IPA */
   public static int PHONEME_TYPE = ARPA;
 
   /** Stops all RiTa output to the console */
@@ -65,9 +33,12 @@ public class RiTa implements Constants {
 
   public static boolean callbacksDisabled = false;
 
-  public static Object context = null; // generally a PApplet
+  public static Object context = null;
 
   private static boolean INITD = false;
+
+  private static Pattern CHOMP, PUNC, PUNCT, QUOTES, SQUOTES, APOS; // USE
+  // Constants
 
   static {
     if (!INITD)
@@ -107,7 +78,7 @@ public class RiTa implements Constants {
   public static String getPhonemes(String[] s) {
     return getFeature(s, PHONEMES);
   }
-  
+
   public static String getStresses(String s) {
     return getFeature(s, STRESSES);
   }
@@ -175,6 +146,192 @@ public class RiTa implements Constants {
     return s.trim();
   }
 
+  // RiLexicon delegates ====================================================
+
+  public static void addWord(String word, String pronunciation,
+      String partsOfSpeech) {
+    getLexicon().addWord(word, pronunciation, partsOfSpeech);
+  }
+
+  public static String getBestPos(String word) { // niapi, for tests
+    return getLexicon().lexImpl.getBestPos(word);
+  }
+
+  public static void reload() {
+    getLexicon().reload();
+  }
+
+  public static void clear() {
+    getLexicon().clear();
+  }
+
+  public static boolean containsWord(String word) {
+    return getLexicon().containsWord(word);
+  }
+
+  public static HashMap<String, String> lexicalData() {
+    return getLexicon().lexicalData();
+  }
+
+  public static void lexicalData(HashMap m) {
+    getLexicon().lexicalData(m);
+  }
+
+  public static String randomWordByLength(String pos, int targetLength) {
+    return getLexicon().randomWordByLength(pos, targetLength);
+  }
+
+  public static String randomWordByLength(int targetLength) {
+    return getLexicon().randomWordByLength(targetLength);
+  }
+
+  public static String getRawPhones(String word) {
+    return getLexicon().getRawPhones(word);
+  }
+
+  public static String getRawPhones(String word, boolean useLTS) {
+    return getLexicon().getRawPhones(word, useLTS);
+  }
+
+  public static String[] words() {
+    return getLexicon().words();
+  }
+
+  public static String[] words(String regex) {
+    return getLexicon().words(regex);
+  }
+
+  public static String[] words(boolean shuffled) {
+    return getLexicon().words(shuffled);
+  }
+
+  public static String[] words(String regex, boolean sorted) {
+    return getLexicon().words(regex, sorted);
+  }
+
+  public static String[] words(Pattern regex, boolean sorted) {
+    return getLexicon().words(regex, sorted);
+  }
+
+  public static int size() { // niapi
+    return getLexicon().size();
+  }
+
+  public static String[] rhymes(String input) {
+    return getLexicon().rhymes(input);
+  }
+
+  public static String[] alliterations(String input) {
+    return getLexicon().alliterations(input);
+  }
+
+  public static String[] alliterations(String input, int minLength) {
+    return getLexicon().alliterations(input, minLength);
+  }
+
+  public static String randomWord() {
+    return getLexicon().randomWord();
+  }
+
+  public static String randomWord(String pos) {
+    return getLexicon().randomWord(pos);
+  }
+
+  public static String randomWord(int syllableCount) {
+    return getLexicon().randomWord(syllableCount);
+  }
+
+  public static String randomWord(String pos, int syllableCount) {
+    return getLexicon().randomWord(pos, syllableCount);
+  }
+
+  public static boolean isAlliteration(String wordA, String wordB) {
+    return getLexicon().isAlliteration(wordA, wordB);
+  }
+
+  public static boolean isAdverb(String s) {
+    return getLexicon().isAdverb(s);
+  }
+
+  public static boolean isNoun(String s) {
+    return getLexicon().isNoun(s);
+  }
+
+  public static boolean isVerb(String s) {
+    return getLexicon().isVerb(s);
+  }
+
+  public static boolean isAdjective(String s) {
+    return getLexicon().isAdjective(s);
+  }
+
+  public static boolean isRhyme(String wordA, String wordB) {
+    return getLexicon().isRhyme(wordA, wordB);
+  }
+
+  public static boolean isRhyme(String wordA, String wordB, boolean useLTS) {
+    return getLexicon().isRhyme(wordA, wordB, useLTS);
+  }
+
+  public static String[] similarByLetter(String input) {
+    return getLexicon().similarByLetter(input);
+  }
+
+  public static String[] similarBySound(String input) {
+    return getLexicon().similarBySound(input);
+  }
+
+  public static String[] similarBySoundAndLetter(String input) {
+    return getLexicon().similarBySoundAndLetter(input);
+  }
+
+  public static String[] substrings(String input) {
+    return getLexicon().substrings(input);
+  }
+
+  public static String[] substrings(String input, int minLength) {
+    return getLexicon().substrings(input, minLength);
+  }
+
+  public static void substrings(String input, Set result) {
+    getLexicon().substrings(input, result);
+  }
+
+  public static void substrings(String input, Set result, int minLength) {
+    getLexicon().substrings(input, result, minLength);
+  }
+
+  public static String[] superstrings(String input) {
+    return getLexicon().superstrings(input);
+  }
+
+  public static void superstrings(String input, Set result, int minLength) {
+    getLexicon().superstrings(input, result, minLength);
+  }
+
+  public static String[] similarByLetter(String s, int minEditDistance) {
+    return getLexicon().similarByLetter(s, minEditDistance);
+  }
+
+  public static String[] similarByLetter(String input, int med,
+      boolean preserveLength) {
+    return getLexicon().similarByLetter(input, med, preserveLength);
+  }
+
+  public static String[] similarBySound(String input, int minDist) {
+    return getLexicon().similarBySound(input, minDist);
+  }
+
+  // =============================================================================
+
+  static RiLexicon getLexicon() {
+    if (lexicon == null)
+      lexicon = new RiLexicon();
+    return lexicon;
+  }
+
+  static RiLexicon lexicon;
+
   public static int getWordCount(String s) {
     return RiTa.tokenize(s).length;
   }
@@ -190,8 +347,8 @@ public class RiTa implements Constants {
   }
 
   /**
-   * Packs an array of floats (size 4) representing (a,r,g,b) color values into
-   * a single integer
+   * Packs an array of floats (size 4) representing (a,getLexicon(),g,b) color
+   * values into a single integer
    */
   public static int pack(int a, int r, int g, int b) {
     if (a > 255)
@@ -214,8 +371,8 @@ public class RiTa implements Constants {
   }
 
   /**
-   * Unpacks a integer into an array of floats (size 4) representing (a,r,g,b)
-   * color values
+   * Unpacks a integer into an array of floats (size 4) representing
+   * (a,getLexicon(),g,b) color values
    */
   public static int[] unpack(int pix) {
     int a = (pix >> 24) & 0xff;
@@ -241,7 +398,7 @@ public class RiTa implements Constants {
     try {
       return (callbackName == null) ? _findMethod(parent, DEFAULT_CALLBACK,
 	  new Class[] { RiTaEvent.class }, false) : _findMethod(parent,
-	  callbackName, new Class[] {}, false);
+	      callbackName, new Class[] {}, false);
     } catch (RiTaException e) {
       String msg = (callbackName == null) ? DEFAULT_CALLBACK
 	  + "(RiTaEvent re);" : callbackName + "();";
@@ -260,35 +417,96 @@ public class RiTa implements Constants {
    *          the array to join
    * @return the joined array as a String
    */
-  public static String untokenize(String[] arr, char delim,
-      boolean adjustPunctuationSpacing) {
+  public static String untokenize(String[] arr, char delim, boolean adjustPunctuationSpacing) {
+
     // System.out.println("RiTa.untokenize("+RiTa.asList(arr)+",'"+delim+"',"+adjustPunctuationSpacing+")");
 
-    if (arr == null || arr.length < 1)
-      return E;
+    if (arr == null || arr.length < 1) return E;
+
+    String result = arr[0];
 
     if (adjustPunctuationSpacing) {
 
-      String newStr = arr[0] != null ? arr[0] : E;
+      if (PUNC == null) {
+	PUNC = Pattern.compile("^[,.;:?!)\"“”’‘`']+$");
+	QUOTES = Pattern.compile("^[(\"“”’‘`']+$");
+	SQUOTES = Pattern.compile("^[’‘`']+$");
+	APOS = Pattern.compile("^[’']+$");
+      }
+
+      boolean thisPunct, thisQuote, thisComma, isLast, lastQuote, lastComma, lastPunct, lastEndWithS;
+      boolean midSentence = false, afterQuote = false, dbug = false;
+      boolean withinQuote = arr.length > 0 && QUOTES.matcher(arr[0]).matches();
+
       for (int i = 1; i < arr.length; i++) {
-	if (arr[i] != null) {
 
-	  if (i != arr.length - 1
-	      && arr[i].matches("[,\\.\\;\\:\\?\\!\\)" + ALL_QUOTES + "]+")
-	      && arr[i - 1].matches("[,\\.\\;\\:\\?\\!\\)" + ALL_QUOTES + "]+"))
-	    newStr += delim;
+	if (arr[i].equals(null))
+	  continue;
 
-	  else if (!arr[i].matches("[,\\.\\;\\:\\?\\!\\)" + ALL_QUOTES + "]+")
-	      && !arr[i - 1].matches("[\\(" + ALL_QUOTES + "]+"))
-	    newStr += delim;
+	thisComma = arr[i] == ",";
+	thisPunct = PUNC.matcher(arr[i]).matches();
+	thisQuote = QUOTES.matcher(arr[i]).matches();
+	lastComma = arr[i - 1] == ",";
+	lastPunct = PUNC.matcher(arr[i - 1]).matches();
+	lastQuote = QUOTES.matcher(arr[i - 1]).matches();
+	isLast = (i == arr.length - 1);
+	lastEndWithS = arr[i - 1].length() > 0 ?
+	    arr[i - 1].charAt(arr[i - 1].length() - 1) == 's' 
+	    : false;
 
-	  newStr += arr[i];
+	if (dbug)
+	  System.out.println("before'" + arr[i] + "' " + i + " inquote?"
+	      + withinQuote + " " + "thisPunct?" + thisPunct + " "
+	      + "thisQuote?" + thisQuote);
+
+	if (thisQuote) {
+
+	  if (withinQuote) {
+	    // no-delim, mark quotation done
+	    afterQuote = true;
+	    withinQuote = false;
+	  } else if (!(APOS.matcher(arr[i]).matches() && lastEndWithS)) {
+	    if (dbug)
+	      System.out.println("set withinQuote=1");
+	    withinQuote = true;
+	    afterQuote = false;
+	    result += delim;
+	  }
+
+	} else if (afterQuote && !thisPunct) {
+	  result += delim;
+	  if (dbug)
+	    System.out.println("hit1 " + arr[i]);
+	  afterQuote = false;
+
+	} else if (lastQuote && thisComma) {
+	  midSentence = true;
+
+	} else if (midSentence && lastComma) {
+
+	  result += delim;
+	  if (dbug)
+	    System.out.println("hit2 " + arr[i]);
+	  midSentence = false;
+
+	} else if ((!thisPunct && !lastQuote)
+	    || (!isLast && thisPunct && lastPunct)) {
+	  result += delim;
+	}
+
+	result += arr[i]; // add to result
+
+	if (thisPunct && !lastPunct && !withinQuote
+	    && SQUOTES.matcher(arr[i]).matches()) {
+	  if (dbug)
+	    System.out.println("hitnew " + arr[i]);
+	  result += delim; // fix to #477
 	}
       }
-      return newStr.trim().replaceAll(" +([,\\;\\:\\?\\!\\(])", "$1");
+
     }
 
-    return RiTa.join(arr, delim).trim();
+    return result.trim();
   }
 
   /**
@@ -380,10 +598,10 @@ public class RiTa implements Constants {
     boolean match = m.find();
     if (!match || m.groupCount() < 1) {
       System.err
-	  .println("[WARN] RiTa.trimPunctuation(): invalid regex state for String "
-	      + "\n       '"
-	      + token
-	      + "', perhaps an unexpected byte-order mark?");
+      .println("[WARN] RiTa.trimPunctuation(): invalid regex state for String "
+	  + "\n       '"
+	  + token
+	  + "', perhaps an unexpected byte-order mark?");
       return token;
     }
 
@@ -438,12 +656,11 @@ public class RiTa implements Constants {
    * @return boolean
    */
   public static boolean isPunctuation(String s) {
-    if (PUNCT == null)
+    if (PUNCT == null) {
       PUNCT = Pattern.compile(ALL_PUNCT);
+    }
     return PUNCT.matcher(s).matches();
   }
-
-  protected static Pattern PUNCT = null;
 
   /**
    * Returns true iff the character is punctuation
@@ -463,8 +680,8 @@ public class RiTa implements Constants {
 
   }
 
-  public static String singularize(String s) {
-    return Stemmer.getInstance(StemmerType.Pling).stem(s);
+  public static String singularize(String noun) {
+    return Singularizer.singularize(noun);
   }
 
   public static String stripPunctuation(String phrase) {
@@ -560,13 +777,12 @@ public class RiTa implements Constants {
    * @return string without starting or ending white-space or line-breaks
    */
   public static String chomp(String s) {
-    if (CHOMP == null)
+    if (CHOMP == null) {
       CHOMP = Pattern.compile("\\s+$|^\\s+");
+    }
     Matcher m = CHOMP.matcher(s);
-    return m.replaceAll("");
+    return m.replaceAll(Constants.E);
   }
-
-  static Pattern CHOMP;
 
   /** Returns true if 'input' is an abbreviation */
   public static boolean isAbbreviation(String input) {
@@ -621,7 +837,7 @@ public class RiTa implements Constants {
     if (cWL > 2
 	&& ((currentWord.charAt(0) == '\'' && currentWord.charAt(1) == '\'') || (currentWord
 	    .charAt(0) == '`' && currentWord.charAt(1) == '`'))
-	&& RiTa.isAbbreviation(currentWord.substring(2))) {
+	    && RiTa.isAbbreviation(currentWord.substring(2))) {
       return false;
     }
 
@@ -701,7 +917,7 @@ public class RiTa implements Constants {
   public static int timer(float period) { // for better error msg
     throw new RiTaException(
 	"Missing parent object -- did you mean: RiTa.timer(this, " + period
-	    + ");");
+	+ ");");
   }
 
   @SuppressWarnings("unused")
@@ -839,7 +1055,7 @@ public class RiTa implements Constants {
     return EntityLookup.getInstance().escape(s);
   }
 
-  public static String unescapeHTML(String s) { // TODO: add to reference?
+  public static String unescapeHTML(String s) {
 
     return EntityLookup.getInstance().unescape(s);
   }
@@ -1022,7 +1238,7 @@ public class RiTa implements Constants {
    */
 
   protected static String[] includedFiles = new String[] { "addenda.txt",
-      "bin.gz" };
+  "bin.gz" };
 
   private static Class<?> pAppletClass;
 
@@ -1166,9 +1382,9 @@ public class RiTa implements Constants {
 	  PAppletIF pApplet = (PAppletIF) RiDynamic.cast(parent,
 	      PAppletIF.class);
 	  return pApplet.loadStrings(fileName);
-	} 
-	System.err.println("[WARN] RiTa.loadString(s): Expecting a PApplet" +
-	    " as 2nd argument, but found: " + parent.getClass());
+	}
+	System.err.println("[WARN] RiTa.loadString(s): Expecting a PApplet"
+	    + " as 2nd argument, but found: " + parent.getClass());
       }
     }
 
@@ -1228,19 +1444,19 @@ public class RiTa implements Constants {
   /** @exclude */
   public static boolean _isAbsolutePath(String fileName) {
     return (fileName.startsWith(SLASH) || fileName.matches("^[A-Za-z]:")); // hmmmmm...
-									   // 'driveA:\\'?
+    // 'driveA:\\'?
   }
 
   private static void throwPAppletMessage(String methodName, String file) {
     if (methodName != null) { // else do nothing
 
       System.err
-	  .println("[WARN] Unable to load: '"
-	      + file
-	      + "', please double-check "
-	      + "the location.\n\nIf you are using the Processing IDE, try passing 'this' as the 2nd "
-	      + "argument to " + methodName + ":\n\n    " + methodName + "("
-	      + file + ", this);\n");
+      .println("[WARN] Unable to load: '"
+	  + file
+	  + "', please double-check "
+	  + "the location.\n\nIf you are using the Processing IDE, try passing 'this' as the 2nd "
+	  + "argument to " + methodName + ":\n\n    " + methodName + "("
+	  + file + ", this);\n");
 
       throw new RiTaException();
     }
@@ -1257,12 +1473,12 @@ public class RiTa implements Constants {
       }
 
       System.err
-	  .println("[WARN] Unable to load files "
-	      + RiTa.asList(files)
-	      + ", please double-check "
-	      + "the locations.\n\nIf you are using the Processing IDE, try passing 'this' as the 2nd "
-	      + "argument to " + methodName + ":\n\n    " + methodName
-	      + "(new String[]{" + fs + "}, this);\n");
+      .println("[WARN] Unable to load files "
+	  + RiTa.asList(files)
+	  + ", please double-check "
+	  + "the locations.\n\nIf you are using the Processing IDE, try passing 'this' as the 2nd "
+	  + "argument to " + methodName + ":\n\n    " + methodName
+	  + "(new String[]{" + fs + "}, this);\n");
 
       throw new RiTaException();
     }
@@ -1608,7 +1824,7 @@ public class RiTa implements Constants {
       }
     }.start();
   }
-  
+
   public static String[] kwic(String text, String word, Map options) {
     return Concorder.cachedKwic(text, word, options);
   }
@@ -1647,5 +1863,8 @@ public class RiTa implements Constants {
   public static void main(String[] args) {
     RiTa.PHONEME_TYPE = RiTa.IPA;
     System.out.println(RiTa.getPhonemes("become"));
+    System.out.println(RiTa.INTERNAL);
+    RiTa.out(RiTa.join(RiTa.tokenize("The cat ate the stinky cheese."), ","));
+
   }
 }

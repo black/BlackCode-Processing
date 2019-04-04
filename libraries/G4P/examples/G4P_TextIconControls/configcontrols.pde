@@ -6,10 +6,10 @@ GOption optPlain, optBold, optItalic, optBoldItalic;
 GCheckbox cbxOpaque;
 GSlider sdrBack;
 GLabel lblTestStyle, lblVisible, lblNbrTicks, lblEasing;
-GLabel lblTextA, lblIconA;
+GLabel lblTextALign, lblIconAlign, lblIconPos;
 GKnob knbAngle;
 GButton[] btnColours = new GButton[8];
-GDropList textH, textV, iconH, iconV;
+GDropList textH, textV, iconH, iconV, iconP;
 
 public void makeTextIconConfigControls() {
   // Create colour scheme selectors
@@ -33,53 +33,64 @@ public void makeTextIconConfigControls() {
 
   x = width - 180; 
   y = 2;
-  lblVisible = new GLabel(this, x, y, 80, 18, "VISIBLE");
-  lblVisible.setTextItalic();
-  cbxOpaque = new GCheckbox(this, x, y + 20, 70, 18, "OPAQUE");
+  lblVisible = new GLabel(this, x, y, 80, 18, "Visible");
+  lblVisible.setTextBold();
+  cbxOpaque = new GCheckbox(this, x, y + 20, 70, 18, "Opaque");
 
   x = width - 180; 
   y = 52;
   lblTestStyle = new GLabel(this, x, y, 80, 18, "Text Style");
-  lblTestStyle.setTextItalic();
+  lblTestStyle.setTextBold();
+
   optPlain = new GOption(this, x, y + 20, 80, 18, "Plain");
   optBold = new GOption(this, x, y + 40, 80, 18, "Bold");
   optItalic = new GOption(this, x, y + 60, 80, 18, "Italic");
   optBoldItalic = new GOption(this, x, y + 80, 100, 18, "Bold-Italic");
-
   tgStyle.addControls(optPlain, optBold, optItalic, optBoldItalic);
   optPlain.setSelected(true);
 
-  // Allignment droplists
-  String[] items;  
+  // Alignment droplists
   x = width - 180; 
   y = 170;
-  lblTextA = new GLabel(this, x, y, 80, 38, "TEXT ALIGNMENT");
-  lblTextA.setTextItalic();
+  lblTextALign = new GLabel(this, x, y, 80, 38, "Text Alignment");
+  lblTextALign.setTextItalic();
+
+  String[] items;  
 
   items = new String[] { "LEFT", "CENTER", "RIGHT", "JUSTIFY"};
-  textH = new GDropList(this, x, y + 40, 80, 90, 4);
+  textH = new GDropList(this, x, y + 40, 80, 90, 4, 14);
   textH.setItems(items, 0);
   textH.tag = "textH";
 
   items = new String[] { "TOP", "MIDDLE", "BOTTOM"};
-  textV = new GDropList(this, x, y + 60, 80, 90, 4);
+  textV = new GDropList(this, x, y + 60, 80, 90, 4, 14);
   textV.setItems(items, 1);
   textV.tag = "textV";
 
   x = width - 90; 
   y = 170;
-  lblIconA = new GLabel(this, x, y, 80, 38, "ICON ALIGNMENT");
-  lblIconA.setTextItalic();
+  lblIconAlign = new GLabel(this, x, y, 80, 38, "Icon Alignment");
+  lblIconAlign.setTextItalic();
 
-  items = new String[] { "LEFT", "RIGHT"};
-  iconH = new GDropList(this, x, y + 40, 80, 90, 4);
-  iconH.setItems(items, 0);
+  items = new String[] { "LEFT", "CENTER", "RIGHT"};
+  iconH = new GDropList(this, x, y + 40, 80, 90, 4, 14);
+  iconH.setItems(items, 1);
   iconH.tag = "iconH";
 
   items = new String[] { "TOP", "MIDDLE", "BOTTOM"};
-  iconV = new GDropList(this, x, y + 60, 80, 90, 4);
+  iconV = new GDropList(this, x, y + 60, 80, 90, 4, 14);
   iconV.setItems(items, 1);
   iconV.tag = "iconV";
+
+  x = width - 90; 
+  y = 250;
+  lblIconPos = new GLabel(this, x, y, 80, 38, "Icon Position");
+  lblIconPos.setTextItalic();
+
+  items = new String[] { "NORTH", "SOUTH", "EAST", "WEST"};
+  iconP = new GDropList(this, x, y + 30, 80, 90, 4, 14);
+  iconP.setItems(items, 3);
+  iconP.tag = "iconP";
 
   x = width - 140; 
   y = height - 120;

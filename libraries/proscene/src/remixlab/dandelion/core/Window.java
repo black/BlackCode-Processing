@@ -1,6 +1,6 @@
 /**************************************************************************************
  * dandelion_tree
- * Copyright (c) 2014-2016 National University of Colombia, https://github.com/remixlab
+ * Copyright (c) 2014-2017 National University of Colombia, https://github.com/remixlab
  * @author Jean Pierre Charalambos, http://otrolado.info/
  *
  * All rights reserved. Library that eases the creation of interactive
@@ -102,8 +102,8 @@ public class Window extends Eye implements Copyable {
     Rot r = new Rot(new Vec(0.0f, 1.0f), frame().transformOf(up));
 
     if (!noMove)
-      frame().setPosition(Vec.subtract(anchor(),
-          (Rot.compose((Rot) frame().orientation(), r)).rotate(frame().coordinatesOf(anchor()))));
+      frame().setPosition(
+          Vec.subtract(anchor(), (Rot.compose((Rot) frame().orientation(), r)).rotate(frame().coordinatesOf(anchor()))));
 
     frame().rotate(r);
 
@@ -113,7 +113,7 @@ public class Window extends Eye implements Copyable {
 
   /**
    * Same as {@code setUpVector(new Vec(x,y))}.
-   * 
+   *
    * @see #setUpVector(Vec)
    */
   public void setUpVector(float x, float y) {
@@ -122,7 +122,7 @@ public class Window extends Eye implements Copyable {
 
   /**
    * Same as {@code setUpVector(new Vec(x,y), boolean noMove)}.
-   * 
+   *
    * @see #setUpVector(Vec, boolean)
    */
   public void setUpVector(float x, float y, boolean noMove) {
@@ -131,7 +131,7 @@ public class Window extends Eye implements Copyable {
 
   /**
    * Same as {@code setPosition(new Vec(x,y))}.
-   * 
+   *
    * @see #setPosition(Vec)
    */
   public void setPosition(float x, float y) {
@@ -240,20 +240,18 @@ public class Window extends Eye implements Copyable {
   public float distanceToBoundary(int index, Vec pos) {
     if (!gScene.areBoundaryEquationsEnabled())
       System.out.println("The camera frustum plane equations (needed by distanceToBoundary) may be outdated. Please "
-          + "enable automatic updates of the equations in your PApplet.setup "
-          + "with Scene.enableBoundaryEquations()");
+          + "enable automatic updates of the equations in your PApplet.setup " + "with Scene.enableBoundaryEquations()");
     // check this: http://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line
     return (fpCoefficients[index][0] * pos.x() + fpCoefficients[index][1] * pos.y() + fpCoefficients[index][2])
-        / (float) Math.sqrt(
-            fpCoefficients[index][0] * fpCoefficients[index][0] + fpCoefficients[index][1] * fpCoefficients[index][1]);
+        / (float) Math
+        .sqrt(fpCoefficients[index][0] * fpCoefficients[index][0] + fpCoefficients[index][1] * fpCoefficients[index][1]);
   }
 
   @Override
   public Visibility boxVisibility(Vec p1, Vec p2) {
     if (!gScene.areBoundaryEquationsEnabled())
       System.out.println("The camera frustum plane equations (needed by aaBoxIsVisible) may be outdated. Please "
-          + "enable automatic updates of the equations in your PApplet.setup "
-          + "with Scene.enableBoundaryEquations()");
+          + "enable automatic updates of the equations in your PApplet.setup " + "with Scene.enableBoundaryEquations()");
     boolean allInForAllPlanes = true;
 
     for (int i = 0; i < 4; ++i) {
@@ -281,8 +279,7 @@ public class Window extends Eye implements Copyable {
   public Visibility ballVisibility(Vec center, float radius) {
     if (!gScene.areBoundaryEquationsEnabled())
       System.out.println("The camera frustum plane equations (needed by sphereIsVisible) may be outdated. Please "
-          + "enable automatic updates of the equations in your PApplet.setup "
-          + "with Scene.enableBoundaryEquations()");
+          + "enable automatic updates of the equations in your PApplet.setup " + "with Scene.enableBoundaryEquations()");
     boolean allInForAllPlanes = true;
     for (int i = 0; i < 4; ++i) {
       float d = distanceToBoundary(i, center);
@@ -300,8 +297,7 @@ public class Window extends Eye implements Copyable {
   public boolean isPointVisible(Vec point) {
     if (!gScene.areBoundaryEquationsEnabled())
       System.out.println("The camera frustum plane equations (needed by pointIsVisible) may be outdated. Please "
-          + "enable automatic updates of the equations in your PApplet.setup "
-          + "with Scene.enableBoundaryEquations()");
+          + "enable automatic updates of the equations in your PApplet.setup " + "with Scene.enableBoundaryEquations()");
     for (int i = 0; i < 4; ++i)
       if (distanceToBoundary(i, point) > 0)
         return false;
@@ -310,7 +306,7 @@ public class Window extends Eye implements Copyable {
 
   /**
    * Same as {@code return isPointVisible(new Vec(x, y))}.
-   * 
+   *
    * @see #isPointVisible(Vec)
    */
   public boolean isPointVisible(float x, float y) {
@@ -330,7 +326,7 @@ public class Window extends Eye implements Copyable {
 
   /**
    * Same as {@code lookAt(new Vec(x,y))}.
-   * 
+   *
    * @see #lookAt(Vec)
    */
   public void lookAt(float x, float y) {
@@ -339,7 +335,7 @@ public class Window extends Eye implements Copyable {
 
   /**
    * Same as {@code setAnchor(new Vec(x,y))}.
-   * 
+   *
    * @see AbstractScene#setAnchor(Vec)
    */
   public void setAnchor(float x, float y) {

@@ -1,4 +1,4 @@
-/*
+/**
  Demonstration of the GSlider2D control to position a
  gun-sight over a street scene.
  

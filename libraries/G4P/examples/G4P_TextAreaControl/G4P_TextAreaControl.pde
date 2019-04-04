@@ -1,4 +1,4 @@
-/*
+/**
   Sketch to demonstrate the GTextArea class. 
  
  This component allows the user to enter and edit text.

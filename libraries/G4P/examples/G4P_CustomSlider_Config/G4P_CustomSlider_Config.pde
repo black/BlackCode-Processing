@@ -1,4 +1,4 @@
-/*
+/**
   This program demonstrates the various configuration options 
  available for the custom slider control (GCustomSlider).
  

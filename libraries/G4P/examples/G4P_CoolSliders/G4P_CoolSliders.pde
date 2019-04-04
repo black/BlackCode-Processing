@@ -1,4 +1,4 @@
-/*
+/**
  The GCustomSlider control replaces the GWSlider, a control
  created as part of the Processing library `gwoptics' 
  http://www.gwoptics.org/processing/gwoptics_p5lib/
@@ -11,7 +11,7 @@
  This sketch simply demonstrates some of the features and 
  skins available with this library.
  
- To try out different configurations trye the example
+ To try out different configurations try the example
  G4P_CustomSlider_Config.
  
  for Processing V2 and V3

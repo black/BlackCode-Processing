@@ -1,6 +1,6 @@
 /**************************************************************************************
  * bias_tree
- * Copyright (c) 2014-2016 National University of Colombia, https://github.com/remixlab
+ * Copyright (c) 2014-2017 National University of Colombia, https://github.com/remixlab
  * @author Jean Pierre Charalambos, http://otrolado.info/
  *
  * All rights reserved. Library that eases the creation of interactive
@@ -40,53 +40,71 @@ public class DOF1Event extends MotionEvent {
 
   /**
    * Construct an absolute DOF1 event.
-   * 
-   * @param x
-   *          1-dof
-   * @param modifiers
-   *          ButtonShortcut modifiers
-   * @param button
-   *          ButtonShortcut button
+   *
+   * @param dx        1-dof
+   * @param modifiers MotionShortcut modifiers
+   * @param id        MotionShortcut gesture-id
    */
-  public DOF1Event(float x, int modifiers, int button) {
-    super(modifiers, button);
-    this.dx = x;
+  public DOF1Event(float dx, int modifiers, int id) {
+    super(modifiers, id);
+    this.dx = dx;
+  }
+
+  /**
+   * Same as
+   * {@code this(prevEvent instanceof DOF1Event ? (DOF1Event) prevEvent : null, x, modifiers, id)}.
+   *
+   * @see #DOF1Event(DOF1Event, float, int, int)
+   */
+  public DOF1Event(MotionEvent prevEvent, float x, int modifiers, int id) {
+    this(prevEvent instanceof DOF1Event ? (DOF1Event) prevEvent : null, x, modifiers, id);
   }
 
   /**
    * Construct a relative DOF1 event.
-   * 
+   * <p>
+   * If the {@link #id()} of the {@code prevEvent} is different then {@link #id()}, sets
+   * the {@link #distance()}, {@link #delay()} and {@link #speed()} all to {@code zero}.
+   *
    * @param prevEvent
-   * @param x
-   *          1-dof
-   * @param modifiers
-   *          ButtonShortcut modifiers
-   * @param button
-   *          ButtonShortcut button
+   * @param x         1-dof
+   * @param modifiers MotionShortcut modifiers
+   * @param id        MotionShortcut gesture-id
    */
-  public DOF1Event(DOF1Event prevEvent, float x, int modifiers, int button) {
-    super(modifiers, button);
+  public DOF1Event(DOF1Event prevEvent, float x, int modifiers, int id) {
+    super(modifiers, id);
     this.x = x;
     setPreviousEvent(prevEvent);
   }
 
   /**
    * Construct an absolute DOF1 event.
-   * 
-   * @param x
-   *          1-dof
+   *
+   * @param dx 1-dof
    */
-  public DOF1Event(float x) {
+  public DOF1Event(float dx) {
     super();
-    this.x = x;
+    this.dx = dx;
+  }
+
+  /**
+   * Same as
+   * {@code this(prevEvent instanceof DOF1Event ? (DOF1Event) prevEvent : null, x)}.
+   *
+   * @see #DOF1Event(DOF1Event, float)
+   */
+  public DOF1Event(MotionEvent prevEvent, float x) {
+    this(prevEvent instanceof DOF1Event ? (DOF1Event) prevEvent : null, x);
   }
 
   /**
    * Construct a relative DOF1 event.
-   * 
+   * <p>
+   * If the {@link #id()} of the {@code prevEvent} is different then {@link #id()}, sets
+   * the {@link #distance()}, {@link #delay()} and {@link #speed()} all to {@code zero}.
+   *
    * @param prevEvent
-   * @param x
-   *          1-dof
+   * @param x         1-dof
    */
   public DOF1Event(DOF1Event prevEvent, float x) {
     super();
@@ -116,10 +134,10 @@ public class DOF1Event extends MotionEvent {
   }
 
   @Override
-  public void setPreviousEvent(MotionEvent prevEvent) {
+  protected void setPreviousEvent(MotionEvent prevEvent) {
+    rel = true;
     if (prevEvent != null)
-      if (prevEvent instanceof DOF1Event) {
-        rel = true;
+      if (prevEvent instanceof DOF1Event && prevEvent.id() == this.id()) {
         this.dx = this.x() - ((DOF1Event) prevEvent).x();
         distance = this.x() - ((DOF1Event) prevEvent).x();
         delay = this.timestamp() - prevEvent.timestamp();
@@ -127,23 +145,18 @@ public class DOF1Event extends MotionEvent {
           speed = distance;
         else
           speed = distance / (float) delay;
-      } else {
-        this.dx = 0f;
-        delay = 0l;
-        speed = 0f;
-        distance = 0f;
       }
   }
 
   /**
-   * @return dof-1
+   * @return dof-1, only meaningful if the event {@link #isRelative()}
    */
   public float x() {
     return x;
   }
 
   /**
-   * @return dof-1 delta, only meaningful if the event {@link #isRelative()}
+   * @return dof-1 delta
    */
   public float dx() {
     return dx;

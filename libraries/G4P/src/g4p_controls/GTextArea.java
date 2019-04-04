@@ -69,11 +69,11 @@ public class GTextArea extends GEditableTextControl {
 	/**
 	 * Create a text area without scrollbars and a text wrap width to fit the control.
 	 * 
-	 * @param theApplet
-	 * @param p0
-	 * @param p1
-	 * @param p2
-	 * @param p3
+	 * @param theApplet  the main sketch or GWindow control for this control
+	 * @param p0 x position based on control mode
+	 * @param p1 y position based on control mode
+	 * @param p2 x position or width based on control mode
+	 * @param p3 y position or height based on control mode
 	 */
 	public GTextArea(PApplet theApplet, float p0, float p1, float p2, float p3) {
 		this(theApplet, p0, p1, p2, p3, SCROLLBARS_NONE, Integer.MAX_VALUE);
@@ -94,12 +94,12 @@ public class GTextArea extends GEditableTextControl {
 	 * </ul>
 	 * e.g. SCROLLBARS_BOTH | SCROLLBARS_AUTOHIDE
 	 * <br>
-	 * @param theApplet
-	 * @param p0
-	 * @param p1
-	 * @param p2
-	 * @param p3
-	 * @param sbPolicy
+	 * @param theApplet  the main sketch or GWindow control for this control
+	 * @param p0 x position based on control mode
+	 * @param p1 y position based on control mode
+	 * @param p2 x position or width based on control mode
+	 * @param p3 y position or height based on control mode
+	 * @param sbPolicy scrollbar policy
 	 */
 	public GTextArea(PApplet theApplet, float p0, float p1, float p2, float p3, int sbPolicy) {
 		this(theApplet, p0, p1, p2, p3, sbPolicy, Integer.MAX_VALUE);
@@ -108,13 +108,13 @@ public class GTextArea extends GEditableTextControl {
 	/**
 	 * Create a text field with the given scrollbar policy with a user specified text wrap length <br>
 	 * 
-	 * @param theApplet
-	 * @param p0
-	 * @param p1
-	 * @param p2
-	 * @param p3
-	 * @param sbPolicy
-	 * @param wrapWidth
+	 * @param theApplet  the main sketch or GWindow control for this control
+	 * @param p0 x position based on control mode
+	 * @param p1 y position based on control mode
+	 * @param p2 x position or width based on control mode
+	 * @param p3 y position or height based on control mode
+	 * @param sbPolicy scrollbar policy
+	 * @param wrapWidth the line width in pixels used for wrapping text.
 	 */
 	public GTextArea(PApplet theApplet, float p0, float p1, float p2, float p3, int sbPolicy, int wrapWidth) {
 		super(theApplet, p0, p1, p2, p3, sbPolicy);
@@ -156,7 +156,7 @@ public class GTextArea extends GEditableTextControl {
 		}
 		setScrollbarValues(0,0);
 		G4P.popStyle();
-		
+
 		setText("");
 		createEventHandler(G4P.sketchWindow, "handleTextEvents", 
 				new Class<?>[]{ GEditableTextControl.class, GEvent.class }, 
@@ -168,6 +168,25 @@ public class GTextArea extends GEditableTextControl {
 		bufferInvalid = true;
 	}
 
+	protected void setTextImpl(String text, int wrapWidth){
+		if(text != null){
+			// Change empty string to a 'space' character
+			text = text.length() > 0 ? text : " ";
+			stext.setText(text, wrapWidth);
+			setStyledText(stext);
+			bufferInvalid = true;
+		}
+	}
+	
+	/**
+	 * Set the text to display and adjust any scrollbars
+	 * @param text text to display
+	 * @param wrapWidth the wrap width
+	 */
+	public void setText(String text, int wrapWidth){
+		setTextImpl(text, wrapWidth);
+	}
+
 	/**
 	 * Set the text to be used. The wrap width is determined by the current
 	 * text wrapwidth or if there is no text then the text width 
@@ -176,21 +195,8 @@ public class GTextArea extends GEditableTextControl {
 	 * @param text to be displayed
 	 */
 	public void setText(String text){
-		stext.setText(text, wrapWidth);
-		if(text != null)
-			stext.setText(text, wrapWidth);
-		bufferInvalid = true;
-	}
-
-	/**
-	 * Set the text to display and adjust any scrollbars
-	 * @param text text to display
-	 * @param wrapWidth the wrap width
-	 */
-	public void setText(String text, int wrapWidth){
-		stext.setText(text, wrapWidth);
-		setStyledText(stext);
-		bufferInvalid = true;
+		// Set the wrap width the same as the control
+		setTextImpl(text, wrapWidth);
 	}
 
 	/**
@@ -198,11 +204,10 @@ public class GTextArea extends GEditableTextControl {
 	 * @param lines an array of Strings representing the text to display
 	 */
 	public void setText(String[] lines){
-		if(lines != null){
-			setText(PApplet.join(lines, "\n"));
-			bufferInvalid = true;
-		}
+		if(lines != null && lines.length > 0)
+			setTextImpl(PApplet.join(lines, "\n"), wrapWidth);
 	}
+
 
 	/**
 	 * Set the text to display and adjust any scrollbars
@@ -210,10 +215,8 @@ public class GTextArea extends GEditableTextControl {
 	 * @param wrapWidth the wrap width
 	 */
 	public void setText(String[] lines, int wrapWidth){
-		if(lines != null){
-			setText(PApplet.join(lines, "\n"), wrapWidth);
-			bufferInvalid = true;
-		}
+		if(lines != null && lines.length > 0)
+			setTextImpl(PApplet.join(lines, "\n"), wrapWidth);
 	}
 
 	/**
@@ -315,8 +318,9 @@ public class GTextArea extends GEditableTextControl {
 		endTLHI.thi = endTLHI.tli.layout.getNextRightHit(endTLHI.tli.nbrChars - 1);
 		startTLHI.copyFrom(endTLHI);
 		calculateCaretPos(endTLHI);
-		setScrollbarValues(ptx,pty);
+		setScrollbarValues(ptx, pty);
 		bufferInvalid = true;
+		keepCursorInView = true;
 		return true;
 	}
 
@@ -357,7 +361,7 @@ public class GTextArea extends GEditableTextControl {
 		if(text != null && text.length() > 0){
 			int pos = stext.getPos(lineNo, charNo);
 			int change = stext.insertCharacters(text, lineNo, charNo, startWithEOL, endWithEOL);
-//			displayCaretPos("Caret starts at ");
+			//			displayCaretPos("Caret starts at ");
 			if(change != 0){
 				// Move caret to end of insert if possible
 				pos += change;
@@ -366,7 +370,7 @@ public class GTextArea extends GEditableTextControl {
 					endTLHI.copyFrom(tlhi);
 					moveCaretLeft(endTLHI);
 					startTLHI.copyFrom(endTLHI);
-//					displayCaretPos("Caret ends at ");
+					//					displayCaretPos("Caret ends at ");
 					calculateCaretPos(tlhi);
 					keepCursorInView = true;
 					showCaret = true;
@@ -423,24 +427,24 @@ public class GTextArea extends GEditableTextControl {
 		}
 	}
 
-//	private void updateScrollbars(float hvalue){
-//		if(vsb != null){
-//			float vfiller = Math.min(1, th/stext.getTextAreaHeight());
-//			vsb.setValue(1 - vfiller, vfiller);
-//			keepCursorInView = true;
-//		}
-//		// If needed update the horizontal scrollbar
-//		if(hsb != null){
-//			//float hvalue = lines.getLast().layout.getVisibleAdvance();
-//			float hlinelength = stext.getMaxLineLength();
-//			float hfiller = Math.min(1, tw/hlinelength);
-//			if(caretX < tw)
-//				hsb.setValue(0,hfiller);
-//			else 
-//				hsb.setValue(hvalue/hlinelength, hfiller);
-//			keepCursorInView = true;
-//		}
-//	}
+	//	private void updateScrollbars(float hvalue){
+	//		if(vsb != null){
+	//			float vfiller = Math.min(1, th/stext.getTextAreaHeight());
+	//			vsb.setValue(1 - vfiller, vfiller);
+	//			keepCursorInView = true;
+	//		}
+	//		// If needed update the horizontal scrollbar
+	//		if(hsb != null){
+	//			//float hvalue = lines.getLast().layout.getVisibleAdvance();
+	//			float hlinelength = stext.getMaxLineLength();
+	//			float hfiller = Math.min(1, tw/hlinelength);
+	//			if(caretX < tw)
+	//				hsb.setValue(0,hfiller);
+	//			else 
+	//				hsb.setValue(hvalue/hlinelength, hfiller);
+	//			keepCursorInView = true;
+	//		}
+	//	}
 
 	/**
 	 * Get the text on a particular line in the text area. <br>
@@ -481,7 +485,7 @@ public class GTextArea extends GEditableTextControl {
 	 * 
 	 * @param lineNo the text area line number we want
 	 * @param ignoreEOL if true do not include trailing end=of-line characters
-	 * @return the length of the line, or <) if the line number is invalid
+	 * @return the length of the line, or &lt;0) if the line number is invalid
 	 */
 	public int getTextLength(int lineNo, boolean ignoreEOL){
 		Graphics2D g2d = buffer.g2;
@@ -592,22 +596,23 @@ public class GTextArea extends GEditableTextControl {
 
 			if(endTLHI != null){
 				if(ptx > caretX){ 						// LEFT?
-					ptx -= HORZ_SCROLL_RATE;
+					ptx -= getScrollAmount();
 					if(ptx < 0) ptx = 0;
 					horzScroll = true;
 				}
 				else if(ptx < max_ptx){ 				// RIGHT?
-					ptx += HORZ_SCROLL_RATE;
+					ptx += getScrollAmount();
 					if(ptx > max_ptx) ptx = max_ptx;
 					horzScroll = true;
 				}
 				if(pty > caretY){						// UP?
-					pty -= VERT_SCROLL_RATE;
+					pty -= getScrollAmount();
 					if(pty < 0) pty = 0;
 					vertScroll = true;
 				}
 				else if(pty < max_pty){					// DOWN?
-					pty += VERT_SCROLL_RATE;
+					pty += getScrollAmount();
+					if(pty > max_pty) pty = max_pty;
 					vertScroll = true;
 				}
 				if(horzScroll && hsb != null)
@@ -689,6 +694,7 @@ public class GTextArea extends GEditableTextControl {
 	}
 
 	protected void keyPressedProcess(int keyCode, char keyChar, boolean shiftDown, boolean ctrlDown){
+		ksm.logKey(1);
 		boolean validKeyCombo = true;
 
 		switch(keyCode){
@@ -736,6 +742,7 @@ public class GTextArea extends GEditableTextControl {
 			if(ctrlDown){
 				String p = GClip.paste();
 				if(p.length() > 0){
+					ksm.logKey(p.length());
 					// delete selection and add 
 					if(hasSelection())
 						stext.deleteCharacters(pos, nbr);
@@ -784,6 +791,7 @@ public class GTextArea extends GEditableTextControl {
 	}
 
 	protected void keyTypedProcess(int keyCode, char keyChar, boolean shiftDown, boolean ctrlDown){
+		ksm.logKey(1);
 		int ascii = (int)keyChar;
 		newline = false;
 		backspace = false;
@@ -812,6 +820,7 @@ public class GTextArea extends GEditableTextControl {
 			}
 		}
 		else if(keyChar == ENTER || keyChar == RETURN) {
+			fireEvent(this, GEvent.ENTERED); // Ticket 11
 			if(stext.insertEOL(pos)){
 				adjust = 1; textChanged = true;
 				newline = true;
@@ -1006,7 +1015,7 @@ public class GTextArea extends GEditableTextControl {
 	public int[] getCaretPos(){
 		return getCaretPos(null);
 	}
-	
+
 	/**
 	 * Get the current caret position. <br>
 	 * 
@@ -1033,7 +1042,7 @@ public class GTextArea extends GEditableTextControl {
 		}
 		return cpos;
 	}
-	
+
 	/**
 	 * Will respond to mouse events.
 	 */

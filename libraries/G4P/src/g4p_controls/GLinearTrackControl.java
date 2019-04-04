@@ -104,8 +104,8 @@ public abstract class GLinearTrackControl extends GValueControl {
 		labels = new StyledString[tickLabels.length];
 		for(int i = 0; i < tickLabels.length; i++)
 			labels[i] = new StyledString(tickLabels[i]);
-		stickToTicks = true;
-		nbrTicks = labels.length;
+		setStickToTicks(true);
+		setNbrTicks(labels.length);
 		startLimit = 0;
 		endLimit = nbrTicks - 1;
 		valueType = INTEGER;
@@ -140,14 +140,14 @@ public abstract class GLinearTrackControl extends GValueControl {
 	 * The offset is the distance the value/labels are drawn from the 
 	 * centre of the track. <br>
 	 * You may wish to tweak this value for visual effect.
-	 * @param offset
+	 * @param offset the offset value in pixels
 	 */
 	public void setTrackOffset(float offset){
 		trackOffset = offset;
 	}
 	
 	/**
-	 * Get the visual offset for the value/label text.
+	 * @return the visual offset for the value/label text.
 	 */
 	public float getTrackOffset(){
 		return trackOffset;
@@ -157,6 +157,7 @@ public abstract class GLinearTrackControl extends GValueControl {
 	 * If we are using labels then this will get the label text
 	 * associated with the current value. <br>
 	 * If labels have not been set then return null
+	 * @return get current value as a String
 	 */
 	public String getValueS(){
 		// Use the valueTarget rather than the valuePos since intermediate values
@@ -192,28 +193,24 @@ public abstract class GLinearTrackControl extends GValueControl {
 		case MouseEvent.CLICK:
 			if(focusIsWith == this ){
 				parametricTarget = ox + 0.5f;
-				if(stickToTicks)
-					parametricTarget = findNearestTickValueTo(parametricTarget);
+				parametricTarget = calcParametricTarget(parametricTarget);
 				dragging = false;
 				status = OFF_CONTROL;
 				loseFocus(null);
 				bufferInvalid = true;
 			}
 			break;
+		case MouseEvent.WHEEL:
+			if(currSpot > -1 && z >= focusObjectZ())
+				parametricTarget = calcParametricTarget(parametricTarget + event.getCount() * wheelDelta * G4P.wheelForSlider);
+			break;
 		case MouseEvent.RELEASE:
 			if(focusIsWith == this && dragging){
 				if(downHotSpot == THUMB_SPOT){
 					parametricTarget = (ox - offset) + 0.5f;
-					if(parametricTarget < 0){
-						parametricTarget = 0;
+					if(parametricTarget < 0 || parametricTarget > 1)
 						offset = 0;
-					}
-					else if(parametricTarget > 1){
-						parametricTarget = 1;
-						offset = 0;
-					}
-					if(stickToTicks)
-						parametricTarget = findNearestTickValueTo(parametricTarget);
+					parametricTarget = calcParametricTarget(parametricTarget);
 				}
 				status = OFF_CONTROL;
 				bufferInvalid = true;

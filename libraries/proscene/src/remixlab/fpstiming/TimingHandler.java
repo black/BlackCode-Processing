@@ -1,6 +1,6 @@
 /**************************************************************************************
  * fpstiming_tree
- * Copyright (c) 2014-2016 National University of Colombia, https://github.com/remixlab
+ * Copyright (c) 2014-2017 National University of Colombia, https://github.com/remixlab
  * @author Jean Pierre Charalambos, http://otrolado.info/
  *
  * All rights reserved. Library that eases the creation of interactive
@@ -94,7 +94,7 @@ public class TimingHandler {
 
   /**
    * Unregisters the timer. You may also unregister the task this timer is attached to.
-   * 
+   *
    * @see #unregisterTask(TimingTask)
    */
   public void unregisterTask(SeqTimer t) {
@@ -103,7 +103,7 @@ public class TimingHandler {
 
   /**
    * Unregisters the timer task.
-   * 
+   *
    * @see #unregisterTask(SeqTimer)
    */
   public void unregisterTask(TimingTask task) {

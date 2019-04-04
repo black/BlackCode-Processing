@@ -1,6 +1,6 @@
 /**************************************************************************************
  * dandelion_tree
- * Copyright (c) 2014-2016 National University of Colombia, https://github.com/remixlab
+ * Copyright (c) 2014-2017 National University of Colombia, https://github.com/remixlab
  * @author Jean Pierre Charalambos, http://otrolado.info/
  *
  * All rights reserved. Library that eases the creation of interactive
@@ -10,10 +10,14 @@
 
 package remixlab.dandelion.geom;
 
-import remixlab.util.*;
+import remixlab.util.EqualsBuilder;
+import remixlab.util.HashCodeBuilder;
+import remixlab.util.Util;
 
 /**
- * A class to describe a two or three dimensional vector.
+ * A class to describe a two or three dimensional vector. This class API aims to conform
+ * that of the great <a href="https://processing.org/reference/PVector.html">Processing
+ * PVector</a>.
  * <p>
  * The result of all functions are applied to the vector itself, with the exception of
  * cross(), which returns a new Vec (or writes to a specified 'target' Vec). That is,
@@ -60,13 +64,10 @@ public class Vec implements Linkable {
 
   /**
    * Constructor for a 3D vector.
-   * 
-   * @param x
-   *          the x coordinate.
-   * @param y
-   *          the y coordinate.
-   * @param z
-   *          the y coordinate.
+   *
+   * @param x the x coordinate.
+   * @param y the y coordinate.
+   * @param z the y coordinate.
    */
   public Vec(float x, float y, float z) {
     this.vec[0] = x;
@@ -80,11 +81,9 @@ public class Vec implements Linkable {
 
   /**
    * Constructor for a 2D vector: z coordinate is set to 0.
-   * 
-   * @param x
-   *          the x coordinate.
-   * @param y
-   *          the y coordinate.
+   *
+   * @param x the x coordinate.
+   * @param y the y coordinate.
    */
   public Vec(float x, float y) {
     this.vec[0] = x;
@@ -136,7 +135,7 @@ public class Vec implements Linkable {
 
   /**
    * Same as {@code return projectVectorOnAxis(this, direction)}.
-   * 
+   *
    * @see #projectVectorOnAxis(Vec, Vec)
    */
   public Vec projectVectorOnAxis(Vec direction) {
@@ -158,7 +157,7 @@ public class Vec implements Linkable {
 
   /**
    * Same as {@code projectVectorOnPlane(this, normal)}.
-   * 
+   *
    * @see #projectVectorOnPlane(Vec, Vec)
    */
   public Vec projectVectorOnPlane(Vec normal) {
@@ -180,7 +179,7 @@ public class Vec implements Linkable {
 
   /**
    * Same as {@code return squaredNorm(this)}.
-   * 
+   *
    * @see #squaredNorm(Vec)
    */
   public float squaredNorm() {
@@ -196,7 +195,7 @@ public class Vec implements Linkable {
 
   /**
    * Same as {@code return orthogonalVector(this)}.
-   * 
+   *
    * @see #orthogonalVector(Vec)
    */
   public Vec orthogonalVector() {
@@ -241,13 +240,10 @@ public class Vec implements Linkable {
 
   /**
    * Set x, y, and z coordinates.
-   * 
-   * @param x
-   *          the x coordinate.
-   * @param y
-   *          the y coordinate.
-   * @param z
-   *          the z coordinate.
+   *
+   * @param x the x coordinate.
+   * @param y the y coordinate.
+   * @param z the z coordinate.
    */
   public void set(float x, float y, float z) {
     this.vec[0] = x;
@@ -257,9 +253,8 @@ public class Vec implements Linkable {
 
   /**
    * Set x, y, and z coordinates from a Vec object.
-   * 
-   * @param v
-   *          the Vec object to be copied
+   *
+   * @param v the Vec object to be copied
    */
   @Override
   public void set(Linkable v) {
@@ -276,9 +271,8 @@ public class Vec implements Linkable {
 
   /**
    * Set the x, y (and maybe z) coordinates using a float[] array as the source.
-   * 
-   * @param source
-   *          array to copy from
+   *
+   * @param source array to copy from
    */
   @Override
   public void set(float[] source) {
@@ -302,7 +296,7 @@ public class Vec implements Linkable {
   @Override
   public float[] get(float[] target) {
     if (target == null) {
-      return new float[] { this.vec[0], this.vec[1], this.vec[2] };
+      return new float[]{this.vec[0], this.vec[1], this.vec[2]};
     }
     if (target.length >= 2) {
       target[0] = this.vec[0];
@@ -316,7 +310,7 @@ public class Vec implements Linkable {
 
   /**
    * Calculate the magnitude (length) of the vector
-   * 
+   *
    * @return the magnitude of the vector
    */
   public float magnitude() {
@@ -326,7 +320,7 @@ public class Vec implements Linkable {
   /**
    * Calculate the squared magnitude of the vector Faster if the real length is not
    * required in the case of comparing vectors, etc.
-   * 
+   *
    * @return squared magnitude of the vector
    */
   public float squaredMagnitude() {
@@ -335,9 +329,8 @@ public class Vec implements Linkable {
 
   /**
    * Add a vector to this vector
-   * 
-   * @param v
-   *          the vector to be added
+   *
+   * @param v the vector to be added
    */
   public void add(Vec v) {
     this.vec[0] += v.vec[0];
@@ -346,12 +339,9 @@ public class Vec implements Linkable {
   }
 
   /**
-   * @param x
-   *          x component of the vector
-   * @param y
-   *          y component of the vector
-   * @param z
-   *          z component of the vector
+   * @param x x component of the vector
+   * @param y y component of the vector
+   * @param z z component of the vector
    */
   public void add(float x, float y, float z) {
     this.vec[0] += x;
@@ -361,11 +351,9 @@ public class Vec implements Linkable {
 
   /**
    * Add two vectors
-   * 
-   * @param v1
-   *          a vector
-   * @param v2
-   *          another vector
+   *
+   * @param v1 a vector
+   * @param v2 another vector
    * @return a new vector that is the sum of v1 and v2
    */
   static public Vec add(Vec v1, Vec v2) {
@@ -374,13 +362,10 @@ public class Vec implements Linkable {
 
   /**
    * Add two vectors into a target vector
-   * 
-   * @param v1
-   *          a vector
-   * @param v2
-   *          another vector
-   * @param target
-   *          the target vector (if null, a new vector will be created)
+   *
+   * @param v1     a vector
+   * @param v2     another vector
+   * @param target the target vector (if null, a new vector will be created)
    * @return a new vector that is the sum of v1 and v2
    */
   static public Vec add(Vec v1, Vec v2, Vec target) {
@@ -394,9 +379,8 @@ public class Vec implements Linkable {
 
   /**
    * Subtract a vector from this vector
-   * 
-   * @param v
-   *          the vector to be subtracted
+   *
+   * @param v the vector to be subtracted
    */
   public void subtract(Vec v) {
     this.vec[0] -= v.vec[0];
@@ -405,12 +389,9 @@ public class Vec implements Linkable {
   }
 
   /**
-   * @param x
-   *          the x component of the vector
-   * @param y
-   *          the y component of the vector
-   * @param z
-   *          the z component of the vector
+   * @param x the x component of the vector
+   * @param y the y component of the vector
+   * @param z the z component of the vector
    */
   public void subtract(float x, float y, float z) {
     this.vec[0] -= x;
@@ -420,11 +401,9 @@ public class Vec implements Linkable {
 
   /**
    * Subtract one vector from another
-   * 
-   * @param v1
-   *          a vector
-   * @param v2
-   *          another vector
+   *
+   * @param v1 a vector
+   * @param v2 another vector
    * @return a new vector that is v1 - v2
    */
   static public Vec subtract(Vec v1, Vec v2) {
@@ -433,13 +412,10 @@ public class Vec implements Linkable {
 
   /**
    * Subtract one vector from another and store in another vector
-   * 
-   * @param v1
-   *          the x, y, and z components of a Vec object
-   * @param v2
-   *          the x, y, and z components of a Vec object
-   * @param target
-   *          Vec in which to store the result
+   *
+   * @param v1     the x, y, and z components of a Vec object
+   * @param v2     the x, y, and z components of a Vec object
+   * @param target Vec in which to store the result
    */
   static public Vec subtract(Vec v1, Vec v2, Vec target) {
     if (target == null) {
@@ -452,9 +428,8 @@ public class Vec implements Linkable {
 
   /**
    * Multiply this vector by a scalar
-   * 
-   * @param n
-   *          the value to multiply by
+   *
+   * @param n the value to multiply by
    */
   public void multiply(float n) {
     this.vec[0] *= n;
@@ -464,11 +439,9 @@ public class Vec implements Linkable {
 
   /**
    * Multiply a vector by a scalar
-   * 
-   * @param v
-   *          a vector
-   * @param n
-   *          scalar
+   *
+   * @param v a vector
+   * @param n scalar
    * @return a new vector that is v1 * n
    */
   static public Vec multiply(Vec v, float n) {
@@ -477,13 +450,10 @@ public class Vec implements Linkable {
 
   /**
    * Multiply a vector by a scalar, and write the result into a target Vec.
-   * 
-   * @param v
-   *          a vector
-   * @param n
-   *          scalar
-   * @param target
-   *          Vec to store the result
+   *
+   * @param v      a vector
+   * @param n      scalar
+   * @param target Vec to store the result
    * @return the target vector, now set to v1 * n
    */
   static public Vec multiply(Vec v, float n, Vec target) {
@@ -497,9 +467,8 @@ public class Vec implements Linkable {
 
   /**
    * Divide this vector by a scalar
-   * 
-   * @param n
-   *          the value to divide by
+   *
+   * @param n the value to divide by
    */
   public void divide(float n) {
     this.vec[0] /= n;
@@ -509,11 +478,9 @@ public class Vec implements Linkable {
 
   /**
    * Divide a vector by a scalar and return the result in a new vector.
-   * 
-   * @param v
-   *          a vector
-   * @param n
-   *          scalar
+   *
+   * @param v a vector
+   * @param n scalar
    * @return a new vector that is v1 / n
    */
   static public Vec divide(Vec v, float n) {
@@ -522,9 +489,8 @@ public class Vec implements Linkable {
 
   /**
    * Divide a vector by a scalar and store the result in another vector.
-   * 
-   * @param target
-   *          Vec in which to store the result
+   *
+   * @param target Vec in which to store the result
    */
   static public Vec divide(Vec v, float n, Vec target) {
     if (target == null) {
@@ -538,9 +504,8 @@ public class Vec implements Linkable {
   /**
    * Calculate the Euclidean distance between two points (considering a point as a vector
    * object)
-   * 
-   * @param v
-   *          another vector
+   *
+   * @param v another vector
    * @return the Euclidean distance between
    */
   public float distance(Vec v) {
@@ -553,11 +518,9 @@ public class Vec implements Linkable {
   /**
    * Calculate the Euclidean distance between two points (considering a point as a vector
    * object)
-   * 
-   * @param v1
-   *          a vector
-   * @param v2
-   *          another vector
+   *
+   * @param v1 a vector
+   * @param v2 another vector
    * @return the Euclidean distance between v1 and v2
    */
   static public float distance(Vec v1, Vec v2) {
@@ -569,7 +532,7 @@ public class Vec implements Linkable {
 
   /**
    * Calculate the dot product with another vector
-   * 
+   *
    * @return the dot product
    */
   public float dot(Vec v) {
@@ -577,22 +540,17 @@ public class Vec implements Linkable {
   }
 
   /**
-   * @param x
-   *          x component of the vector
-   * @param y
-   *          y component of the vector
-   * @param z
-   *          z component of the vector
+   * @param x x component of the vector
+   * @param y y component of the vector
+   * @param z z component of the vector
    */
   public float dot(float x, float y, float z) {
     return this.vec[0] * x + this.vec[1] * y + this.vec[2] * z;
   }
 
   /**
-   * @param v1
-   *          any variable of type Vec
-   * @param v2
-   *          any variable of type Vec
+   * @param v1 any variable of type Vec
+   * @param v2 any variable of type Vec
    */
   static public float dot(Vec v1, Vec v2) {
     return v1.vec[0] * v2.vec[0] + v1.vec[1] * v2.vec[1] + v1.vec[2] * v2.vec[2];
@@ -623,12 +581,9 @@ public class Vec implements Linkable {
   }
 
   /**
-   * @param v1
-   *          any variable of type Vec
-   * @param v2
-   *          any variable of type Vec
-   * @param target
-   *          Vec to store the result
+   * @param v1     any variable of type Vec
+   * @param v2     any variable of type Vec
+   * @param target Vec to store the result
    */
   static public Vec cross(Vec v1, Vec v2, Vec target) {
     float crossX = v1.vec[1] * v2.vec[2] - v2.vec[1] * v1.vec[2];
@@ -655,9 +610,8 @@ public class Vec implements Linkable {
 
   /**
    * Normalize this vector, storing the result in another vector.
-   * 
-   * @param target
-   *          Set to null to create a new vector
+   *
+   * @param target Set to null to create a new vector
    * @return a new vector (if target was null), or target
    */
   public Vec normalize(Vec target) {
@@ -675,9 +629,8 @@ public class Vec implements Linkable {
 
   /**
    * Limit the magnitude of this vector
-   * 
-   * @param max
-   *          the maximum length to limit this vector
+   *
+   * @param max the maximum length to limit this vector
    */
   public void limit(float max) {
     if (magnitude() > max) {
@@ -688,9 +641,8 @@ public class Vec implements Linkable {
 
   /**
    * Sets the magnitude of the vector to an arbitrary amount.
-   * 
-   * @param len
-   *          the new length for this vector
+   *
+   * @param len the new length for this vector
    */
   public void setMagnitude(float len) {
     normalize();
@@ -699,11 +651,9 @@ public class Vec implements Linkable {
 
   /**
    * Sets the magnitude of this vector, storing the result in another vector.
-   * 
-   * @param target
-   *          Set to null to create a new vector
-   * @param len
-   *          the new length for the new vector
+   *
+   * @param target Set to null to create a new vector
+   * @param len    the new length for the new vector
    * @return a new vector (if target was null), or target
    */
   public Vec setMagnitude(Vec target, float len) {
@@ -714,7 +664,7 @@ public class Vec implements Linkable {
 
   /**
    * Calculate the angle of rotation for this vector (only 2D vectors)
-   * 
+   *
    * @return the angle of rotation
    */
   public float heading() {
@@ -724,9 +674,8 @@ public class Vec implements Linkable {
 
   /**
    * Rotate the vector by an angle (only 2D vectors), magnitude remains the same
-   * 
-   * @param theta
-   *          the angle of rotation
+   *
+   * @param theta the angle of rotation
    */
   public void rotate(float theta) {
     float xTemp = this.vec[0];
@@ -737,13 +686,11 @@ public class Vec implements Linkable {
 
   /**
    * Linear interpolate the vector to another vector
-   * 
-   * @param v
-   *          the vector to lerp to
-   * @param amt
-   *          The amt parameter is the amount to interpolate between the two vectors where
-   *          1.0 equal to the new vector 0.1 is very near the new vector, 0.5 is half-way
-   *          in between.
+   *
+   * @param v   the vector to lerp to
+   * @param amt The amt parameter is the amount to interpolate between the two vectors where
+   *            1.0 equal to the new vector 0.1 is very near the new vector, 0.5 is half-way
+   *            in between.
    */
   public void lerp(Vec v, float amt) {
     this.vec[0] = Util.lerp(this.vec[0], v.vec[0], amt);
@@ -753,11 +700,9 @@ public class Vec implements Linkable {
 
   /**
    * Linear interpolate between two vectors (returns a new Vec object).
-   * 
-   * @param v1
-   *          the vector to start from
-   * @param v2
-   *          the vector to lerp to
+   *
+   * @param v1 the vector to start from
+   * @param v2 the vector to lerp to
    */
   public static Vec lerp(Vec v1, Vec v2, float amt) {
     Vec v = v1.get();
@@ -767,13 +712,10 @@ public class Vec implements Linkable {
 
   /**
    * Linear interpolate the vector to x,y,z values.
-   * 
-   * @param x
-   *          the x component to lerp to
-   * @param y
-   *          the y component to lerp to
-   * @param z
-   *          the z component to lerp to
+   *
+   * @param x the x component to lerp to
+   * @param y the y component to lerp to
+   * @param z the z component to lerp to
    */
   public void lerp(float x, float y, float z, float amt) {
     this.vec[0] = Util.lerp(this.x(), x, amt);
@@ -783,11 +725,9 @@ public class Vec implements Linkable {
 
   /**
    * Calculate the angle between two vectors, using the dot product.
-   * 
-   * @param v1
-   *          a vector
-   * @param v2
-   *          another vector
+   *
+   * @param v1 a vector
+   * @param v2 another vector
    * @return the angle between the vectors
    */
   static public float angleBetween(Vec v1, Vec v2) {
@@ -818,9 +758,8 @@ public class Vec implements Linkable {
 
   /**
    * Make a new 2D unit vector from an angle.
-   * 
-   * @param angle
-   *          the angle
+   *
+   * @param angle the angle
    * @return the new unit PVec
    */
   static public Vec fromAngle(float angle) {
@@ -829,11 +768,9 @@ public class Vec implements Linkable {
 
   /**
    * Make a new 2D unit vector from an angle
-   * 
-   * @param angle
-   *          the angle
-   * @param target
-   *          the target vector (if null, a new vector will be created)
+   *
+   * @param angle  the angle
+   * @param target the target vector (if null, a new vector will be created)
    * @return the Vec
    */
   static public Vec fromAngle(float angle, Vec target) {

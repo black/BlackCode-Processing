@@ -1,6 +1,6 @@
 /**************************************************************************************
  * dandelion_tree
- * Copyright (c) 2014-2016 National University of Colombia, https://github.com/remixlab
+ * Copyright (c) 2014-2017 National University of Colombia, https://github.com/remixlab
  * @author Jean Pierre Charalambos, http://otrolado.info/
  *
  * All rights reserved. Library that eases the creation of interactive
@@ -10,7 +10,8 @@
 
 package remixlab.dandelion.constraint;
 
-import remixlab.dandelion.geom.*;
+import remixlab.dandelion.geom.Rotation;
+import remixlab.dandelion.geom.Vec;
 import remixlab.util.Util;
 
 /**
@@ -40,7 +41,9 @@ public abstract class AxisPlaneConstraint extends Constraint {
    */
   public enum Type {
     FREE, AXIS, PLANE, FORBIDDEN
-  };
+  }
+
+  ;
 
   private Type transConstraintType;
   private Type rotConstraintType;
@@ -48,7 +51,6 @@ public abstract class AxisPlaneConstraint extends Constraint {
   private Vec rotConstraintDir;
 
   /**
-   * 
    * Default constructor.
    * <p>
    * {@link #translationConstraintType()} and {@link #rotationConstraintType()} are set to
@@ -130,12 +132,12 @@ public abstract class AxisPlaneConstraint extends Constraint {
    * {@code direction} is expressed depends on your class implementation.
    */
   public void setTranslationConstraintDirection(Vec direction) {
-    if ((translationConstraintType() != AxisPlaneConstraint.Type.FREE)
-        && (translationConstraintType() != AxisPlaneConstraint.Type.FORBIDDEN)) {
+    if ((translationConstraintType() != AxisPlaneConstraint.Type.FREE) && (translationConstraintType()
+        != AxisPlaneConstraint.Type.FORBIDDEN)) {
       float norm = direction.magnitude();
       if (Util.zero(norm)) {
-        System.out.println(
-            "Warning: AxisPlaneConstraint.setTranslationConstraintDir: null vector for translation constraint");
+        System.out
+            .println("Warning: AxisPlaneConstraint.setTranslationConstraintDir: null vector for translation constraint");
         transConstraintType = AxisPlaneConstraint.Type.FREE;
       } else
         transConstraintDir = Vec.multiply(direction, (1.0f / norm));
@@ -156,12 +158,11 @@ public abstract class AxisPlaneConstraint extends Constraint {
    * {@code direction} is expressed depends on your class implementation.
    */
   public void setRotationConstraintDirection(Vec direction) {
-    if ((rotationConstraintType() != AxisPlaneConstraint.Type.FREE)
-        && (rotationConstraintType() != AxisPlaneConstraint.Type.FORBIDDEN)) {
+    if ((rotationConstraintType() != AxisPlaneConstraint.Type.FREE) && (rotationConstraintType()
+        != AxisPlaneConstraint.Type.FORBIDDEN)) {
       float norm = direction.magnitude();
       if (Util.zero(norm)) {
-        System.out
-            .println("Warning: AxisPlaneConstraint.setRotationConstraintDir: null vector for rotation constraint");
+        System.out.println("Warning: AxisPlaneConstraint.setRotationConstraintDir: null vector for rotation constraint");
         rotConstraintType = AxisPlaneConstraint.Type.FREE;
       } else
         rotConstraintDir = Vec.multiply(direction, (1.0f / norm));

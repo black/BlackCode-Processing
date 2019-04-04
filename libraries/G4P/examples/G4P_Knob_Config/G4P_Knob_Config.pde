@@ -1,13 +1,18 @@
-/*
-  This program demonstrates the various configuration options available
+/**
+ This program demonstrates the various configuration options available
  for the knob control (GKnob).
  
  The only thing not set is the range limits. By default the knob returns
- vales in the range 0.0 to 1.0 inclusive. Use setLimits() to set your 
+ values in the range 0.0 to 1.0 inclusive. Use setLimits() to set your 
  own range.
  
+ Modify the knob to suit your own needs then click on the button to copy 
+ the code to create a simple sketch demonstrating this knob to the clipboard.
+ To see this the knob in action, open Processing and paste the code into 
+ an empty sketch.
+ 
  for Processing V2 and V3
- (c) 2015 Peter Lager
+ (c) 2018 Peter Lager
  
  */
 

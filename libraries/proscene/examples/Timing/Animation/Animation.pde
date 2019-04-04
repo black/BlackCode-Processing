@@ -28,6 +28,7 @@ void setup() {
   scene = new MyScene(this);
 }
 
+// Note that proscenium will be called at the end of draw
 void draw() {
   background(0);
 }

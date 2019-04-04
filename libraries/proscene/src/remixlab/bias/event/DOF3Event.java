@@ -1,6 +1,6 @@
 /**************************************************************************************
  * bias_tree
- * Copyright (c) 2014-2016 National University of Colombia, https://github.com/remixlab
+ * Copyright (c) 2014-2017 National University of Colombia, https://github.com/remixlab
  * @author Jean Pierre Charalambos, http://otrolado.info/
  *
  * All rights reserved. Library that eases the creation of interactive
@@ -45,32 +45,45 @@ public class DOF3Event extends MotionEvent {
 
   /**
    * Construct an absolute event from the given dof's and modifiers.
-   * 
-   * @param x
-   * @param y
-   * @param z
+   *
+   * @param dx
+   * @param dy
+   * @param dz
    * @param modifiers
-   * @param button
+   * @param id
    */
-  public DOF3Event(float x, float y, float z, int modifiers, int button) {
-    super(modifiers, button);
-    this.dx = x;
-    this.dy = y;
-    this.dz = z;
+  public DOF3Event(float dx, float dy, float dz, int modifiers, int id) {
+    super(modifiers, id);
+    this.dx = dx;
+    this.dy = dy;
+    this.dz = dz;
+  }
+
+  /**
+   * Same as
+   * {@code this(prevEvent instanceof DOF3Event ? (DOF3Event) prevEvent : null, x, y, z, modifiers, id)}.
+   *
+   * @see #DOF3Event(DOF3Event, float, float, float, int, int)
+   */
+  public DOF3Event(MotionEvent prevEvent, float x, float y, float z, int modifiers, int id) {
+    this(prevEvent instanceof DOF3Event ? (DOF3Event) prevEvent : null, x, y, z, modifiers, id);
   }
 
   /**
    * Construct a relative event from the given previous event, dof's and modifiers.
-   * 
+   * <p>
+   * If the {@link #id()} of the {@code prevEvent} is different then {@link #id()}, sets
+   * the {@link #distance()}, {@link #delay()} and {@link #speed()} all to {@code zero}.
+   *
    * @param prevEvent
    * @param x
    * @param y
    * @param z
    * @param modifiers
-   * @param button
+   * @param id
    */
-  public DOF3Event(DOF3Event prevEvent, float x, float y, float z, int modifiers, int button) {
-    super(modifiers, button);
+  public DOF3Event(DOF3Event prevEvent, float x, float y, float z, int modifiers, int id) {
+    super(modifiers, id);
     this.x = x;
     this.y = y;
     this.z = z;
@@ -79,21 +92,34 @@ public class DOF3Event extends MotionEvent {
 
   /**
    * Construct an absolute event from the given dof's.
-   * 
-   * @param x
-   * @param y
-   * @param z
+   *
+   * @param dx
+   * @param dy
+   * @param dz
    */
-  public DOF3Event(float x, float y, float z) {
+  public DOF3Event(float dx, float dy, float dz) {
     super();
-    this.dx = x;
-    this.dy = y;
-    this.dz = z;
+    this.dx = dx;
+    this.dy = dy;
+    this.dz = dz;
+  }
+
+  /**
+   * Same as
+   * {@code this(prevEvent instanceof DOF3Event ? (DOF3Event) prevEvent : null, x, y, z)}.
+   *
+   * @see #DOF3Event(DOF3Event, float, float, float)
+   */
+  public DOF3Event(MotionEvent prevEvent, float x, float y, float z) {
+    this(prevEvent instanceof DOF3Event ? (DOF3Event) prevEvent : null, x, y, z);
   }
 
   /**
    * Construct a relative event from the given previous event, dof's and modifiers.
-   * 
+   * <p>
+   * If the {@link #id()} of the {@code prevEvent} is different then {@link #id()}, sets
+   * the {@link #distance()}, {@link #delay()} and {@link #speed()} all to {@code zero}.
+   *
    * @param prevEvent
    * @param x
    * @param y
@@ -133,33 +159,25 @@ public class DOF3Event extends MotionEvent {
   }
 
   @Override
-  public void setPreviousEvent(MotionEvent prevEvent) {
-    super.setPreviousEvent(prevEvent);
+  protected void setPreviousEvent(MotionEvent prevEvent) {
+    rel = true;
     if (prevEvent != null)
-      if (prevEvent instanceof DOF3Event) {
-        rel = true;
+      if (prevEvent instanceof DOF3Event && prevEvent.id() == this.id()) {
         this.dx = this.x() - ((DOF3Event) prevEvent).x();
         this.dy = this.y() - ((DOF3Event) prevEvent).y();
         this.dz = this.z() - ((DOF3Event) prevEvent).z();
-        distance = Util.distance(x, y, z, ((DOF3Event) prevEvent).x(), ((DOF3Event) prevEvent).y(),
-            ((DOF3Event) prevEvent).z());
+        distance = Util
+            .distance(x, y, z, ((DOF3Event) prevEvent).x(), ((DOF3Event) prevEvent).y(), ((DOF3Event) prevEvent).z());
         delay = this.timestamp() - prevEvent.timestamp();
         if (delay == 0)
           speed = distance;
         else
           speed = distance / (float) delay;
-      } else {
-        this.dx = 0f;
-        this.dy = 0f;
-        this.dz = 0f;
-        delay = 0l;
-        speed = 0f;
-        distance = 0f;
       }
   }
 
   /**
-   * @return dof-1
+   * @return dof-1, only meaningful if the event {@link #isRelative()}
    */
   public float x() {
     return x;
@@ -173,22 +191,20 @@ public class DOF3Event extends MotionEvent {
   }
 
   /**
-   * @return previous dof-1
+   * @return previous dof-1, only meaningful if the event {@link #isRelative()}
    */
   public float prevX() {
     return x() - dx();
   }
 
   /**
-   * 
-   * @return dof-2
+   * @return dof-2, only meaningful if the event {@link #isRelative()}
    */
   public float y() {
     return y;
   }
 
   /**
-   * 
    * @return dof-2 delta
    */
   public float dy() {
@@ -196,21 +212,20 @@ public class DOF3Event extends MotionEvent {
   }
 
   /**
-   * @return previous dof-2
+   * @return previous dof-2, only meaningful if the event {@link #isRelative()}
    */
   public float prevY() {
     return y() - dy();
   }
 
   /**
-   * @return dof-3
+   * @return dof-3, only meaningful if the event {@link #isRelative()}
    */
   public float z() {
     return z;
   }
 
   /**
-   * 
    * @return dof-3 delta
    */
   public float dz() {
@@ -218,7 +233,7 @@ public class DOF3Event extends MotionEvent {
   }
 
   /**
-   * @return previous dof-3
+   * @return previous dof-3, only meaningful if the event {@link #isRelative()}
    */
   public float prevZ() {
     return z() - dz();
@@ -254,7 +269,6 @@ public class DOF3Event extends MotionEvent {
     } else {
       e2 = new DOF2Event(dx(), dy(), modifiers(), id());
     }
-    e2.modifiedTimestamp(this.timestamp());
     e2.delay = this.delay();
     e2.speed = this.speed();
     e2.distance = this.distance();

@@ -21,10 +21,15 @@ PGraphics canvas, auxCanvas;
 StdCamera stdCam;
 Camera origCam;
 
-void setup() {
-  size(640, 720, P3D);
+int w = 1110;
+int h = 1110;
 
-  canvas = createGraphics(640, 360, P3D);
+void settings() {
+  size(w, h, P3D);
+}
+
+void setup() {
+  canvas = createGraphics(w, h/2, P3D);
   scene = new Scene(this, canvas);
 
   stdCam = new StdCamera(scene);
@@ -36,21 +41,19 @@ void setup() {
   // enable computation of the frustum planes equations (disabled by default)
   scene.enableBoundaryEquations();
   scene.setGridVisualHint(false);
-  scene.addGraphicsHandler(this, "mainDrawing");
 
-  auxCanvas = createGraphics(640, 360, P3D);
+  auxCanvas = createGraphics(w, h/2, P3D);
   // Note that we pass the upper left corner coordinates where the scene
   // is to be drawn (see drawing code below) to its constructor.
-  auxScene = new Scene(this, auxCanvas, 0, 360);
+  auxScene = new Scene(this, auxCanvas, 0, h/2);
   auxScene.camera().setType(Camera.Type.ORTHOGRAPHIC);
   auxScene.setAxesVisualHint(false);
   auxScene.setGridVisualHint(false);
   auxScene.setRadius(400);
   auxScene.showAll();
-  auxScene.addGraphicsHandler(this, "auxiliarDrawing");
 }
 
-public void mainDrawing(Scene s) {
+void mainDrawing(Scene s) {
   PGraphics p = s.pg();
   p.background(0);
   p.noStroke();
@@ -79,34 +82,15 @@ void auxiliarDrawing(Scene s) {
 }
 
 void draw() {
-  handleMouse();
-  canvas.beginDraw();
   scene.beginDraw();
+  mainDrawing(scene);
   scene.endDraw();
-  canvas.endDraw();
-  image(canvas, 0, 0);
+  scene.display();
 
-  auxCanvas.beginDraw();
   auxScene.beginDraw();
+  auxiliarDrawing(auxScene);
   auxScene.endDraw();
-  auxCanvas.endDraw();
-  // We retrieve the scene upper left coordinates defined above.
-  image(auxCanvas, auxScene.originCorner().x(), auxScene.originCorner().y());
-}
-
-void handleMouse() {
-  if (mouseY < 360) {
-    scene.enableMotionAgent();
-    scene.enableKeyboardAgent();
-    auxScene.disableMotionAgent();
-    auxScene.disableKeyboardAgent();
-  } 
-  else {
-    scene.disableMotionAgent();
-    scene.disableKeyboardAgent();
-    auxScene.enableMotionAgent();
-    auxScene.enableKeyboardAgent();
-  }
+  auxScene.display();
 }
 
 void keyPressed() {

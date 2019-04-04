@@ -1,4 +1,4 @@
-/*
+/**
  This example demonstrates the GStick control.
  
  The stick can operate with 8 directions, as shown
@@ -57,7 +57,7 @@ public void handleStickEvents(GStick stick, GEvent event) {
     int pos = stick.getPosition();
     if (pos < 0) // Stick is in rest position?
       speed = 0;
-    else { // The is not at 
+    else { // The stick is not at rest 
       facing = pos;
       dirX = stick.getStickX();
       dirY = stick.getStickY();

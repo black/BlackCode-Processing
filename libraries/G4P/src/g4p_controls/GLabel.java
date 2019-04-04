@@ -3,7 +3,7 @@
   	http://www.lagers.org.uk/g4p/index.html
 	http://sourceforge.net/projects/g4p/files/?source=navbar
 
-  Copyright (c) 2012 Peter Lager
+  Copyright (c) 2016 Peter Lager
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -26,7 +26,6 @@ package g4p_controls;
 import g4p_controls.StyledString.TextLayoutInfo;
 
 import java.awt.Graphics2D;
-import java.awt.font.TextLayout;
 import java.util.LinkedList;
 
 import processing.core.PApplet;
@@ -34,15 +33,25 @@ import processing.core.PApplet;
 /**
  * The label component.
  * 
- * This control can display text with/without an icon. 
+ * This control can display text with or without an icon. 
  * 
  * @author Peter Lager
  *
  */
-public class GLabel extends GTextIconAlignBase {
+public class GLabel extends GTextIconBase {
 
+	/**
+	 * Create an empty label
+	 * use setText and setIcon to change the text and icon.
+	 * 
+	 * @param theApplet  the main sketch or GWindow control for this control
+	 * @param p0 x position based on control mode
+	 * @param p1 y position based on control mode
+	 * @param p2 x position or width based on control mode
+	 * @param p3 y position or height based on control mode
+	 */
 	public GLabel(PApplet theApplet, float p0, float p1, float p2, float p3) {
-		this(theApplet, p0, p1, p2, p3, "    ");
+		this(theApplet, p0, p1, p2, p3, "       ");
 	}	
 		
 	/**
@@ -50,21 +59,85 @@ public class GLabel extends GTextIconAlignBase {
 	 * 
 	 * use setIcon to add an icon
 	 * 
-	 * @param theApplet
-	 * @param p0
-	 * @param p1
-	 * @param p2
-	 * @param p3
-	 * @param text
+	 * @param theApplet  the main sketch or GWindow control for this control
+	 * @param p0 x position based on control mode
+	 * @param p1 y position based on control mode
+	 * @param p2 x position or width based on control mode
+	 * @param p3 y position or height based on control mode
+	 * @param text the initial text to display
 	 */
 	public GLabel(PApplet theApplet, float p0, float p1, float p2, float p3, String text) {
 		super(theApplet, p0, p1, p2, p3);
-		setText(text);
 		opaque = false;
+		
+		// Initialise text and icon alignment
+		PAD = 2;
+		textAlignH = GAlign.LEFT;
+		textAlignV = GAlign.MIDDLE;
+		iconPos = GAlign.EAST;
+		iconAlignH = GAlign.CENTER;
+		iconAlignV = GAlign.MIDDLE;
+		
+		// Start with text only so the text zone is sized correctly
+		calcZones(false, true);
+		setText(text);	
+
 		// Now register control with applet
 		registeredMethods = DRAW_METHOD;
 		// Must register control
 		G4P.registerControl(this);
+	}
+
+	/**
+	 * This will change this control's height without changing the width so that 
+	 * it just fits round the text and icon (if any).
+	 * 
+	 * This is only for backward compatibility and maybe removed in later releases. Use
+	 * the method
+	 * <pre>    resizeToFit(boolean horz, boolean vert)</pre>
+	 * instead.
+	 */
+	@Deprecated 
+	public void setHeightToFit(){
+		resizeToFit(false, true);
+	}
+	
+	/**
+	 * 	
+	 * This will change this label's size so that it just fits round the text 
+	 * and icon either horizontally, vertically or both.
+	 * 
+	 * @param horz adjust the width
+	 * @param vert adjust the height
+	 */
+	public void resizeToFit(boolean horz, boolean vert){
+		// Anything to do?
+		if(!horz && !vert) return;
+		// Update buffer to ensure we have the latest values for text size etc.
+		updateBuffer();
+		System.out.println(stext.getMaxLineLength() + "   " + stext.getTextAreaHeight());
+		int high = Math.round(height);
+		int wide = Math.round(width);
+		switch(iconPos){
+		case NORTH:
+		case SOUTH:
+			if(vert)
+				high = Math.round(stext.getTextAreaHeight() + iconH + 3 * PAD);
+			if(horz)
+				wide = Math.round(Math.max(stext.getMaxLineLength(), iconW) + 2*PAD);
+			break;
+		case EAST:
+		case WEST:
+			if(vert)
+				high = Math.round(Math.max(stext.getTextAreaHeight(), iconH) + 2 * PAD);
+			if(horz)
+				wide = Math.round(stext.getMaxLineLength() + iconW + 2*PAD + GUTTER);
+			break;
+			default:
+		}
+		resize(wide, high); // resize this control
+		calcZones();
+//		System.out.println(stext.getMaxLineLength() + "   " + stext.getTextAreaHeight());
 	}
 
 	public void draw(){
@@ -95,44 +168,31 @@ public class GLabel extends GTextIconAlignBase {
 			bufferInvalid = false;
 			buffer.beginDraw();
 			Graphics2D g2d = buffer.g2;
+			// **********************************************************************************************************
+			// **********************************************************************************************************
+			// **********************************************************************************************************
+//			if(tagNo == 1){
+//				setTextRenderingHints(g2d, 3);
+//			}
+//			else {
+//				setTextRenderingHints(g2d, 0);
+//			}
+			// **********************************************************************************************************
+			// **********************************************************************************************************
+			// **********************************************************************************************************
 			g2d.setFont(localFont);
 
 			// Get the latest lines of text
 			LinkedList<TextLayoutInfo> lines = stext.getLines(g2d);	
 			// Back ground colour
-			buffer.background(opaque ? palette[6].getRGB() : palette[2].getRGB() & 0xFFFFFF);
-			// Calculate text and icon placement
-			calcAlignment();
+			buffer.background(opaque ? palette[6].getRGB() : palette[2].getRGB() & 0xFFFFFF | 0x00010101);
+			
 			// If there is an icon draw it
-			if(iconW != 0)
-				buffer.image(bicon[0], siX, siY);
-			float wrapWidth = stext.getWrapWidth();
-			float sx = 0, tw = 0;
-			buffer.translate(stX, stY);
-			for(TextLayoutInfo lineInfo : lines){
-				TextLayout layout = lineInfo.layout;
-				buffer.translate(0, layout.getAscent());
-				switch(textAlignH){
-				case CENTER:
-					tw = layout.getVisibleAdvance();
-					tw = (tw > wrapWidth) ? tw - wrapWidth : tw;
-					sx = (wrapWidth - tw)/2;
-					break;
-				case RIGHT:
-					tw = layout.getVisibleAdvance();
-					tw = (tw > wrapWidth) ? tw - wrapWidth : tw;
-					sx = wrapWidth - tw;
-					break;
-				case LEFT:
-				case JUSTIFY:
-				default:
-					sx = 0;		
-				}
-				// display text
-				g2d.setColor(palette[2]);
-				lineInfo.layout.draw(g2d, sx, 0);
-				buffer.translate(0, layout.getDescent() + layout.getLeading());
+			if(icon != null){
+				buffer.image(icon.getFrame(), iconX, iconY);
 			}
+			//	Now draw the button surface (text and icon)
+			displayText(g2d, lines);
 			buffer.endDraw();
 		}	
 	}

@@ -1,6 +1,6 @@
 /**************************************************************************************
  * bias_tree
- * Copyright (c) 2014-2016 National University of Colombia, https://github.com/remixlab
+ * Copyright (c) 2014-2017 National University of Colombia, https://github.com/remixlab
  * @author Jean Pierre Charalambos, http://otrolado.info/
  *
  * All rights reserved. Library that eases the creation of interactive
@@ -50,29 +50,43 @@ public class DOF6Event extends MotionEvent {
 
   /**
    * Construct an absolute event from the given dof's and modifiers.
-   * 
-   * @param x
-   * @param y
-   * @param z
-   * @param rx
-   * @param ry
-   * @param rz
+   *
+   * @param dx
+   * @param dy
+   * @param dz
+   * @param drx
+   * @param dry
+   * @param drz
    * @param modifiers
-   * @param button
+   * @param id
    */
-  public DOF6Event(float x, float y, float z, float rx, float ry, float rz, int modifiers, int button) {
-    super(modifiers, button);
-    this.dx = x;
-    this.dy = y;
-    this.dz = z;
-    this.drx = rx;
-    this.dry = ry;
-    this.drz = rz;
+  public DOF6Event(float dx, float dy, float dz, float drx, float dry, float drz, int modifiers, int id) {
+    super(modifiers, id);
+    this.dx = dx;
+    this.dy = dy;
+    this.dz = dz;
+    this.drx = drx;
+    this.dry = dry;
+    this.drz = drz;
+  }
+
+  /**
+   * Same as
+   * {@code this(prevEvent instanceof DOF6Event ? (DOF6Event) prevEvent : null, x, y, z, rx, ry, rz, modifiers, id)}.
+   *
+   * @see #DOF6Event(DOF6Event, float, float, float, float, float, float, int, int)
+   */
+  public DOF6Event(MotionEvent prevEvent, float x, float y, float z, float rx, float ry, float rz, int modifiers,
+                   int id) {
+    this(prevEvent instanceof DOF6Event ? (DOF6Event) prevEvent : null, x, y, z, rx, ry, rz, modifiers, id);
   }
 
   /**
    * Construct a relative event from the given previous event, dof's and modifiers.
-   * 
+   * <p>
+   * If the {@link #id()} of the {@code prevEvent} is different then {@link #id()}, sets
+   * the {@link #distance()}, {@link #delay()} and {@link #speed()} all to {@code zero}.
+   *
    * @param prevEvent
    * @param x
    * @param y
@@ -81,11 +95,10 @@ public class DOF6Event extends MotionEvent {
    * @param ry
    * @param rz
    * @param modifiers
-   * @param button
+   * @param id
    */
-  public DOF6Event(DOF6Event prevEvent, float x, float y, float z, float rx, float ry, float rz, int modifiers,
-      int button) {
-    super(modifiers, button);
+  public DOF6Event(DOF6Event prevEvent, float x, float y, float z, float rx, float ry, float rz, int modifiers, int id) {
+    super(modifiers, id);
     this.x = x;
     this.y = y;
     this.z = z;
@@ -97,27 +110,40 @@ public class DOF6Event extends MotionEvent {
 
   /**
    * Construct an absolute event from the given dof's and modifiers.
-   * 
-   * @param x
-   * @param y
-   * @param z
-   * @param rx
-   * @param ry
-   * @param rz
+   *
+   * @param dx
+   * @param dy
+   * @param dz
+   * @param drx
+   * @param dry
+   * @param drz
    */
-  public DOF6Event(float x, float y, float z, float rx, float ry, float rz) {
+  public DOF6Event(float dx, float dy, float dz, float drx, float dry, float drz) {
     super();
-    this.dx = x;
-    this.dy = y;
-    this.dz = z;
-    this.drx = rx;
-    this.dry = ry;
-    this.drz = rz;
+    this.dx = dx;
+    this.dy = dy;
+    this.dz = dz;
+    this.drx = drx;
+    this.dry = dry;
+    this.drz = drz;
+  }
+
+  /**
+   * Same as
+   * {@code this(prevEvent instanceof DOF6Event ? (DOF6Event) prevEvent : null, x, y, z, rx, ry, rz)}.
+   *
+   * @see #DOF6Event(DOF6Event, float, float, float, float, float, float)
+   */
+  public DOF6Event(MotionEvent prevEvent, float x, float y, float z, float rx, float ry, float rz) {
+    this(prevEvent instanceof DOF6Event ? (DOF6Event) prevEvent : null, x, y, z, rx, ry, rz);
   }
 
   /**
    * Construct a relative event from the given previous event, dof's and modifiers.
-   * 
+   * <p>
+   * If the {@link #id()} of the {@code prevEvent} is different then {@link #id()}, sets
+   * the {@link #distance()}, {@link #delay()} and {@link #speed()} all to {@code zero}.
+   *
    * @param prevEvent
    * @param x
    * @param y
@@ -169,11 +195,10 @@ public class DOF6Event extends MotionEvent {
   }
 
   @Override
-  public void setPreviousEvent(MotionEvent prevEvent) {
-    super.setPreviousEvent(prevEvent);
+  protected void setPreviousEvent(MotionEvent prevEvent) {
+    rel = true;
     if (prevEvent != null)
-      if (prevEvent instanceof DOF6Event) {
-        rel = true;
+      if (prevEvent instanceof DOF6Event && prevEvent.id() == this.id()) {
         this.dx = this.x() - ((DOF6Event) prevEvent).x();
         this.dy = this.y() - ((DOF6Event) prevEvent).y();
         this.dz = this.z() - ((DOF6Event) prevEvent).z();
@@ -188,21 +213,11 @@ public class DOF6Event extends MotionEvent {
           speed = distance;
         else
           speed = distance / (float) delay;
-      } else {
-        this.dx = 0f;
-        this.dy = 0f;
-        this.dz = 0f;
-        this.drx = 0f;
-        this.dry = 0f;
-        this.drz = 0f;
-        delay = 0l;
-        speed = 0f;
-        distance = 0f;
       }
   }
 
   /**
-   * @return dof1
+   * @return dof1, only meaningful if the event {@link #isRelative()}
    */
   public float x() {
     return x;
@@ -216,14 +231,14 @@ public class DOF6Event extends MotionEvent {
   }
 
   /**
-   * @return previous dof1
+   * @return previous dof1, only meaningful if the event {@link #isRelative()}
    */
   public float prevX() {
     return x() - dx();
   }
 
   /**
-   * @return dof2
+   * @return dof2, only meaningful if the event {@link #isRelative()}
    */
   public float y() {
     return y;
@@ -237,14 +252,14 @@ public class DOF6Event extends MotionEvent {
   }
 
   /**
-   * @return previous dof2
+   * @return previous dof2, only meaningful if the event {@link #isRelative()}
    */
   public float prevY() {
     return y() - dy();
   }
 
   /**
-   * @return dof3
+   * @return dof3, only meaningful if the event {@link #isRelative()}
    */
   public float z() {
     return z;
@@ -258,50 +273,49 @@ public class DOF6Event extends MotionEvent {
   }
 
   /**
-   * @return prvious dof3
+   * @return previous dof3, only meaningful if the event {@link #isRelative()}
    */
   public float prevZ() {
     return z() - dz();
   }
 
   /**
-   * Alias for {@link #rx()}
+   * Alias for {@link #rx()}, only meaningful if the event {@link #isRelative()}
    */
   public float roll() {
     return rx();
   }
 
   /**
-   * 
-   * @return dof4
+   * @return dof4, only meaningful if the event {@link #isRelative()}
    */
   public float rx() {
     return rx;
   }
 
   /**
-   * Alias for {@link #ry()}
+   * Alias for {@link #ry()}, only meaningful if the event {@link #isRelative()}
    */
   public float pitch() {
     return ry();
   }
 
   /**
-   * @return dof5
+   * @return dof5, only meaningful if the event {@link #isRelative()}
    */
   public float ry() {
     return ry;
   }
 
   /**
-   * alias for {@link #rz()}
+   * alias for {@link #rz()}, only meaningful if the event {@link #isRelative()}
    */
   public float yaw() {
     return rz();
   }
 
   /**
-   * @return dof6
+   * @return dof6, only meaningful if the event {@link #isRelative()}
    */
   public float rz() {
     return rz;
@@ -329,21 +343,21 @@ public class DOF6Event extends MotionEvent {
   }
 
   /**
-   * @return previous dof4
+   * @return previous dof4, only meaningful if the event {@link #isRelative()}
    */
   public float prevRX() {
     return rx() - drx();
   }
 
   /**
-   * @return previous dof5
+   * @return previous dof5, only meaningful if the event {@link #isRelative()}
    */
   public float prevRY() {
     return ry() - dry();
   }
 
   /**
-   * @return previous dof6
+   * @return previous dof6, only meaningful if the event {@link #isRelative()}
    */
   public float prevRZ() {
     return rz() - drz();
@@ -364,15 +378,14 @@ public class DOF6Event extends MotionEvent {
 
   @Override
   public boolean isNull() {
-    if (Util.zero(dx()) && Util.zero(dy()) && Util.zero(dz()) && Util.zero(drx()) && Util.zero(dry())
-        && Util.zero(drz()))
+    if (Util.zero(dx()) && Util.zero(dy()) && Util.zero(dz()) && Util.zero(drx()) && Util.zero(dry()) && Util.zero(drz()))
       return true;
     return false;
   }
 
   /**
    * Convenience function that simply returns {@code return dof3Event(true)}
-   * 
+   *
    * @see #dof3Event(boolean)
    */
   public DOF3Event dof3Event() {
@@ -381,9 +394,8 @@ public class DOF6Event extends MotionEvent {
 
   /**
    * Reduces the event to a {@link remixlab.bias.event.DOF3Event} (lossy reduction).
-   * 
-   * @param fromTranslation
-   *          if true keeps dof1, dof2 and dof3; otherwise keeps dof4, dof4 and dof6.
+   *
+   * @param fromTranslation if true keeps dof1, dof2 and dof3; otherwise keeps dof4, dof4 and dof6.
    */
   public DOF3Event dof3Event(boolean fromTranslation) {
     DOF3Event pe3;
@@ -403,7 +415,6 @@ public class DOF6Event extends MotionEvent {
         e3 = new DOF3Event(drx(), dry(), drz(), modifiers(), id());
       }
     }
-    e3.modifiedTimestamp(this.timestamp());
     e3.delay = this.delay();
     e3.speed = this.speed();
     e3.distance = this.distance();

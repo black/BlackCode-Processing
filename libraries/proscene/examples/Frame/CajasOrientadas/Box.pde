@@ -104,8 +104,8 @@ public class Box {
     iFrame.setPosition(pos);
   }
 
-  public Quat getOrientation() {
-    return (Quat)iFrame.orientation();
+  public Rotation getOrientation() {
+    return iFrame.orientation();
   }
 
   public void setOrientation(Vec v) {

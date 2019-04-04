@@ -1,4 +1,7 @@
-/*
+/**
+ An image toggle button has two or more possible states. As 
+ you click on the button it loops through the states.
+ 
  This program demonstrates how to create image toggle buttons.
  
  If G4P is unable to create the button using the information
@@ -6,7 +9,7 @@
  button.
  
  for Processing V3
- (c) 2015 Peter Lager
+ (c) 2018 Peter Lager
  
  */
 
@@ -19,15 +22,27 @@ public void setup() {
   size(480, 220, JAVA2D);
   G4P.setGlobalColorScheme(GCScheme.ORANGE_SCHEME);
   G4P.setCursor(ARROW);
-  // Create image toggle buttons
+
+  // ##########################################################################
+  // Create default 2 state switch button
   btnToggle0 = new GImageToggleButton(this, 10, 10);
   btnToggle0.tag = "Library default button ";
-  btnToggle1 = new GImageToggleButton(this, 190, 70, "s2.png", 4, 4);
+  
+  // ##########################################################################
+  // Create 16 state switch button
+  btnToggle1 = new GImageToggleButton(this, 190, 70, "smile_4x4.png", 4, 4);
   btnToggle1.tag = "User 16 state button ";
-  btnToggle2 = new GImageToggleButton(this, 340, 70, "s2.png", "s3.png", 4, 4);
+  
+  // ##########################################################################
+  // Create 16 state switch button with mouse over image
+  btnToggle2 = new GImageToggleButton(this, 340, 70, "smile_4x4.png", "smile_4x4_grey.png", 4, 4);
   btnToggle2.tag = "User 16 state button with over image ";
+  
+  // ##########################################################################
+  // Create 2 state light-bulb button.
   btnToggle3 = new GImageToggleButton(this, 10, 90, "bulb.png", 2, 1);
   btnToggle3.tag = "Light bulb 2 state button ";
+  
   // Create description labels
   createLabels();
 }

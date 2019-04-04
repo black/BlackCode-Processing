@@ -3,11 +3,14 @@
  the G4P (GUI for Processing) library.
  
  Simple program that creates 3 knobs but only shows a third
- of each one. They are used to control the RGB balance for 
- the rectangle fill.
+ of each one. The knobs are all placed in the same position
+ so we get a 'coloured' three part knob.
+ 
+ Adjust the RGB values to control the fill colour for the 
+ rectangle.
  
  for Processing V2 and V3
- (c) 2015 Peter Lager
+ (c) 2018 Peter Lager
  
  */
 
@@ -38,7 +41,7 @@ void setup() {
   knbRed.setNbrTicks(9);
   knbRed.setLocalColorScheme(G4P.RED_SCHEME);
 
-  knbGreen = new GKnob(this, kx + 8, ky, 150, 150, 0.8);
+  knbGreen = new GKnob(this, kx, ky, 150, 150, 0.8);
   knbGreen.setTurnRange(270, 30);
   knbGreen.setTurnMode(G4P.CTRL_ANGULAR);
   knbGreen.setArcPolicy(true, true, true);
@@ -46,7 +49,7 @@ void setup() {
   knbGreen.setNbrTicks(9);
   knbGreen.setLocalColorScheme(G4P.GREEN_SCHEME);
 
-  knbBlue = new GKnob(this, kx + 4, ky + 9, 150, 150, 0.8);
+  knbBlue = new GKnob(this, kx, ky, 150, 150, 0.8);
   knbBlue.setTurnRange(30, 150);
   knbBlue.setTurnMode(G4P.CTRL_ANGULAR);
   knbBlue.setArcPolicy(true, true, true);

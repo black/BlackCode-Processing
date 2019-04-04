@@ -24,8 +24,8 @@ public void createControlWindow() {
   y = 0; //app.height - 90;    
   sdrAlpha = new GSlider(app, x, y, 268, 60, 12);
   sdrAlpha.setLimits(255, 0, 255);
-//  sdrAlpha.setRotation(-PI/2);
-//  sdrAlpha.setTextOrientation(G4P.ORIENT_RIGHT);
+  //  sdrAlpha.setRotation(-PI/2);
+  //  sdrAlpha.setTextOrientation(G4P.ORIENT_RIGHT);
   sdrAlpha.setEasing(20);
   sdrAlpha.setShowValue(true);
   sdrAlpha.setShowTicks(true);
@@ -49,7 +49,7 @@ public void createControlWindow() {
   sdrPanelPos = new GSlider2D(app, 40, 84, 200, 200);
   sdrPanelPos.setLimitsX(pnlControls.getX(), 0, 200);
   sdrPanelPos.setLimitsY(pnlControls.getY(), 0, 200);
-  
+
   windControl.addDrawHandler(this, "drawController");
 }
 

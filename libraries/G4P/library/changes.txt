@@ -1,5 +1,75 @@
 G4P changes incorporated into version
 
+V4.2.1 (36)
+Fixes bug in GPanel when tab size did not change when the font changed (Ticket 32)
+
+Mouse PRESSED and RELEASED methods for buttons have been re-instated.
+
+
+V4.2.0 (35)
+New control, GView that encapsulates a visual 2D/3D canvas that responds to Processing mouse events using the GViewListener class. This replaces GSketchPad
+
+New control, GViewPeasyCam encapsulates a visual 3D canvas controlled by a PeasyCam object.
+
+GSketchPad controls have been removed (replaced by GView controls)
+
+Mouse PRESSED and RELEASED methods for buttons have been removed.
+
+The mouse pointer changing as it passes over different controls is turned off by default due to bug in Processing (Issue 5712)
+
+
+V4.1.5 (34)
+Bug fixes and visual enhancement to GDropList making it easier to use on small screens.
+
+
+V4.1.4 (33)
+Fixes bug in StyledString that throws exception when text with multiple consecutive newline characters are in the text to set (ticket 24)
+
+
+Fixes bug in GTextArea where the text does not scroll to the end when appending text. (ticket 25)
+
+V4.1.3 (32)
+The select file dialog boxes now support option to specify starting folder. (Ticket 21)
+
+The select colour dialog now supports optional start colour. (Ticket 21)
+
+fixes bug in GtextField when trying to set tthe tex when the control already has focus and selected text. (Ticket 22)
+
+
+V4.1.2 (31)
+fixes bug caused by a Processing issue introduced with 3.3.1 (https://github.com/processing/processing/issues/5026)
+
+bug fixes for tickets 17 and 18 - black text and file dialog box issues.
+
+
+V4.1.1 (30)
+fixes bug in GPanel setCollapsed(true) when the panel background is still visible and when panels are nested.
+
+Fixes bug in GCheckbox that made the control invisible if set false before the buffer is first drawn.
+
+Fixes bug in GGroup where setVisible(boolean) did not work
+
+Fixes bug in GGroup when fading duration <= 0
+
+Fixes bug in GWindow that meant windows created using GUI Builder could not find the close window handler.
+
+
+V4.1 (29)
+There is now greater control of the positioning of the icon and the ability to create animated icons for GButton, GLabel, GCheckbox and GOption. See the guides at http://lagers.org.uk/g4p/guides/g01-overview.html for more details.
+
+
+V4.0.5 (28)
+Fixes bug in GTextField where the scrolling text didn't keep up with a rapid typing rate or when a block of test was pasted in. (Ticket 13)
+
+
+V4.0.4 (27)
+Fixes bug in GTextArea when text is cleared and the control has focus (Ticket 12)
+
+GTextArea now fires GEvent.ENTERED event when the Return / Enter key is typed (Ticket 11)
+
+Sliders, knobs and scrollbars now respond to the mouse wheel (Ticket 10)
+
+
 V4.0.3 (26)
 Scrollbars improved visually
 
@@ -16,6 +86,7 @@ saveSnapshot methods added.
 
 V4.0.2 (25)
 Bug fix for setFont(...)
+
 
 V4.0.1 (24)
 Seamless support for use with Peasycam added.

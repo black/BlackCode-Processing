@@ -2,21 +2,34 @@
  * Dizzy
  * by Jean Pierre Charalambos.
  *
- * This example demonstrates how 2D key frames may be used to perform a Prezi-like
- * presentation. 
+ * This example demonstrates how 2D key frames may be used to perform a
+ * Prezi-like presentation.
+ *
+ * The displayed eye path is defined by some interactive-frames which can
+ * be moved with the mouse, making the path editable.
+ *
+ * The eye interpolating path is played with the shortcut '1'.
+ *
+ * Press CONTROL + '1' to add (more) key frames to the eye path.
+ *
+ * Press ALT + '1' to delete the eye path.
+ *
+ * Note that the eye actually holds 3 paths, bound to the [1..3] keys.
+ * Pressing CONTROL + [1..3] adds key frames to the specific path.
+ * Pressing ALT + [1..3] deletes the specific path. Press 'r' to display
+ * all the key frame eye paths (if any). The displayed paths are editable.
  *
  * Press 'h' to display the key shortcuts and mouse bindings in the console.
  */
 
 import remixlab.proscene.*;
 import remixlab.dandelion.geom.*;
-import remixlab.bias.core.*;
-import remixlab.bias.event.*;
 
 Scene scene;
 PImage img;
-PFont buttonFont;
-ArrayList buttons;
+Info toggleInfo;
+ArrayList<Info> info;
+PFont font;
 InteractiveFrame message1;
 InteractiveFrame message2;
 InteractiveFrame image;
@@ -26,7 +39,7 @@ int fSize = 16;
 public void setup() {
   size(640, 360, P2D);
 
-  img = loadImage("dizzi.jpg");
+  img = loadImage("dizzy.jpg");
   scene = new Scene(this);
   scene.setGridVisualHint(false);
   scene.setAxesVisualHint(false);
@@ -49,38 +62,13 @@ public void setup() {
 
   // create a camera path and add some key frames:
   // key frames can be added at runtime with keys [j..n]
-  scene.eyeFrame().setPosition(89.71913f, -101.32816f);
-  scene.eyeFrame().setOrientation(new Rot(-1.542718f));
-  scene.eyeFrame().setMagnitude(0.3391391f);
-  scene.eye().addKeyFrameToPath(1);
-
-  scene.eyeFrame().setPosition(61.501305f, 71.02506f);
-  scene.eyeFrame().setOrientation(new Rot(-1.5142304f));
-  scene.eyeFrame().setMagnitude(0.13526922f);
-  scene.eye().addKeyFrameToPath(1);
-
-  scene.eyeFrame().setPosition(-99.00719f, -4.614401f);
-  scene.eyeFrame().setOrientation(new Rot(-0.010666408f));
-  scene.eyeFrame().setMagnitude(0.8055185f);
-  scene.eye().addKeyFrameToPath(1);
-
-  // re-position the camera:
-  scene.eyeFrame().setPosition(89.71913f, -101.32816f);
-  scene.eyeFrame().setOrientation(new Rot(-1.542718f));
-  scene.eyeFrame().setMagnitude(0.3391391f);
-
-  // drawing of camera paths are toggled with key 'r'.
-  //scene.setViewPointPathsAreDrawn(true);
-
-  buttons = new ArrayList(6);
-  for (int i = 0; i < 5; ++i)
-    buttons.add(null);
-
-  buttonFont = loadFont("FreeSans-16.vlw");
-  
-  Button2D button = new ClickButton(scene, new PVector(10, 5), buttonFont, 0);
-  h = button.myHeight;
-  buttons.set(0, button);
+  scene.loadConfig();
+  scene.loadConfig();
+  font = loadFont("FreeSans-24.vlw");
+  toggleInfo = new Info(new PVector(10, 7), font);
+  info = new ArrayList<Info>();
+  for (int i=0; i<3; ++i)
+    info.add(new Info(new PVector(10, toggleInfo.height*(i+1) + 7*(i+2)), font, String.valueOf(i+1)));
 }
 
 public void draw() {
@@ -104,25 +92,22 @@ public void draw() {
   text("but I feel dizzy", 10, 50);
   popMatrix();
 
-  updateButtons();
-  displayButtons();
+  info();
 }
 
-void updateButtons() {
-  for (int i = 1; i < buttons.size(); i++) {
+void info() {
+  toggleInfo.setText("Camera paths edition "
+                     + ( scene.pathsVisualHint() ? "ON" : "OFF" )
+                     + " (press 'r' to toggle it)");
+  toggleInfo.display();
+  for (int i = 0; i < info.size(); i++)
     // Check if CameraPathPlayer is still valid
-    if ((buttons.get(i) != null) && (scene.eye().keyFrameInterpolator(i) == null))
-      buttons.set(i, null);
-    // Or add it if needed
-    if ((scene.eye().keyFrameInterpolator(i) != null)	&& (buttons.get(i) == null))
-      buttons.set(i, new ClickButton(scene, new PVector(10, +(i) * (h + 7)), buttonFont, i));
-  }
-}
-
-void displayButtons() {
-  for (int i = 0; i < buttons.size(); i++) {
-    Button2D button = (Button2D) buttons.get(i);
-    if (button != null)
-      button.display();
-  }
+    if (scene.eye().keyFrameInterpolator(i+1) != null) {
+      info.get(i).setText("Path " + String.valueOf(i+1) + "( press " + String.valueOf(i+1) + " to" +
+                           (scene.eye().keyFrameInterpolator(i+1).numberOfKeyFrames() > 1 ?
+                           scene.eye().keyFrameInterpolator(i+1).interpolationStarted() ?
+                           " stop it)" : " play it)"
+                           : " restore init position)"));
+      info.get(i).display();
+    }
 }

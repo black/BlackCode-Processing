@@ -1,20 +1,23 @@
 import org.gicentre.handy.*;
 
+// Displays 4 sketchy rectangles with different hachuring styles.
+// Version 2.0, 4th April, 2016
+// Author Jo Wood
+
 HandyRenderer h;
 
 void setup()
 {
   size(300,200);
-  smooth();
   h = new HandyRenderer(this);
   fill(206,76,52);
   h.setHachurePerturbationAngle(15);
-  noLoop();
+  println(Version.getText());
 }
 
 void draw()
 {
-  background(234,215,182);
+  background(247,230,197);
   h.setRoughness(1);
 
   h.setFillGap(0.5);
@@ -33,4 +36,6 @@ void draw()
   h.setFillWeight(1);
   h.setIsAlternating(false);
   h.rect(170,120,80,50);
+ 
+  noLoop();  // No need to redraw.
 }

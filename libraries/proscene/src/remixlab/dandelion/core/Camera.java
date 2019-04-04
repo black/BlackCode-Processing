@@ -1,6 +1,6 @@
 /**************************************************************************************
  * dandelion_tree
- * Copyright (c) 2014-2016 National University of Colombia, https://github.com/remixlab
+ * Copyright (c) 2014-2017 National University of Colombia, https://github.com/remixlab
  * @author Jean Pierre Charalambos, http://otrolado.info/
  *
  * All rights reserved. Library that eases the creation of interactive
@@ -11,12 +11,16 @@
 package remixlab.dandelion.core;
 
 import remixlab.dandelion.geom.*;
-import remixlab.util.*;
+import remixlab.util.Copyable;
+import remixlab.util.Util;
 
 import java.util.ArrayList;
 
 /**
- * 3D implementation of the {@link remixlab.dandelion.core.Eye} abstract class.
+ * 3D implementation of the {@link remixlab.dandelion.core.Eye} abstract class. This class
+ * API aims to conform that of the great
+ * <a href="http://libqglviewer.com/refManual/classqglviewer_1_1Camera.html">libQGLViewer
+ * Camera</a>.
  * <p>
  * The Camera {@link #type()} can be {@code ORTHOGRAPHIC} or {@code PERSPECTIVE} (
  * {@link #fieldOfView()} is meaningless in the latter case).
@@ -44,30 +48,6 @@ import java.util.ArrayList;
  * the Eye {@link #frame()} coordinate system.
  */
 public class Camera extends Eye implements Copyable {
-  @Override
-  public int hashCode() {
-    return new HashCodeBuilder(17, 37).appendSuper(super.hashCode()).append(zClippingCoef).append(IODist)
-        .append(focusDist).append(physicalDist2Scrn).append(physicalScrnWidth).append(tp).append(zClippingCoef)
-        .append(zNearCoef).append(rapK).toHashCode();
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    if (obj == null)
-      return false;
-    if (obj == this)
-      return true;
-    if (obj.getClass() != getClass())
-      return false;
-
-    Camera other = (Camera) obj;
-    return new EqualsBuilder().appendSuper(super.equals(obj)).append(zClippingCoef, other.zClippingCoef)
-        .append(IODist, other.IODist).append(focusDist, other.focusDist)
-        .append(physicalDist2Scrn, other.physicalDist2Scrn).append(physicalScrnWidth, other.physicalScrnWidth)
-        .append(tp, other.tp).append(zClippingCoef, other.zClippingCoef).append(zNearCoef, other.zNearCoef)
-        .append(rapK, other.rapK).isEquals();
-  }
-
   /**
    * Enumerates the two possible types of Camera.
    * <p>
@@ -76,7 +56,9 @@ public class Camera extends Eye implements Copyable {
    */
   public enum Type {
     PERSPECTIVE, ORTHOGRAPHIC
-  };
+  }
+
+  ;
 
   // C a m e r a p a r a m e t e r s
   private float zNearCoef;
@@ -181,7 +163,7 @@ public class Camera extends Eye implements Copyable {
 
   /**
    * Same as {@code setUpVector(new Vec(x,y,z))}.
-   * 
+   *
    * @see #setUpVector(Vec)
    */
   public void setUpVector(float x, float y, float z) {
@@ -190,7 +172,7 @@ public class Camera extends Eye implements Copyable {
 
   /**
    * Same as {@code setUpVector(new Vec(x,y,z), boolean noMove)}.
-   * 
+   *
    * @see #setUpVector(Vec, boolean)
    */
   public void setUpVector(float x, float y, float z, boolean noMove) {
@@ -199,7 +181,7 @@ public class Camera extends Eye implements Copyable {
 
   /**
    * Same as {@code setPosition(new Vec(x,y,z))}.
-   * 
+   *
    * @see #setPosition(Vec)
    */
   public void setPosition(float x, float y, float z) {
@@ -217,7 +199,7 @@ public class Camera extends Eye implements Copyable {
    * <p>
    * The Camera {@link #position()} is not modified. The Camera is rotated so that the
    * horizon (defined by its {@link #upVector()}) is preserved.
-   * 
+   *
    * @see #lookAt(Vec)
    * @see #setUpVector(Vec)
    */
@@ -239,7 +221,7 @@ public class Camera extends Eye implements Copyable {
 
   /**
    * Same as {@code setViewDirection(new Vec(x, y, z))}.
-   * 
+   *
    * @see #setViewDirection(Vec)
    */
   public void setViewDirection(float x, float y, float z) {
@@ -258,7 +240,7 @@ public class Camera extends Eye implements Copyable {
    * <p>
    * The {@link #position()} of the Camera is unchanged, you may want to call
    * {@link #showEntireScene()} after this method to move the Camera.
-   * 
+   *
    * @see #setUpVector(Vec)
    */
   public void setOrientation(float theta, float phi) {
@@ -326,7 +308,7 @@ public class Camera extends Eye implements Copyable {
    * {@link #horizontalFieldOfView()}).
    * <p>
    * Use {@link #setFOVToFitScene()} to adapt the {@link #fieldOfView()} to a given scene.
-   * 
+   *
    * @see #setFieldOfView(float)
    */
   public float fieldOfView() {
@@ -341,7 +323,7 @@ public class Camera extends Eye implements Copyable {
    * <p>
    * Note that {@link #focusDistance()} is set to {@link #sceneRadius()} / tan(
    * {@link #fieldOfView()}/2) by this method.
-   * 
+   *
    * @see #fieldOfView()
    */
   public void setFieldOfView(float fov) {
@@ -444,7 +426,7 @@ public class Camera extends Eye implements Copyable {
    * <b>Attention:</b> The value is always positive although the clipping plane is
    * positioned at a negative z value in the Camera coordinate system. This follows the
    * {@code gluPerspective} standard.
-   * 
+   *
    * @see #zFar()
    */
   public float zNear() {
@@ -454,12 +436,12 @@ public class Camera extends Eye implements Copyable {
     final float zMin = zNearCoefficient() * zClippingCoefficient() * sceneRadius();
     if (z < zMin)
       switch (type()) {
-      case PERSPECTIVE:
-        z = zMin;
-        break;
-      case ORTHOGRAPHIC:
-        z = 0.0f;
-        break;
+        case PERSPECTIVE:
+          z = zMin;
+          break;
+        case ORTHOGRAPHIC:
+          z = 0.0f;
+          break;
       }
     return z;
   }
@@ -472,7 +454,7 @@ public class Camera extends Eye implements Copyable {
    * {@code zClippingCoefficient() * sceneRadius()} behind the {@link #sceneCenter()}:
    * <p>
    * {@code zFar = distanceToSceneCenter() + zClippingCoefficient()*sceneRadius()}
-   * 
+   *
    * @see #zNear()
    */
   public float zFar() {
@@ -499,7 +481,6 @@ public class Camera extends Eye implements Copyable {
   }
 
   /**
-   * 
    * Sets the {@link #zNearCoefficient()} value.
    */
   public void setZNearCoefficient(float coef) {
@@ -540,12 +521,12 @@ public class Camera extends Eye implements Copyable {
   @Override
   public float sceneToPixelRatio(Vec position) {
     switch (type()) {
-    case PERSPECTIVE:
-      return 2.0f * Math.abs((frame().coordinatesOf(position)).vec[2] * frame().magnitude())
-          * (float) Math.tan(fieldOfView() / 2.0f) / screenHeight();
-    case ORTHOGRAPHIC:
-      float[] wh = getBoundaryWidthHeight();
-      return 2.0f * wh[1] / screenHeight();
+      case PERSPECTIVE:
+        return 2.0f * Math.abs((frame().coordinatesOf(position)).vec[2] * frame().magnitude()) * (float) Math
+            .tan(fieldOfView() / 2.0f) / screenHeight();
+      case ORTHOGRAPHIC:
+        float[] wh = getBoundaryWidthHeight();
+        return 2.0f * wh[1] / screenHeight();
     }
     return 1.0f;
   }
@@ -554,8 +535,7 @@ public class Camera extends Eye implements Copyable {
   public boolean isPointVisible(Vec point) {
     if (!gScene.areBoundaryEquationsEnabled())
       System.out.println("The camera frustum plane equations (needed by pointIsVisible) may be outdated. Please "
-          + "enable automatic updates of the equations in your PApplet.setup "
-          + "with Scene.enableBoundaryEquations()");
+          + "enable automatic updates of the equations in your PApplet.setup " + "with Scene.enableBoundaryEquations()");
     for (int i = 0; i < 6; ++i)
       if (distanceToBoundary(i, point) > 0)
         return false;
@@ -564,7 +544,7 @@ public class Camera extends Eye implements Copyable {
 
   /**
    * Same as {@code return isPointVisible(new Vec(x, y, z))}.
-   * 
+   *
    * @see #isPointVisible(Vec)
    */
   public boolean isPointVisible(float x, float y, float z) {
@@ -575,8 +555,7 @@ public class Camera extends Eye implements Copyable {
   public Visibility ballVisibility(Vec center, float radius) {
     if (!gScene.areBoundaryEquationsEnabled())
       System.out.println("The camera frustum plane equations (needed by sphereIsVisible) may be outdated. Please "
-          + "enable automatic updates of the equations in your PApplet.setup "
-          + "with Scene.enableBoundaryEquations()");
+          + "enable automatic updates of the equations in your PApplet.setup " + "with Scene.enableBoundaryEquations()");
     boolean allInForAllPlanes = true;
     for (int i = 0; i < 6; ++i) {
       float d = distanceToBoundary(i, center);
@@ -594,8 +573,7 @@ public class Camera extends Eye implements Copyable {
   public Visibility boxVisibility(Vec p1, Vec p2) {
     if (!gScene.areBoundaryEquationsEnabled())
       System.out.println("The camera frustum plane equations (needed by aaBoxIsVisible) may be outdated. Please "
-          + "enable automatic updates of the equations in your PApplet.setup "
-          + "with Scene.enableBoundaryEquations()");
+          + "enable automatic updates of the equations in your PApplet.setup " + "with Scene.enableBoundaryEquations()");
     boolean allInForAllPlanes = true;
     for (int i = 0; i < 6; ++i) {
       boolean allOut = true;
@@ -641,57 +619,57 @@ public class Camera extends Eye implements Copyable {
     float posViewDir = Vec.dot(pos, viewDir);
 
     switch (type()) {
-    case PERSPECTIVE: {
-      float hhfov = horizontalFieldOfView() / 2.0f;
-      float chhfov = (float) Math.cos(hhfov);
-      float shhfov = (float) Math.sin(hhfov);
-      normal[0] = Vec.multiply(viewDir, -shhfov);
-      normal[1] = Vec.add(normal[0], Vec.multiply(right, chhfov));
-      normal[0] = Vec.add(normal[0], Vec.multiply(right, -chhfov));
-      normal[2] = Vec.multiply(viewDir, -1);
-      normal[3] = viewDir;
+      case PERSPECTIVE: {
+        float hhfov = horizontalFieldOfView() / 2.0f;
+        float chhfov = (float) Math.cos(hhfov);
+        float shhfov = (float) Math.sin(hhfov);
+        normal[0] = Vec.multiply(viewDir, -shhfov);
+        normal[1] = Vec.add(normal[0], Vec.multiply(right, chhfov));
+        normal[0] = Vec.add(normal[0], Vec.multiply(right, -chhfov));
+        normal[2] = Vec.multiply(viewDir, -1);
+        normal[3] = viewDir;
 
-      float hfov = fieldOfView() / 2.0f;
-      float chfov = (float) Math.cos(hfov);
-      float shfov = (float) Math.sin(hfov);
-      normal[4] = Vec.multiply(viewDir, -shfov);
-      normal[5] = Vec.add(normal[4], Vec.multiply(up, -chfov));
-      normal[4] = Vec.add(normal[4], Vec.multiply(up, chfov));
+        float hfov = fieldOfView() / 2.0f;
+        float chfov = (float) Math.cos(hfov);
+        float shfov = (float) Math.sin(hfov);
+        normal[4] = Vec.multiply(viewDir, -shfov);
+        normal[5] = Vec.add(normal[4], Vec.multiply(up, -chfov));
+        normal[4] = Vec.add(normal[4], Vec.multiply(up, chfov));
 
-      for (int i = 0; i < 2; ++i)
-        dist[i] = Vec.dot(pos, normal[i]);
-      for (int j = 4; j < 6; ++j)
-        dist[j] = Vec.dot(pos, normal[j]);
+        for (int i = 0; i < 2; ++i)
+          dist[i] = Vec.dot(pos, normal[i]);
+        for (int j = 4; j < 6; ++j)
+          dist[j] = Vec.dot(pos, normal[j]);
 
-      // Natural equations are:
-      // dist[0,1,4,5] = pos * normal[0,1,4,5];
-      // dist[2] = (pos + zNear() * viewDir) * normal[2];
-      // dist[3] = (pos + zFar() * viewDir) * normal[3];
+        // Natural equations are:
+        // dist[0,1,4,5] = pos * normal[0,1,4,5];
+        // dist[2] = (pos + zNear() * viewDir) * normal[2];
+        // dist[3] = (pos + zFar() * viewDir) * normal[3];
 
-      // 2 times less computations using expanded/merged equations. Dir vectors
-      // are normalized.
-      float posRightCosHH = chhfov * Vec.dot(pos, right);
-      dist[0] = -shhfov * posViewDir;
-      dist[1] = dist[0] + posRightCosHH;
-      dist[0] = dist[0] - posRightCosHH;
-      float posUpCosH = chfov * Vec.dot(pos, up);
-      dist[4] = -shfov * posViewDir;
-      dist[5] = dist[4] - posUpCosH;
-      dist[4] = dist[4] + posUpCosH;
-      break;
-    }
-    case ORTHOGRAPHIC:
-      normal[0] = Vec.multiply(right, -1);
-      normal[1] = right;
-      normal[4] = up;
-      normal[5] = Vec.multiply(up, -1);
+        // 2 times less computations using expanded/merged equations. Dir vectors
+        // are normalized.
+        float posRightCosHH = chhfov * Vec.dot(pos, right);
+        dist[0] = -shhfov * posViewDir;
+        dist[1] = dist[0] + posRightCosHH;
+        dist[0] = dist[0] - posRightCosHH;
+        float posUpCosH = chfov * Vec.dot(pos, up);
+        dist[4] = -shfov * posViewDir;
+        dist[5] = dist[4] - posUpCosH;
+        dist[4] = dist[4] + posUpCosH;
+        break;
+      }
+      case ORTHOGRAPHIC:
+        normal[0] = Vec.multiply(right, -1);
+        normal[1] = right;
+        normal[4] = up;
+        normal[5] = Vec.multiply(up, -1);
 
-      float[] wh = getBoundaryWidthHeight();
-      dist[0] = Vec.dot(Vec.subtract(pos, Vec.multiply(right, wh[0])), normal[0]);
-      dist[1] = Vec.dot(Vec.add(pos, Vec.multiply(right, wh[0])), normal[1]);
-      dist[4] = Vec.dot(Vec.add(pos, Vec.multiply(up, wh[1])), normal[4]);
-      dist[5] = Vec.dot(Vec.subtract(pos, Vec.multiply(up, wh[1])), normal[5]);
-      break;
+        float[] wh = getBoundaryWidthHeight();
+        dist[0] = Vec.dot(Vec.subtract(pos, Vec.multiply(right, wh[0])), normal[0]);
+        dist[1] = Vec.dot(Vec.add(pos, Vec.multiply(right, wh[0])), normal[1]);
+        dist[4] = Vec.dot(Vec.add(pos, Vec.multiply(up, wh[1])), normal[4]);
+        dist[5] = Vec.dot(Vec.subtract(pos, Vec.multiply(up, wh[1])), normal[5]);
+        break;
     }
 
     // Front and far planes are identical for both camera types.
@@ -712,7 +690,7 @@ public class Camera extends Eye implements Copyable {
 
   /**
    * Same as {@code return !isFaceBackFacing(a, b, c)}.
-   * 
+   *
    * @see #isFaceBackFacing(Vec, Vec, Vec)
    */
   public boolean isFaceFrontFacing(Vec a, Vec b, Vec c) {
@@ -726,25 +704,22 @@ public class Camera extends Eye implements Copyable {
    * Vertices must given in clockwise order if
    * {@link remixlab.dandelion.core.AbstractScene#isLeftHanded()} or in counter-clockwise
    * order if {@link remixlab.dandelion.core.AbstractScene#isRightHanded()}.
-   * 
-   * @param a
-   *          first face vertex
-   * @param b
-   *          second face vertex
-   * @param c
-   *          third face vertex
-   * 
+   *
+   * @param a first face vertex
+   * @param b second face vertex
+   * @param c third face vertex
    * @see #isFaceBackFacing(Vec, Vec)
    * @see #isConeBackFacing(Vec, Vec, float)
    */
   public boolean isFaceBackFacing(Vec a, Vec b, Vec c) {
-    return isFaceBackFacing(a, gScene.isLeftHanded() ? Vec.subtract(b, a).cross(Vec.subtract(c, a))
-        : Vec.subtract(c, a).cross(Vec.subtract(b, a)));
+    return isFaceBackFacing(a, gScene.isLeftHanded() ?
+        Vec.subtract(b, a).cross(Vec.subtract(c, a)) :
+        Vec.subtract(c, a).cross(Vec.subtract(b, a)));
   }
 
   /**
    * Same as {@code return !isFaceBackFacing(vertex, normal)}.
-   * 
+   *
    * @see #isFaceBackFacing(Vec, Vec)
    */
   public boolean isFaceFrontFacing(Vec vertex, Vec normal) {
@@ -754,12 +729,9 @@ public class Camera extends Eye implements Copyable {
   /**
    * Returns {@code true} if the given face is back-facing the camera. Otherwise returns
    * {@code false}.
-   * 
-   * @param vertex
-   *          belonging to the face
-   * @param normal
-   *          face normal
-   * 
+   *
+   * @param vertex belonging to the face
+   * @param normal face normal
    * @see #isFaceBackFacing(Vec, Vec, Vec)
    * @see #isConeBackFacing(Vec, Vec, float)
    */
@@ -769,7 +741,7 @@ public class Camera extends Eye implements Copyable {
 
   /**
    * Same as {@code return !isConeBackFacing(vertex, normals)}.
-   * 
+   *
    * @see #isConeBackFacing(Vec, ArrayList)
    */
   public boolean isConeFrontFacing(Vec vertex, ArrayList<Vec> normals) {
@@ -779,12 +751,9 @@ public class Camera extends Eye implements Copyable {
   /**
    * Returns {@code true} if the given cone is back-facing the camera and {@code false}
    * otherwise.
-   * 
-   * @param vertex
-   *          Cone vertex
-   * @param normals
-   *          ArrayList of normals defining the cone.
-   * 
+   *
+   * @param vertex  Cone vertex
+   * @param normals ArrayList of normals defining the cone.
    * @see #isConeBackFacing(Vec, Vec[])
    * @see #isConeBackFacing(Vec, Vec, float)
    */
@@ -794,7 +763,7 @@ public class Camera extends Eye implements Copyable {
 
   /**
    * Same as {@code !isConeBackFacing(vertex, normals)}.
-   * 
+   *
    * @see #isConeBackFacing(Vec, Vec[])
    */
   public boolean isConeFrontFacing(Vec vertex, Vec[] normals) {
@@ -804,12 +773,9 @@ public class Camera extends Eye implements Copyable {
   /**
    * Returns {@code true} if the given cone is back-facing the camera and {@code false}
    * otherwise.
-   * 
-   * @param vertex
-   *          Cone vertex
-   * @param normals
-   *          Array of normals defining the cone.
-   * 
+   *
+   * @param vertex  Cone vertex
+   * @param normals Array of normals defining the cone.
    * @see #isConeBackFacing(Vec, ArrayList)
    * @see #isConeBackFacing(Vec, Vec, float)
    */
@@ -842,7 +808,7 @@ public class Camera extends Eye implements Copyable {
 
   /**
    * Same as {@code return !isConeBackFacing(vertex, axis, angle)}.
-   * 
+   *
    * @see #isConeBackFacing(Vec, Vec, float)
    */
   public boolean isConeFrontFacing(Vec vertex, Vec axis, float angle) {
@@ -852,13 +818,10 @@ public class Camera extends Eye implements Copyable {
   /**
    * Returns {@code true} if the given cone is back-facing the camera and {@code false}
    * otherwise.
-   * 
-   * @param vertex
-   *          Cone vertex
-   * @param axis
-   *          Cone axis
-   * @param angle
-   *          Cone angle
+   *
+   * @param vertex Cone vertex
+   * @param axis   Cone axis
+   * @param angle  Cone angle
    */
   public boolean isConeBackFacing(Vec vertex, Vec axis, float angle) {
     // more or less inspired by this:
@@ -995,7 +958,7 @@ public class Camera extends Eye implements Copyable {
    * intuitively expected.
    * <p>
    * Value is computed as: {@code 2 * distanceToAnchor() / screenHeight()}.
-   * 
+   *
    * @see #getBoundaryWidthHeight(float[])
    */
   @Override
@@ -1015,7 +978,7 @@ public class Camera extends Eye implements Copyable {
 
   /**
    * Same as {@code setAnchor(new Vec(x,y,z))}.
-   * 
+   *
    * @see AbstractScene#setAnchor(Vec)
    */
   public void setAnchor(float x, float y, float z) {
@@ -1028,27 +991,27 @@ public class Camera extends Eye implements Copyable {
     float ZFar = zFar();
 
     switch (type()) {
-    case PERSPECTIVE:
-      // #CONNECTION# all non null coefficients were set to 0.0 in constructor.
-      projectionMat.mat[0] = 1 / (frame().magnitude() * this.aspectRatio());
-      projectionMat.mat[5] = 1 / (gScene.isLeftHanded() ? -frame().magnitude() : frame().magnitude());
-      projectionMat.mat[10] = (ZNear + ZFar) / (ZNear - ZFar);
-      projectionMat.mat[11] = -1.0f;
-      projectionMat.mat[14] = 2.0f * ZNear * ZFar / (ZNear - ZFar);
-      projectionMat.mat[15] = 0.0f;
-      // same as gluPerspective( 180.0*fieldOfView()/M_PI, aspectRatio(),
-      // zNear(), zFar() );
-      break;
-    case ORTHOGRAPHIC:
-      float[] wh = getBoundaryWidthHeight();
-      projectionMat.mat[0] = 1.0f / wh[0];
-      projectionMat.mat[5] = (gScene.isLeftHanded() ? -1.0f : 1.0f) / wh[1];
-      projectionMat.mat[10] = -2.0f / (ZFar - ZNear);
-      projectionMat.mat[11] = 0.0f;
-      projectionMat.mat[14] = -(ZFar + ZNear) / (ZFar - ZNear);
-      projectionMat.mat[15] = 1.0f;
-      // same as glOrtho( -w, w, -h, h, zNear(), zFar() );
-      break;
+      case PERSPECTIVE:
+        // #CONNECTION# all non null coefficients were set to 0.0 in constructor.
+        projectionMat.mat[0] = 1 / (frame().magnitude() * this.aspectRatio());
+        projectionMat.mat[5] = 1 / (gScene.isLeftHanded() ? -frame().magnitude() : frame().magnitude());
+        projectionMat.mat[10] = (ZNear + ZFar) / (ZNear - ZFar);
+        projectionMat.mat[11] = -1.0f;
+        projectionMat.mat[14] = 2.0f * ZNear * ZFar / (ZNear - ZFar);
+        projectionMat.mat[15] = 0.0f;
+        // same as gluPerspective( 180.0*fieldOfView()/M_PI, aspectRatio(),
+        // zNear(), zFar() );
+        break;
+      case ORTHOGRAPHIC:
+        float[] wh = getBoundaryWidthHeight();
+        projectionMat.mat[0] = 1.0f / wh[0];
+        projectionMat.mat[5] = (gScene.isLeftHanded() ? -1.0f : 1.0f) / wh[1];
+        projectionMat.mat[10] = -2.0f / (ZFar - ZNear);
+        projectionMat.mat[11] = 0.0f;
+        projectionMat.mat[14] = -(ZFar + ZNear) / (ZFar - ZNear);
+        projectionMat.mat[15] = 1.0f;
+        // same as glOrtho( -w, w, -h, h, zNear(), zFar() );
+        break;
     }
   }
 
@@ -1084,24 +1047,24 @@ public class Camera extends Eye implements Copyable {
       pixel.setY(screenHeight() - pixelInput.y());
 
     switch (type()) {
-    case PERSPECTIVE:
-      orig.set(position());
-      dir.set(
-          new Vec(((2.0f * pixel.x() / screenWidth()) - 1.0f) * (float) Math.tan(fieldOfView() / 2.0f) * aspectRatio(),
-              ((2.0f * (screenHeight() - pixel.y()) / screenHeight()) - 1.0f) * (float) Math.tan(fieldOfView() / 2.0f),
-              -1.0f));
-      dir.set(Vec.subtract(frame().inverseCoordinatesOf(dir), orig));
-      dir.normalize();
-      break;
+      case PERSPECTIVE:
+        orig.set(position());
+        dir.set(new Vec(((2.0f * pixel.x() / screenWidth()) - 1.0f) * (float) Math.tan(fieldOfView() / 2.0f) * aspectRatio(),
+            ((2.0f * (screenHeight() - pixel.y()) / screenHeight()) - 1.0f) * (float) Math.tan(fieldOfView() / 2.0f),
+            -1.0f));
+        dir.set(Vec.subtract(frame().inverseCoordinatesOf(dir), orig));
+        dir.normalize();
+        break;
 
-    case ORTHOGRAPHIC: {
-      float[] wh = getBoundaryWidthHeight();
-      orig.set(new Vec((2.0f * pixel.x() / screenWidth() - 1.0f) * wh[0],
-          -(2.0f * pixel.y() / screenHeight() - 1.0f) * wh[1], 0.0f));
-      orig.set(frame().inverseCoordinatesOf(orig));
-      dir.set(viewDirection());
-      break;
-    }
+      case ORTHOGRAPHIC: {
+        float[] wh = getBoundaryWidthHeight();
+        orig.set(
+            new Vec((2.0f * pixel.x() / screenWidth() - 1.0f) * wh[0], -(2.0f * pixel.y() / screenHeight() - 1.0f) * wh[1],
+                0.0f));
+        orig.set(frame().inverseCoordinatesOf(orig));
+        dir.set(viewDirection());
+        break;
+      }
     }
   }
 
@@ -1114,7 +1077,7 @@ public class Camera extends Eye implements Copyable {
 
   /**
    * Same as {@code lookAt(new Vec(x,y,z))}.
-   * 
+   *
    * @see #lookAt(Vec)
    */
   public void lookAt(float x, float y, float z) {
@@ -1130,16 +1093,16 @@ public class Camera extends Eye implements Copyable {
   public void fitBall(Vec center, float radius) {
     float distance = 0.0f;
     switch (type()) {
-    case PERSPECTIVE: {
-      float yview = radius / (float) Math.sin(fieldOfView() / 2.0f);
-      float xview = radius / (float) Math.sin(horizontalFieldOfView() / 2.0f);
-      distance = Math.max(xview, yview);
-      break;
-    }
-    case ORTHOGRAPHIC: {
-      distance = Vec.dot(Vec.subtract(center, anchor()), viewDirection()) + (radius / frame().magnitude());
-      break;
-    }
+      case PERSPECTIVE: {
+        float yview = radius / (float) Math.sin(fieldOfView() / 2.0f);
+        float xview = radius / (float) Math.sin(horizontalFieldOfView() / 2.0f);
+        distance = Math.max(xview, yview);
+        break;
+      }
+      case ORTHOGRAPHIC: {
+        distance = Vec.dot(Vec.subtract(center, anchor()), viewDirection()) + (radius / frame().magnitude());
+        break;
+      }
     }
 
     Vec newPos = Vec.subtract(center, Vec.multiply(viewDirection(), distance));
@@ -1174,17 +1137,17 @@ public class Camera extends Eye implements Copyable {
     float distance = 0.0f;
     float distX, distY;
     switch (type()) {
-    case PERSPECTIVE:
-      distX = Vec.distance(pointX, newCenter) / (float) Math.sin(horizontalFieldOfView() / 2.0f);
-      distY = Vec.distance(pointY, newCenter) / (float) Math.sin(fieldOfView() / 2.0f);
-      distance = Math.max(distX, distY);
-      break;
-    case ORTHOGRAPHIC:
-      float dist = Vec.dot(Vec.subtract(newCenter, anchor()), vd);
-      distX = Vec.distance(pointX, newCenter) / frame().magnitude() / aspectRatio();
-      distY = Vec.distance(pointY, newCenter) / frame().magnitude() / 1.0f;
-      distance = dist + Math.max(distX, distY);
-      break;
+      case PERSPECTIVE:
+        distX = Vec.distance(pointX, newCenter) / (float) Math.sin(horizontalFieldOfView() / 2.0f);
+        distY = Vec.distance(pointY, newCenter) / (float) Math.sin(fieldOfView() / 2.0f);
+        distance = Math.max(distX, distY);
+        break;
+      case ORTHOGRAPHIC:
+        float dist = Vec.dot(Vec.subtract(newCenter, anchor()), vd);
+        distX = Vec.distance(pointX, newCenter) / frame().magnitude() / aspectRatio();
+        distY = Vec.distance(pointY, newCenter) / frame().magnitude() / 1.0f;
+        distance = dist + Math.max(distX, distY);
+        break;
     }
 
     frame().setPositionWithConstraint(Vec.subtract(newCenter, Vec.multiply(vd, distance)));
@@ -1218,8 +1181,8 @@ public class Camera extends Eye implements Copyable {
       stopInterpolations();
 
     interpolationKfi.deletePath();
-    interpolationKfi.addKeyFrame(detachFrame());
-    // TODO experimental
+    interpolationKfi.addKeyFrame(frame().detach());
+
     GenericFrame frame = new GenericFrame(gScene,
         Vec.add(Vec.multiply(frame().position(), 0.3f), Vec.multiply(target, 0.7f)), frame().orientation(),
         frame().magnitude());
@@ -1230,7 +1193,7 @@ public class Camera extends Eye implements Copyable {
     // 0.7f)), frame().orientation(), frame().magnitude()).detach(), 0.4f);
 
     GenericFrame originalFrame = frame();
-    GenericFrame tempFrame = detachFrame();
+    GenericFrame tempFrame = frame().detach();
     tempFrame.setPosition(Vec.add(Vec.multiply(frame().position(), coef), Vec.multiply(target, (1.0f - coef))));
     replaceFrame(tempFrame);
     lookAt(target);
@@ -1245,7 +1208,7 @@ public class Camera extends Eye implements Copyable {
   /**
    * Returns the user's inter-ocular distance (in meters). Default value is 0.062m, which
    * fits most people.
-   * 
+   *
    * @see #setIODistance(float)
    */
   public float IODistance() {

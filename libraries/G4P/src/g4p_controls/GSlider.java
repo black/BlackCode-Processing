@@ -45,9 +45,19 @@ import processing.core.PApplet;
  *
  */
 public class GSlider extends GLinearTrackControl {
-
+	
+	/**
+	 * 
+	 * @param theApplet  the main sketch or GWindow control for this control
+	 * @param p0 x position based on control mode
+	 * @param p1 y position based on control mode
+	 * @param p2 x position or width based on control mode
+	 * @param p3 y position or height based on control mode
+	 * @param tr_width the width of the track in pixels
+	 */
 	public GSlider(PApplet theApplet, float p0, float p1, float p2, float p3, float tr_width) {
 		super(theApplet, p0, p1, p2, p3);
+		makeBuffer();
 		trackWidth = tr_width;
 		trackDisplayLength = width - 2 * TINSET;
 		trackLength = trackDisplayLength - trackWidth;
@@ -105,7 +115,7 @@ public class GSlider extends GLinearTrackControl {
 			buffer.rectMode(PApplet.CENTER);
 			buffer.ellipseMode(PApplet.CENTER);
 			// Back ground colour
-			buffer.background(opaque ? palette[6].getRGB() : palette[2].getRGB() & 0xFFFFFF);
+			buffer.background(opaque ? palette[6].getRGB() : palette[2].getRGB() & 0xFFFFFF | 0x00010101);
 			
 			// Draw track, thumb, ticks etc.
 			buffer.pushMatrix();
@@ -149,7 +159,6 @@ public class GSlider extends GLinearTrackControl {
 			buffer.noStroke();
 			buffer.ellipse((parametricPos - 0.5f) * trackLength, 0, trackWidth, trackWidth);
 
-		
 			// Display slider values
 			g2d.setColor(palette[2]);
 			if(labels != null){

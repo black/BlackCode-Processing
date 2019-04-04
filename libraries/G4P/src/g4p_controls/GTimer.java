@@ -49,7 +49,7 @@ import processing.core.PApplet;
 public class GTimer implements GConstantsInternal {
 
 	/* This must be set by the constructor */
-	protected PApplet app;
+	final protected PApplet app;
 
 	/* The object to handle the event */
 	protected Object eventHandlerObject = null;
@@ -59,7 +59,7 @@ public class GTimer implements GConstantsInternal {
 	protected String eventHandlerMethodName;
 
 	// The number of repeats i.e. events to be fired.
-	protected int nrepeats = -1;
+	protected int nbrRepeats = -1;
 	
 	protected Timer timer = null;
 
@@ -96,7 +96,7 @@ public class GTimer implements GConstantsInternal {
 	 * @param obj the object that has the method to be executed (likely to be <b>this</b>)
 	 * @param methodName the name of the method to be called by the timer
 	 * @param delay the time (in millisecs) between function calls
-	 * @param initDelay the initial delay (in millisecs)
+	 * @param initDelay the initial delay (in millisecs) before calling method
 	 */
 	public GTimer(PApplet theApplet, Object obj, String methodName, int delay, int initDelay){
 		app = theApplet;
@@ -142,7 +142,7 @@ public class GTimer implements GConstantsInternal {
 		if(eventHandlerMethod != null){
 			try {
 				eventHandlerMethod.invoke(eventHandlerObject, this);
-				if(--nrepeats == 0)
+				if(--nbrRepeats == 0)
 					stop();
 			} catch (Exception e) {
 				GMessenger.message(EXCP_IN_HANDLER,  
@@ -158,20 +158,20 @@ public class GTimer implements GConstantsInternal {
 	 * Start the timer (call the method forever)
 	 */
 	public void start(){
-		this.nrepeats = -1;
+		this.nbrRepeats = -1;
 		if(timer != null)
 			timer.start();
 	}
 	
 	/**
 	 * Start the timer and call the method for the number of
-	 * times indicated by nrepeats
-	 * If nrepeats is <=0 then repeat forever
+	 * times indicated by nrepeats. 
+	 * If nrepeats is &le;0 then repeat forever
 	 * 
-	 * @param nrepeats
+	 * @param nrepeats the number of times to repeat the action
 	 */
 	public void start(int nrepeats){
-		this.nrepeats = nrepeats;
+		this.nbrRepeats = nrepeats;
 		if(timer != null)
 			timer.start();
 	}
@@ -254,6 +254,24 @@ public class GTimer implements GConstantsInternal {
 			return -1;		
 	}
 	
+	/**
+	 * The number of times an event is to be fired.
+	 * 
+	 * @return the nbrRepeats
+	 */
+	public int getNbrRepeats() {
+		return nbrRepeats;
+	}
+
+	/**
+	 * The number of times an event is to be fired.
+	 * @param nbrRepeats &ge; 0 keep running until stopped by user
+	 */
+	public void setNbrRepeats(int nbrRepeats) {
+		this.nbrRepeats = nbrRepeats;
+	}
+
+
 	/**
 	 * See if the GTimer object has been created successfully
 	 * @return true if successful

@@ -34,7 +34,7 @@ import processing.event.MouseEvent;
  *  
  * If no limits are set then the control will return a value in the range 
  * 0.0 to 1.0 for both the x and the y axis. The setXlimits and setYlimits
- * can be used to set a different range for each axis independently. <b>
+ * can be used to set a different range for each axis independently. <br>
  * 
  * The minimum size for this control is 40x40 pixels and this is enforced 
  * when the control is created. If necessary the width and/or height the 
@@ -65,14 +65,15 @@ public class GSlider2D extends GValueControl2D {
 	
 	/**
 	 * Create a 2D slider inside the specified rectangle.
-	 * @param theApplet
-	 * @param p0
-	 * @param p1
-	 * @param p2
-	 * @param p3
+	 * @param theApplet  the main sketch or GWindow control for this control
+	 * @param p0 x position based on control mode
+	 * @param p1 y position based on control mode
+	 * @param p2 x position or width based on control mode
+	 * @param p3 y position or height based on control mode
 	 */
 	public GSlider2D(PApplet theApplet, float p0, float p1, float p2, float p3) {
 		super(theApplet, p0, p1, p2, p3);
+		makeBuffer();
 		// Enforce minimum size constraint
 		if(width < 40 || height < 40)
 			resize(PApplet.max(Math.round(width),40), PApplet.max(Math.round(height),40));
@@ -112,7 +113,7 @@ public class GSlider2D extends GValueControl2D {
 	
 	/**
 	 * Set the amount of easing to be used when a value is changing. The default value
-	 * is 1 (no easing) values > 1 will cause the value to rush from its starting value
+	 * is 1 (no easing) values &lt; 1 will cause the value to rush from its starting value
 	 * and decelerate towards its final values. In other words it smoothes the movement
 	 * of the slider thumb or knob rotation.
 	 * 
@@ -144,8 +145,8 @@ public class GSlider2D extends GValueControl2D {
 	 * method will assume that you want to set the valueType to INTEGER.
 	 * 
 	 * @param initValue the initial value
-	 * @param start the start value of the range
-	 * @param end the end value of the range
+	 * @param start the X start value of the range
+	 * @param end the X end value of the range
 	 */
 	public void setLimitsX(int initValue, int start, int end){
 		startXlimit = start;
@@ -162,8 +163,8 @@ public class GSlider2D extends GValueControl2D {
 	 * Sets the range of values to be returned. This method will
 	 * assume that you want to set the valueType to DECIMAL
 	 * 
-	 * @param start
-	 * @param end
+	 * @param start the X start value of the range
+	 * @param end the X end value of the range
 	 */
 	public void setLimitsX(float start, float end){
 		startXlimit = start;
@@ -182,8 +183,8 @@ public class GSlider2D extends GValueControl2D {
 	 * method will assume that you want to set the valueType to DECIMAL.
 	 * 
 	 * @param initValue the initial value
-	 * @param start the start value of the range
-	 * @param end the end value of the range
+	 * @param start the X start value of the range
+	 * @param end the X end value of the range
 	 */
 	public void setLimitsX(float initValue, float start, float end){
 		startXlimit = start;
@@ -204,8 +205,8 @@ public class GSlider2D extends GValueControl2D {
 	 * Sets the range of values to be returned. This method will
 	 * assume that you want to set the valueType to INTEGER
 	 * 
-	 * @param start the start value of the range
-	 * @param end the end value of the range
+	 * @param start the X start value of the range
+	 * @param end the X end value of the range
 	 */
 	public void setLimitsY(int start, int end){
 		startYlimit = start;
@@ -239,8 +240,8 @@ public class GSlider2D extends GValueControl2D {
 	 * Sets the range of values to be returned. This method will
 	 * assume that you want to set the valueType to DECIMAL
 	 * 
-	 * @param start
-	 * @param end
+	 * @param start the Y start value of the range
+	 * @param end the Y end value of the range
 	 */
 	public void setLimitsY(float start, float end){
 		startYlimit = start;
@@ -259,8 +260,8 @@ public class GSlider2D extends GValueControl2D {
 	 * method will assume that you want to set the valueType to DECIMAL.
 	 * 
 	 * @param initValue the initial value
-	 * @param start the start value of the range
-	 * @param end the end value of the range
+	 * @param start the Y start value of the range
+	 * @param end the Y end value of the range
 	 */
 	public void setLimitsY(float initValue, float start, float end){
 		startYlimit = start;
@@ -314,14 +315,14 @@ public class GSlider2D extends GValueControl2D {
 	}
 	
 	/**
-	 * Get the current X value as a float
+	 * @return the current X value as a float
 	 */
 	public float getValueXF(){
 		return startXlimit + (endXlimit - startXlimit) * parametricPosX;
 	}
 
 	/**
-	 * Get the current X value as an integer. <br>
+	 * @return the current X value as an integer. <br>
 	 * DECIMAL and EXPONENT value types will be rounded to the nearest integer.
 	 */
 	public int getValueXI(){
@@ -329,21 +330,21 @@ public class GSlider2D extends GValueControl2D {
 	}
 	
 	/**
-	 * Get the current X value as a string taking into account the number format. <br>
+	 * @return the current X value as a string taking into account the number format. <br>
 	 */
 	public String getValueXS(){
 		return getNumericDisplayString(getValueXF());
 	}
 	
 	/**
-	 * Get the current Y value as a float
+	 * @return the current Y value as a float
 	 */
 	public float getValueYF(){
 		return startYlimit + (endYlimit - startYlimit) * parametricPosY;
 	}
 
 	/**
-	 * Get the current Y value as an integer. <br>
+	 * @return the current Y value as an integer. <br>
 	 * DECIMAL and EXPONENT value types will be rounded to the nearest integer.
 	 */
 	public int getValueYI(){
@@ -351,7 +352,7 @@ public class GSlider2D extends GValueControl2D {
 	}
 	
 	/**
-	 * Get the current Y value as a string taking into account the number format. <br>
+	 * @return the current Y value as a string taking into account the number format. <br>
 	 */
 	public String getValueYS(){
 		return getNumericDisplayString(getValueYF());
@@ -381,7 +382,7 @@ public class GSlider2D extends GValueControl2D {
 	/**
 	 * For DECIMAL values this sets the number of decimal places to 
 	 * be displayed.
-	 * @param nd must be >= 1 otherwise will use 1
+	 * @param nd must be &ge; 1 otherwise will use 1
 	 */
 	public void setPrecision(int nd){
 		nd = PApplet.constrain(nd, 1, 5);
@@ -397,10 +398,10 @@ public class GSlider2D extends GValueControl2D {
 	/**
 	 * Set the numberFormat and precision in one go. <br>
 	 * Valid number formats are INTEGER, DECIMAL, EXPONENT <br>
-	 * Precision must be >= 1 and is ignored for INTEGER.
+	 * Precision must be &ge; 1 and is ignored for INTEGER.
 	 * 
 	 * @param numberFormat G4P.INTEGER, G4P.DECIMAL orG4P. EXPONENT
-	 * @param precision must be >= 1
+	 * @param precision must be &ge; 1
 	 */
 	public void setNumberFormat(int numberFormat, int precision){
 		switch(numberFormat){
@@ -419,7 +420,7 @@ public class GSlider2D extends GValueControl2D {
 	/**
 	 * Set the numberFormat and precision in one go. <br>
 	 * Valid number formats are INTEGER, DECIMAL, EXPONENT <br>
-	 * Precision must be >= 1 and is ignored for INTEGER.
+	 * Precision must be &ge; 1 and is ignored for INTEGER.
 	 * 
 	 * @param numberFormat G4P.INTEGER, G4P.DECIMAL or G4P.EXPONENT
 	 */

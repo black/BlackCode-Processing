@@ -1,6 +1,6 @@
 /*******************************************************************************
  * dandelion_tree (version 1.0.0)
- * Copyright (c) 2014-2016 National University of Colombia, https://github.com/remixlab
+ * Copyright (c) 2014-2017 National University of Colombia, https://github.com/remixlab
  * @author Jean Pierre Charalambos, http://otrolado.info/
  *
  * All rights reserved. Library that eases the creation of interactive
@@ -10,7 +10,9 @@
 
 package remixlab.dandelion.geom;
 
-import remixlab.util.*;
+import remixlab.util.EqualsBuilder;
+import remixlab.util.HashCodeBuilder;
+import remixlab.util.Util;
 
 /**
  * 4x4 matrix affine matrix implementation. Matrix is represented in column major order: |
@@ -59,7 +61,7 @@ public class Mat implements Linkable {
    * 16 consecutive values that are used as the elements of a 4 x 4 column-major matrix.
    */
   public Mat(float _m0, float _m1, float _m2, float _m3, float _m4, float _m5, float _m6, float _m7, float _m8,
-      float _m9, float _m10, float _m11, float _m12, float _m13, float _m14, float _m15) {
+             float _m9, float _m10, float _m11, float _m12, float _m13, float _m14, float _m15) {
     set(_m0, _m1, _m2, _m3, _m4, _m5, _m6, _m7, _m8, _m9, _m10, _m11, _m12, _m13, _m14, _m15);
   }
 
@@ -69,7 +71,7 @@ public class Mat implements Linkable {
 
   /**
    * Same as {@code this(data, false)}.
-   * 
+   *
    * @see #Mat(float[], boolean)
    */
   public Mat(float[] data) {
@@ -452,7 +454,7 @@ public class Mat implements Linkable {
 
   /**
    * Sets the row-major matrix contents from the given 16 consecutive values.
-   * 
+   *
    * @see #set(float[])
    */
   public void setTransposed(float[] rowMajor) {
@@ -483,7 +485,7 @@ public class Mat implements Linkable {
    * Sets the column-major matrix contents from the given 16 consecutive values.
    */
   public void set(float _m0, float _m1, float _m2, float _m3, float _m4, float _m5, float _m6, float _m7, float _m8,
-      float _m9, float _m10, float _m11, float _m12, float _m13, float _m14, float _m15) {
+                  float _m9, float _m10, float _m11, float _m12, float _m13, float _m14, float _m15) {
     this.mat[0] = _m0;
     this.mat[1] = _m1;
     this.mat[2] = _m2;
@@ -508,7 +510,7 @@ public class Mat implements Linkable {
    * column of the matrix.
    */
   public void setTransposed(float _m00, float _m01, float _m02, float _m03, float _m10, float _m11, float _m12,
-      float _m13, float _m20, float _m21, float _m22, float _m23, float _m30, float _m31, float _m32, float _m33) {
+                            float _m13, float _m20, float _m21, float _m22, float _m23, float _m30, float _m31, float _m32, float _m33) {
     this.mat[0] = _m00;
     this.mat[4] = _m01;
     this.mat[8] = _m02;
@@ -547,7 +549,7 @@ public class Mat implements Linkable {
 
   /**
    * Same as {@code rotateZ(angle)}.
-   * 
+   *
    * @see #rotateZ(float)
    */
   public void rotate(float angle) {
@@ -675,8 +677,8 @@ public class Mat implements Linkable {
   public void apply(float[] source) {
     if (source != null) {
       if (source.length == 16) {
-        apply(source[0], source[1], source[2], source[3], source[4], source[5], source[6], source[7], source[8],
-            source[9], source[10], source[11], source[12], source[13], source[14], source[15]);
+        apply(source[0], source[1], source[2], source[3], source[4], source[5], source[6], source[7], source[8], source[9],
+            source[10], source[11], source[12], source[13], source[14], source[15]);
       }
     }
   }
@@ -749,7 +751,7 @@ public class Mat implements Linkable {
    * 4 x 4 column-major matrix.
    */
   public void apply(float m0, float m1, float m2, float m3, float m4, float m5, float m6, float m7, float m8, float m9,
-      float m10, float m11, float m12, float m13, float m14, float m15) {
+                    float m10, float m11, float m12, float m13, float m14, float m15) {
 
     float r00 = mat[0] * m0 + mat[4] * m1 + mat[8] * m2 + mat[12] * m3;
     float r01 = mat[0] * m4 + mat[4] * m5 + mat[8] * m6 + mat[12] * m7;
@@ -795,7 +797,7 @@ public class Mat implements Linkable {
    * to the element located at the third row and first column of the matrix.
    */
   public void applyTransposed(float n00, float n01, float n02, float n03, float n10, float n11, float n12, float n13,
-      float n20, float n21, float n22, float n23, float n30, float n31, float n32, float n33) {
+                              float n20, float n21, float n22, float n23, float n30, float n31, float n32, float n33) {
 
     float r00 = mat[0] * n00 + mat[4] * n10 + mat[8] * n20 + mat[12] * n30;
     float r01 = mat[0] * n01 + mat[4] * n11 + mat[8] * n21 + mat[12] * n31;
@@ -874,7 +876,7 @@ public class Mat implements Linkable {
    * of a 4 x 4 column-major matrix.
    */
   public void preApply(float m0, float m1, float m2, float m3, float m4, float m5, float m6, float m7, float m8,
-      float m9, float m10, float m11, float m12, float m13, float m14, float m15) {
+                       float m9, float m10, float m11, float m12, float m13, float m14, float m15) {
     float r00 = m0 * mat[0] + m4 * mat[1] + m8 * mat[2] + m12 * mat[3];
     float r01 = m0 * mat[4] + m4 * mat[5] + m8 * mat[6] + m12 * mat[7];
     float r02 = m0 * mat[8] + m4 * mat[9] + m8 * mat[10] + m12 * mat[11];
@@ -919,7 +921,7 @@ public class Mat implements Linkable {
    * corresponds to the element located at the third row and first column of the matrix.
    */
   public void preApplyTransposed(float n00, float n01, float n02, float n03, float n10, float n11, float n12, float n13,
-      float n20, float n21, float n22, float n23, float n30, float n31, float n32, float n33) {
+                                 float n20, float n21, float n22, float n23, float n30, float n31, float n32, float n33) {
 
     float r00 = n00 * mat[0] + n01 * mat[1] + n02 * mat[2] + n03 * mat[3];
     float r01 = n00 * mat[4] + n01 * mat[5] + n02 * mat[6] + n03 * mat[7];
@@ -961,7 +963,7 @@ public class Mat implements Linkable {
 
   /**
    * Same as {@code return multiply(source, null)}.
-   * 
+   *
    * @see #multiply(Vec, Vec)
    */
   public Vec multiply(Vec source) {
@@ -1101,7 +1103,7 @@ public class Mat implements Linkable {
 
   /**
    * Invert this matrix.
-   * 
+   *
    * @return true if successful
    */
   public boolean invert() {
@@ -1160,11 +1162,11 @@ public class Mat implements Linkable {
 
   /**
    * Calculate the determinant of a 3x3 matrix.
-   * 
+   *
    * @return result
    */
   private float determinant3x3(float t00, float t01, float t02, float t10, float t11, float t12, float t20, float t21,
-      float t22) {
+                               float t22) {
     return (t00 * (t11 * t22 - t12 * t21) + t01 * (t12 * t20 - t10 * t22) + t02 * (t10 * t21 - t11 * t20));
   }
 
@@ -1187,8 +1189,9 @@ public class Mat implements Linkable {
    * Print this matrix contents onto the console.
    */
   public void print() {
-    System.out.println(mat[0] + " " + mat[4] + " " + mat[8] + " " + mat[12] + "\n" + mat[1] + " " + mat[5] + " "
-        + mat[9] + " " + mat[13] + "\n" + mat[2] + " " + mat[6] + " " + mat[10] + " " + mat[14] + "\n" + mat[3] + " "
-        + mat[7] + " " + mat[11] + " " + mat[15] + "\n");
+    System.out.println(
+        mat[0] + " " + mat[4] + " " + mat[8] + " " + mat[12] + "\n" + mat[1] + " " + mat[5] + " " + mat[9] + " " + mat[13]
+            + "\n" + mat[2] + " " + mat[6] + " " + mat[10] + " " + mat[14] + "\n" + mat[3] + " " + mat[7] + " " + mat[11]
+            + " " + mat[15] + "\n");
   }
 }

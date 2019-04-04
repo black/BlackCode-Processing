@@ -49,19 +49,30 @@ import processing.event.MouseEvent;
  * 
  * 
  * Three types of event can be generated :-  <br>
- * <b> GEvent.PRESSED  GEvent.RELEASED  GEvent.CLICKED </b><br>
+ * <b> PRESSED  RELEASED  CLICKED </b><br>
  * 
- * To simplify event handling the button only fires off CLICKED events 
- * when the mouse button is pressed and released over the button face 
- * (the default behaviour). <br>
+ * By default the button only fires the CLICKED event which is typical of 
+ * most GUIs. G4P supports two other events PRESSED and RELEASED which can
+ * be enabled using <pre>button1.fireAllEvents(true);</pre>.<br>
  * 
- * Using <pre>button1.fireAllEvents(true);</pre> enables the other 2 events
- * for button <b>button1</b>. A PRESSED event is created if the mouse button
- * is pressed down over the button face, the CLICKED event is then generated 
- * if the mouse button is released over the button face. Releasing the 
- * button off the button face creates a RELEASED event. This is included for 
- * completeness since it is unlikely you will need to detect these events 
- * for this type of control. <br>
+ * A PRESSED event is created if the mouse button is pressed down over the 
+ * button face. When the mouse button is released one of two events will 
+ * be generated, the RELEASED event if the mouse has moved since the 
+ * PRESSED event or CLICKED event if it has not moved. If you use this 
+ * feature remember to test the event type in the event-handler.<br>
+ * 
+ * Note that if you disable the button in its event handler e.g.
+ * 
+ * If you want the button is disable itself it should only be done on the 
+ * CLICKED event e.g.
+ * <pre>
+ * public void handleButtonEvents(GButton button, GEvent event) {
+ *   if (button == button1 && event == GEvent.CLICKED) {
+ *       button1.setEnabled(false);
+ *   }
+ * }
+ * do not try this with the RELEASED or PRESSED event as it will lead to inconsistent 
+ * behaviour.
  * 
  * 
  * @author Peter Lager
@@ -85,7 +96,7 @@ public class GImageToggleButton extends GAbstractControl {
 	/**
 	 * Create the library default image-toggle-button at the stated position. <br>
 	 * 
-	 * @param theApplet
+	 * @param theApplet the main sketch or GWindow control for this control
 	 * @param p0 horizontal position of the control
 	 * @param p1 vertical position of the control
 	 */
@@ -97,7 +108,7 @@ public class GImageToggleButton extends GAbstractControl {
 	 * Create an image-toggle-button. <br>
 	 * Single row of tiles.
 	 * 
-	 * @param theApplet
+	 * @param theApplet the main sketch or GWindow control for this control
 	 * @param p0 horizontal position of the control
 	 * @param p1 vertical position of the control
 	 * @param offPicture the filename of bitmap containing toggle state pictures
@@ -110,7 +121,7 @@ public class GImageToggleButton extends GAbstractControl {
 	/**
 	 * Create an image-toggle-button. <br>
 	 * 
-	 * @param theApplet
+	 * @param theApplet the main sketch or GWindow control for this control
 	 * @param p0 horizontal position of the control
 	 * @param p1 vertical position of the control
 	 * @param offPicture the filename of bitmap containing toggle state pictures
@@ -125,7 +136,7 @@ public class GImageToggleButton extends GAbstractControl {
 	 * Create an image-toggle-button. <br>
 	 * Single row of tiles.
 	 * 
-	 * @param theApplet
+	 * @param theApplet the main sketch or GWindow control for this control
 	 * @param p0 horizontal position of the control
 	 * @param p1 vertical position of the control
 	 * @param offPicture the filename of bitmap containing toggle state pictures
@@ -139,7 +150,7 @@ public class GImageToggleButton extends GAbstractControl {
 	/**
 	 * Create an image-toggle-button. <br>
 	 * 
-	 * @param theApplet
+	 * @param theApplet the main sketch or GWindow control for this control
 	 * @param p0 horizontal position of the control
 	 * @param p1 vertical position of the control
 	 * @param offPicture the filename of bitmap containing toggle state pictures
@@ -221,7 +232,7 @@ public class GImageToggleButton extends GAbstractControl {
 	 * <pre>btnName.fireAllEvents(true); </pre><br>
 	 * <pre>
 	 * void handleButtonEvents(void handleToggleButtonEvents(GImageToggleButton button, GEvent event) {
-	 *	  if(button == btnName && event == GEvent.CLICKED){
+	 *	  if(button == btnName &amp;&amp; event == GEvent.CLICKED){
 	 *        int buttonState = btnName.stateValue();
 	 *    }
 	 * </pre> <br>
@@ -301,7 +312,7 @@ public class GImageToggleButton extends GAbstractControl {
 	}
 
 	/**
-	 * Get the current state value of the button.
+	 * @return the current state value of this control.
 	 * @deprecated use getState()
 	 */
 	@Deprecated
@@ -311,6 +322,7 @@ public class GImageToggleButton extends GAbstractControl {
 	
 	/**
 	 * Get the current state value of the button.
+	 * @return get the current state of this control
 	 */
 	public int getState(){
 		return stateValue;
@@ -321,7 +333,7 @@ public class GImageToggleButton extends GAbstractControl {
 	 * If the parameter is not a valid toggle state value then it
 	 * is ignored and the button's state value is unchanged.
 	 * @deprecated use setState(int)
-	 * @param newState
+	 * @param newState the new state for this control
 	 */
 	@Deprecated
 	public void stateValue(int newState){
@@ -336,7 +348,7 @@ public class GImageToggleButton extends GAbstractControl {
 	 * Change the current toggle state. <br>
 	 * If the parameter is not a valid toggle state value then it
 	 * is ignored and the button's state value is unchanged.
-	 * @param newState
+	 * @param newState the new state for this control
 	 */
 	public void setState(int newState){
 		if(newState >= 0 && newState < nbrStates && newState != stateValue){

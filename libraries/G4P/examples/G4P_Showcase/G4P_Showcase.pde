@@ -3,11 +3,14 @@
  on the 'G4P config window' button to open the control window 
  for more options.
  
+ It is not the best sketch to learn how to use the different
+ controls because of the 'dense' code.
+ 
  Some of the other examples demonstrate individual controls 
  in more detail.
  
  for Processing V3
- (c) 2015 Peter Lager
+ (c) 2018 Peter Lager
  */
 
 import g4p_controls.*;
@@ -32,7 +35,7 @@ int count = 0;
 GLabel lblMC;
 GOption optAngular, optYdrag, optXdrag;
 GToggleGroup tg;
-GSketchPad spad;
+GView view;
 PGraphics pg;
 
 public void setup() {
