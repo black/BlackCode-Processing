@@ -12,6 +12,7 @@ void draw() {
   textSize(72);
   textAlign(CENTER);
   text(i*factor*-1, width/2, height/2);
+  interaction();
 }
 
 void keyPressed() {
@@ -25,3 +26,7 @@ void mouseWheel(MouseEvent event) {
   if (e==0)print("stop");
 }
 
+void interaction(){
+    textSize(12);
+  text("Press  space key to reset..",width/2,height-10);
+}
